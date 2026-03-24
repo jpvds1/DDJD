@@ -7,6 +7,10 @@ const DASH_SPEED = 50.0
 const JUMP_VELOCITY = 7.5
 const GRAVITY_MODIFIER = 1.2
 
+# Double jump
+const MAX_JUMPS = 2
+var jump_count := 0
+
 # Animations / Timers
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
 @onready var dash_timer: Timer = $Dash/DashTimer
@@ -36,13 +40,16 @@ func _unhandled_input(event):
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
+	# Reset jumps when landing / Add gravity
+	if is_on_floor():
+		jump_count = 0
+	else:
 		velocity += get_gravity() * delta * GRAVITY_MODIFIER
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and jump_count < MAX_JUMPS:
 		velocity.y = JUMP_VELOCITY
+		jump_count += 1
 		
 	# Sprint / dash input
 	if Input.is_action_just_pressed("dash") and can_dash:
