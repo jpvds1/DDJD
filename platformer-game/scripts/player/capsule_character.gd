@@ -2,9 +2,10 @@ extends CharacterBody3D
 
 # Movement
 const WALK_SPEED = 5.0
-const SPRINT_SPEED = 9.0
-const DASH_SPEED = 20.0
-const JUMP_VELOCITY = 4.5
+const SPRINT_SPEED = 8.0
+const DASH_SPEED = 50.0
+const JUMP_VELOCITY = 7.5
+const GRAVITY_MODIFIER = 1.2
 
 # Animations / Timers
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
@@ -30,14 +31,15 @@ func _unhandled_input(event):
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * delta * GRAVITY_MODIFIER
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
 	# Sprint / dash input
-	handle_sprint_and_dash_input()
+	if Input.is_action_just_pressed("dash") and can_dash:
+		start_dash()
 
 	# Movement
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
@@ -64,16 +66,6 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, current_speed)
 
 	move_and_slide()
-	
-func handle_sprint_and_dash_input() -> void:
-	if Input.is_action_just_pressed("sprint"):
-		if waiting_for_second_tap and can_dash:
-			start_dash()
-			waiting_for_second_tap = false
-			double_tap_timer.stop()
-		else:
-			waiting_for_second_tap = true
-			double_tap_timer.start()
 	
 func start_dash() -> void:
 	is_dashing = true

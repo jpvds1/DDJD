@@ -29,4 +29,4 @@ use_collision = true
 size = Vector3(50, 1, 50)
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_64t6i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7058725, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5080202, 0)
