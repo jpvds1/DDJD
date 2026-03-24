@@ -7,7 +7,77 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ji0x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ji0x"]
-albedo_color = Color(0, 1, 1, 1)
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0.9490196, 1)
+
+[sub_resource type="Animation" id="Animation_5ji0x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [67.82854]
+}
+
+[sub_resource type="Animation" id="Animation_hsymh"]
+resource_name = "dashing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [139.4]
+}
+
+[sub_resource type="Animation" id="Animation_x7pql"]
+resource_name = "sprinting"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [102.5]
+}
+
+[sub_resource type="Animation" id="Animation_vaf6x"]
+resource_name = "walking"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [67.82854]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vaf6x"]
+_data = {
+&"RESET": SubResource("Animation_5ji0x"),
+&"dashing": SubResource("Animation_hsymh"),
+&"sprinting": SubResource("Animation_x7pql"),
+&"walking": SubResource("Animation_vaf6x")
+}
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1782536310]
 script = ExtResource("1_5ji0x")
@@ -24,3 +94,25 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5ji0x")
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=563554905]
 transform = Transform3D(1, 0, 0, 0, 0.99193436, 0.126753, 0, -0.126753, 0.99193436, 0, 1.2063588, 2.2349353)
 fov = 67.82854
+
+[node name="Dash" type="Node3D" parent="." unique_id=1988469622]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Dash" unique_id=1660942842]
+libraries/ = SubResource("AnimationLibrary_vaf6x")
+
+[node name="DashTimer" type="Timer" parent="Dash" unique_id=1859041121]
+wait_time = 0.2
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="Dash" unique_id=833726965]
+wait_time = 3.0
+one_shot = true
+
+[node name="DoubleTapTimer" type="Timer" parent="Dash" unique_id=49563972]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="animation_changed" from="Dash/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Dash/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="timeout" from="Dash/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]
