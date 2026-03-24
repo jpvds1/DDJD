@@ -18,11 +18,18 @@ var can_dash := true
 var waiting_for_second_tap := false
 var dash_direction := Vector3.ZERO
 
+# Respawn / Checkpoints
+var last_checkpoint_position: Vector3
+var has_checkpoint := false
+
 # Mouse movement
 const MOUSE_SENSITIVITY = 0.003
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	add_to_group("player")
+	last_checkpoint_position = global_position
+	has_checkpoint = true
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -82,6 +89,20 @@ func start_dash() -> void:
 func update_animation_state(animation_name: String) -> void:
 	if animation_player.current_animation != animation_name and animation_player.has_animation(animation_name):
 		animation_player.play(animation_name)
+		
+func set_checkpoint(pos: Vector3) -> void:
+	last_checkpoint_position = pos
+	has_checkpoint = true
+	print("Checkpoint set at: ", pos)
+	
+func respawn() -> void:
+	if not has_checkpoint:
+		return
+		
+	global_position = last_checkpoint_position
+	velocity = Vector3.ZERO
+	is_dashing = false
+	can_dash = true
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false

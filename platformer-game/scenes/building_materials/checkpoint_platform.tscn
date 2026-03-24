@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://6sseieh1wxj"]
+
+[ext_resource type="Script" uid="uid://hw4irjj74dfq" path="res://scripts/systems/checkpoint_platform.gd" id="1_h78pt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1dxj0"]
+size = Vector3(5.2, 2, 5.2)
+
+[node name="Checkpoint" type="Node3D" unique_id=1109484725]
+script = ExtResource("1_h78pt")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=972123854]
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="Area3D" type="Area3D" parent="." unique_id=689319262]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2102500388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_1dxj0")
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1645794421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
