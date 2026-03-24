@@ -6,15 +6,21 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ji0x"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ji0x"]
+albedo_color = Color(0, 1, 1, 1)
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1782536310]
 script = ExtResource("1_5ji0x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2060846547]
 shape = SubResource("CapsuleShape3D_de3it")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=563554905]
-transform = Transform3D(1, 0, 0, 0, 0.99193436, 0.126753, 0, -0.126753, 0.99193436, 0, 1.2063588, 2.2349353)
-fov = 67.82854
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1717389673]
 mesh = SubResource("CapsuleMesh_5ji0x")
+surface_material_override/0 = SubResource("StandardMaterial3D_5ji0x")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=447801321]
+
+[node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=563554905]
+transform = Transform3D(1, 0, 0, 0, 0.99193436, 0.126753, 0, -0.126753, 0.99193436, 0, 1.2063588, 2.2349353)
+fov = 67.82854

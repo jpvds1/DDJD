@@ -4,6 +4,15 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+# Mouse movement
+const mouse_sensitivity = 0.003
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _unhandled_input(event):
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * mouse_sensitivity)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
