@@ -15,8 +15,12 @@ const GROUND_DECEL = 20.0
 const GROUND_BRAKE_DECEL = 38.0
 
 # Double jump
-const MAX_JUMPS = 2
-var jump_count := 0
+const MAX_EXTRA_JUMPS = 1
+const COYOTE_TIME = 0.12
+const JUMP_BUFFER_TIME = 0.12
+var coyote_timer := 0.0
+var jump_buffer_timer := 0.0
+var extra_jumps_available := MAX_EXTRA_JUMPS
 
 # Animations / Timers
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
@@ -45,16 +49,32 @@ func _unhandled_input(event):
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 
 func _physics_process(delta: float) -> void:
-	# Reset jumps when landing / Add gravity
-	if is_on_floor():
-		jump_count = 0
+	var on_floor := is_on_floor()
+	
+	# Resets when landing
+	if on_floor:
+		coyote_timer = COYOTE_TIME
+		extra_jumps_available = true
 	else:
+		coyote_timer = max(coyote_timer - delta, 0.0)
 		velocity += get_gravity() * delta * GRAVITY_MODIFIER
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and jump_count < MAX_JUMPS:
-		velocity.y = JUMP_VELOCITY
-		jump_count += 1
+	# Jump buffer
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer_timer = JUMP_BUFFER_TIME
+	else:
+		jump_buffer_timer = max(jump_buffer_timer - delta, 0.0)
+		
+	# Buffered jump execution
+	if jump_buffer_timer > 0.0:
+		if on_floor or coyote_timer > 0.0:
+			do_jump()
+			coyote_timer = 0.0
+			jump_buffer_timer = 0.0
+		elif extra_jumps_available > 0:
+			do_jump()
+			extra_jumps_available -= 1
+			jump_buffer_timer = 0.0
 		
 	# Sprint / dash input
 	if Input.is_action_just_pressed("dash") and can_dash:
@@ -82,6 +102,9 @@ func _physics_process(delta: float) -> void:
 		apply_ground_movement(direction, current_speed, current_accel, delta)
 
 	move_and_slide()
+	
+func do_jump() -> void:
+	velocity.y = JUMP_VELOCITY
 	
 func apply_ground_movement(direction: Vector3, move_speed: float, accel: float, delta: float) -> void:
 	var current_horizontal := Vector3(velocity.x, 0, velocity.z)
