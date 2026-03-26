@@ -4,7 +4,6 @@ extends CharacterBody3D
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
 const DASH_SPEED = 50.0
-const JUMP_VELOCITY = 7.5
 const GRAVITY_MODIFIER = 1.2
 const POST_DASH_SPEED = 10.0
 
@@ -14,13 +13,17 @@ const GROUND_SPRINT_ACCEL = 32.0
 const GROUND_DECEL = 20.0
 const GROUND_BRAKE_DECEL = 38.0
 
-# Double jump
+# Jumping
+const FIRST_JUMP_VELOCITY = 7.5
+const EXTRA_JUMP_VELOCITY = 5.5
+const JUMP_CUT_MULTIPLIER = 0.45
 const MAX_EXTRA_JUMPS = 1
 const COYOTE_TIME = 0.12
 const JUMP_BUFFER_TIME = 0.12
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 var extra_jumps_available := MAX_EXTRA_JUMPS
+var can_cut_current_jump := false
 
 # Animations / Timers
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
@@ -55,6 +58,7 @@ func _physics_process(delta: float) -> void:
 	if on_floor:
 		coyote_timer = COYOTE_TIME
 		extra_jumps_available = true
+		can_cut_current_jump = false
 	else:
 		coyote_timer = max(coyote_timer - delta, 0.0)
 		velocity += get_gravity() * delta * GRAVITY_MODIFIER
@@ -63,16 +67,24 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 	else:
-		jump_buffer_timer = max(jump_buffer_timer - delta, 0.0)
+		jump_buffer_timer = max(jump_buffer_timer - delta,  0.0)
+		
+	
+	if velocity.y <= 0.0:
+		can_cut_current_jump = false
+	
+	if Input.is_action_just_released("jump") and can_cut_current_jump and velocity.y > 0.0:
+		velocity.y *= JUMP_CUT_MULTIPLIER
+		can_cut_current_jump = false
 		
 	# Buffered jump execution
 	if jump_buffer_timer > 0.0:
 		if on_floor or coyote_timer > 0.0:
-			do_jump()
+			do_ground_jump()
 			coyote_timer = 0.0
 			jump_buffer_timer = 0.0
 		elif extra_jumps_available > 0:
-			do_jump()
+			do_extra_jump()
 			extra_jumps_available -= 1
 			jump_buffer_timer = 0.0
 		
@@ -103,8 +115,13 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-func do_jump() -> void:
-	velocity.y = JUMP_VELOCITY
+func do_ground_jump() -> void:
+	velocity.y = FIRST_JUMP_VELOCITY
+	can_cut_current_jump = true
+
+func do_extra_jump() -> void:
+	velocity.y = EXTRA_JUMP_VELOCITY
+	can_cut_current_jump = false
 	
 func apply_ground_movement(direction: Vector3, move_speed: float, accel: float, delta: float) -> void:
 	var current_horizontal := Vector3(velocity.x, 0, velocity.z)
