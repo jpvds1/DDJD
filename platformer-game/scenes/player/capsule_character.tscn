@@ -108,11 +108,6 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
-[node name="DoubleTapTimer" type="Timer" parent="Dash" unique_id=49563972]
-wait_time = 0.3
-one_shot = true
-
 [connection signal="animation_changed" from="Dash/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Dash/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
-[connection signal="timeout" from="Dash/DoubleTapTimer" to="." method="_on_double_tap_timer_timeout"]

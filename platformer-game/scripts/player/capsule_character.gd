@@ -6,6 +6,13 @@ const SPRINT_SPEED = 8.0
 const DASH_SPEED = 50.0
 const JUMP_VELOCITY = 7.5
 const GRAVITY_MODIFIER = 1.2
+const POST_DASH_SPEED = 10.0
+
+# Acceleration
+const GROUND_ACCEL = 24.0
+const GROUND_SPRINT_ACCEL = 32.0
+const GROUND_DECEL = 20.0
+const GROUND_BRAKE_DECEL = 38.0
 
 # Double jump
 const MAX_JUMPS = 2
@@ -15,11 +22,9 @@ var jump_count := 0
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
-@onready var double_tap_timer: Timer = $Dash/DoubleTapTimer
 
 var is_dashing := false
 var can_dash := true
-var waiting_for_second_tap := false
 var dash_direction := Vector3.ZERO
 
 # Respawn / Checkpoints
@@ -63,23 +68,46 @@ func _physics_process(delta: float) -> void:
 		velocity.x = dash_direction.x * DASH_SPEED
 		velocity.z = dash_direction.z * DASH_SPEED
 	else:
-		var is_sprinting = Input.is_action_pressed("sprint")
+		var is_sprinting := Input.is_action_pressed("sprint")
 		var current_speed := WALK_SPEED
-		
+		var current_accel := GROUND_ACCEL
+
 		if is_sprinting:
 			current_speed = SPRINT_SPEED
+			current_accel = GROUND_SPRINT_ACCEL
 			update_animation_state("sprinting")
 		else:
 			update_animation_state("walking")
-			
-		if direction:
-			velocity.x = direction.x * current_speed
-			velocity.z = direction.z * current_speed
-		else:
-			velocity.x = move_toward(velocity.x, 0, current_speed)
-			velocity.z = move_toward(velocity.z, 0, current_speed)
+
+		apply_ground_movement(direction, current_speed, current_accel, delta)
 
 	move_and_slide()
+	
+func apply_ground_movement(direction: Vector3, move_speed: float, accel: float, delta: float) -> void:
+	var current_horizontal := Vector3(velocity.x, 0, velocity.z)
+
+	if direction != Vector3.ZERO:
+		var target_horizontal := direction * move_speed
+		var same_general_direction := current_horizontal.dot(target_horizontal) > 0.0
+
+		if same_general_direction:
+			current_horizontal = current_horizontal.move_toward(target_horizontal, accel * delta)
+		else:
+			current_horizontal = current_horizontal.move_toward(target_horizontal, GROUND_BRAKE_DECEL * delta)
+	else:
+		current_horizontal = current_horizontal.move_toward(Vector3.ZERO, GROUND_DECEL * delta)
+
+	velocity.x = current_horizontal.x
+	velocity.z = current_horizontal.z
+	
+func clamp_post_dash_velocity() -> void:
+	var horizontal := Vector3(velocity.x, 0, velocity.z)
+	var horizontal_speed := horizontal.length()
+
+	if horizontal_speed > POST_DASH_SPEED:
+		horizontal = horizontal.normalized() * POST_DASH_SPEED
+		velocity.x = horizontal.x
+		velocity.z = horizontal.z
 	
 func start_dash() -> void:
 	is_dashing = true
@@ -113,14 +141,11 @@ func respawn() -> void:
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
-		
+	clamp_post_dash_velocity()
 	update_animation_state("RESET")
 		
 func _on_dash_cooldown_timer_timeout() -> void:
 	can_dash = true
-
-func _on_double_tap_timer_timeout() -> void:
-	waiting_for_second_tap = false
 
 func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
 	print("Animation changed from: " + old_name + " to " + new_name)
