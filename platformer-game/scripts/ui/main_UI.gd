@@ -2,10 +2,10 @@ extends CanvasLayer
 
 @export var player_path: NodePath
 
-@onready var lives_container: HBoxContainer = $RootMargin/MainVBox/TopBar/LivesContainer
-@onready var dash_container: HBoxContainer = $RootMargin/MainVBox/TopBar/DashContainer
-@onready var jumps_container: HBoxContainer = $RootMargin/MainVBox/TopBar/JumpsContainer
-@onready var message_label: Label = $RootMargin/MainVBox/MessageCenter/MessageLabel
+@onready var lives_container: HBoxContainer = $RootMargin/MainVBox/LivesContainer
+@onready var dash_container: HBoxContainer = $RootMargin/MainVBox/DashContainer
+@onready var jumps_container: HBoxContainer = $RootMargin/MainVBox/JumpsContainer
+@onready var message_label: Label = $MessageTop/MessageCenter/MessageLabel
 
 var player: Node = null
 
@@ -57,6 +57,9 @@ func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: in
 func _make_box(is_active: bool) -> ColorRect:
 	var box := ColorRect.new()
 	box.custom_minimum_size = Vector2(24, 24)
+	
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	box.size_flags_vertical = Control.SIZE_FILL
 	
 	if is_active:
 		box.color = Color(0.65, 0.65, 0.65, 1.0)
