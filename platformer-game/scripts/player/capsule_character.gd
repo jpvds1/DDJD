@@ -26,9 +26,15 @@ const GROUND_JUMP_VELOCITY = 7.5
 const EXTRA_JUMP_VELOCITY = 5.5
 const JUMP_CUT_MULTIPLIER = 0.45
 
-const MAX_EXTRA_JUMPS = 1
+const MAX_EXTRA_JUMPS = 2
 const COYOTE_TIME = 0.12
 const JUMP_BUFFER_TIME = 0.12
+
+# ---------------------------------------------------------
+# Survival constants
+# ---------------------------------------------------------
+
+const MAX_LIVES = 3
 
 # ---------------------------------------------------------
 # Runtime state
@@ -46,6 +52,8 @@ var can_cut_current_jump := false
 var last_checkpoint_position: Vector3
 var has_checkpoint := false
 
+var lives := MAX_LIVES
+
 # ---------------------------------------------------------
 # Node references
 # ---------------------------------------------------------
@@ -55,10 +63,23 @@ var has_checkpoint := false
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
 
 # ---------------------------------------------------------
+# Signals
+# ---------------------------------------------------------
+
+signal lives_changed(current_lives: int, max_lives: int)
+signal extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int)
+signal dash_cooldown_started(duration: float)
+signal dash_ready()
+
+signal checkpoint_reached()
+signal player_unalived()
+signal end_reached()
+
+# ---------------------------------------------------------
 # Setup
 # ---------------------------------------------------------
 
-func _ready():
+func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
 	last_checkpoint_position = global_position
@@ -90,6 +111,8 @@ func _physics_process(delta: float) -> void:
 # ---------------------------------------------------------	
 
 func update_air_state(on_floor: bool, delta: float) -> void:
+	var previous_extra_jumps := extra_jumps_left
+	
 	if on_floor:
 		coyote_timer = COYOTE_TIME
 		extra_jumps_left = MAX_EXTRA_JUMPS
@@ -100,6 +123,9 @@ func update_air_state(on_floor: bool, delta: float) -> void:
 	
 	if velocity.y <= 0.0:
 		can_cut_current_jump = false
+		
+	if extra_jumps_left != previous_extra_jumps:
+		extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
 
 # ---------------------------------------------------------
 # Jump input and execution
@@ -125,6 +151,7 @@ func handle_jump_request(on_floor: bool) -> void:
 		do_extra_jump()
 		extra_jumps_left -= 1
 		jump_buffer_timer = 0.0
+		extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
 		
 func handle_jump_cut() -> void:
 	# Variable jump applied only to first jump
@@ -200,9 +227,11 @@ func start_dash() -> void:
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
 	dash_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
+		
 	dash_timer.start()
 	dash_cooldown_timer.start()
+	
+	dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
 	
 	update_animation_state("dashing")
 
@@ -222,6 +251,7 @@ func _on_dash_timer_timeout() -> void:
 		
 func _on_dash_cooldown_timer_timeout() -> void:
 	can_dash = true
+	dash_ready.emit()
 	
 # ---------------------------------------------------------
 # Animation
@@ -241,7 +271,7 @@ func _on_animation_player_animation_changed(old_name: StringName, new_name: Stri
 func set_checkpoint(pos: Vector3) -> void:
 	last_checkpoint_position = pos
 	has_checkpoint = true
-	print("Checkpoint set at: ", pos)
+	checkpoint_reached.emit()
 	
 func respawn() -> void:
 	if not has_checkpoint:
@@ -253,8 +283,29 @@ func respawn() -> void:
 	is_dashing = false
 	can_dash = true
 	dash_direction = Vector3.ZERO
+	dash_timer.stop()
+	dash_cooldown_timer.stop()
 
 	coyote_timer = 0.0
 	jump_buffer_timer = 0.0
 	extra_jumps_left = MAX_EXTRA_JUMPS
 	can_cut_current_jump = false
+	
+	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
+	
+func unalive() -> void:
+	lives = max(lives - 1, 0)
+	player_unalived.emit()
+	lives_changed.emit(lives, MAX_LIVES)
+	respawn()
+	
+func reach_end() -> void:
+	end_reached.emit()
+	
+# ---------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------		
+
+func emit_initial_ui_state() -> void:
+	lives_changed.emit(lives, MAX_LIVES)
+	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
