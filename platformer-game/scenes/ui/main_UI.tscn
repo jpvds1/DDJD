@@ -31,9 +31,20 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="DashContainer" type="HBoxContainer" parent="RootMargin/MainVBox" unique_id=1586787714]
+[node name="DashRow" type="Control" parent="RootMargin/MainVBox" unique_id=1522602988]
+custom_minimum_size = Vector2(240, 24)
 layout_mode = 2
-theme_override_constants/separation = 10
+
+[node name="DashBackground" type="ColorRect" parent="RootMargin/MainVBox/DashRow" unique_id=2104685644]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 24.0
+color = Color(0.22, 0.22, 0.22, 1)
+
+[node name="DashFill" type="ColorRect" parent="RootMargin/MainVBox/DashRow" unique_id=219684222]
+layout_mode = 0
+offset_bottom = 24.0
+color = Color(0.65, 0.65, 0.65, 1)
 
 [node name="MessageTop" type="MarginContainer" parent="." unique_id=1921871870]
 anchors_preset = 5
