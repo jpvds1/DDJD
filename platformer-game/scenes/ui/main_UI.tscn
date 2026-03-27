@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dy8jnv2byaaoj"]
+
+[ext_resource type="Script" uid="uid://doyfvcehqqsue" path="res://scripts/ui/main_UI.gd" id="1_gks1h"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=9067626]
+script = ExtResource("1_gks1h")
+player_path = null
+
+[node name="RootMargin" type="MarginContainer" parent="." unique_id=1389435374]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainVBox" type="VBoxContainer" parent="RootMargin" unique_id=222113591]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="RootMargin/MainVBox" unique_id=1135012416]
+layout_mode = 2
+
+[node name="LivesContainer" type="HBoxContainer" parent="RootMargin/MainVBox/TopBar" unique_id=760054353]
+layout_mode = 2
+
+[node name="CenterSpacer" type="Control" parent="RootMargin/MainVBox/TopBar" unique_id=1347142374]
+layout_mode = 2
+
+[node name="DashContainer" type="HBoxContainer" parent="RootMargin/MainVBox/TopBar" unique_id=1586787714]
+layout_mode = 2
+
+[node name="RightSpacer" type="Control" parent="RootMargin/MainVBox/TopBar" unique_id=1391051379]
+layout_mode = 2
+
+[node name="JumpsContainer" type="HBoxContainer" parent="RootMargin/MainVBox/TopBar" unique_id=1496545924]
+layout_mode = 2
+
+[node name="MessageCenter" type="CenterContainer" parent="RootMargin/MainVBox" unique_id=907514883]
+layout_mode = 2
+
+[node name="MessageLabel" type="Label" parent="RootMargin/MainVBox/MessageCenter" unique_id=1279842124]
+layout_mode = 2
