@@ -7,14 +7,16 @@ extends CanvasLayer
 # ---------------------------------------------------------
 
 # HUD
-@onready var lives_container: HBoxContainer = $RootMargin/MainVBox/LivesContainer
-@onready var jumps_container: HBoxContainer = $RootMargin/MainVBox/JumpsContainer
+@onready var lives_container: HBoxContainer = $HUD/RootMargin/MainVBox/LivesContainer
+@onready var jumps_container: HBoxContainer = $HUD/RootMargin/MainVBox/JumpsContainer
 
-@onready var dash_row: Control = $RootMargin/MainVBox/DashRow
-@onready var dash_background: ColorRect = $RootMargin/MainVBox/DashRow/DashBackground
-@onready var dash_fill: ColorRect = $RootMargin/MainVBox/DashRow/DashFill
+@onready var dash_row: Control = $HUD/RootMargin/MainVBox/DashRow
+@onready var dash_background: ColorRect = $HUD/RootMargin/MainVBox/DashRow/DashBackground
+@onready var dash_fill: ColorRect = $HUD/RootMargin/MainVBox/DashRow/DashFill
 
-@onready var message_label: Label = $MessageTop/MessageCenter/MessageLabel
+@onready var message_label: Label = $HUD/MessageTop/MessageCenter/MessageLabel
+
+@onready var timer_label: Label = $HUD/TimerMargin/TimerLabel
 
 # Level finish
 @onready var level_complete_overlay: Control = $LevelCompleteOverlay
@@ -139,3 +141,6 @@ func _show_message(text: String, duration: float = 1.6) -> void:
 func _set_dash_fill_ratio(ratio: float) -> void:
 	ratio = clamp(ratio, 0.0, 1.0)
 	dash_fill.size.x = dash_row.size.x * ratio
+	
+func set_timer_text(text: String) -> void:
+	timer_label.text = text

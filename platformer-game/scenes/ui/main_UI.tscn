@@ -5,64 +5,82 @@
 [node name="CanvasLayer" type="CanvasLayer" unique_id=9067626]
 script = ExtResource("1_gks1h")
 
-[node name="RootMargin" type="MarginContainer" parent="." unique_id=1389435374]
+[node name="HUD" type="Control" parent="." unique_id=1843155387]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RootMargin" type="MarginContainer" parent="HUD" unique_id=1389435374]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -56.0
-offset_right = 40.0
+offset_top = 524.0
+offset_right = 280.0
+offset_bottom = 608.0
 grow_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="MainVBox" type="VBoxContainer" parent="RootMargin" unique_id=222113591]
+[node name="MainVBox" type="VBoxContainer" parent="HUD/RootMargin" unique_id=222113591]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="LivesContainer" type="HBoxContainer" parent="RootMargin/MainVBox" unique_id=760054353]
+[node name="LivesContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=760054353]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 2
 
-[node name="JumpsContainer" type="HBoxContainer" parent="RootMargin/MainVBox" unique_id=1496545924]
+[node name="JumpsContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=1496545924]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="DashRow" type="Control" parent="RootMargin/MainVBox" unique_id=1522602988]
+[node name="DashRow" type="Control" parent="HUD/RootMargin/MainVBox" unique_id=1522602988]
 custom_minimum_size = Vector2(240, 24)
 layout_mode = 2
 
-[node name="DashBackground" type="ColorRect" parent="RootMargin/MainVBox/DashRow" unique_id=2104685644]
+[node name="DashBackground" type="ColorRect" parent="HUD/RootMargin/MainVBox/DashRow" unique_id=2104685644]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 24.0
 color = Color(0.22, 0.22, 0.22, 1)
 
-[node name="DashFill" type="ColorRect" parent="RootMargin/MainVBox/DashRow" unique_id=219684222]
+[node name="DashFill" type="ColorRect" parent="HUD/RootMargin/MainVBox/DashRow" unique_id=219684222]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 24.0
 color = Color(0.65, 0.65, 0.65, 1)
 
-[node name="MessageTop" type="MarginContainer" parent="." unique_id=1921871870]
+[node name="MessageTop" type="MarginContainer" parent="HUD" unique_id=1921871870]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -0.5
-offset_right = 0.5
+offset_left = 555.5
+offset_right = 556.5
 offset_bottom = 53.0
 grow_horizontal = 2
 theme_override_constants/margin_top = 30
 
-[node name="MessageCenter" type="CenterContainer" parent="MessageTop" unique_id=907514883]
+[node name="MessageCenter" type="CenterContainer" parent="HUD/MessageTop" unique_id=907514883]
 layout_mode = 2
 
-[node name="MessageLabel" type="Label" parent="MessageTop/MessageCenter" unique_id=1279842124]
+[node name="MessageLabel" type="Label" parent="HUD/MessageTop/MessageCenter" unique_id=1279842124]
 layout_mode = 2
 horizontal_alignment = 1
+
+[node name="TimerMargin" type="MarginContainer" parent="HUD" unique_id=1012958205]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TimerLabel" type="Label" parent="HUD/TimerMargin" unique_id=416225827]
+layout_mode = 2
+text = "00:00:00"
 
 [node name="LevelCompleteOverlay" type="Control" parent="." unique_id=1331541598]
 visible = false
