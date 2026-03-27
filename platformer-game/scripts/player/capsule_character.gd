@@ -13,6 +13,7 @@ const GROUND_ACCEL = 24.0
 const GROUND_SPRINT_ACCEL = 32.0
 const GROUND_DECEL = 20.0
 const GROUND_BRAKE_DECEL = 38.0
+const AIR_ACCEL_MULT = 0.6
 
 const GRAVITY_MODIFIER = 1.2
 const MOUSE_SENSITIVITY = 0.003
@@ -80,7 +81,7 @@ func _physics_process(delta: float) -> void:
 	handle_jump_request(on_floor)
 			
 	handle_dash_input()
-	handle_horizontal_movement(delta)
+	handle_horizontal_movement(delta, on_floor)
 
 	move_and_slide()
 	
@@ -143,7 +144,7 @@ func do_extra_jump() -> void:
 # Horizontal movement
 # ---------------------------------------------------------
 
-func handle_horizontal_movement(delta: float) -> void:
+func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 	if is_dashing:
 		velocity.x = dash_direction.x * DASH_SPEED
 		velocity.z = dash_direction.z * DASH_SPEED
@@ -162,6 +163,9 @@ func handle_horizontal_movement(delta: float) -> void:
 		update_animation_state("sprinting")
 	else:
 		update_animation_state("walking")
+		
+	if not on_floor:
+		accel *= AIR_ACCEL_MULT
 
 	apply_ground_movement(direction, target_speed, accel, delta)
 	

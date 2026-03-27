@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://hw4irjj74dfq" path="res://scripts/systems/checkpoint_platform.gd" id="1_h78pt"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h78pt"]
+albedo_color = Color(0, 1, 0, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_1dxj0"]
 size = Vector3(5.2, 2, 5.2)
 
@@ -11,6 +14,7 @@ script = ExtResource("1_h78pt")
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=972123854]
 use_collision = true
 size = Vector3(5, 1, 5)
+material = SubResource("StandardMaterial3D_h78pt")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=689319262]
 
