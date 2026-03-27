@@ -54,6 +54,9 @@ var has_checkpoint := false
 
 var lives := MAX_LIVES
 
+var controls_locked := false
+var level_completed := false
+
 # ---------------------------------------------------------
 # Node references
 # ---------------------------------------------------------
@@ -86,6 +89,9 @@ func _ready() -> void:
 	has_checkpoint = true
 
 func _unhandled_input(event):
+	if controls_locked:
+		return
+		
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 
@@ -94,6 +100,9 @@ func _unhandled_input(event):
 # ---------------------------------------------------------
 
 func _physics_process(delta: float) -> void:
+	if controls_locked:
+		return
+	
 	var on_floor := is_on_floor()
 	
 	update_air_state(on_floor, delta)
@@ -300,7 +309,15 @@ func unalive() -> void:
 	respawn()
 	
 func reach_end() -> void:
+	if level_completed:
+		return
+		
+	level_completed = true
+	controls_locked = true
+	
+	velocity = Vector3.ZERO
 	end_reached.emit()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 # ---------------------------------------------------------
 # Helpers

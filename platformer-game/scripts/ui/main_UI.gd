@@ -6,6 +6,7 @@ extends CanvasLayer
 # UI components
 # ---------------------------------------------------------
 
+# HUD
 @onready var lives_container: HBoxContainer = $RootMargin/MainVBox/LivesContainer
 @onready var jumps_container: HBoxContainer = $RootMargin/MainVBox/JumpsContainer
 
@@ -14,6 +15,12 @@ extends CanvasLayer
 @onready var dash_fill: ColorRect = $RootMargin/MainVBox/DashRow/DashFill
 
 @onready var message_label: Label = $MessageTop/MessageCenter/MessageLabel
+
+# Level finish
+@onready var level_complete_overlay: Control = $LevelCompleteOverlay
+@onready var restart_button: Button = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/RestartButton
+@onready var back_button: Button = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/BackButton
+
 
 var dash_tween: Tween = null
 
@@ -41,7 +48,11 @@ func _ready() -> void:
 	player.player_unalived.connect(_on_player_unalived)
 	player.end_reached.connect(_on_end_reached)
 	
+	restart_button.pressed.connect(_on_restart_button_pressed)
+	back_button.pressed.connect(_on_back_button_pressed)
+	
 	message_label.visible = false
+	level_complete_overlay.visible = false
 	
 	player.emit_initial_ui_state()
 	
@@ -77,7 +88,15 @@ func _on_player_unalived() -> void:
 	_show_message("You died")
 	
 func _on_end_reached() -> void:
-	_show_message("Level complete")
+	level_complete_overlay.visible = true
+	message_label.visible = false
+	
+func _on_restart_button_pressed() -> void:
+	get_tree().reload_current_scene()
+	
+# TO-DO
+func _on_back_button_pressed() -> void:
+	print("Back to menu pressed - not implemented yet")
 	
 # ---------------------------------------------------------
 # Helpers

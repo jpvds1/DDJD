@@ -63,3 +63,49 @@ layout_mode = 2
 [node name="MessageLabel" type="Label" parent="MessageTop/MessageCenter" unique_id=1279842124]
 layout_mode = 2
 horizontal_alignment = 1
+
+[node name="LevelCompleteOverlay" type="Control" parent="." unique_id=1331541598]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="LevelCompleteOverlay" unique_id=1409947994]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5, 0.5, 0.5, 0.75)
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelCompleteOverlay" unique_id=366848387]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="LevelCompleteOverlay/CenterContainer" unique_id=2004564240]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelCompleteOverlay/CenterContainer/PanelContainer" unique_id=543101633]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1822071993]
+layout_mode = 2
+text = "Heaven Run"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=417322398]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="BackButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=217657613]
+layout_mode = 2
+text = "Back to Menu"
