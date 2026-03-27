@@ -2,6 +2,10 @@ extends CanvasLayer
 
 @export var player_path: NodePath
 
+# ---------------------------------------------------------
+# UI components
+# ---------------------------------------------------------
+
 @onready var lives_container: HBoxContainer = $RootMargin/MainVBox/LivesContainer
 @onready var jumps_container: HBoxContainer = $RootMargin/MainVBox/JumpsContainer
 
@@ -15,6 +19,10 @@ var dash_tween: Tween = null
 
 var player: Node = null
 
+# ---------------------------------------------------------
+# Setup
+# ---------------------------------------------------------
+
 func _ready() -> void:
 	player = get_node_or_null(player_path)
 	
@@ -22,6 +30,7 @@ func _ready() -> void:
 		push_error("UI: player_path is not assigned or player was not found.")
 		return
 		
+	# Connect to signals
 	player.lives_changed.connect(_on_lives_changed)
 	player.extra_jumps_changed.connect(_on_extra_jumps_changed)
 	
@@ -36,6 +45,10 @@ func _ready() -> void:
 	
 	player.emit_initial_ui_state()
 	
+# ---------------------------------------------------------
+# Handle signals
+# ---------------------------------------------------------	
+
 func _on_lives_changed(current_lives: int, max_lives: int) -> void:
 	_rebuild_boxes(lives_container, current_lives, max_lives)
 	
@@ -65,6 +78,10 @@ func _on_player_unalived() -> void:
 	
 func _on_end_reached() -> void:
 	_show_message("Level complete")
+	
+# ---------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------
 	
 func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: int) -> void:
 	_clear_container(container)
