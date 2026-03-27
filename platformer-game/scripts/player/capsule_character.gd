@@ -68,7 +68,6 @@ var lives := MAX_LIVES
 
 signal lives_changed(current_lives: int, max_lives: int)
 signal extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int)
-signal dash_state_changed(can_dash_now: bool)
 signal dash_cooldown_started(duration: float)
 signal dash_ready()
 
@@ -232,7 +231,6 @@ func start_dash() -> void:
 	dash_timer.start()
 	dash_cooldown_timer.start()
 	
-	dash_state_changed.emit(can_dash)
 	dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
 	
 	update_animation_state("dashing")
@@ -253,7 +251,6 @@ func _on_dash_timer_timeout() -> void:
 		
 func _on_dash_cooldown_timer_timeout() -> void:
 	can_dash = true
-	dash_state_changed.emit(can_dash)
 	dash_ready.emit()
 	
 # ---------------------------------------------------------
@@ -294,7 +291,6 @@ func respawn() -> void:
 	extra_jumps_left = MAX_EXTRA_JUMPS
 	can_cut_current_jump = false
 	
-	dash_state_changed.emit(can_dash)
 	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
 	
 func unalive() -> void:
@@ -312,5 +308,4 @@ func reach_end() -> void:
 
 func emit_initial_ui_state() -> void:
 	lives_changed.emit(lives, MAX_LIVES)
-	dash_state_changed.emit(can_dash)
 	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)

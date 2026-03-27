@@ -23,7 +23,6 @@ func _ready() -> void:
 		return
 		
 	player.lives_changed.connect(_on_lives_changed)
-	player.dash_state_changed.connect(_on_dash_state_changed)
 	player.extra_jumps_changed.connect(_on_extra_jumps_changed)
 	
 	player.dash_cooldown_started.connect(_on_dash_cooldown_started)
@@ -35,8 +34,6 @@ func _ready() -> void:
 	
 	message_label.visible = false
 	
-	dash_fill.size.x = 0.0
-	
 	player.emit_initial_ui_state()
 	
 func _on_lives_changed(current_lives: int, max_lives: int) -> void:
@@ -44,12 +41,6 @@ func _on_lives_changed(current_lives: int, max_lives: int) -> void:
 	
 func _on_extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int) -> void:
 	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps)
-	
-func _on_dash_state_changed(can_dash_now: bool) -> void:
-	if can_dash_now:
-		_set_dash_fill_ratio(1.0)
-	else:
-		_set_dash_fill_ratio(0.0)
 	
 func _on_dash_cooldown_started(duration: float) -> void:
 	_set_dash_fill_ratio(0.0)

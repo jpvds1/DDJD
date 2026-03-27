@@ -43,6 +43,7 @@ color = Color(0.22, 0.22, 0.22, 1)
 
 [node name="DashFill" type="ColorRect" parent="RootMargin/MainVBox/DashRow" unique_id=219684222]
 layout_mode = 0
+offset_right = 240.0
 offset_bottom = 24.0
 color = Color(0.65, 0.65, 0.65, 1)
 
