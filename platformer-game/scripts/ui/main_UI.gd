@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @export var player_path: NodePath
+@export var level_path: NodePath
 
 # ---------------------------------------------------------
 # UI components
@@ -20,13 +21,14 @@ extends CanvasLayer
 
 # Level finish
 @onready var level_complete_overlay: Control = $LevelCompleteOverlay
+@onready var time_label: Label = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/TimeLabel
 @onready var restart_button: Button = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/RestartButton
 @onready var back_button: Button = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/BackButton
-
 
 var dash_tween: Tween = null
 
 var player: Node = null
+var level: Node = null
 
 # ---------------------------------------------------------
 # Setup
@@ -34,21 +36,26 @@ var player: Node = null
 
 func _ready() -> void:
 	player = get_node_or_null(player_path)
+	level = get_node_or_null(level_path)
 	
 	if player == null:
 		push_error("UI: player_path is not assigned or player was not found.")
 		return
 		
-	# Connect to signals
-	player.lives_changed.connect(_on_lives_changed)
+	if level == null:
+		push_error("UI: level_path is not assigned or level was not found.")
+		return
+		
+	# Player-driven UI
 	player.extra_jumps_changed.connect(_on_extra_jumps_changed)
-	
 	player.dash_cooldown_started.connect(_on_dash_cooldown_started)
 	player.dash_ready.connect(_on_dash_ready)
 	
-	player.checkpoint_reached.connect(_on_checkpoint_reached)
-	player.player_unalived.connect(_on_player_unalived)
-	player.end_reached.connect(_on_end_reached)
+	# Level-driven UI
+	level.lives_changed.connect(_on_lives_changed)
+	level.checkpoint_reached.connect(_on_checkpoint_reached)
+	level.player_unalived.connect(_on_player_unalived)
+	level.run_completed.connect(_on_run_completed)
 	
 	restart_button.pressed.connect(_on_restart_button_pressed)
 	back_button.pressed.connect(_on_back_button_pressed)
@@ -89,10 +96,15 @@ func _on_checkpoint_reached() -> void:
 func _on_player_unalived() -> void:
 	_show_message("You died")
 	
-func _on_end_reached() -> void:
+func _on_run_completed(final_time: String) -> void:
 	level_complete_overlay.visible = true
 	message_label.visible = false
+	time_label.text = "Time: " + final_time
 	
+# ---------------------------------------------------------
+# Buttons
+# ---------------------------------------------------------	
+
 func _on_restart_button_pressed() -> void:
 	get_tree().reload_current_scene()
 	
@@ -141,6 +153,10 @@ func _show_message(text: String, duration: float = 1.6) -> void:
 func _set_dash_fill_ratio(ratio: float) -> void:
 	ratio = clamp(ratio, 0.0, 1.0)
 	dash_fill.size.x = dash_row.size.x * ratio
+	
+# ---------------------------------------------------------
+# UI API
+# ---------------------------------------------------------
 	
 func set_timer_text(text: String) -> void:
 	timer_label.text = text

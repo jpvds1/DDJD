@@ -1,13 +1,41 @@
 extends Node3D
 
+# ---------------------------------------------------------
+# Constants
+# ---------------------------------------------------------		
+
 @export var player_path: NodePath
 @export var ui_path: NodePath
+
+const MAX_LIVES := 3
+
+# ---------------------------------------------------------
+# Runtime vars
+# ---------------------------------------------------------		
 
 var player: Node = null
 var ui: Node = null
 
 var run_time := 0.0
 var timer_running := true
+var level_completed := false
+
+var lives := MAX_LIVES
+var current_checkpoint_position := Vector3.ZERO
+var has_checkpoint := false
+
+# ---------------------------------------------------------
+# Signals
+# ---------------------------------------------------------		
+
+signal lives_changed(current_lives: int, max_lives: int)
+signal checkpoint_reached()
+signal player_unalived()
+signal run_completed(final_time: String)
+
+# ---------------------------------------------------------
+# Setup
+# ---------------------------------------------------------		
 
 func _ready() -> void:
 	player = get_node_or_null(player_path)
@@ -21,10 +49,19 @@ func _ready() -> void:
 		push_error("Level: UI not found.")
 		return
 		
-	player.end_reached.connect(_on_player_end_reached)
-	
+	player.unalive_requested.connect(_on_player_unalive_requested)
+	player.checkpoint_requested.connect(_on_player_checkpoint_requested)
+	player.finish_requested.connect(_on_player_finish_requested)
+			
 	run_time = 0.0
 	timer_running = true
+	level_completed = false
+	
+	lives = MAX_LIVES
+	current_checkpoint_position = player.global_position
+	has_checkpoint = false
+	
+	lives_changed.emit(lives, MAX_LIVES)
 	_update_ui_timer()
 
 
@@ -35,9 +72,54 @@ func _process(delta: float) -> void:
 	run_time += delta
 	_update_ui_timer()
 	
-func _on_player_end_reached() -> void:
+# ---------------------------------------------------------
+# Player signal handling
+# ---------------------------------------------------------		
+
+func _on_player_unalive_requested() -> void:
+	if level_completed:
+		return
+		
+	lives = max(lives -1, 0)
+	player_unalived.emit()
+	lives_changed.emit(lives, MAX_LIVES)
+	
+	respawn_player()
+	
+func _on_player_checkpoint_requested(pos: Vector3) -> void:
+	if level_completed:
+		return
+		
+	current_checkpoint_position = pos
+	has_checkpoint = true
+	checkpoint_reached.emit()
+	
+func _on_player_finish_requested() -> void:
+	if level_completed:
+		return
+		
+	level_completed = true
 	timer_running = false
+	
+	player.lock_controls()
+	
+	var final_time := _format_time(run_time)
 	_update_ui_timer()
+	run_completed.emit(final_time)
+	
+# ---------------------------------------------------------
+# Level actions
+# ---------------------------------------------------------		
+	
+func respawn_player() -> void:
+	if not has_checkpoint:
+		return
+		
+	player.respawn_at(current_checkpoint_position)
+	
+# ---------------------------------------------------------
+# UI
+# ---------------------------------------------------------		
 	
 func _update_ui_timer() -> void:
 	if ui:

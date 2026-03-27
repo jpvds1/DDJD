@@ -15,5 +15,5 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		return
 	
 	if body.is_in_group("player"):
-		body.set_checkpoint(respawn_point.global_position)
+		body.request_checkpoint(respawn_point.global_position)
 		activated = true

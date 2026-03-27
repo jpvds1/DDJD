@@ -75,6 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 37)
 
 [node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("5_6761a")]
 player_path = NodePath("../CharacterBody3D")
+level_path = NodePath("..")
 
 [node name="EndPlatform" parent="." unique_id=537576493 instance=ExtResource("5_sk5k4")]
 transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 9, 10.144826, 3.9999652, 46.728928)
