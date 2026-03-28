@@ -31,12 +31,6 @@ const COYOTE_TIME = 0.12
 const JUMP_BUFFER_TIME = 0.12
 
 # ---------------------------------------------------------
-# Survival constants
-# ---------------------------------------------------------
-
-const MAX_LIVES = 3
-
-# ---------------------------------------------------------
 # Runtime state
 # ---------------------------------------------------------
 
@@ -49,10 +43,13 @@ var jump_buffer_timer := 0.0
 var extra_jumps_left := MAX_EXTRA_JUMPS
 var can_cut_current_jump := false
 
-var last_checkpoint_position: Vector3
-var has_checkpoint := false
+var controls_locked := false
 
-var lives := MAX_LIVES
+# For manual pause/resume of dash timers
+var paused_dash_time_left := 0.0
+var paused_dash_cooldown_time_left := 0.0
+var dash_timer_was_running := false
+var dash_cooldown_was_running := false
 
 # ---------------------------------------------------------
 # Node references
@@ -66,14 +63,13 @@ var lives := MAX_LIVES
 # Signals
 # ---------------------------------------------------------
 
-signal lives_changed(current_lives: int, max_lives: int)
 signal extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int)
 signal dash_cooldown_started(duration: float)
 signal dash_ready()
 
-signal checkpoint_reached()
-signal player_unalived()
-signal end_reached()
+signal unalive_requested()
+signal checkpoint_requested(pos: Vector3)
+signal finish_requested()
 
 # ---------------------------------------------------------
 # Setup
@@ -82,10 +78,11 @@ signal end_reached()
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
-	last_checkpoint_position = global_position
-	has_checkpoint = true
 
 func _unhandled_input(event):
+	if controls_locked:
+		return
+		
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 
@@ -94,6 +91,9 @@ func _unhandled_input(event):
 # ---------------------------------------------------------
 
 func _physics_process(delta: float) -> void:
+	if controls_locked:
+		return
+	
 	var on_floor := is_on_floor()
 	
 	update_air_state(on_floor, delta)
@@ -265,47 +265,84 @@ func _on_animation_player_animation_changed(old_name: StringName, new_name: Stri
 	print("Animation changed from: " + old_name + " to " + new_name)
 		
 # ---------------------------------------------------------
-# Checkpoint / respawn
+# Requests to level
 # ---------------------------------------------------------		
 
-func set_checkpoint(pos: Vector3) -> void:
-	last_checkpoint_position = pos
-	has_checkpoint = true
-	checkpoint_reached.emit()
+func request_unalive() -> void:
+	unalive_requested.emit()
 	
-func respawn() -> void:
-	if not has_checkpoint:
-		return
+func request_checkpoint(pos: Vector3) -> void:
+	checkpoint_requested.emit(pos)
+	
+func request_finish() -> void:
+	finish_requested.emit()
+	
+# ---------------------------------------------------------
+# Level-controlled player state
+# ---------------------------------------------------------		
 
-	global_position = last_checkpoint_position
+func teleport_to_position(pos: Vector3) -> void:
+	global_position = pos
+	
+func reset_movement_state() -> void:
 	velocity = Vector3.ZERO
-
+	
 	is_dashing = false
 	can_dash = true
 	dash_direction = Vector3.ZERO
+	
 	dash_timer.stop()
 	dash_cooldown_timer.stop()
-
+	
 	coyote_timer = 0.0
 	jump_buffer_timer = 0.0
 	extra_jumps_left = MAX_EXTRA_JUMPS
 	can_cut_current_jump = false
 	
 	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
+	dash_ready.emit()
 	
-func unalive() -> void:
-	lives = max(lives - 1, 0)
-	player_unalived.emit()
-	lives_changed.emit(lives, MAX_LIVES)
-	respawn()
+func respawn_at(pos: Vector3) -> void:
+	teleport_to_position(pos)
+	reset_movement_state()
 	
-func reach_end() -> void:
-	end_reached.emit()
+func lock_controls() -> void:
+	controls_locked = true
+	velocity = Vector3.ZERO
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+func unlock_controls() -> void:
+	controls_locked = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+func pause_timers() -> void:
+	dash_timer_was_running = not dash_timer.is_stopped()
+	dash_cooldown_was_running = not dash_cooldown_timer.is_stopped()
+
+	if dash_timer_was_running:
+		paused_dash_time_left = dash_timer.time_left
+		dash_timer.stop()
+
+	if dash_cooldown_was_running:
+		paused_dash_cooldown_time_left = dash_cooldown_timer.time_left
+		dash_cooldown_timer.stop()
+		
+func resume_timers() -> void:
+	if dash_timer_was_running and paused_dash_time_left > 0.0:
+		dash_timer.start(paused_dash_time_left)
+
+	if dash_cooldown_was_running and paused_dash_cooldown_time_left > 0.0:
+		dash_cooldown_timer.start(paused_dash_cooldown_time_left)
+
+	dash_timer_was_running = false
+	dash_cooldown_was_running = false
+	paused_dash_time_left = 0.0
+	paused_dash_cooldown_time_left = 0.0
 	
 # ---------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------		
 
 func emit_initial_ui_state() -> void:
-	lives_changed.emit(lives, MAX_LIVES)
 	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
+	dash_ready.emit()

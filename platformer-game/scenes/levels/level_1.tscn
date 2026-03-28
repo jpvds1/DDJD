@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://bjnmrbepu0wl3"]
 
 [ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_ksju7"]
-[ext_resource type="Script" uid="uid://c2mgtmeu4p1bw" path="res://scripts/systems/end_area.gd" id="2_6iamk"]
+[ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="3_nsrm0"]
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="4_x42e6"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="5_6761a"]
+[ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="5_sk5k4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,10 +20,10 @@ sky = SubResource("Sky_h2s0c")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nsrm0"]
-size = Vector3(20, 10, 10)
-
 [node name="Empty Level" type="Node3D" unique_id=216242194]
+script = ExtResource("1_sk5k4")
+player_path = NodePath("CharacterBody3D")
+ui_path = NodePath("CanvasLayer")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
 environment = SubResource("Environment_jdsy5")
@@ -46,11 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.838047, 2.0639703, 7.16215
 use_collision = true
 size = Vector3(5, 1, 5)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D" unique_id=303483664]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.5, 50)
-use_collision = true
-size = Vector3(20, 1, 10)
-
 [node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D" unique_id=306469740]
 transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 0.47895145, 3.4106302, 16.920826)
 use_collision = true
@@ -66,13 +62,6 @@ transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463
 use_collision = true
 size = Vector3(5, 1, 5)
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1144981251]
-script = ExtResource("2_6iamk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1629799778]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 9, 50)
-shape = SubResource("BoxShape3D_nsrm0")
-
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("3_nsrm0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1847544, 0)
 
@@ -86,7 +75,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 37)
 
 [node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("5_6761a")]
 player_path = NodePath("../CharacterBody3D")
+level_path = NodePath("..")
 
-[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[node name="EndPlatform" parent="." unique_id=537576493 instance=ExtResource("5_sk5k4")]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 9, 10.144826, 3.9999652, 46.728928)
 
 [editable path="Killzone"]
