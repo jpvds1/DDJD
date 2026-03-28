@@ -45,6 +45,12 @@ var can_cut_current_jump := false
 
 var controls_locked := false
 
+# For manual pause/resume of dash timers
+var paused_dash_time_left := 0.0
+var paused_dash_cooldown_time_left := 0.0
+var dash_timer_was_running := false
+var dash_cooldown_was_running := false
+
 # ---------------------------------------------------------
 # Node references
 # ---------------------------------------------------------
@@ -62,7 +68,7 @@ signal dash_cooldown_started(duration: float)
 signal dash_ready()
 
 signal unalive_requested()
-signal checkpoint_requested()
+signal checkpoint_requested(pos: Vector3)
 signal finish_requested()
 
 # ---------------------------------------------------------
@@ -308,6 +314,30 @@ func lock_controls() -> void:
 func unlock_controls() -> void:
 	controls_locked = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+func pause_timers() -> void:
+	dash_timer_was_running = not dash_timer.is_stopped()
+	dash_cooldown_was_running = not dash_cooldown_timer.is_stopped()
+
+	if dash_timer_was_running:
+		paused_dash_time_left = dash_timer.time_left
+		dash_timer.stop()
+
+	if dash_cooldown_was_running:
+		paused_dash_cooldown_time_left = dash_cooldown_timer.time_left
+		dash_cooldown_timer.stop()
+		
+func resume_timers() -> void:
+	if dash_timer_was_running and paused_dash_time_left > 0.0:
+		dash_timer.start(paused_dash_time_left)
+
+	if dash_cooldown_was_running and paused_dash_cooldown_time_left > 0.0:
+		dash_cooldown_timer.start(paused_dash_cooldown_time_left)
+
+	dash_timer_was_running = false
+	dash_cooldown_was_running = false
+	paused_dash_time_left = 0.0
+	paused_dash_cooldown_time_left = 0.0
 	
 # ---------------------------------------------------------
 # Helpers
