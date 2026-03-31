@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="4_x42e6"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="5_6761a"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="5_sk5k4"]
+[ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -79,5 +80,11 @@ level_path = NodePath("..")
 
 [node name="EndPlatform" parent="." unique_id=537576493 instance=ExtResource("5_sk5k4")]
 transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 9, 10.144826, 3.9999652, 46.728928)
+
+[node name="SawGroup" parent="." unique_id=1308033700 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(0.81275517, 0, 0.58260536, 0, 1, 0, -0.58260536, 0, 0.81275517, 7.7081904, 4.4106293, 21.261473)
+
+[node name="SawGroup2" parent="." unique_id=572996546 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(0.81275517, 0, 0.58260536, 0, 1, 0, -0.58260536, 0, 0.81275517, 6.081427, 4.4106293, 22.435177)
 
 [editable path="Killzone"]
