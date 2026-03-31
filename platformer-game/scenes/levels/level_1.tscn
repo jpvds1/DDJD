@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="5_6761a"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="5_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
+[ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -42,6 +43,11 @@ use_collision = true
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=378336243]
 use_collision = true
 size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1741406662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -5)
+use_collision = true
+size = Vector3(10, 1, 5)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=918577644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.838047, 2.0639703, 7.1621585)
@@ -86,5 +92,8 @@ transform = Transform3D(0.81275517, 0, 0.58260536, 0, 1, 0, -0.58260536, 0, 0.81
 
 [node name="SawGroup2" parent="." unique_id=572996546 instance=ExtResource("7_oc4kc")]
 transform = Transform3D(0.81275517, 0, 0.58260536, 0, 1, 0, -0.58260536, 0, 0.81275517, 6.081427, 4.4106293, 22.435177)
+
+[node name="SpikeTrap" parent="." unique_id=1853223367 instance=ExtResource("8_s8va5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 0)
 
 [editable path="Killzone"]
