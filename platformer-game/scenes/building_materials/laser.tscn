@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://rtexe01uxxw6"]
+
+[ext_resource type="Script" uid="uid://drkw0cs14yia6" path="res://scripts/systems/laser.gd" id="1_0vpv2"]
+[ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="2_6nnwf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vpv2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3352m"]
+radius = 0.10107422
+
+[sub_resource type="Animation" id="Animation_pp67n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CSGCylinder3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ma8ym"]
+resource_name = "off"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CSGCylinder3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_k85rx"]
+resource_name = "on"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/CSGCylinder3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_haumu"]
+_data = {
+&"RESET": SubResource("Animation_pp67n"),
+&"off": SubResource("Animation_ma8ym"),
+&"on": SubResource("Animation_k85rx")
+}
+
+[node name="Laser" type="Node3D" unique_id=78082071]
+script = ExtResource("1_0vpv2")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=507102929]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.25)
+radius = 0.2
+height = 0.5
+
+[node name="Hitbox" type="Node3D" parent="." unique_id=1352457121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.1200343, 0, 0, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Hitbox" unique_id=125503734]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
+material_override = SubResource("StandardMaterial3D_0vpv2")
+radius = 0.1
+
+[node name="Killzone" parent="Hitbox" unique_id=767733067 instance=ExtResource("2_6nnwf")]
+
+[node name="CollisionShape3D" parent="Hitbox/Killzone" index="0" unique_id=1440156319]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
+shape = SubResource("CylinderShape3D_3352m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1215364353]
+libraries/ = SubResource("AnimationLibrary_haumu")
+autoplay = &"on"
+
+[node name="Timer" type="Timer" parent="." unique_id=1876216844]
+wait_time = 2.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Hitbox/Killzone"]
