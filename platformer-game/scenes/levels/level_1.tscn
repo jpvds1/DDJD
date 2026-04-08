@@ -39,6 +39,7 @@ shadow_enabled = true
 transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 1.5080202, 0)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=494703401]
+visible = false
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=378336243]
@@ -82,11 +83,13 @@ size = Vector3(5, 1, 5)
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("3_nsrm0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1847544, 0)
+visible = false
 
 [node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5545883, 0, 31.93064)
 
 [node name="Checkpoints" type="Node3D" parent="." unique_id=746168418]
+visible = false
 
 [node name="Checkpoint" parent="Checkpoints" unique_id=1109484725 instance=ExtResource("4_x42e6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 37)
@@ -109,9 +112,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 0)
 
 [node name="Laser" parent="." unique_id=78082071 instance=ExtResource("9_dga24")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0.975, -5.671)
+visible = false
 
 [node name="Hitbox" parent="Laser" index="1" unique_id=1352457121]
 transform = Transform3D(1.006, 0, 0, 0, 1.006, 0, 0, 0, 4.75, 0, 0, 0)
+
+[node name="CurvedWall" type="Node3D" parent="." unique_id=375873941]
+
+[node name="CurvedWall_180" type="CSGPolygon3D" parent="CurvedWall" unique_id=854954318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.37042, 0)
+use_collision = true
+polygon = PackedVector2Array(5, 4, 6, 4, 6, 0, 5, 0)
+mode = 1
+spin_degrees = 180.0
+spin_sides = 32
+
+[node name="CurvedWall_360" type="CSGPolygon3D" parent="CurvedWall" unique_id=501983927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17561054, -0.27686405, 0)
+use_collision = true
+polygon = PackedVector2Array(5, 4, 6, 4, 6, 0, 5, 0)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 32
 
 [editable path="Killzone"]
 [editable path="Laser"]
