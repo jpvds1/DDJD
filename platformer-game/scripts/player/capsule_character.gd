@@ -31,12 +31,47 @@ const COYOTE_TIME = 0.12
 const JUMP_BUFFER_TIME = 0.12
 
 # ---------------------------------------------------------
+# Wall-run constants
+# ---------------------------------------------------------
+
+const WALL_RUN_GROUP = "wall_run"
+const WALL_RUN_MIN_HORIZONTAL_SPEED := 4.0
+const WALL_RUN_SPEED := 9.0
+const WALL_RUN_ACCEL := 30.0
+
+# Sticking / Sliding down
+const WALL_RUN_STICK_DURATION := 1.0
+const WALL_RUN_VERITAL_DAMP := 18.0
+const WALL_RUN_SLIDE_SPEED := 4.5
+const WALL_RUN_SLIDE_ACCEL := 8.5
+
+# Small inward push to hug to the player to the wall
+const WALL_RUN_INWARD_SPEED := 2.0
+
+const WALL_JUMP_UP_VELOCITY := 7.0
+const WALL_JUMP_AWAY_SPEED := 7.5
+
+# Prevent instant reattachment to wall after wall jump
+const WALL_RUN_REENTRY_LOCK_TIME := 0.18
+
+const WALL_RUN_VISUAL_TILT_DEGREES := 18.0
+const WALL_RUN_VISUAL_TILT_LERP := 12.0
+
+# ---------------------------------------------------------
 # Runtime state
 # ---------------------------------------------------------
 
 var is_dashing := false
 var can_dash := true
 var dash_direction := Vector3.ZERO
+
+var is_wall_running := false
+var wall_run_timer := 0.0
+var wall_run_reentry_timer := 0.0
+var current_wall_normal := Vector3.ZERO
+var current_wall_direction := Vector3.ZERO
+var current_wall_side := 0
+var current_wall_collider: Node = null
 
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
@@ -58,6 +93,9 @@ var dash_cooldown_was_running := false
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
+@onready var ray_cast_left: RayCast3D = $Raycasts/RayCast3DLeft
+@onready var ray_cast_right: RayCast3D = $Raycasts/RayCast3DRight
+@onready var visual_root: Node3D = $VisualRoot
 
 # ---------------------------------------------------------
 # Signals
@@ -96,15 +134,27 @@ func _physics_process(delta: float) -> void:
 	
 	var on_floor := is_on_floor()
 	
-	update_air_state(on_floor, delta)
+	update_wall_run_reentry_timer(delta)
 	update_jump_buffer(delta)
-	handle_jump_cut()
-	handle_jump_request(on_floor)
-			
-	handle_dash_input()
-	handle_horizontal_movement(delta, on_floor)
+	force_wall_rays_update()
+	update_wall_run_state(on_floor)
+	
+	if is_wall_running:
+		handle_jump_request(on_floor)
+	
+	if not is_wall_running:
+		update_air_state(on_floor, delta)
+		handle_jump_cut()
+		handle_jump_request(on_floor)
+		handle_dash_input()
+		handle_horizontal_movement(delta, on_floor)
+	else:
+		handle_dash_input()
+		handle_horizontal_movement(delta, false)
+		update_wall_run(delta)
 
 	move_and_slide()
+	update_visual_tilt(delta)
 	
 # ---------------------------------------------------------
 # Gravity / floor state
@@ -141,6 +191,11 @@ func handle_jump_request(on_floor: bool) -> void:
 	if jump_buffer_timer <= 0.0:
 		return
 		
+	if is_wall_running:
+		do_wall_jump()
+		jump_buffer_timer = 0.0
+		return
+		
 	# Ground jump when on the ground or on coyote time
 	# Extra jump consumed after that
 	if on_floor or coyote_timer > 0.0:
@@ -167,11 +222,31 @@ func do_extra_jump() -> void:
 	velocity.y = EXTRA_JUMP_VELOCITY
 	can_cut_current_jump = false
 	
+func do_wall_jump() -> void:
+	var jump_wall_normal := current_wall_normal
+	var jump_wall_direction := current_wall_direction
+	
+	var carry_speed = max(get_horizontal_speed(), WALL_RUN_SPEED * 0.5)
+	var jump_horizontal = jump_wall_direction * carry_speed + jump_wall_normal * WALL_JUMP_AWAY_SPEED
+	
+	stop_wall_run()
+	wall_run_reentry_timer = WALL_RUN_REENTRY_LOCK_TIME
+	
+	velocity.x = jump_horizontal.x
+	velocity.z = jump_horizontal.z
+	velocity.y = WALL_JUMP_UP_VELOCITY
+	
+	can_cut_current_jump = false
+	reset_extra_jumps()
+	
 # ---------------------------------------------------------
 # Horizontal movement
 # ---------------------------------------------------------
 
 func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
+	if is_wall_running:
+		return
+		
 	if is_dashing:
 		velocity.x = dash_direction.x * DASH_SPEED
 		velocity.z = dash_direction.z * DASH_SPEED
@@ -212,12 +287,183 @@ func apply_ground_movement(direction: Vector3, move_speed: float, accel: float, 
 
 	velocity.x = current_horizontal.x
 	velocity.z = current_horizontal.z
+
+# ---------------------------------------------------------
+# Wall run
+# ---------------------------------------------------------
 	
+func update_wall_run_state(on_floor: bool) -> void:
+	if is_wall_running:
+		if on_floor or not refresh_wall_run_contact():
+			stop_wall_run()
+		return
+		
+	if on_floor:
+		return
+		
+	if wall_run_reentry_timer > 0.0:
+		return
+		
+	if get_horizontal_speed() > WALL_RUN_MIN_HORIZONTAL_SPEED:
+		return
+		
+	var candidate := get_wall_run_candidate()
+	if candidate.is_empty():
+		return
+		
+	start_wall_run(candidate["normal"], candidate["side"], candidate["collider"])
+	
+func start_wall_run(normal: Vector3, side: int, collider: Node) -> void:
+	is_wall_running = true
+	wall_run_timer = 0.0
+	current_wall_normal = normal
+	current_wall_side = side
+	current_wall_collider = collider
+	current_wall_direction = get_wall_run_direction(normal, get_wall_run_reference_vector())
+	
+	coyote_timer = 0.0
+	can_cut_current_jump = false
+	reset_extra_jumps()
+	cancel_dash_for_wall_run()
+	
+func stop_wall_run() -> void:
+	is_wall_running = false
+	wall_run_timer = 0.0
+	current_wall_normal = Vector3.ZERO
+	current_wall_direction = Vector3.ZERO
+	current_wall_side = 0
+	current_wall_collider = null
+	update_visual_tilt(0)
+	
+func update_wall_run(delta: float) -> void:
+	wall_run_timer += delta
+	
+	current_wall_direction = get_wall_run_direction(current_wall_normal, get_wall_run_reference_vector())
+	
+	var target_horizontal := current_wall_direction * WALL_RUN_SPEED
+	target_horizontal += -current_wall_normal * WALL_RUN_INWARD_SPEED
+	
+	var current_horizontal := Vector3(velocity.x, 0, velocity.z)
+	current_horizontal = current_horizontal.move_toward(Vector3(target_horizontal.x, 0, target_horizontal.z), WALL_RUN_ACCEL * delta)
+	
+	velocity.x = current_horizontal.x
+	velocity.z = current_horizontal.z
+	
+	if wall_run_timer <= WALL_RUN_STICK_DURATION:
+		velocity.y = move_toward(velocity.y, 0.0, WALL_RUN_VERITAL_DAMP)
+	else:
+		velocity.y = move_toward(velocity.y, -WALL_RUN_SLIDE_ACCEL, WALL_RUN_SLIDE_ACCEL * delta)
+		
+func refresh_wall_run_contact() -> bool:
+	var candidate := get_wall_run_candidate()
+	if candidate.is_empty():
+		return false
+		
+	current_wall_normal = candidate["normal"]
+	current_wall_side = candidate["side"]
+	current_wall_collider = candidate["collider"]
+	return true
+	
+func get_wall_run_candidate() -> Dictionary:
+	var candidates := []
+	
+	if ray_cast_left != null:
+		candidates.append({"ray": ray_cast_left, "side": 1})
+	if ray_cast_right != null:
+		candidates.append({"ray": ray_cast_right, "side": -1})
+		
+	var reference := get_wall_run_reference_vector()
+	var best_candidate: Dictionary = {}
+	var best_score := -1000000.0
+	
+	for candidate in candidates:
+		var ray: RayCast3D = candidate["ray"]
+		var side: int = candidate["side"]
+		
+		if not ray.is_colliding():
+			continue
+			
+		var collider = ray.get_collider()
+		if collider == null or not (collider is Node):
+			continue
+			
+		var collider_node: Node = collider
+		if not collider_node.is_in_group(WALL_RUN_GROUP):
+			continue
+		
+		var normal := ray.get_collision_normal().normalized()
+		var direction := get_wall_run_direction(normal, reference)
+		
+		var score := 0.0
+		if reference.length_squared() > 0.001:
+			score = direction.dot(reference.normalized())
+			
+			if score > best_score:
+				best_score = score
+				best_candidate = {
+					"collider": collider_node,
+					"normal": normal,
+					"side": side
+				}
+	return best_candidate
+
+func get_wall_run_reference_vector() -> Vector3:
+	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
+	if input_dir != Vector2.ZERO:
+		var world_input := transform.basis * Vector3(input_dir.x, 0, input_dir.y)
+		if world_input.length_squared() > 0.001:
+			return world_input.normalized()
+			
+	var horizontal_velocity := Vector3(velocity.x, 0, velocity.z)
+	if horizontal_velocity.length_squared() > 0.001:
+		return horizontal_velocity.normalized()
+		
+	return -transform.basis.z.normalized()
+	
+func get_wall_run_direction(normal: Vector3, reference: Vector3) -> Vector3:
+	var flat_reference := Vector3(reference.x, 0, reference.z)
+	var projected := flat_reference - normal * flat_reference.dot(normal)
+	projected.y = 0.0
+	
+	if projected.length_squared() > 0.001:
+		return projected.normalized()
+		
+	# Fallback for jumps straight into the wall
+	var tangent := Vector3.UP.cross(normal).normalized()
+	var facing := -transform.basis.z.normalized()
+	
+	if tangent.dot(facing) < 0.0:
+		tangent = -tangent
+		
+	return tangent
+
+func force_wall_rays_update() -> void:
+	if ray_cast_left != null:
+		ray_cast_left.force_raycast_update()
+	if ray_cast_right != null:
+		ray_cast_right.force_raycast_update()
+		
+func update_wall_run_reentry_timer(delta: float) -> void:
+	wall_run_reentry_timer = max(wall_run_reentry_timer - delta, 0.0)
+	
+func reset_extra_jumps() -> void:
+	if extra_jumps_left == MAX_EXTRA_JUMPS:
+		return
+		
+	extra_jumps_left = MAX_EXTRA_JUMPS
+	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
+	
+func get_horizontal_speed() -> float:
+	return Vector3(velocity.x, 0, velocity.z).length()
+
 # ---------------------------------------------------------
 # Dash
 # ---------------------------------------------------------
 
 func handle_dash_input() -> void:
+	if is_wall_running:
+		return
+		
 	if Input.is_action_just_pressed("dash") and can_dash:
 		start_dash()	
 
@@ -234,6 +480,15 @@ func start_dash() -> void:
 	dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
 	
 	update_animation_state("dashing")
+	
+func cancel_dash_for_wall_run() -> void:
+	if not is_dashing:
+		return
+		
+	is_dashing = false
+	dash_timer.stop()
+	clamp_post_dash_velocity()
+	update_animation_state("RESET")
 
 func clamp_post_dash_velocity() -> void:
 	var horizontal := Vector3(velocity.x, 0, velocity.z)
@@ -254,7 +509,7 @@ func _on_dash_cooldown_timer_timeout() -> void:
 	dash_ready.emit()
 	
 # ---------------------------------------------------------
-# Animation
+# Animation / Visual
 # ---------------------------------------------------------
 		
 func update_animation_state(animation_name: String) -> void:
@@ -263,6 +518,20 @@ func update_animation_state(animation_name: String) -> void:
 		
 func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
 	print("Animation changed from: " + old_name + " to " + new_name)
+		
+func update_visual_tilt(delta: float) -> void:
+	if visual_root == null:
+		return
+		
+	var target_roll := 0.0
+	if is_wall_running:
+		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * -float(current_wall_side)
+		
+	visual_root.rotation.z = lerp_angle(
+		visual_root.rotation.z,
+		target_roll,
+		min(1.0, WALL_RUN_VISUAL_TILT_LERP * delta)
+	)
 		
 # ---------------------------------------------------------
 # Requests to level
@@ -291,6 +560,9 @@ func reset_movement_state() -> void:
 	can_dash = true
 	dash_direction = Vector3.ZERO
 	
+	stop_wall_run()
+	wall_run_reentry_timer = 0.0
+	
 	dash_timer.stop()
 	dash_cooldown_timer.stop()
 	
@@ -298,6 +570,9 @@ func reset_movement_state() -> void:
 	jump_buffer_timer = 0.0
 	extra_jumps_left = MAX_EXTRA_JUMPS
 	can_cut_current_jump = false
+	
+	if visual_root != null:
+		visual_root.rotation.z = 0.0
 	
 	extra_jumps_changed.emit(extra_jumps_left, MAX_EXTRA_JUMPS)
 	dash_ready.emit()
