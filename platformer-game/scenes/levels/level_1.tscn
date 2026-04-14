@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_dga24"]
-[ext_resource type="Script" uid="uid://1fk25sxy8pya" path="res://scenes/levels/wreckingball.gd" id="10_qxy0u"]
+[ext_resource type="Script" path="res://scripts/traps/wreckingball.gd" id="10_qxy0u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

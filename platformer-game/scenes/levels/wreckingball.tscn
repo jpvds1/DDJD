@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://lxlknoo1u7wu"]
+
+[ext_resource type="Script" path="res://scripts/traps/wreckingball.gd" id="1_c68la"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_excbq"]
+radius = 0.72685677
+
+[sub_resource type="SphereMesh" id="SphereMesh_iav0o"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_dnkej"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxy0u"]
+albedo_color = Color(0.69803923, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mm8aj"]
+
+[node name="Wreckingball" type="Node3D" unique_id=372449075]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_c68la")
+
+[node name="Ball" type="Area3D" parent="." unique_id=1718594781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="Ball_collision" type="CollisionShape3D" parent="Ball" unique_id=1219502796]
+shape = SubResource("SphereShape3D_excbq")
+
+[node name="Ball_mesh" type="MeshInstance3D" parent="Ball" unique_id=480605060]
+mesh = SubResource("SphereMesh_iav0o")
+
+[node name="Cloud_mesh" type="MeshInstance3D" parent="." unique_id=1597900787]
+mesh = SubResource("SphereMesh_dnkej")
+surface_material_override/0 = SubResource("StandardMaterial3D_qxy0u")
+
+[node name="Chain_mesh" type="MeshInstance3D" parent="." unique_id=433429173]
+transform = Transform3D(0.1, 0, 0, 0, 5, 0, 0, 0, 0.1, 0, -5, 0)
+mesh = SubResource("CylinderMesh_mm8aj")
+
+[connection signal="body_entered" from="Ball" to="." method="_on_ball_body_entered"]
