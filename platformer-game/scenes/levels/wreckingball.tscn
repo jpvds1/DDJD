@@ -1,38 +1,73 @@
-[gd_scene format=3 uid="uid://lxlknoo1u7wu"]
+[gd_scene format=3 uid="uid://ccudaxsaxpval"]
 
-[ext_resource type="Script" path="res://scripts/traps/wreckingball.gd" id="1_c68la"]
+[ext_resource type="Script" uid="uid://1fk25sxy8pya" path="res://scripts/traps/wreckingball.gd" id="1_58tvi"]
+[ext_resource type="Script" path="res://scripts/systems/cloud_behavior.gd" id="2_cktgr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_excbq"]
 radius = 0.72685677
 
 [sub_resource type="SphereMesh" id="SphereMesh_iav0o"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_dnkej"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxy0u"]
-albedo_color = Color(0.69803923, 1, 1, 1)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_mm8aj"]
 
-[node name="Wreckingball" type="Node3D" unique_id=372449075]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
-script = ExtResource("1_c68la")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bahl2"]
+albedo_color = Color(0.49019608, 0.9764706, 1, 0.39215687)
+emission_enabled = true
+emission = Color(0.49019608, 0.9764706, 1, 1)
+emission_energy_multiplier = 1.5
 
-[node name="Ball" type="Area3D" parent="." unique_id=1718594781]
+[sub_resource type="SphereMesh" id="SphereMesh_np2pn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_v6ha0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gmpev"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mkypq"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ndtll"]
+
+[node name="Wreckingball" type="Node3D" unique_id=749760885]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_58tvi")
+
+[node name="Ball" type="Area3D" parent="." unique_id=1021792154]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 
-[node name="Ball_collision" type="CollisionShape3D" parent="Ball" unique_id=1219502796]
+[node name="Ball_collision" type="CollisionShape3D" parent="Ball" unique_id=1558881847]
 shape = SubResource("SphereShape3D_excbq")
 
-[node name="Ball_mesh" type="MeshInstance3D" parent="Ball" unique_id=480605060]
+[node name="Ball_mesh" type="MeshInstance3D" parent="Ball" unique_id=349464260]
 mesh = SubResource("SphereMesh_iav0o")
 
-[node name="Cloud_mesh" type="MeshInstance3D" parent="." unique_id=1597900787]
-mesh = SubResource("SphereMesh_dnkej")
-surface_material_override/0 = SubResource("StandardMaterial3D_qxy0u")
-
-[node name="Chain_mesh" type="MeshInstance3D" parent="." unique_id=433429173]
+[node name="Chain_mesh" type="MeshInstance3D" parent="." unique_id=329159701]
 transform = Transform3D(0.1, 0, 0, 0, 5, 0, 0, 0, 0.1, 0, -5, 0)
 mesh = SubResource("CylinderMesh_mm8aj")
+
+[node name="Cloud" type="Node3D" parent="." unique_id=549558269]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.17368126, -0.20986748, 0.0399822)
+script = ExtResource("2_cktgr")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Cloud" unique_id=557222028]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.040394783, 0, 0)
+material_override = SubResource("StandardMaterial3D_bahl2")
+
+[node name="Ball_1" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=1823601728]
+mesh = SubResource("SphereMesh_np2pn")
+
+[node name="Ball_2" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=753322236]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.049999952, 0.099999905)
+mesh = SubResource("SphereMesh_v6ha0")
+
+[node name="Ball_3" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=174911961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.050000012, 0.119999886)
+mesh = SubResource("SphereMesh_gmpev")
+
+[node name="Ball_4" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=954032908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.100000024, -0.1500001)
+mesh = SubResource("SphereMesh_mkypq")
+
+[node name="Ball_5" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=42791856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.07999998, -0.119999886)
+mesh = SubResource("SphereMesh_ndtll")
 
 [connection signal="body_entered" from="Ball" to="." method="_on_ball_body_entered"]

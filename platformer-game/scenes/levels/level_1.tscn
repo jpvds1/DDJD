@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_dga24"]
-[ext_resource type="Script" path="res://scripts/traps/wreckingball.gd" id="10_qxy0u"]
+[ext_resource type="Script" uid="uid://1fk25sxy8pya" path="res://scripts/traps/wreckingball.gd" id="10_qxy0u"]
+[ext_resource type="Script" path="res://scripts/systems/cloud_behavior.gd" id="11_excbq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -29,12 +30,23 @@ radius = 0.72685677
 
 [sub_resource type="SphereMesh" id="SphereMesh_iav0o"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_dnkej"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxy0u"]
-albedo_color = Color(0.69803923, 1, 1, 1)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_mm8aj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bahl2"]
+albedo_color = Color(0.49019608, 0.9764706, 1, 0.39215687)
+emission_enabled = true
+emission = Color(0.49019608, 0.9764706, 1, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_np2pn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_v6ha0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gmpev"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mkypq"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ndtll"]
 
 [node name="Empty Level" type="Node3D" unique_id=216242194]
 script = ExtResource("1_sk5k4")
@@ -139,13 +151,36 @@ shape = SubResource("SphereShape3D_excbq")
 [node name="Ball_mesh" type="MeshInstance3D" parent="Wreckingball/Ball" unique_id=1058642162]
 mesh = SubResource("SphereMesh_iav0o")
 
-[node name="Cloud_mesh" type="MeshInstance3D" parent="Wreckingball" unique_id=174239714]
-mesh = SubResource("SphereMesh_dnkej")
-surface_material_override/0 = SubResource("StandardMaterial3D_qxy0u")
-
 [node name="Chain_mesh" type="MeshInstance3D" parent="Wreckingball" unique_id=630554227]
 transform = Transform3D(0.1, 0, 0, 0, 5, 0, 0, 0, 0.1, 0, -5, 0)
 mesh = SubResource("CylinderMesh_mm8aj")
+
+[node name="Cloud" type="Node3D" parent="Wreckingball" unique_id=1922869714]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.17368126, -0.20986748, 0.0399822)
+script = ExtResource("11_excbq")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Wreckingball/Cloud" unique_id=1368328284]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.040394783, 0, 0)
+material_override = SubResource("StandardMaterial3D_bahl2")
+
+[node name="Ball_1" type="CSGMesh3D" parent="Wreckingball/Cloud/CSGCombiner3D" unique_id=1296480542]
+mesh = SubResource("SphereMesh_np2pn")
+
+[node name="Ball_2" type="CSGMesh3D" parent="Wreckingball/Cloud/CSGCombiner3D" unique_id=1190826021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.049999952, 0.099999905)
+mesh = SubResource("SphereMesh_v6ha0")
+
+[node name="Ball_3" type="CSGMesh3D" parent="Wreckingball/Cloud/CSGCombiner3D" unique_id=758941509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.050000012, 0.119999886)
+mesh = SubResource("SphereMesh_gmpev")
+
+[node name="Ball_4" type="CSGMesh3D" parent="Wreckingball/Cloud/CSGCombiner3D" unique_id=1521632657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.100000024, -0.1500001)
+mesh = SubResource("SphereMesh_mkypq")
+
+[node name="Ball_5" type="CSGMesh3D" parent="Wreckingball/Cloud/CSGCombiner3D" unique_id=106339958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.07999998, -0.119999886)
+mesh = SubResource("SphereMesh_ndtll")
 
 [connection signal="body_entered" from="Wreckingball/Ball" to="Wreckingball" method="_on_ball_body_entered"]
 
