@@ -64,10 +64,10 @@ const WALL_RUN_VISUAL_TILT_LERP := 12.0
 const CAMERA_PITCH_MIN := -85.0
 const CAMERA_PITCH_MAX := 85.0
 
-const CAMERA_DISTANCE_MIN := 0.0   # Primeira pessoa
-const CAMERA_DISTANCE_MAX := 6.0   # Terceira pessoa afastada
-const CAMERA_SCROLL_STEP  := 0.5   # Distância por scroll
-const CAMERA_ZOOM_LERP    := 12.0  # Suavidade do zoom
+const CAMERA_DISTANCE_MIN := 0.0   # First person
+const CAMERA_DISTANCE_MAX := 6.0   # Third person
+const CAMERA_SCROLL_STEP  := 0.5   # Distance per scroll
+const CAMERA_ZOOM_LERP    := 12.0  # Zoom smoothness
 
 # ---------------------------------------------------------
 # Runtime state
@@ -92,8 +92,8 @@ var can_cut_current_jump := false
 
 var controls_locked := false
 
-# Para o zoom suave
-var camera_distance_target := 2.235  # Valor inicial = posição Z actual da câmara
+# For a smooth zoom
+var camera_distance_target := 2.235  # Initial value = Current Z of the camera
 
 # For manual pause/resume of dash timers
 var paused_dash_time_left := 0.0
