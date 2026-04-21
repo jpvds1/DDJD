@@ -15,4 +15,4 @@ func _on_settings_pressed() -> void:
 
 
 func _on_quit_pressed() -> void:
-	print("Quit")
+	get_tree().quit()
