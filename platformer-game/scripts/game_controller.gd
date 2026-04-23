@@ -11,7 +11,7 @@ var current_gui_scene
 
 func _ready() -> void:
 	Global.game_controller = self
-	Global.game_controller.change_GUI_scene("uid://btsarcw3ec1hm")
+	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
 
 func change_GUI_scene(scene_path: String, delete: bool = true, keep_running: bool = false, delete_previous: bool = true) -> void:
 	if current_gui_scene != null:

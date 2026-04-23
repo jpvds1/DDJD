@@ -10,7 +10,7 @@ func _on_level_1_pressed() -> void:
 	get_viewport().gui_release_focus()
 	
 	# call_deferred garante que a troca só ocorra após o clique terminar
-	var path = "uid://bjnmrbepu0wl3"
+	var path = "res://scenes/levels/level_1.tscn"
 	Global.game_controller.change_3D_scene.call_deferred(path)
 
 

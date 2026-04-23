@@ -7,7 +7,7 @@ func _ready() -> void:
 
 
 func _on_play_pressed() -> void:
-	Global.game_controller.change_GUI_scene("uid://b3y48lsib427f")
+	Global.game_controller.change_GUI_scene("res://scenes/ui/levels_menu.tscn")
 
 
 func _on_settings_pressed() -> void:
