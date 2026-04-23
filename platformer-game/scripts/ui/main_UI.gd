@@ -150,11 +150,10 @@ func _on_pause_toggled(paused: bool) -> void:
 # ---------------------------------------------------------	
 
 func _on_finish_restart_button_pressed() -> void:
-	get_tree().reload_current_scene()
+	level.restart_level()
 	
-# TO-DO
 func _on_finish_back_button_pressed() -> void:
-	print("Back to menu pressed - not implemented yet")
+	level.return_to_menu()
 	
 # ---------------------------------------------------------
 # Pause overlay buttons
