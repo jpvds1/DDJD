@@ -154,12 +154,16 @@ func resume_game() -> void:
 func restart_level() -> void:
 	get_tree().paused = false
 	is_paused = false
-	get_tree().reload_current_scene()
+	
+	if Global.game_controller:
+		Global.game_controller.change_3D_scene(scene_file_path)
 	
 func return_to_menu() -> void:
 	get_tree().paused = false
 	is_paused = false
-	print("Back to menu pressed - not implemented yet")
+	
+	if Global.game_controller:
+		Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
 	
 # ---------------------------------------------------------
 # Level actions

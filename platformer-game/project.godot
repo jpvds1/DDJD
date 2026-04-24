@@ -11,9 +11,17 @@ config_version=5
 [application]
 
 config/name="PlatformerGame"
-run/main_scene="uid://bjnmrbepu0wl3"
+run/main_scene="uid://1516e040v7sf"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://scripts/global.gd"
+
+[global_group]
+
+wall_run=""
 
 [input]
 
@@ -60,3 +68,5 @@ dash={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

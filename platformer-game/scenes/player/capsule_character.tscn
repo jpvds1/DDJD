@@ -4,12 +4,6 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_de3it"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5ji0x"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ji0x"]
-resource_local_to_scene = true
-albedo_color = Color(0, 1, 0.9490196, 1)
-
 [sub_resource type="Animation" id="Animation_5ji0x"]
 length = 0.001
 tracks/0/type = "value"
@@ -79,20 +73,23 @@ _data = {
 &"walking": SubResource("Animation_vaf6x")
 }
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5ji0x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ji0x"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0.9490196, 1)
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1782536310]
 script = ExtResource("1_5ji0x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2060846547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_de3it")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1717389673]
-mesh = SubResource("CapsuleMesh_5ji0x")
-surface_material_override/0 = SubResource("StandardMaterial3D_5ji0x")
 
 [node name="Node3D" type="Node3D" parent="." unique_id=447801321]
 
 [node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=563554905]
-transform = Transform3D(1, 0, 0, 0, 0.99193436, 0.126753, 0, -0.126753, 0.99193436, 0, 1.2063588, 2.2349353)
+transform = Transform3D(1, 0, 0, 0, 0.99193436, 0.126753, 0, -0.126753, 0.99193436, 0, 2.206, 2.235)
 fov = 80.0
 
 [node name="Dash" type="Node3D" parent="." unique_id=1988469622]
@@ -107,6 +104,21 @@ one_shot = true
 [node name="DashCooldownTimer" type="Timer" parent="Dash" unique_id=833726965]
 wait_time = 3.0
 one_shot = true
+
+[node name="Raycasts" type="Node3D" parent="." unique_id=1537488305]
+
+[node name="RayCast3DLeft" type="RayCast3D" parent="Raycasts" unique_id=794334655]
+transform = Transform3D(0.30773866, 1.1108035, -0.95990217, -1.4032834, 0.51075333, 0.14116246, 0.43138477, 0.8690491, 1.1439669, 0, 0.5, 0)
+
+[node name="RayCast3DRight" type="RayCast3D" parent="Raycasts" unique_id=433990665]
+transform = Transform3D(-0.39300394, -1.0797694, -0.9641814, -1.4095389, 0.5130302, 0, 0.32976946, 0.9060341, -1.1490667, 0, 0.5, 0)
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=984137525]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VisualRoot" unique_id=1717389673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_5ji0x")
+surface_material_override/0 = SubResource("StandardMaterial3D_5ji0x")
 
 [connection signal="animation_changed" from="Dash/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]
