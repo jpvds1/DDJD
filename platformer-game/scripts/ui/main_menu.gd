@@ -16,3 +16,7 @@ func _on_settings_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_tutorial_pressed() -> void:
+	Global.game_controller.change_3D_scene("res://scenes/levels/tutorial.tscn")
