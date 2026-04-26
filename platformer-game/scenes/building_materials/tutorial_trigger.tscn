@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cxwqa33o1b6ge"]
+
+[ext_resource type="Script" uid="uid://dxxjto30ppkdd" path="res://scripts/systems/tutorial_trigger.gd" id="1_aj33w"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_aj33w"]
+radius = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_aj33w"]
+
+[node name="TutorialTrigger" type="Area3D" unique_id=1046773497]
+script = ExtResource("1_aj33w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=580826209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43234253, 0, 0.10449219)
+shape = SubResource("SphereShape3D_aj33w")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=332754410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4552404, 0)
+visible = false
+billboard = 1
+font_size = 64
+outline_size = 8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=558519226]
+mesh = SubResource("BoxMesh_aj33w")

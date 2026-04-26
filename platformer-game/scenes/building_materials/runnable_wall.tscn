@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cwdtuabcl86cl"]
+
+[node name="RunnableWall" type="CSGBox3D" unique_id=1172031790 groups=["wall_run"]]
+use_collision = true

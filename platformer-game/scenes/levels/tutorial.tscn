@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://dojg8u8tdb0lu"]
+
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_rnyxf"]
+[ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_u4f7j"]
+[ext_resource type="PackedScene" uid="uid://cxwqa33o1b6ge" path="res://scenes/building_materials/tutorial_trigger.tscn" id="2_ub0e1"]
+[ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="3_1r3rq"]
+[ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="5_1wklo"]
+[ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="6_7ac3l"]
+[ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="7_3e81p"]
+[ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="8_g7bfq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h2s0c"]
+sky_material = SubResource("ProceduralSkyMaterial_64t6i")
+
+[sub_resource type="Environment" id="Environment_jdsy5"]
+background_mode = 2
+sky = SubResource("Sky_h2s0c")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Tutorial" type="Node3D" unique_id=216242194]
+script = ExtResource("1_u4f7j")
+player_path = NodePath("CharacterBody3D")
+ui_path = NodePath("CanvasLayer")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
+environment = SubResource("Environment_jdsy5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401671525]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_rnyxf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5080202, 0)
+
+[node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("3_1r3rq")]
+player_path = NodePath("../CharacterBody3D")
+level_path = NodePath("..")
+
+[node name="Labels" type="Node3D" parent="." unique_id=299779140]
+
+[node name="TutorialTrigger" parent="Labels" unique_id=1046773497 instance=ExtResource("2_ub0e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0188723, 0.9860258, -5.983546)
+detection_radius = 10.0
+tutorial_text = "Move with WASD
+Press SPACE to jump
+Press SHIFT to run
+ESC = Pause menu"
+
+[node name="TutorialTrigger2" parent="Labels" unique_id=1733408343 instance=ExtResource("2_ub0e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5590363, 0.95589066, -32.420418)
+detection_radius = 10.0
+tutorial_text = "Jump over the gap!
+hold SPACE longer
+for a higher jump"
+
+[node name="TutorialTrigger3" parent="Labels" unique_id=748625342 instance=ExtResource("2_ub0e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62680054, -3.929779, -193.77525)
+tutorial_text = "You made it!
+Now try to beat
+your best time!"
+
+[node name="TutorialTrigger4" parent="Labels" unique_id=271638671 instance=ExtResource("2_ub0e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04238224, 1, -118.301544)
+tutorial_text = "Too far to jump?
+Run towards the wall
+to slide across it!"
+
+[node name="TutorialTrigger5" parent="Labels" unique_id=1606914898 instance=ExtResource("2_ub0e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.816988, 0.9999995, -58.093994)
+tutorial_text = "Press Q to dash!
+Try dashing mid-air
+to cross the gap"
+
+[node name="TutorialTrigger6" parent="Labels" unique_id=1301587523 instance=ExtResource("2_ub0e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0514674, 1, -105.37686)
+tutorial_text = "Green platform = checkpoint
+If you die, you respawn here"
+
+[node name="TutorialTrigger7" parent="Labels" unique_id=1353597057 instance=ExtResource("2_ub0e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1223712, -3.7136707, -173.50977)
+tutorial_text = "Danger ahead!
+Time your movement
+to avoid the obstacles"
+
+[node name="Platforms" type="Node3D" parent="." unique_id=248626738]
+
+[node name="RunnableWall" parent="Platforms" unique_id=1172031790 instance=ExtResource("5_1wklo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5649943, 0, -137.2755)
+size = Vector3(0.001, 15.049744, 16.376709)
+
+[node name="RunnableWall2" parent="Platforms" unique_id=200740422 instance=ExtResource("5_1wklo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.577992, -0.7762909, -157.4113)
+size = Vector3(0.001, 15.049744, 16.376709)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Platforms" unique_id=384776336]
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Platforms" unique_id=378336243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -27)
+use_collision = true
+size = Vector3(8, 1, 16)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Platforms" unique_id=1149672844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -53.511616)
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Platforms" unique_id=102558331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.49737, 0, -82.122925)
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Platforms" unique_id=2094295405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8418083, 0, -110.85044)
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="Checkpoint" parent="Platforms/CSGBox3D5" unique_id=1109484725 instance=ExtResource("6_7ac3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339231, 0)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Platforms" unique_id=1762173145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8418083, 0, -110.85044)
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="Checkpoint" parent="Platforms/CSGBox3D7" unique_id=1470391825 instance=ExtResource("6_7ac3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339231, 0)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Platforms" unique_id=1905493803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33226204, -4.7136707, -179.4247)
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="SpikeTrap" parent="Platforms/CSGBox3D6" unique_id=1853223367 instance=ExtResource("7_3e81p")]
+transform = Transform3D(3.2618902, 0, 0, 0, 1, 0, 0, 0, 2.058169, 0, 0, 0)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Platforms" unique_id=1865080522]
+transform = Transform3D(0.5677831, 0, 0, 0, 0.5677831, 0, 0, 0, 0.34426105, 0.33226204, -4.7136707, -195.4247)
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Platforms" unique_id=74235778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33226204, -4.7136707, -179.4247)
+use_collision = true
+size = Vector3(18, 1, 16)
+
+[node name="SpikeTrap" parent="Platforms/CSGBox3D8" unique_id=2094665719 instance=ExtResource("7_3e81p")]
+transform = Transform3D(3.2618902, 0, 0, 0, 1, 0, 0, 0, 2.058169, 0, 0, 0)
+
+[node name="EndPlatform" parent="Platforms" unique_id=537576493 instance=ExtResource("8_g7bfq")]
+transform = Transform3D(17.108301, 0, 0, 0, 1, 0, 0, 0, 4.3662977, -0.4023838, -5.755081, -204.23329)

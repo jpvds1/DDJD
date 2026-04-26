@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_dga24"]
+[ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="10_qxy0u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -71,55 +72,13 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_ksju7")]
-transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 1.5080202, 0)
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=494703401]
-use_collision = true
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=378336243]
-use_collision = true
-size = Vector3(5, 1, 5)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D" unique_id=108579524]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3, 3, -5)
-use_collision = true
-size = Vector3(5, 1, 5)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1177147391]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -8, 3, -5)
-use_collision = true
-size = Vector3(5, 1, 5)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1741406662]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -5)
-use_collision = true
-size = Vector3(10, 1, 5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=918577644]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.838047, 2.0639703, 7.1621585)
-use_collision = true
-size = Vector3(5, 1, 5)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D" unique_id=306469740]
-transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 0.47895145, 3.4106302, 16.920826)
-use_collision = true
-size = Vector3(5, 1, 5)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D" unique_id=846682639]
-transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 6.36073, 3.4106302, 21.937004)
-use_collision = true
-size = Vector3(5, 1, 5)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D" unique_id=745890215]
-transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 11.432309, 4.924409, 27.543024)
-use_collision = true
-size = Vector3(5, 1, 5)
+transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 0.508, 0)
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("3_nsrm0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1847544, 0)
 
 [node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5545883, 0, 31.93064)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5545883, 0, 30.517706)
 
 [node name="Checkpoints" type="Node3D" parent="." unique_id=746168418]
 
@@ -147,6 +106,56 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0
 
 [node name="Hitbox" parent="Laser" index="1" unique_id=1352457121]
 transform = Transform3D(1.006, 0, 0, 0, 1.006, 0, 0, 0, 4.75, 0, 0, 0)
+
+[node name="Platforms" type="Node3D" parent="." unique_id=1873867081]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Platforms" unique_id=494703401]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=378336243]
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=108579524]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3, 3, -5)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=1177147391]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -8, 3, -5)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=1741406662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -5)
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=918577644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.838047, 2.0639703, 7.1621585)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=306469740]
+transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 0.47895145, 3.4106302, 16.920826)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=846682639]
+transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 6.36073, 3.4106302, 21.937004)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=745890215]
+transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 11.432309, 4.924409, 27.543024)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="Walls" type="Node3D" parent="Platforms" unique_id=1359148772]
+
+[node name="RunnableWall2" parent="Platforms/Walls" unique_id=1172031790 instance=ExtResource("10_qxy0u")]
+transform = Transform3D(0.7425341, 0, 0.45143828, 0, 1, 0, -0.37566674, 0, 0.89230233, 0, 6.068636, 28.873814)
+size = Vector3(1, 6, 18)
 
 [editable path="Killzone"]
 [editable path="Laser"]
