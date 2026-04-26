@@ -198,6 +198,17 @@ func get_scores(level_id: String, limit: int = 10) -> Array:
 		return res
 	return []
 
+func get_my_score(level_id: String) -> Dictionary:
+	if not is_logged_in():
+		return {}
+	var user_id = current_user.get("id", "")
+	var res = await _http_get(
+		REST_URL + "/leaderboard?user_id=eq.%s&level_id=eq.%s&order=time_ms.asc&limit=1" % [user_id, level_id]
+	)
+	if res is Array and res.size() > 0:
+		return res[0]
+	return {}
+
 # ---------------------------------------------------------
 # HTTP helpers
 # ---------------------------------------------------------

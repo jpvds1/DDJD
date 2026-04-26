@@ -24,7 +24,6 @@ func _on_login_pressed() -> void:
 func _on_leaderboard_pressed() -> void:
 	var lb = preload("res://scenes/ui/leaderboard_menu.tscn").instantiate()
 	add_child(lb)
-	lb.load_scores("tutorial")
 
 func _on_settings_pressed() -> void:
 	print("Settings")
