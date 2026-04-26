@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_dga24"]
-[ext_resource type="Script" uid="uid://dprqqkdppo6hi" path="res://scripts/environment/water.gd" id="10_qxy0u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -23,12 +22,6 @@ background_mode = 2
 sky = SubResource("Sky_h2s0c")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_excbq"]
-transparency = 1
-albedo_color = Color(0, 0.75, 1, 0.45490196)
-metallic = 0.2
-roughness = 0.1
 
 [node name="Empty Level" type="Node3D" unique_id=216242194]
 script = ExtResource("1_sk5k4")
@@ -119,31 +112,6 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0
 
 [node name="Hitbox" parent="Laser" index="1" unique_id=1352457121]
 transform = Transform3D(1.006, 0, 0, 0, 1.006, 0, 0, 0, 4.75, 0, 0, 0)
-
-[node name="Water" type="Node3D" parent="." unique_id=12596749]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4862623, 0.9764838, 0)
-
-[node name="Pool" type="CSGCombiner3D" parent="Water" unique_id=1329010783]
-
-[node name="Ext_walls" type="CSGBox3D" parent="Water/Pool" unique_id=2141767614]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-size = Vector3(4, 1, 4)
-
-[node name="int_walls" type="CSGBox3D" parent="Water/Pool" unique_id=527409764]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-operation = 2
-size = Vector3(3.6, 1.2, 3.6)
-
-[node name="Water_D" type="CSGBox3D" parent="Water/Pool" unique_id=1222440720]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
-size = Vector3(3.5, 0.8, 3.5)
-material = SubResource("StandardMaterial3D_excbq")
-script = ExtResource("10_qxy0u")
-
-[node name="Floor" type="CSGBox3D" parent="Water" unique_id=1074389231]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-use_collision = true
-size = Vector3(3.6, 0.1, 3.6)
 
 [editable path="Killzone"]
 [editable path="Laser"]
