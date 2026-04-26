@@ -9,8 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_dga24"]
-[ext_resource type="Script" uid="uid://2qctbl6toalw" path="res://scripts/systems/torch_flicker.gd" id="10_excbq"]
-[ext_resource type="Script" uid="uid://bthf3m0ev315d" path="res://scripts/systems/cloud_behavior.gd" id="11_excbq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -149,79 +147,6 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0
 
 [node name="Hitbox" parent="Laser" index="1" unique_id=1352457121]
 transform = Transform3D(1.006, 0, 0, 0, 1.006, 0, 0, 0, 4.75, 0, 0, 0)
-
-[node name="Torch" type="Node3D" parent="." unique_id=1529938211]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1860354, 1.2337936, -2.6722245)
-script = ExtResource("10_excbq")
-
-[node name="Stick" type="CSGCylinder3D" parent="Torch" unique_id=1043657905]
-radius = 0.05
-height = 0.4
-
-[node name="Flame" type="Marker3D" parent="Torch" unique_id=947190913]
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Torch/Flame" unique_id=103060363]
-amount = 10
-lifetime = 1.5
-explosiveness = 0.9
-process_material = SubResource("ParticleProcessMaterial_wtwp4")
-draw_pass_1 = SubResource("SphereMesh_iwr0g")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Torch/Flame" unique_id=305672225]
-light_energy = 2.0
-
-[node name="Cloud" type="Node3D" parent="Torch" unique_id=1225082331]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1307355, 0.6323472, -0.99181056)
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Torch/Cloud" unique_id=1610829573]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 1.1433265, -0.8813596, 0.96434927)
-material_override = SubResource("StandardMaterial3D_bahl2")
-
-[node name="Ball_1" type="CSGMesh3D" parent="Torch/Cloud/CSGCombiner3D" unique_id=640380862]
-mesh = SubResource("SphereMesh_np2pn")
-
-[node name="Ball_2" type="CSGMesh3D" parent="Torch/Cloud/CSGCombiner3D" unique_id=1232259132]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.049999952, 0.099999905)
-mesh = SubResource("SphereMesh_v6ha0")
-
-[node name="Ball_3" type="CSGMesh3D" parent="Torch/Cloud/CSGCombiner3D" unique_id=1879564274]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.050000012, 0.119999886)
-mesh = SubResource("SphereMesh_gmpev")
-
-[node name="Ball_4" type="CSGMesh3D" parent="Torch/Cloud/CSGCombiner3D" unique_id=318763546]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.100000024, -0.1500001)
-mesh = SubResource("SphereMesh_mkypq")
-
-[node name="Ball_5" type="CSGMesh3D" parent="Torch/Cloud/CSGCombiner3D" unique_id=879342769]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.07999998, -0.119999886)
-mesh = SubResource("SphereMesh_ndtll")
-
-[node name="Cloud" type="Node3D" parent="." unique_id=1765472939]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.052350044, 1, -2.6906462)
-script = ExtResource("11_excbq")
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Cloud" unique_id=1151474937]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.040394783, 0, 0)
-material_override = SubResource("StandardMaterial3D_bahl2")
-
-[node name="Ball_1" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=1992780895]
-mesh = SubResource("SphereMesh_np2pn")
-
-[node name="Ball_2" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=514210348]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.049999952, 0.099999905)
-mesh = SubResource("SphereMesh_v6ha0")
-
-[node name="Ball_3" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=709481227]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.050000012, 0.119999886)
-mesh = SubResource("SphereMesh_gmpev")
-
-[node name="Ball_4" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=1572317589]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.100000024, -0.1500001)
-mesh = SubResource("SphereMesh_mkypq")
-
-[node name="Ball_5" type="CSGMesh3D" parent="Cloud/CSGCombiner3D" unique_id=571834073]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.07999998, -0.119999886)
-mesh = SubResource("SphereMesh_ndtll")
 
 [editable path="Killzone"]
 [editable path="Laser"]
