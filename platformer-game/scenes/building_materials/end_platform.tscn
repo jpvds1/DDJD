@@ -14,5 +14,3 @@ shape = SubResource("BoxShape3D_bxl3f")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1766318527]
 use_collision = true
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

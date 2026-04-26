@@ -3,12 +3,10 @@
 [ext_resource type="Script" uid="uid://d21jcb5x5bkpo" path="res://scripts/systems/killzone.gd" id="1_mp63a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mp63a"]
-size = Vector3(50.033447, 1, 80.81421)
+size = Vector3(70, 1, 100)
 
 [node name="Killzone" type="Area3D" unique_id=767733067]
 script = ExtResource("1_mp63a")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1440156319]
 shape = SubResource("BoxShape3D_mp63a")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
