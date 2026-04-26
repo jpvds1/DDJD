@@ -122,6 +122,12 @@ func _on_player_finish_requested() -> void:
 	_update_ui_timer()
 	run_completed.emit(final_time)
 	
+	if Supabase.is_logged_in():
+		var level_name = scene_file_path.get_file().get_basename()
+		await Supabase.submit_score(level_name, int(run_time * 1000))
+	else:
+		ui.show_login_prompt()
+	
 # ---------------------------------------------------------
 # Pause control
 # ---------------------------------------------------------		
@@ -154,12 +160,16 @@ func resume_game() -> void:
 func restart_level() -> void:
 	get_tree().paused = false
 	is_paused = false
-	get_tree().reload_current_scene()
+	
+	if Global.game_controller:
+		Global.game_controller.change_3D_scene(scene_file_path)
 	
 func return_to_menu() -> void:
 	get_tree().paused = false
 	is_paused = false
-	print("Back to menu pressed - not implemented yet")
+	
+	if Global.game_controller:
+		Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
 	
 # ---------------------------------------------------------
 # Level actions
