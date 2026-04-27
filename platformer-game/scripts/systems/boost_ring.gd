@@ -1,7 +1,7 @@
 extends Area3D
 
 
-const BOOST = 10.0
+@export var boost = 12
 
 
 func _on_body_entered(body: Node3D) -> void:
@@ -13,4 +13,4 @@ func _on_body_entered(body: Node3D) -> void:
 	var angle = body.velocity.angle_to(normal)
 
 	# boost the player in the direction orthogonal to the ring
-	body.velocity += BOOST * normal * (1 if angle <= PI / 2 else -1)
+	body.velocity += boost * normal * (1 if angle <= PI / 2 else -1)
