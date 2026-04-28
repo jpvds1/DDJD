@@ -57,7 +57,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+text = " TUTORIAL"
 
 [node name="Level2" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=10945857]
 custom_minimum_size = Vector2(124, 124)
@@ -65,7 +65,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+text = " LEVEL 1"
 
 [node name="Level3" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=633079436]
 custom_minimum_size = Vector2(124, 124)
