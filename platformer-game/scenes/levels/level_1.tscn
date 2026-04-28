@@ -24,6 +24,41 @@ sky = SubResource("Sky_h2s0c")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="Curve" id="Curve_dnkej"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mm8aj"]
+curve = SubResource("Curve_dnkej")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wtwp4"]
+lifetime_randomness = 1.0
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 5, 0)
+scale_curve = SubResource("CurveTexture_mm8aj")
+
+[sub_resource type="SphereMesh" id="SphereMesh_iwr0g"]
+radius = 0.005
+height = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bahl2"]
+albedo_color = Color(0.49019608, 0.9764706, 1, 0.39215687)
+emission_enabled = true
+emission = Color(0.49019608, 0.9764706, 1, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_np2pn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_v6ha0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gmpev"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mkypq"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ndtll"]
+
 [node name="Empty Level" type="Node3D" unique_id=216242194]
 script = ExtResource("1_sk5k4")
 player_path = NodePath("CharacterBody3D")

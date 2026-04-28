@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cmnvabmv8d08x"]
+
+[ext_resource type="Script" uid="uid://bthf3m0ev315d" path="res://scripts/systems/cloud_behavior.gd" id="1_506p7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bahl2"]
+albedo_color = Color(0.49019608, 0.9764706, 1, 0.39215687)
+emission_enabled = true
+emission = Color(0.49019608, 0.9764706, 1, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_np2pn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_v6ha0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gmpev"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mkypq"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ndtll"]
+
+[node name="Cloud" type="Node3D" unique_id=786022052]
+script = ExtResource("1_506p7")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1683810695]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.040394783, 0, 0)
+material_override = SubResource("StandardMaterial3D_bahl2")
+
+[node name="Ball_1" type="CSGMesh3D" parent="CSGCombiner3D" unique_id=955819098]
+mesh = SubResource("SphereMesh_np2pn")
+
+[node name="Ball_2" type="CSGMesh3D" parent="CSGCombiner3D" unique_id=686812565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.049999952, 0.099999905)
+mesh = SubResource("SphereMesh_v6ha0")
+
+[node name="Ball_3" type="CSGMesh3D" parent="CSGCombiner3D" unique_id=914809046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, -0.050000012, 0.119999886)
+mesh = SubResource("SphereMesh_gmpev")
+
+[node name="Ball_4" type="CSGMesh3D" parent="CSGCombiner3D" unique_id=2050447172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.100000024, -0.1500001)
+mesh = SubResource("SphereMesh_mkypq")
+
+[node name="Ball_5" type="CSGMesh3D" parent="CSGCombiner3D" unique_id=1397247771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.07999998, -0.119999886)
+mesh = SubResource("SphereMesh_ndtll")
