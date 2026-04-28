@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://b0qji6t8d1xw2"]
+[gd_scene format=3 uid="uid://blt58han7ce1u"]
 
 [ext_resource type="FontFile" uid="uid://blkcblbl8pyc1" path="res://assets/fonts/titles.ttf" id="1_pmrof"]
-[ext_resource type="Script" uid="uid://c711v17povmuw" path="res://scripts/ui/landing_screen.gd" id="1_sgdws"]
+[ext_resource type="Script" path="res://scripts/ui/landing_screen.gd" id="1_sgdws"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgdws"]
 bg_color = Color(1, 1, 1, 1)
