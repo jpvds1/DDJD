@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bgcnbok4d001r"]
+
+[ext_resource type="Script" uid="uid://blxiab4jm2hws" path="res://scripts/systems/lava_hazard.gd" id="1_s5q3i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_excbq"]
+transparency = 1
+albedo_color = Color(1, 0.27058825, 0, 1)
+metallic = 0.2
+roughness = 0.2
+emission_enabled = true
+emission = Color(1, 0.8, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iav0o"]
+size = Vector3(3.526001, 0.78930664, 3.526764)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxy0u"]
+albedo_color = Color(0.69803923, 1, 1, 1)
+
+[node name="Lava" type="Node3D" unique_id=273928513]
+
+[node name="Lava_liq" type="CSGBox3D" parent="." unique_id=1679590027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(3.55, 0.8, 3.55)
+material = SubResource("StandardMaterial3D_excbq")
+
+[node name="Area_lava" type="Area3D" parent="Lava_liq" unique_id=269468259]
+script = ExtResource("1_s5q3i")
+
+[node name="Collision_lava" type="CollisionShape3D" parent="Lava_liq/Area_lava" unique_id=108685088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0021362305, 0.0053198338, 0.0022125244)
+shape = SubResource("BoxShape3D_iav0o")
+
+[node name="Lava_pool" type="CSGCombiner3D" parent="." unique_id=682273399]
+use_collision = true
+
+[node name="Pool_ext" type="CSGBox3D" parent="Lava_pool" unique_id=1590095852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(4, 1, 4)
+material = SubResource("StandardMaterial3D_qxy0u")
+
+[node name="Pool_int" type="CSGBox3D" parent="Lava_pool" unique_id=443342350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+operation = 2
+size = Vector3(3.6, 1, 3.6)
