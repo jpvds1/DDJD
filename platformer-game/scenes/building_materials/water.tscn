@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dae7kwcoeau4g"]
+
+[ext_resource type="Script" uid="uid://dprqqkdppo6hi" path="res://scripts/environment/water.gd" id="1_gkt4p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_excbq"]
+transparency = 1
+albedo_color = Color(0, 0.75, 1, 0.45490196)
+metallic = 0.2
+roughness = 0.1
+emission_enabled = true
+emission = Color(1, 0.8, 0, 1)
+
+[node name="Water" type="Node3D" unique_id=535295560]
+
+[node name="Pool" type="CSGCombiner3D" parent="." unique_id=1177529384]
+
+[node name="Ext_walls" type="CSGBox3D" parent="Pool" unique_id=1874620922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(4, 1, 4)
+
+[node name="int_walls" type="CSGBox3D" parent="Pool" unique_id=692456735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+operation = 2
+size = Vector3(3.6, 1.2, 3.6)
+
+[node name="Water_D" type="CSGBox3D" parent="Pool" unique_id=437881038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
+size = Vector3(3.5, 0.8, 3.5)
+material = SubResource("StandardMaterial3D_excbq")
+script = ExtResource("1_gkt4p")
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=74212890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+use_collision = true
+size = Vector3(3.6, 0.1, 3.6)

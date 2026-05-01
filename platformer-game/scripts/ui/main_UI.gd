@@ -150,11 +150,10 @@ func _on_pause_toggled(paused: bool) -> void:
 # ---------------------------------------------------------	
 
 func _on_finish_restart_button_pressed() -> void:
-	get_tree().reload_current_scene()
+	level.restart_level()
 	
-# TO-DO
 func _on_finish_back_button_pressed() -> void:
-	print("Back to menu pressed - not implemented yet")
+	level.return_to_menu()
 	
 # ---------------------------------------------------------
 # Pause overlay buttons
@@ -217,3 +216,11 @@ func _set_dash_fill_ratio(ratio: float) -> void:
 	
 func set_timer_text(text: String) -> void:
 	timer_label.text = text
+
+# ---------------------------------------------------------
+# Authentication
+# ---------------------------------------------------------
+
+func show_login_prompt() -> void:
+	var auth_scene = preload("res://scenes/ui/auth_menu.tscn").instantiate()
+	add_child(auth_scene)
