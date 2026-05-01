@@ -39,7 +39,6 @@ shadow_enabled = true
 transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 1.5080202, 0)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=494703401]
-visible = false
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=378336243]
