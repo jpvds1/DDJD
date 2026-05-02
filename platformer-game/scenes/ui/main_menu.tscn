@@ -76,20 +76,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
 text = "Play"
 
-[node name="Tutorial" type="Button" parent="VBoxContainer2" unique_id=594602366]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_87aya")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sl1te")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
-text = "Tutorial"
-
 [node name="Leaderboard" type="Button" parent="VBoxContainer2" unique_id=2019080867]
 layout_mode = 2
 size_flags_vertical = 3
@@ -118,19 +104,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
 text = "Settings"
 
-[node name="Login" type="Button" parent="VBoxContainer2" unique_id=42996142]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_87aya")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sl1te")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
-
 [node name="Quit" type="Button" parent="VBoxContainer2" unique_id=1514428815]
 layout_mode = 2
 size_flags_vertical = 3
@@ -146,8 +119,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
 text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer2/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer2/Leaderboard" to="." method="_on_leaderboard_pressed"]
 [connection signal="pressed" from="VBoxContainer2/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Login" to="." method="_on_login_pressed"]
 [connection signal="pressed" from="VBoxContainer2/Quit" to="." method="_on_quit_pressed"]

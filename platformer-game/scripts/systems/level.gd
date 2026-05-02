@@ -125,8 +125,6 @@ func _on_player_finish_requested() -> void:
 	if Supabase.is_logged_in():
 		var level_name = scene_file_path.get_file().get_basename()
 		await Supabase.submit_score(level_name, int(run_time * 1000))
-	else:
-		ui.show_login_prompt()
 	
 # ---------------------------------------------------------
 # Pause control
