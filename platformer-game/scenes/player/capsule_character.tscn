@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ch7shhditu1lk"]
 
 [ext_resource type="Script" uid="uid://b5luiqoqvaysk" path="res://scripts/player/capsule_character.gd" id="1_5ji0x"]
+[ext_resource type="Script" uid="uid://vbnm1bywq1xw" path="res://scripts/player/stats_manager.gd" id="2_hsymh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_de3it"]
 
@@ -119,6 +120,9 @@ transform = Transform3D(-0.39300394, -1.0797694, -0.9641814, -1.4095389, 0.51303
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_5ji0x")
 surface_material_override/0 = SubResource("StandardMaterial3D_5ji0x")
+
+[node name="StatsManager" type="Node" parent="." unique_id=746246521]
+script = ExtResource("2_hsymh")
 
 [connection signal="animation_changed" from="Dash/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]

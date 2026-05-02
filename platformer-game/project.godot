@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*res://scripts/global.gd"
 Supabase="*uid://by5lp1o4v53wu"
+GlobalInventory="*uid://bloeu58e4066e"
 
 [global_group]
 
