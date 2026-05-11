@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bsrl0mbpj05mu"]
+
+[node name="CurvedWall" type="Node3D" unique_id=929677087]
+
+[node name="CurvedWall_180" type="CSGPolygon3D" parent="." unique_id=1410280224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.37042, 0)
+use_collision = true
+polygon = PackedVector2Array(5, 4, 6, 4, 6, 0, 5, 0)
+mode = 1
+spin_degrees = 180.0
+spin_sides = 32
+
+[node name="CurvedWall_360" type="CSGPolygon3D" parent="." unique_id=1166177391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17561054, -0.27686405, 0)
+use_collision = true
+polygon = PackedVector2Array(5, 4, 6, 4, 6, 0, 5, 0)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 32
