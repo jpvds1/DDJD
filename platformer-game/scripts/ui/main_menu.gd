@@ -1,7 +1,10 @@
 extends Control
 
+@onready var customization: Button = $VBoxContainer2/Customization
+
 func _ready() -> void:
-	pass
+	if !Supabase.is_logged_in():
+		customization.visible = false
 
 func _on_play_pressed() -> void:
 	Global.game_controller.change_GUI_scene("res://scenes/ui/levels_menu.tscn")
