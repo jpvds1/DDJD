@@ -4,19 +4,19 @@ extends Node
 # Movement constants
 # ---------------------------------------------------------
 
-var walk_speed          := PlayerStat.new(5.0)
-var sprint_speed        := PlayerStat.new(8.0)
+var walk_speed          := PlayerStat.new(6.5)
+var sprint_speed        := PlayerStat.new(10.5)
 var dash_speed          := PlayerStat.new(50.0)
-var post_dash_speed     :=  PlayerStat.new(10.0)
+var post_dash_speed     := PlayerStat.new(10.0)
 var dash_cooldown       := PlayerStat.new(1.5)
 
 var ground_accel        := PlayerStat.new(24.0)
 var ground_sprint_accel := PlayerStat.new(32.0)
-var ground_decel        := PlayerStat.new(34.0)
-var ground_brake_decel  := PlayerStat.new(50.0)
+var ground_decel        := PlayerStat.new(39.0)
+var ground_brake_decel  := PlayerStat.new(55.0)
 var air_accel_mult      := PlayerStat.new(0.6)
 
-var gravity_modifier    := PlayerStat.new(1.2)
+var gravity_modifier    := PlayerStat.new(1.5)
 
 # ---------------------------------------------------------
 # Jump constants
@@ -31,8 +31,8 @@ var max_extra_jumps      := PlayerStat.new(2.0)
 # Wall-run constants
 # ---------------------------------------------------------
 
-var wall_run_min_horizontal_speed := PlayerStat.new(4.0)
-var wall_run_speed                := PlayerStat.new(9.0)
+var wall_run_min_horizontal_speed := PlayerStat.new(5.0)
+var wall_run_speed                := PlayerStat.new(12.5)
 var wall_run_accel                := PlayerStat.new(38.0)
 var wall_run_stick_duration       := PlayerStat.new(1.0)
 var wall_run_vertical_damp        := PlayerStat.new(18.0)
