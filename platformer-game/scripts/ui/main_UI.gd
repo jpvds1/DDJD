@@ -216,11 +216,3 @@ func _set_dash_fill_ratio(ratio: float) -> void:
 	
 func set_timer_text(text: String) -> void:
 	timer_label.text = text
-
-# ---------------------------------------------------------
-# Authentication
-# ---------------------------------------------------------
-
-func show_login_prompt() -> void:
-	var auth_scene = preload("res://scenes/ui/auth_menu.tscn").instantiate()
-	add_child(auth_scene)

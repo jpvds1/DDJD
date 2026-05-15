@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GearItem" format=3 uid="uid://bgdpbcpwvqrsi"]
+
+[ext_resource type="Script" uid="uid://1mwlo1yrpnfc" path="res://scripts/player/gear_item.gd" id="1_a0j0y"]
+
+[resource]
+script = ExtResource("1_a0j0y")
+item_name = "Helicopter Hat"
+speed_bonus = -2.0
+acceleration_bonus = -2.0
+jump_velocity_bonus = 2.0
+extra_jumps = 1
+dash_cooldown_reduction = -0.2
+metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

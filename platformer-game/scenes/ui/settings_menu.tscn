@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b1lqmi6hqsml4"]
 
-[ext_resource type="Script" uid="uid://ctaomorvrufnv" path="res://scripts/ui/settings.gd" id="1_qwcqe"]
+[ext_resource type="Script" uid="uid://cr6f7c1hekfii" path="res://scripts/ui/settings_menu.gd" id="1_qwcqe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mhswj"]
 bg_color = Color(1, 1, 1, 1)
@@ -31,6 +31,26 @@ shadow_size = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yu862"]
 
+[sub_resource type="GDScript" id="GDScript_mhswj"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_pressed() -> void:
+	if Supabase.is_logged_in():
+		await Supabase.sign_out()
+		Global.game_controller.change_GUI_scene(\"res://scenes/ui/landing_screen.tscn\")
+"
+
 [node name="SettingsMenu" type="Control" unique_id=1226383983]
 layout_mode = 3
 anchors_preset = 15
@@ -38,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qwcqe")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=454190436]
 layout_mode = 1
@@ -68,6 +89,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_x3vyp")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0b1cv")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_yu862")
 text = "Sign Out"
-script = ExtResource("1_qwcqe")
+script = SubResource("GDScript_mhswj")
 
+[connection signal="pressed" from="VBoxContainer2/SignOut" to="." method="_on_sign_out_pressed"]
 [connection signal="pressed" from="VBoxContainer2/SignOut" to="VBoxContainer2/SignOut" method="_on_pressed"]
