@@ -1,4 +1,4 @@
-# [PROJECT_NAME] — High-Speed Platformer
+# [Heaven Run] — High-Speed Platformer
 
 **Academic project for PUC / FEUP — placeholder.**
 
