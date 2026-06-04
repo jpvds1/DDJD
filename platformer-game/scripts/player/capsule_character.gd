@@ -9,7 +9,7 @@ extends CharacterBody3D
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
 @onready var ray_cast_left: RayCast3D = $Raycasts/RayCast3DLeft
 @onready var ray_cast_right: RayCast3D = $Raycasts/RayCast3DRight
-@onready var visual_root: Node3D = $VisualRoot
+@onready var visuals: Node3D = $Visuals
 @onready var camera_pivot: Node3D = $Node3D
 @onready var camera_3d: Camera3D = $Node3D/Camera3D
 @onready var stats: Node = $StatsManager
@@ -605,15 +605,15 @@ func _on_animation_player_animation_changed(old_name: StringName, new_name: Stri
 	print("Animation changed from: " + old_name + " to " + new_name)
 
 func update_visual_tilt(delta: float) -> void:
-	if visual_root == null:
+	if visuals == null:
 		return
-
+		
 	var target_roll := 0.0
 	if is_wall_running:
 		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * -float(current_wall_side)
 
-	visual_root.rotation.z = lerp_angle(
-		visual_root.rotation.z,
+	visuals.rotation.z = lerp_angle(
+		visuals.rotation.z,
 		target_roll,
 		min(1.0, WALL_RUN_VISUAL_TILT_LERP * delta)
 	)
@@ -669,8 +669,8 @@ func reset_movement_state() -> void:
 	extra_jumps_left = stats.max_extra_jumps.get_int()
 	can_cut_current_jump = false
 
-	if visual_root != null:
-		visual_root.rotation.z = 0.0
+	if visuals != null:
+		visuals.rotation.z = 0.0
 
 	extra_jumps_changed.emit(extra_jumps_left, stats.max_extra_jumps.get_int())
 	dash_ready.emit()
