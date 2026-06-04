@@ -16,7 +16,7 @@ var ground_decel        := PlayerStat.new(39.0)
 var ground_brake_decel  := PlayerStat.new(55.0)
 var air_accel_mult      := PlayerStat.new(0.6)
 
-var gravity_modifier    := PlayerStat.new(1.5)
+var gravity_modifier    := PlayerStat.new(1.65)
 
 # ---------------------------------------------------------
 # Jump constants
