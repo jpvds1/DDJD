@@ -362,7 +362,7 @@ func update_wall_run_state(on_floor: bool) -> void:
 	if wall_run_reentry_timer > 0.0:
 		return
 
-	if get_horizontal_speed() > stats.wall_run_min_horizontal_speed.get_val():
+	if get_horizontal_speed() < stats.wall_run_min_horizontal_speed.get_val():
 		return
 
 	var candidate := get_wall_run_candidate()
