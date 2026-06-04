@@ -37,6 +37,8 @@ shadow_enabled = true
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_rnyxf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5080202, 0)
 
+[node name="FmodListener3D" type="FmodListener3D" parent="CharacterBody3D" unique_id=1276273702]
+
 [node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("3_1r3rq")]
 player_path = NodePath("../CharacterBody3D")
 level_path = NodePath("..")
@@ -155,3 +157,6 @@ transform = Transform3D(3.2618902, 0, 0, 0, 1, 0, 0, 0, 2.058169, 0, 0, 0)
 
 [node name="EndPlatform" parent="Platforms" unique_id=537576493 instance=ExtResource("8_g7bfq")]
 transform = Transform3D(17.108301, 0, 0, 0, 1, 0, 0, 0, 4.3662977, -0.4023838, -5.755081, -204.23329)
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=195234529]
+bank_paths = ["res://assets/fmodbank/Desktop/Master.bank"]

@@ -124,6 +124,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5ji0x")
 [node name="StatsManager" type="Node" parent="." unique_id=746246521]
 script = ExtResource("2_hsymh")
 
+[node name="FmodEventEmitter3D" type="FmodEventEmitter3D" parent="." unique_id=1511903514]
+event_name = "event:/Walking"
+event_guid = "{3dffaeea-4b3e-4466-8315-f1ead5332812}"
+
 [connection signal="animation_changed" from="Dash/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Dash/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]

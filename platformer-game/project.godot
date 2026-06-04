@@ -8,6 +8,10 @@
 
 config_version=5
 
+[Fmod]
+
+General/banks_path="res://assets/fmodbank/Desktop"
+
 [application]
 
 config/name="PlatformerGame"
@@ -20,6 +24,11 @@ config/icon="res://icon.svg"
 Global="*res://scripts/global.gd"
 Supabase="*uid://by5lp1o4v53wu"
 GlobalInventory="*uid://bloeu58e4066e"
+FmodManager="*uid://cds10pm7hwn3p"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
 
 [global_group]
 

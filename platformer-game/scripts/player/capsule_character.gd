@@ -13,6 +13,7 @@ extends CharacterBody3D
 @onready var camera_pivot: Node3D = $Node3D
 @onready var camera_3d: Camera3D = $Node3D/Camera3D
 @onready var stats: Node = $StatsManager
+@onready var fmod_event_emitter: FmodEventEmitter3D = $FmodEventEmitter3D
 
 # ---------------------------------------------------------
 # Jump constants
@@ -66,6 +67,11 @@ var extra_jumps_left := 0
 var can_cut_current_jump := false
 
 var controls_locked := false
+
+var was_on_floor := false  # Track previous frame state
+var footstep_timer := 0.0  # Timer for footstep intervals
+const FOOTSTEP_INTERVAL_WALK := 0.8  # Adjust based on walk speed
+const FOOTSTEP_INTERVAL_SPRINT := 0.25  # Faster for sprinting
 
 # For a smooth zoom
 var camera_distance_target := 2.235  # Initial value = Current Z of the camera
@@ -127,6 +133,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var on_floor := is_on_floor()
+	var is_sprinting := Input.is_action_pressed("sprint")
 
 	update_wall_run_reentry_timer(delta)
 	update_jump_buffer(delta)
@@ -146,6 +153,8 @@ func _physics_process(delta: float) -> void:
 		handle_dash_input()
 		handle_horizontal_movement(delta, false)
 		update_wall_run(delta)
+
+	update_walking_sounds(delta, on_floor, is_sprinting)
 
 	move_and_slide()
 	update_visual_tilt(delta)
@@ -545,6 +554,40 @@ func update_visual_tilt(delta: float) -> void:
 		target_roll,
 		min(1.0, WALL_RUN_VISUAL_TILT_LERP * delta)
 	)
+
+# ---------------------------------------------------------
+# Animation / Visual
+# ---------------------------------------------------------
+
+func update_walking_sounds(delta: float, on_floor: bool, is_sprinting: bool) -> void:
+	# Only play when moving on ground or wall-running
+	if not (on_floor or is_wall_running):
+		footstep_timer = 0.0
+		return
+	
+	# Check if player is moving
+	var horizontal_speed = get_horizontal_speed()
+	var min_walk_speed = stats.walk_speed.get_val() * 0.1  # Small threshold
+	
+	if horizontal_speed < min_walk_speed:
+		footstep_timer = 0.0
+		return
+	
+	# Calculate interval based on speed
+	var footstep_interval = FOOTSTEP_INTERVAL_WALK
+	if is_sprinting:
+		footstep_interval = FOOTSTEP_INTERVAL_SPRINT
+	
+	# Scale interval based on actual speed
+	var speed_ratio = horizontal_speed / stats.sprint_speed.get_val()
+	speed_ratio = clamp(speed_ratio, 0.5, 1.0)
+	footstep_interval *= speed_ratio
+	
+	# Timer for footsteps
+	footstep_timer += delta
+	if footstep_timer >= footstep_interval:
+		fmod_event_emitter.play_one_shot()
+		footstep_timer = 0.0
 
 # ---------------------------------------------------------
 # Requests to level
