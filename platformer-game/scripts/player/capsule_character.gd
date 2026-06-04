@@ -49,6 +49,7 @@ const WALL_RUN_CAMERA_DISTANCE   := 2.75
 const WALL_RUN_CAMERA_PITCH      := -4.0
 const WALL_RUN_CAMERA_YAW_OFFSET := 5.0
 const WALL_RUN_CAMERA_LERP       := 6.0
+const WALL_RUN_CAMERA_MIN_NORMAL_ANGLE := 5.0
 
 # ---------------------------------------------------------
 # Runtime state
@@ -213,6 +214,18 @@ func _update_wall_run_camera(delta: float) -> void:
 		WALL_RUN_CAMERA_DISTANCE,
 		t
 	)
+
+func _clamp_wall_run_yaw_to_normal(wall_normal: Vector3) -> void:
+	var normal_yaw_deg := rad_to_deg(atan2(wall_normal.x, wall_normal.z))
+	var max_delta := 90.0 - WALL_RUN_CAMERA_MIN_NORMAL_ANGLE
+	
+	var target_delta := wrapf(wall_run_camera_yaw - normal_yaw_deg, -180.0, 180.0)
+	if abs(target_delta) > max_delta:
+		wall_run_camera_yaw = normal_yaw_deg + clampf(target_delta, -max_delta, max_delta)
+	
+	var current_delta := wrapf(rotation_degrees.y - normal_yaw_deg, -180.0, 180.0)
+	if abs(current_delta) > max_delta:
+		rotation_degrees.y = normal_yaw_deg + clampf(current_delta, -max_delta, max_delta)
 
 # ---------------------------------------------------------
 # Gravity / floor state
@@ -387,6 +400,8 @@ func start_wall_run(normal: Vector3, side: int, collider: Node) -> void:
 	pre_wall_run_camera_distance = camera_distance_target
 	var wall_forward_angle := atan2(current_wall_direction.x, current_wall_direction.z)
 	wall_run_camera_yaw = rad_to_deg(wall_forward_angle) + WALL_RUN_CAMERA_YAW_OFFSET * float(-side)
+	
+	_clamp_wall_run_yaw_to_normal(current_wall_normal)
 
 func stop_wall_run() -> void:
 	is_wall_running = false
