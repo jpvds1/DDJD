@@ -44,6 +44,12 @@ const CAMERA_ZOOM_LERP    := 12.0  # Zoom smoothness
 
 const MOUSE_SENSITIVITY = 0.003
 
+# Wall-run camera lock
+const WALL_RUN_CAMERA_DISTANCE   := 2.75
+const WALL_RUN_CAMERA_PITCH      := -4.0
+const WALL_RUN_CAMERA_YAW_OFFSET := 5.0
+const WALL_RUN_CAMERA_LERP       := 6.0
+
 # ---------------------------------------------------------
 # Runtime state
 # ---------------------------------------------------------
@@ -72,6 +78,10 @@ var boost_lock_timer := 0.0
 
 # For a smooth zoom
 var camera_distance_target := 2.235  # Initial value = Current Z of the camera
+
+var wall_run_camera_yaw := 0.0
+var wall_run_camera_pitch := 0.0
+var pre_wall_run_camera_distance := 2.235
 
 # For manual pause/resume of dash timers
 var paused_dash_time_left := 0.0
@@ -103,6 +113,10 @@ func _ready() -> void:
 
 func _unhandled_input(event):
 	if controls_locked:
+		return
+		
+	# Ignore mouse and zoom while wall running
+	if is_wall_running:
 		return
 
 	if event is InputEventMouseMotion:
@@ -166,14 +180,38 @@ func _physics_process(delta: float) -> void:
 	update_camera_zoom(delta)
 
 # ---------------------------------------------------------
-# Camera zoom
+# Camera update
 # ---------------------------------------------------------
 
 func update_camera_zoom(delta: float) -> void:
+	if is_wall_running:
+		_update_wall_run_camera(delta)
+	else:
+		camera_3d.position.z = lerp(
+			camera_3d.position.z,
+			camera_distance_target,
+			min(1.0, CAMERA_ZOOM_LERP * delta)
+		)
+		
+func _update_wall_run_camera(delta: float) -> void:
+	var t = min(1.0, WALL_RUN_CAMERA_LERP * delta)
+	
+	rotation_degrees.y = lerp_angle(
+		rotation_degrees.y,
+		wall_run_camera_yaw,
+		t
+	)
+	
+	camera_pivot.rotation_degrees.x = lerp(
+		camera_pivot.rotation_degrees.x,
+		WALL_RUN_CAMERA_PITCH,
+		t
+	)
+	
 	camera_3d.position.z = lerp(
 		camera_3d.position.z,
-		camera_distance_target,
-		min(1.0, CAMERA_ZOOM_LERP * delta)
+		WALL_RUN_CAMERA_DISTANCE,
+		t
 	)
 
 # ---------------------------------------------------------
@@ -345,6 +383,10 @@ func start_wall_run(normal: Vector3, side: int, collider: Node) -> void:
 	can_cut_current_jump = false
 	reset_extra_jumps()
 	cancel_dash_for_wall_run()
+	
+	pre_wall_run_camera_distance = camera_distance_target
+	var wall_forward_angle := atan2(current_wall_direction.x, current_wall_direction.z)
+	wall_run_camera_yaw = rad_to_deg(wall_forward_angle) + WALL_RUN_CAMERA_YAW_OFFSET * float(-side)
 
 func stop_wall_run() -> void:
 	is_wall_running = false
@@ -354,6 +396,7 @@ func stop_wall_run() -> void:
 	current_wall_side = 0
 	current_wall_collider = null
 	update_visual_tilt(0)
+	camera_distance_target = pre_wall_run_camera_distance
 
 func update_wall_run(delta: float) -> void:
 	wall_run_timer += delta
