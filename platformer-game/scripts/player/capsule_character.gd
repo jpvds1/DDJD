@@ -67,6 +67,9 @@ var can_cut_current_jump := false
 
 var controls_locked := false
 
+var boost_locked := false
+var boost_lock_timer := 0.0
+
 # For a smooth zoom
 var camera_distance_target := 2.235  # Initial value = Current Z of the camera
 
@@ -124,6 +127,17 @@ func _unhandled_input(event):
 
 func _physics_process(delta: float) -> void:
 	if controls_locked:
+		return
+		
+	if boost_locked:
+		boost_lock_timer -= delta
+		if boost_lock_timer <= 0.0:
+			boost_locked = false
+			
+		# Skip all input handling below
+		update_air_state(is_on_floor(), delta)
+		move_and_slide()
+		update_camera_zoom(delta)
 		return
 
 	var on_floor := is_on_floor()
@@ -562,6 +576,19 @@ func request_finish() -> void:
 # ---------------------------------------------------------
 # Level-controlled player state
 # ---------------------------------------------------------
+
+func apply_boost(boost_velocity: Vector3, lock_duration: float = 0.0) -> void:
+	if is_dashing:
+		is_dashing = false
+		dash_timer.stop()
+	if is_wall_running:
+		stop_wall_run()
+		
+	velocity = boost_velocity
+	
+	if lock_duration > 0.0:
+		boost_locked = true
+		boost_lock_timer = lock_duration
 
 func teleport_to_position(pos: Vector3) -> void:
 	global_position = pos

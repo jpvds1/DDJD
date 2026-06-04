@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_dga24"]
 [ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="10_qxy0u"]
+[ext_resource type="PackedScene" uid="uid://u381latllpcp" path="res://scenes/building_materials/boost_ring.tscn" id="11_excbq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -90,7 +91,7 @@ player_path = NodePath("../CharacterBody3D")
 level_path = NodePath("..")
 
 [node name="EndPlatform" parent="." unique_id=537576493 instance=ExtResource("5_sk5k4")]
-transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 9, 10.144826, 3.9999652, 46.728928)
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 9, 10.144826, 3.9999652, 59.98325)
 
 [node name="SawGroup" parent="." unique_id=1308033700 instance=ExtResource("7_oc4kc")]
 transform = Transform3D(0.81275517, 0, 0.58260536, 0, 1, 0, -0.58260536, 0, 0.81275517, 7.7081904, 4.4106293, 21.261473)
@@ -156,6 +157,14 @@ size = Vector3(5, 1, 5)
 [node name="RunnableWall2" parent="Platforms/Walls" unique_id=1172031790 instance=ExtResource("10_qxy0u")]
 transform = Transform3D(0.7425341, 0, 0.45143828, 0, 1, 0, -0.37566674, 0, 0.89230233, 0, 6.068636, 28.873814)
 size = Vector3(1, 6, 18)
+
+[node name="Boosts" type="Node3D" parent="." unique_id=1646250416]
+
+[node name="Boost" parent="Boosts" unique_id=1577880636 instance=ExtResource("11_excbq")]
+transform = Transform3D(1, 0, 0, 0, 0.65489906, -0.7557163, 0, 0.7557163, 0.65489906, 12.068403, 4.008952, 43.821613)
+
+[node name="Boost2" parent="Boosts" unique_id=6585585 instance=ExtResource("11_excbq")]
+transform = Transform3D(1, 0, 0, 0, 0.7342868, -0.6788392, 0, 0.6788392, 0.7342868, 12.068403, 5.408269, 48.08239)
 
 [editable path="Killzone"]
 [editable path="Laser"]
