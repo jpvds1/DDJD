@@ -111,11 +111,11 @@ one_shot = true
 
 [node name="Raycasts" type="Node3D" parent="." unique_id=1537488305]
 
-[node name="RayCast3DLeft" type="RayCast3D" parent="Raycasts" unique_id=433990665]
-transform = Transform3D(-0.47233433, -1.2977275, -0.58549404, -1.409539, 0.5130302, 1.4367423e-08, 0.20025077, 0.55018437, -1.3810129, 0, 0.825, 0)
-
-[node name="RayCast3DRight" type="RayCast3D" parent="Raycasts" unique_id=1424214757]
+[node name="RayCast3DLeft" type="RayCast3D" parent="Raycasts" unique_id=1424214757]
 transform = Transform3D(0.4722469, 1.2974873, -0.5860967, -1.409539, 0.5130302, 0, 0.2004569, 0.5507506, 1.3807573, 0, 0.825, 0)
+
+[node name="RayCast3DRight" type="RayCast3D" parent="Raycasts" unique_id=433990665]
+transform = Transform3D(-0.47233433, -1.2977275, -0.58549404, -1.409539, 0.5130302, 1.4367423e-08, 0.20025077, 0.55018437, -1.3810129, 0, 0.825, 0)
 
 [node name="StatsManager" type="Node" parent="." unique_id=746246521]
 script = ExtResource("2_hsymh")
