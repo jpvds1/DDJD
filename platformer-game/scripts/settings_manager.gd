@@ -315,7 +315,7 @@ func save_settings() -> void:
 		var serialized: Array = []
 		for e in events:
 			serialized.append(_event_to_dict(e))
-		config.set_valie("key_bindings", action_name, serialized)
+		config.set_value("key_bindings", action_name, serialized)
 		
 	config.save(SAVE_PATH)
 	
@@ -342,7 +342,7 @@ func load_settings() -> void:
 	
 	if config.has_section("key_bindings"):
 		for action_name in config.get_section_keys("key_bindings"):
-			var serialized: Array = config.get_value("ley_bindings", action_name, [])
+			var serialized: Array = config.get_value("key_bindings", action_name, [])
 			var events: Array = []
 			for d in serialized:
 				var e = _dict_to_event(d)

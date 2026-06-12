@@ -3,31 +3,31 @@
 [ext_resource type="Script" uid="uid://cr6f7c1hekfii" path="res://scripts/ui/settings_menu.gd" id="1_qwcqe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mhswj"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+bg_color = Color(0.83, 0.27, 0.27, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 shadow_color = Color(0.32915837, 0.3291584, 0.3291584, 0.6)
-shadow_size = 5
+shadow_size = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3vyp"]
-bg_color = Color(0.66656864, 0.6665687, 0.66656864, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+bg_color = Color(0.6, 0.16, 0.16, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 shadow_color = Color(0.32915837, 0.3291584, 0.3291584, 0.6)
-shadow_size = 5
+shadow_size = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b1cv"]
-bg_color = Color(0.851769, 0.8517689, 0.85176885, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+bg_color = Color(0.93, 0.37, 0.37, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 shadow_color = Color(0.32915837, 0.3291584, 0.3291584, 0.6)
-shadow_size = 5
+shadow_size = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yu862"]
 
@@ -61,53 +61,77 @@ grow_vertical = 2
 script = ExtResource("1_qwcqe")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=293217242]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1113028551]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=770990333]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=569803408]
 unique_name_in_owner = true
 layout_mode = 2
+text = "< Back"
 
 [node name="Settings" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=262991620]
 layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 28
 text = "Settings"
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer" unique_id=1557198187]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 current_tab = 0
 
 [node name="AudioTab" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=1852211590]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 14
 metadata/_tab_index = 0
 
 [node name="Controls" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=74041426]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 14
 metadata/_tab_index = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=571437183]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="MouseSensitivity" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Controls/HBoxContainer" unique_id=1904131763]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Mouse Sensitivity"
+vertical_alignment = 1
 
 [node name="SensitivitySlider" type="HSlider" parent="MarginContainer/VBoxContainer/TabContainer/Controls/HBoxContainer" unique_id=207441241]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 
 [node name="SensitivityValueLabel" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Controls/HBoxContainer" unique_id=150270990]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "1.00x"
+vertical_alignment = 1
 
 [node name="InvertMouseCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=768818513]
 unique_name_in_owner = true
@@ -119,26 +143,34 @@ layout_mode = 2
 
 [node name="KeyBindings" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=1885514837]
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Key Bindings"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=837788505]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ActionList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Controls/ScrollContainer" unique_id=594830350]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
 
 [node name="Display" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=361902457]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 14
 metadata/_tab_index = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=1464869976]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Fullscreen" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer" unique_id=652371655]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Fullscreen"
+vertical_alignment = 1
 
 [node name="FullscreenCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer" unique_id=1693380756]
 unique_name_in_owner = true
@@ -146,21 +178,29 @@ layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=283897119]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Resolution" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer2" unique_id=1036933393]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Resolution"
+vertical_alignment = 1
 
 [node name="ResolutionOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer2" unique_id=801955179]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=24862637]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="VSync" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer3" unique_id=810712236]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "VSync"
+vertical_alignment = 1
 
 [node name="VSyncCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer3" unique_id=2063595035]
 unique_name_in_owner = true
@@ -168,32 +208,45 @@ layout_mode = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=1406176436]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Anti-Aliasing" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer4" unique_id=574644200]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Anti-Aliasing"
+vertical_alignment = 1
 
 [node name="AAOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer4" unique_id=648280071]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=364984635]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="FrameRateCap" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer5" unique_id=1680164373]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Frame Rate Cap"
+vertical_alignment = 1
 
 [node name="FPSCAPOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer5" unique_id=1388201266]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=1432764614]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Pixelization" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer6" unique_id=954142383]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Pixelization"
+vertical_alignment = 1
 
 [node name="PixelizationCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer6" unique_id=917485877]
 unique_name_in_owner = true
@@ -201,21 +254,25 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1685711434]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="ResetDefaultsButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=799543258]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reset to Defaults"
 
+[node name="FooterSpacer" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1685711435]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="SignOut" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1298528304]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_mhswj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_x3vyp")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0b1cv")
@@ -223,17 +280,33 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_yu862")
 text = "Sign Out"
 script = SubResource("GDScript_mhswj")
 
-[node name="RebindPopup" type="PopupPanel" parent="." unique_id=29217550]
+[node name="RebindPopup" type="PanelContainer" parent="." unique_id=832961745]
 unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -27.5
+offset_right = 83.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="RebindPopup" unique_id=1193156257]
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
 
 [node name="RebindPopupLabel" type="Label" parent="RebindPopup/MarginContainer" unique_id=1943462279]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Press any key..."
+horizontal_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SignOut" to="." method="_on_sign_out_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SignOut" to="MarginContainer/VBoxContainer/HBoxContainer/SignOut" method="_on_pressed"]

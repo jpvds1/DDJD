@@ -19,8 +19,10 @@ extends Control
 @onready var fps_cap_option: OptionButton = %FPSCAPOption
 @onready var pixelization_checkbox: CheckBox = %PixelizationCheckBox
 
-@onready var rebind_popup: PopupPanel = %RebindPopup
-@onready var rebind_popup_label: Label = %RebindPopulLabel
+@onready var rebind_popup: PanelContainer = %RebindPopup
+@onready var rebind_popup_label: Label = %RebindPopupLabel
+
+@onready var tab_container: TabContainer = %TabContainer
 
 var _rebinding_action: String = ""
 var _action_buttons: Dictionary = {}
@@ -30,11 +32,16 @@ func _ready() -> void:
 	sign_out_button.pressed.connect(_on_sign_out_pressed)
 	reset_defaults_button.pressed.connect(_on_reset_defaults_pressed)
 	
+	tab_container.set_tab_title(0, "Audio")
+	tab_container.set_tab_title(1, "Controls")
+	tab_container.set_tab_title(2, "Display")
+	
 	_build_audio_tab()
 	_build_controls_tab()
 	_setup_display_tab()
 	
 	rebind_popup.hide()
+	
 
 # ============================================================
 # AUDIO TAB
@@ -158,7 +165,7 @@ func _get_binding_text(action_name: String) -> String:
 func _on_rebind_pressed(action_name: String) -> void:
 	_rebinding_action = action_name
 	rebind_popup_label.text = "Press any key for \"%s\"\n(Esc to cancel)" % action_name.capitalize()
-	rebind_popup.popup_centered()
+	rebind_popup.show()
 
 func _input(event: InputEvent) -> void:
 	if _rebinding_action == "":
