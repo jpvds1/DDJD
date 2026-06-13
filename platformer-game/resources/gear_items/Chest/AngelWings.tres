@@ -6,6 +6,8 @@
 script = ExtResource("1_vf8i5")
 item_name = "Angel Wings"
 slot = 1
+unlock_type = 3
+achievement_id = "no_extra_jumps"
 jump_velocity_bonus = 1.0
 extra_jumps = 1
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"
