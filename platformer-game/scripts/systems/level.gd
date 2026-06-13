@@ -134,18 +134,21 @@ func _on_player_finish_requested() -> void:
 	
 	player.lock_controls()
 	
-	var stars = _calculate_stars()
-	
-	var level_name = scene_file_path.get_file().get_basename()
-	
-	# TODO Unlocks
-	
 	var final_time := _format_time(run_time)
 	_update_ui_timer()
+	
+	var stars = _calculate_stars()
+	
+	var level_id = scene_file_path.get_file().get_basename()
+	
+	GlobalInventory.complete_level(level_id, gear_unlock_on_complete)
+	GlobalInventory.award_stars(level_id, stars)
+	AchievementManager.check_level_completion_achievements(extra_jumps_used, died_this_run)
+	
 	run_completed.emit(final_time)
 	
 	if Supabase.is_logged_in():
-		await Supabase.submit_score(level_name, int(run_time * 1000))
+		await Supabase.submit_score(level_id, int(run_time * 1000))
 	
 func _on_extra_jumps_changed(current: int, max_jumps: int) -> void:
 	if current < max_jumps:

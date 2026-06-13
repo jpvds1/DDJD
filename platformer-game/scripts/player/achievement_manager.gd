@@ -34,8 +34,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		current_air_time += delta
 		if current_air_time >= AIR_TIME_THRESHOLD:
-			# COMPLETE ACHIEVEMENT
-			return
+			GlobalInventory.complete_achievement(AIR_TIME_ID)
 
 # ---------------------------------------------------------
 # Helpers
@@ -43,8 +42,6 @@ func _physics_process(delta: float) -> void:
 
 func check_level_completion_achievements(extra_jumps_used: bool, died_this_run: bool) -> void:
 	if not extra_jumps_used:
-		# Complete achievement
-		return
+		GlobalInventory.complete_achievement(NO_EXTRA_JUMPS_ID)
 	if not died_this_run:
-		# Complete achievement
-		return
+		GlobalInventory.complete_achievement(NO_DEATHS_ID)
