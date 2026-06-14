@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://2k07ulq6kde4" path="res://scenes/building_materials/saw.tscn" id="11_dnkej"]
 [ext_resource type="PackedScene" uid="uid://u381latllpcp" path="res://scenes/building_materials/boost_ring.tscn" id="11_excbq"]
 [ext_resource type="PackedScene" uid="uid://ccudaxsaxpval" path="res://scenes/building_materials/wrecking_ball.tscn" id="11_iav0o"]
+[ext_resource type="PackedScene" uid="uid://d1f7pvx3ch1vr" path="res://scenes/building_materials/pillar.tscn" id="12_iav0o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -109,5 +110,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6808548, 12.435937, 11.650
 
 [node name="Saw" parent="." unique_id=960494110 instance=ExtResource("11_dnkej")]
 transform = Transform3D(-1.7488501, 0, -0.9703213, 0, 2, 0, 0.9703213, 0, -1.7488501, 6.5180163, 3.9616628, 21.94822)
+
+[node name="Pillar" parent="." unique_id=1269951151 instance=ExtResource("12_iav0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2195327, 0.4263574, -2.2537796)
+
+[node name="Pillar" parent="Pillar" unique_id=1275201348 instance=ExtResource("12_iav0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.602846, 0.21241558, 0.055609465)
 
 [editable path="Killzone"]
