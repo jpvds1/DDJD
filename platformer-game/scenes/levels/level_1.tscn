@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="4_x42e6"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="5_6761a"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="5_sk5k4"]
-[ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="10_excbq"]
 [ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="10_qxy0u"]
+[ext_resource type="PackedScene" uid="uid://2k07ulq6kde4" path="res://scenes/building_materials/saw.tscn" id="11_dnkej"]
 [ext_resource type="PackedScene" uid="uid://u381latllpcp" path="res://scenes/building_materials/boost_ring.tscn" id="11_excbq"]
 [ext_resource type="PackedScene" uid="uid://ccudaxsaxpval" path="res://scenes/building_materials/wrecking_ball.tscn" id="11_iav0o"]
 
@@ -58,12 +58,6 @@ level_path = NodePath("..")
 [node name="EndPlatform" parent="." unique_id=537576493 instance=ExtResource("5_sk5k4")]
 transform = Transform3D(15, 0, 0, 0, 2.3586197, 0, 0, 0, 9, 10.144826, 3.9999652, 59.98325)
 
-[node name="SawGroup" parent="." unique_id=1308033700 instance=ExtResource("7_oc4kc")]
-transform = Transform3D(0.81275517, 0, 0.58260536, 0, 1, 0, -0.58260536, 0, 0.81275517, 7.7081904, 4.4106293, 21.261473)
-
-[node name="SawGroup2" parent="." unique_id=572996546 instance=ExtResource("7_oc4kc")]
-transform = Transform3D(0.81275517, 0, 0.58260536, 0, 1, 0, -0.58260536, 0, 0.81275517, 6.081427, 4.4106293, 22.435177)
-
 [node name="Platforms" type="Node3D" parent="." unique_id=1873867081]
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="Platforms" unique_id=494703401]
@@ -112,5 +106,8 @@ transform = Transform3D(-0.029195257, 0, 0.9995737, 0, 1, 0, -0.9995737, 0, -0.0
 
 [node name="WreckingBall" parent="." unique_id=1409807783 instance=ExtResource("11_iav0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6808548, 12.435937, 11.650975)
+
+[node name="Saw" parent="." unique_id=960494110 instance=ExtResource("11_dnkej")]
+transform = Transform3D(-1.7488501, 0, -0.9703213, 0, 2, 0, 0.9703213, 0, -1.7488501, 6.5180163, 3.9616628, 21.94822)
 
 [editable path="Killzone"]
