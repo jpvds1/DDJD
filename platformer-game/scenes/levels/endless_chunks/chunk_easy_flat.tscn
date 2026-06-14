@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c21hw38p3fopj"]
+
+[node name="ChunkEasyFlat" type="Node3D" unique_id=1751542582]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=366155220]
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="ExitMarker" type="Marker3D" parent="." unique_id=1561299875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024184227, 0, -64.15842)

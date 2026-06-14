@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cwsfiuxxe3kt7"]
 
 [ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_17s8f"]
+[ext_resource type="PackedScene" uid="uid://c21hw38p3fopj" path="res://scenes/levels/endless_chunks/chunk_easy_flat.tscn" id="2_i3nmm"]
 [ext_resource type="Script" uid="uid://mwwb0aj4i5vj" path="res://scripts/systems/endless_manager.gd" id="2_j3yte"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="2_lpstx"]
+[ext_resource type="PackedScene" uid="uid://btbhrmi5ukx3u" path="res://scenes/levels/endless_chunks/chunk_easy_lasers.tscn" id="3_ivn8y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lpstx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -20,6 +22,7 @@ tonemap_mode = 2
 script = ExtResource("2_j3yte")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
+chunk_scenes = Array[PackedScene]([ExtResource("2_i3nmm"), ExtResource("3_ivn8y")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=174638576]
 environment = SubResource("Environment_grt42")
@@ -29,10 +32,6 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_17s8f")]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=357478498]
-use_collision = true
-size = Vector3(50, 1, 50)
 
 [node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("2_lpstx")]
 player_path = NodePath("../CharacterBody3D")
