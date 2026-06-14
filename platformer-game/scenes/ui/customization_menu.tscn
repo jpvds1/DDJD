@@ -98,5 +98,14 @@ offset_right = 150.0
 offset_bottom = 62.0
 text = "Back"
 
+[node name="StarsLabel" type="Label" parent="." unique_id=1384729103]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 33.0
+offset_right = 375.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 18
+text = "⭐  0 Stars"
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/ActiveHeadGear" to="." method="_on_active_head_gear_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

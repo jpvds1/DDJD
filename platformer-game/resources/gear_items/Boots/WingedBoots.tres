@@ -6,6 +6,8 @@
 script = ExtResource("1_2ymrx")
 item_name = "Winged Boots"
 slot = 2
+unlock_type = 2
+star_cost = 1
 jump_velocity_bonus = 2.0
 extra_jumps = 1
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"
