@@ -5,6 +5,8 @@
 [resource]
 script = ExtResource("1_jjddy")
 item_name = "Demonic Horns"
+unlock_type = 3
+achievement_id = "air_time_5s"
 jump_velocity_bonus = -2.0
 extra_jumps = -1
 dash_cooldown_reduction = 0.5

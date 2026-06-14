@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://drkw0cs14yia6" path="res://scripts/systems/laser.gd" id="1_0vpv2"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="2_6nnwf"]
+[ext_resource type="PackedScene" uid="uid://c4236wdn1or0f" path="res://assets/models/laser.glb" id="2_3352m"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vpv2"]
-albedo_color = Color(1, 0, 0, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_6nnwf"]
+size = Vector3(1.0082397, 1.0353699, 2.3062744)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3352m"]
 radius = 0.10107422
@@ -18,15 +19,15 @@ tracks/0/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CSGCylinder3D:visible")
+tracks/1/path = NodePath("Visuals/Cylinder_007:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -53,7 +54,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CSGCylinder3D:visible")
+tracks/1/path = NodePath("Visuals/Cylinder_007:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -68,26 +69,26 @@ resource_name = "on"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CSGCylinder3D:visible")
+tracks/0/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
+tracks/1/path = NodePath("Visuals/Cylinder_007:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_haumu"]
@@ -97,21 +98,18 @@ _data = {
 &"on": SubResource("Animation_k85rx")
 }
 
-[node name="Laser" type="Node3D" unique_id=78082071]
+[node name="Laser" type="StaticBody3D" unique_id=429633351]
 script = ExtResource("1_0vpv2")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=507102929]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.25)
-radius = 0.2
-height = 0.5
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1029651562]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111968994, 0.51420593, 1.1697388)
+shape = SubResource("BoxShape3D_6nnwf")
+
+[node name="Visuals" parent="." unique_id=1691916436 instance=ExtResource("2_3352m")]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 13.982, 0.5174228, 0)
 
 [node name="Hitbox" type="Node3D" parent="." unique_id=1352457121]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.1200343, 0, 0, 0)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Hitbox" unique_id=125503734]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
-material_override = SubResource("StandardMaterial3D_0vpv2")
-radius = 0.1
 
 [node name="Killzone" parent="Hitbox" unique_id=767733067 instance=ExtResource("2_6nnwf")]
 
@@ -129,4 +127,5 @@ autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 
+[editable path="Visuals"]
 [editable path="Hitbox/Killzone"]

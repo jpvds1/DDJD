@@ -9,10 +9,9 @@ extends Control
 @onready var boots_button: Button = $HBoxContainer/VBoxContainer/ActiveBootsGear
 
 @onready var grid_container: GridContainer = $HBoxContainer/GridContainer
-
 @onready var stats_vbox: VBoxContainer = $HBoxContainer/StatsVBox
-
 @onready var back_button: Button = $BackButton
+@onready var stars_label: Label = $StarsLabel
 
 # ---------------------------------------------------------
 # State
@@ -42,9 +41,11 @@ const GEAR_STATS := [
 const COLOR_SELECTED   := Color(1.0, 1.0, 1.0, 1.0)
 const COLOR_UNSELECTED := Color(0.6, 0.6, 0.6, 1.0)
 const COLOR_EQUIPPED   := Color(1.0, 0.85, 0.2, 1.0)
-const COLOR_BONUS_POS  := Color(0.35, 1.0, 0.45, 1.0)
-const COLOR_BONUS_NEG  := Color(1.0, 0.38, 0.38, 1.0)
-const COLOR_NO_BONUS   := Color(0.7, 0.7, 0.7, 1.0)
+const COLOR_LOCKED     := Color(0.45, 0.45, 0.45, 1.0)
+const COLOR_BUYABLE    := Color(0.4,  0.85, 1.0,  1.0)
+const COLOR_BONUS_POS  := Color(0.35, 1.0,  0.45, 1.0)
+const COLOR_BONUS_NEG  := Color(1.0,  0.38, 0.38, 1.0)
+const COLOR_NO_BONUS   := Color(0.7,  0.7,  0.7,  1.0)
 
 # ---------------------------------------------------------
 # Lifecycle
@@ -62,8 +63,11 @@ func _ready() -> void:
 	chest_button.pressed.connect(_on_slot_button_pressed.bind(GearItem.Slot.CHEST))
 	boots_button.pressed.connect(_on_slot_button_pressed.bind(GearItem.Slot.BOOTS))
 	
-	GlobalInventory.equipment_changed.connect(_on_equipment_changed)
+	GlobalInventory.equipment_changed.connect(_on_inventory_changed)
+	GlobalInventory.unlock_changed.connect(_on_inventory_changed)
+	GlobalInventory.stars_changed.connect(_on_stars_changed)
 	
+	_update_stars_label(GlobalInventory.total_stars)
 	_on_slot_button_pressed(GearItem.Slot.HEAD)
 
 # ---------------------------------------------------------
@@ -93,33 +97,73 @@ func _refresh_grid() -> void:
 	for child in grid_container.get_children():
 		child.queue_free()
 		
-	var available: Array[GearItem] = []
-	for item: GearItem in GlobalInventory.unlocked_items:
+	var slot_items: Array[GearItem] = []
+	for item: GearItem in GlobalInventory.all_gear:
 		if item.slot == _selected_slot:
-			available.append(item)
+			slot_items.append(item)
 			
-	if available.is_empty():
+	if slot_items.is_empty():
 		var placeholder := Label.new()
 		placeholder.text = "No items unlocked for this slot"
 		placeholder.modulate = COLOR_NO_BONUS
 		grid_container.add_child(placeholder)
-	else:
+		return
+	
+	if GlobalInventory.equipped_gear[_selected_slot] != null:
 		var unequip_btn := Button.new()
 		unequip_btn.text = "Unequip"
 		unequip_btn.pressed.connect(_on_unequip_pressed)
 		grid_container.add_child(unequip_btn)
 		
-		var currently_equipped: GearItem = GlobalInventory.equipped_gear[_selected_slot]
-		for item in available:
-			var btn := Button.new()
-			btn.text = item.item_name
+	var currently_equipped: GearItem = GlobalInventory.equipped_gear[_selected_slot]
+	
+	for item: GearItem in slot_items:
+		if GlobalInventory.is_item_unlocked(item):
+			_add_equip_button(item, item == currently_equipped)
+		else:
+			_add_locked_entry(item)
 			
-			if item == currently_equipped:
-				btn.modulate = COLOR_EQUIPPED
-				
-			btn.pressed.connect(_on_gear_item_pressed.bind(item))
+func _add_equip_button(item: GearItem, is_equipped: bool) -> void:
+	var btn := Button.new()
+	btn.text = item.item_name
+	btn.modulate = COLOR_EQUIPPED if is_equipped else COLOR_SELECTED
+	btn.pressed.connect(_on_gear_item_pressed.bind(item))
+	grid_container.add_child(btn)
+	
+func _add_locked_entry(item: GearItem) -> void:
+	match item.unlock_type:
+		GearItem.UnlockType.PURCHASE:
+			var btn := Button.new()
+			var can_buy := GlobalInventory.can_purchase(item)
+			btn.text = "%s\n⭐ %d stars" % [item.item_name, item.star_cost]
+			btn.modulate = COLOR_BUYABLE if can_buy else COLOR_LOCKED
+			btn.disabled = not can_buy
+			btn.pressed.connect(_on_purchase_pressed.bind(item))
 			grid_container.add_child(btn)
-
+		
+		_:
+			var container := VBoxContainer.new()
+			var name_lbl := Label.new()
+			name_lbl.text =  "🔒 " + item.item_name
+			name_lbl.modulate = COLOR_LOCKED
+			container.add_child(name_lbl)
+			
+			var desc := item.unlock_description
+			if desc == "":
+				match item.unlock_type:
+					GearItem.UnlockType.LEVEL_COMPLETION:
+						desc = "Complete a level for the first time"
+					GearItem.UnlockType.ACHIEVEMENT:
+						desc = "Unlock via achievement " + item.achievement_id
+						
+			var desc_lbl := Label.new()
+			desc_lbl.text = desc
+			desc_lbl.modulate = COLOR_LOCKED
+			desc_lbl.add_theme_font_size_override("font_size", 10)
+			container.add_child(desc_lbl)
+			
+			grid_container.add_child(container)
+ 
 # ---------------------------------------------------------
 # Stats
 # ---------------------------------------------------------
@@ -181,6 +225,14 @@ func _refresh_stats_panel() -> void:
 		stats_vbox.add_child(lbl)
 		
 # ---------------------------------------------------------
+# Stars
+# ---------------------------------------------------------
+		
+func _update_stars_label(new_total: int) -> void:
+	if is_instance_valid(stars_label):
+		stars_label.text = "⭐  %d Stars" % new_total
+		
+# ---------------------------------------------------------
 # Callbacks
 # ---------------------------------------------------------
 
@@ -190,10 +242,18 @@ func _on_gear_item_pressed(item: GearItem) -> void:
 func _on_unequip_pressed() -> void:
 	GlobalInventory.unequip(_selected_slot)
 
-func _on_equipment_changed() -> void:
+func _on_purchase_pressed(item: GearItem) -> void:
+	if GlobalInventory.purchase_item(item):
+		GlobalInventory.equip(item)
+
+func _on_inventory_changed() -> void:
 	_refresh_slot_buttons()
 	_refresh_grid()
 	_refresh_stats_panel()
+	
+func _on_stars_changed(new_total: int) -> void:
+	_update_stars_label(new_total)
+	_refresh_grid()	
 	
 func _on_back_button_pressed() -> void:
 	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")

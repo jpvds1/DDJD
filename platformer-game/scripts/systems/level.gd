@@ -8,6 +8,14 @@ extends Node3D
 @export var ui_path: NodePath
 @export var ghost_scene: PackedScene = preload("res://scenes/player/ghost_character.tscn")
 
+@export_group("Gear Reward")
+@export var gear_unlock_on_complete: GearItem = null
+
+@export_group("Star Times")
+@export var time_3_stars: float = 60.0
+@export var time_2_stars: float = 90.0
+@export var time_1_star: float = 120.0
+
 # ---------------------------------------------------------
 # Constants
 # ---------------------------------------------------------        
@@ -32,6 +40,10 @@ var has_checkpoint := false
 
 var level_name := ""
 
+# Achievements
+var extra_jumps_used := false
+var died_this_run := false
+
 # ---------------------------------------------------------
 # Signals
 # ---------------------------------------------------------        
@@ -39,7 +51,7 @@ var level_name := ""
 signal lives_changed(current_lives: int, max_lives: int)
 signal checkpoint_reached()
 signal player_unalived()
-signal run_completed(final_time: String)
+signal run_completed(final_time: String, stars: int)
 signal pause_toggled(paused: bool)
 
 # ---------------------------------------------------------
@@ -61,11 +73,14 @@ func _ready() -> void:
 	player.unalive_requested.connect(_on_player_unalive_requested)
 	player.checkpoint_requested.connect(_on_player_checkpoint_requested)
 	player.finish_requested.connect(_on_player_finish_requested)
+	player.connect("extra_jumps_changed", _on_extra_jumps_changed)
 			
 	run_time = 0.0
 	timer_running = true
 	level_completed = false
 	is_paused = false
+	extra_jumps_used = false
+	died_this_run = false
 	
 	lives = MAX_LIVES
 	current_checkpoint_position = player.global_position
@@ -101,6 +116,7 @@ func _on_player_unalive_requested() -> void:
 	if level_completed:
 		return
 		
+	died_this_run = true
 	lives = max(lives -1, 0)
 	player_unalived.emit()
 	lives_changed.emit(lives, MAX_LIVES)
@@ -130,14 +146,39 @@ func _on_player_finish_requested() -> void:
 	
 	var final_time := _format_time(run_time)
 	_update_ui_timer()
+	
+	var stars = _calculate_stars()
+	
+	var level_id = scene_file_path.get_file().get_basename()
+	
+	GlobalInventory.complete_level(level_id, gear_unlock_on_complete)
+	GlobalInventory.award_stars(level_id, stars)
+	AchievementManager.check_level_completion_achievements(extra_jumps_used, died_this_run)
+	
 	run_completed.emit(final_time)
 	
 	_handle_local_ghost_save(ghost_run_data)
 	
 	if Supabase.is_logged_in():
-		var level_name_clean = scene_file_path.get_file().get_basename()
-		await Supabase.submit_score(level_name_clean, int(run_time * 1000))
+		await Supabase.submit_score(level_id, int(run_time * 1000))
 	
+func _on_extra_jumps_changed(current: int, max_jumps: int) -> void:
+	if current < max_jumps:
+		extra_jumps_used = true
+	
+# ---------------------------------------------------------
+# Level control
+# ---------------------------------------------------------		
+
+func _calculate_stars() -> int:
+	if time_3_stars > 0.0 and run_time <= time_3_stars:
+		return 3
+	if time_2_stars > 0.0 and run_time <= time_2_stars:
+		return 2
+	if time_1_star > 0.0 and run_time <= time_1_star:
+		return 1
+	return 0
+
 # ---------------------------------------------------------
 # Pause control
 # ---------------------------------------------------------        
