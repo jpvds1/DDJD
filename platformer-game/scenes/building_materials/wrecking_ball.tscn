@@ -1,14 +1,9 @@
 [gd_scene format=3 uid="uid://ccudaxsaxpval"]
 
 [ext_resource type="Script" uid="uid://1fk25sxy8pya" path="res://scripts/traps/wreckingball.gd" id="1_58tvi"]
-[ext_resource type="Script" path="res://scripts/systems/cloud_behavior.gd" id="2_cktgr"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_excbq"]
-radius = 0.72685677
-
-[sub_resource type="SphereMesh" id="SphereMesh_iav0o"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_mm8aj"]
+[ext_resource type="Script" uid="uid://bthf3m0ev315d" path="res://scripts/systems/cloud_behavior.gd" id="2_cktgr"]
+[ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="3_rti8c"]
+[ext_resource type="PackedScene" uid="uid://ckgxrus5di7i0" path="res://assets/models/wrecking_ball.glb" id="3_t610y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bahl2"]
 albedo_color = Color(0.49019608, 0.9764706, 1, 0.39215687)
@@ -26,22 +21,12 @@ emission_energy_multiplier = 1.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_ndtll"]
 
-[node name="Wreckingball" type="Node3D" unique_id=749760885]
+[sub_resource type="SphereShape3D" id="SphereShape3D_rti8c"]
+radius = 1.1265963
+
+[node name="WreckingBall" type="Node3D" unique_id=1409807783]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_58tvi")
-
-[node name="Ball" type="Area3D" parent="." unique_id=1021792154]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
-
-[node name="Ball_collision" type="CollisionShape3D" parent="Ball" unique_id=1558881847]
-shape = SubResource("SphereShape3D_excbq")
-
-[node name="Ball_mesh" type="MeshInstance3D" parent="Ball" unique_id=349464260]
-mesh = SubResource("SphereMesh_iav0o")
-
-[node name="Chain_mesh" type="MeshInstance3D" parent="." unique_id=329159701]
-transform = Transform3D(0.1, 0, 0, 0, 5, 0, 0, 0, 0.1, 0, -5, 0)
-mesh = SubResource("CylinderMesh_mm8aj")
 
 [node name="Cloud" type="Node3D" parent="." unique_id=549558269]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.17368126, -0.20986748, 0.0399822)
@@ -70,4 +55,13 @@ mesh = SubResource("SphereMesh_mkypq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.07999998, -0.119999886)
 mesh = SubResource("SphereMesh_ndtll")
 
-[connection signal="body_entered" from="Ball" to="." method="_on_ball_body_entered"]
+[node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("3_rti8c")]
+
+[node name="Ball" type="CollisionShape3D" parent="Killzone" unique_id=601852592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.519, 0)
+shape = SubResource("SphereShape3D_rti8c")
+
+[node name="Visuals" parent="." unique_id=157412353 instance=ExtResource("3_t610y")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -8.465402, 0)
+
+[editable path="Visuals"]

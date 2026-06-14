@@ -11,7 +11,7 @@ size = Vector3(0.29663086, 0.2607422, 0.5045161)
 size = Vector3(0.6795044, 0.67871094, 0.8892822)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pp67n"]
-size = Vector3(1.0332031, 1.0114746, 1.0141602)
+size = Vector3(1.0332031, 1.0114746, 1.005249)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6nnwf"]
 height = 8.269623
@@ -125,7 +125,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0046691895, 0.51878816, 1.
 shape = SubResource("BoxShape3D_3352m")
 
 [node name="Back" type="CollisionShape3D" parent="Hitbox" unique_id=229848088]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5206173, 0.5275981)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5206173, 0.5231425)
 shape = SubResource("BoxShape3D_pp67n")
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("2_6nnwf")]
