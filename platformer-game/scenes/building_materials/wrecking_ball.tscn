@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ccudaxsaxpval"]
 
-[ext_resource type="Script" uid="uid://1fk25sxy8pya" path="res://scripts/traps/wreckingball.gd" id="1_58tvi"]
+[ext_resource type="Script" uid="uid://cvyoquhdfcq30" path="res://scripts/traps/wrecking_ball.gd" id="1_58tvi"]
 [ext_resource type="Script" uid="uid://bthf3m0ev315d" path="res://scripts/systems/cloud_behavior.gd" id="2_cktgr"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="3_rti8c"]
 [ext_resource type="PackedScene" uid="uid://ckgxrus5di7i0" path="res://assets/models/wrecking_ball.glb" id="3_t610y"]
@@ -23,6 +23,43 @@ emission_energy_multiplier = 1.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rti8c"]
 radius = 1.1265963
+
+[sub_resource type="Animation" id="Animation_1j3pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:swing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4l0fd"]
+resource_name = "Swing"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:swing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_077tb"]
+_data = {
+&"RESET": SubResource("Animation_1j3pr"),
+&"Swing": SubResource("Animation_4l0fd")
+}
 
 [node name="WreckingBall" type="Node3D" unique_id=1409807783]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
@@ -63,5 +100,9 @@ shape = SubResource("SphereShape3D_rti8c")
 
 [node name="Visuals" parent="." unique_id=157412353 instance=ExtResource("3_t610y")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -8.465402, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1005671059]
+libraries/ = SubResource("AnimationLibrary_077tb")
+autoplay = &"Swing"
 
 [editable path="Visuals"]
