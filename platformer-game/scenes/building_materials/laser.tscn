@@ -5,7 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://c4236wdn1or0f" path="res://assets/models/laser.glb" id="2_3352m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6nnwf"]
-size = Vector3(1.0144615, 1.0269623, 2.2875671)
+size = Vector3(0.29663086, 0.2607422, 0.5045161)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3352m"]
+size = Vector3(0.6795044, 0.67871094, 0.8892822)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pp67n"]
+size = Vector3(1.0332031, 1.0114746, 1.0141602)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6nnwf"]
 height = 8.269623
@@ -99,18 +105,28 @@ _data = {
 &"on": SubResource("Animation_k85rx")
 }
 
-[node name="Laser" type="StaticBody3D" unique_id=429633351]
+[node name="Laser" type="Node3D" unique_id=1185962610]
 script = ExtResource("1_0vpv2")
-
-[node name="BodyCollider" type="CollisionShape3D" parent="." unique_id=1029651562]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0028452277, 0.5184097, 1.1559601)
-shape = SubResource("BoxShape3D_6nnwf")
 
 [node name="Visuals" parent="." unique_id=1691916436 instance=ExtResource("2_3352m")]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0.517, 0.52170277)
 
 [node name="Cylinder_007" parent="Visuals" index="1" unique_id=1834520319]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 1.8237262, -1.1920929e-07)
+
+[node name="Hitbox" type="StaticBody3D" parent="." unique_id=1001684145]
+
+[node name="Front" type="CollisionShape3D" parent="Hitbox" unique_id=1934059776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0028452277, 0.5221791, 2.0873094)
+shape = SubResource("BoxShape3D_6nnwf")
+
+[node name="Middle" type="CollisionShape3D" parent="Hitbox" unique_id=482774447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0046691895, 0.51878816, 1.4197444)
+shape = SubResource("BoxShape3D_3352m")
+
+[node name="Back" type="CollisionShape3D" parent="Hitbox" unique_id=229848088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5206173, 0.5275981)
+shape = SubResource("BoxShape3D_pp67n")
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("2_6nnwf")]
 
