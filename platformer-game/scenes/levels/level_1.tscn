@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="5_6761a"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="5_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://csjbg210nkp6l" path="res://scenes/building_materials/saw_group.tscn" id="7_oc4kc"]
+[ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="10_excbq"]
 [ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="10_qxy0u"]
 [ext_resource type="PackedScene" uid="uid://u381latllpcp" path="res://scenes/building_materials/boost_ring.tscn" id="11_excbq"]
 
@@ -104,5 +105,8 @@ transform = Transform3D(1, 0, 0, 0, 0.65489906, -0.7557163, 0, 0.7557163, 0.6548
 
 [node name="Boost2" parent="Boosts" unique_id=6585585 instance=ExtResource("11_excbq")]
 transform = Transform3D(1, 0, 0, 0, 0.7342868, -0.6788392, 0, 0.6788392, 0.7342868, 12.068403, 5.408269, 48.08239)
+
+[node name="Laser" parent="." unique_id=429633351 instance=ExtResource("10_excbq")]
+transform = Transform3D(-0.029195257, 0, 0.9995737, 0, 1, 0, -0.9995737, 0, -0.029195257, -3.5298958, 2.5495214, 7.2293344)
 
 [editable path="Killzone"]
