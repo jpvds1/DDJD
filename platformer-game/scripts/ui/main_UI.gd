@@ -85,6 +85,9 @@ func _ready() -> void:
 	level_complete_overlay.visible = false
 	pause_overlay.visible = false
 	
+	if level and level.has_method("is_endless"):
+		timer_label.text = "0m"
+	
 	player.emit_initial_ui_state()
 	
 func _process(delta: float) -> void:

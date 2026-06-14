@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cwsfiuxxe3kt7"]
 
 [ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_17s8f"]
+[ext_resource type="Script" uid="uid://mwwb0aj4i5vj" path="res://scripts/systems/endless_manager.gd" id="2_j3yte"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="2_lpstx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lpstx"]
@@ -16,6 +17,9 @@ sky = SubResource("Sky_j3yte")
 tonemap_mode = 2
 
 [node name="EndlessLevel" type="Node3D" unique_id=1808576052]
+script = ExtResource("2_j3yte")
+player_path = NodePath("CharacterBody3D")
+ui_path = NodePath("CanvasLayer")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=174638576]
 environment = SubResource("Environment_grt42")
@@ -26,10 +30,10 @@ shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_17s8f")]
 
-[node name="EndlessManager" type="Node3D" parent="." unique_id=1254468394]
-
-[node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("2_lpstx")]
-
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=357478498]
 use_collision = true
 size = Vector3(50, 1, 50)
+
+[node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("2_lpstx")]
+player_path = NodePath("../CharacterBody3D")
+level_path = NodePath("..")
