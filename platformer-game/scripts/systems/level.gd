@@ -6,6 +6,7 @@ extends Node3D
 
 @export var player_path: NodePath
 @export var ui_path: NodePath
+@export var ghost_scene: PackedScene = preload("res://scenes/player/ghost_character.tscn")
 
 # ---------------------------------------------------------
 # Constants
@@ -51,12 +52,8 @@ func _ready() -> void:
 	player = get_node_or_null(player_path)
 	ui = get_node_or_null(ui_path)
 	
-	if player == null:
-		push_error("Level: player not found.")
-		return
-		
-	if ui == null:
-		push_error("Level: UI not found.")
+	if player == null or ui == null:
+		push_error("Level: Player or UI not found.")
 		return
 		
 	level_name = scene_file_path.get_file().get_basename()
@@ -76,6 +73,8 @@ func _ready() -> void:
 	
 	lives_changed.emit(lives, MAX_LIVES)
 	_update_ui_timer()
+
+	_check_and_spawn_ghost()
 
 	if player.has_method("start_recording"):
 		player.start_recording()
@@ -236,3 +235,21 @@ func _handle_local_ghost_save(data: Array[Dictionary]) -> void:
 		if ghost_file:
 			ghost_file.store_var(data)
 			ghost_file.close()
+			
+func _check_and_spawn_ghost() -> void:
+	var ghost_path = "user://ghost_" + level_name + ".dat"
+	
+	if not FileAccess.file_exists(ghost_path):
+		return
+		
+	var file = FileAccess.open(ghost_path, FileAccess.READ)
+	if file:
+		var loaded_data = file.get_var()
+		file.close()
+		
+		if loaded_data is Array and not loaded_data.is_empty():
+			var ghost_instance = ghost_scene.instantiate()
+			add_child(ghost_instance)
+			
+			if ghost_instance.has_method("start_replay"):
+				ghost_instance.start_replay(loaded_data)
