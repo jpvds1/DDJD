@@ -107,6 +107,7 @@ transform = Transform3D(-0.029195257, 0, 0.9995737, 0, 1, 0, -0.9995737, 0, -0.0
 
 [node name="WreckingBall" parent="." unique_id=1409807783 instance=ExtResource("11_iav0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6808548, 12.435937, 11.650975)
+swings_per_second = 2.0
 
 [node name="Saw" parent="." unique_id=960494110 instance=ExtResource("11_dnkej")]
 transform = Transform3D(-1.7488501, 0, -0.9703213, 0, 2, 0, 0.9703213, 0, -1.7488501, 6.5180163, 3.9616628, 21.94822)
