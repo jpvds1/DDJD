@@ -5,8 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bdxbggyj7eerk" path="res://assets/models/player.glb" id="2_x7pql"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7pql"]
-radius = 0.7
-height = 2.5166383
+height = 2.5311584
 
 [sub_resource type="Animation" id="Animation_5ji0x"]
 length = 0.001
@@ -80,8 +79,8 @@ _data = {
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1782536310]
 script = ExtResource("1_5ji0x")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1754709375]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2413388, -0.090144426)
+[node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2579776, 0)
 shape = SubResource("CapsuleShape3D_x7pql")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=984137525]
