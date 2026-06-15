@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="animation_library"
 importer_version=1
-type="PackedScene"
-uid="uid://bdxbggyj7eerk"
-path="res://.godot/imported/player.glb-ae1edf01baaba8d1685741a4f60c906f.scn"
+type="AnimationLibrary"
+uid="uid://db5ym0bbjhxto"
+path="res://.godot/imported/player_jump.glb-fcc12bc1dadffd1050eaa1ae0bc742a6.res"
 
 [deps]
 
-source_file="res://assets/models/player.glb"
-dest_files=["res://.godot/imported/player.glb-ae1edf01baaba8d1685741a4f60c906f.scn"]
+source_file="res://assets/models/player/player_jump.glb"
+dest_files=["res://.godot/imported/player_jump.glb-fcc12bc1dadffd1050eaa1ae0bc742a6.res"]
 
 [params]
 
@@ -17,7 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 nodes/apply_root_scale=true
-nodes/root_scale=1.5
+nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true

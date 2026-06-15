@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b5luiqoqvaysk" path="res://scripts/player/capsule_character.gd" id="1_5ji0x"]
 [ext_resource type="Script" uid="uid://vbnm1bywq1xw" path="res://scripts/player/stats_manager.gd" id="2_hsymh"]
-[ext_resource type="PackedScene" uid="uid://bdxbggyj7eerk" path="res://assets/models/player.glb" id="2_x7pql"]
+[ext_resource type="PackedScene" uid="uid://bdxbggyj7eerk" path="res://assets/models/player/player.glb" id="2_x7pql"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7pql"]
-height = 2.5311584
+[sub_resource type="BoxShape3D" id="BoxShape3D_x7pql"]
+size = Vector3(1.0898438, 2.5809326, 0.3779297)
 
 [sub_resource type="Animation" id="Animation_5ji0x"]
 length = 0.001
@@ -80,8 +80,8 @@ _data = {
 script = ExtResource("1_5ji0x")
 
 [node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2579776, 0)
-shape = SubResource("CapsuleShape3D_x7pql")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1793033, 0)
+shape = SubResource("BoxShape3D_x7pql")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=984137525]
 
