@@ -7,13 +7,11 @@ extends Node3D
 @export var max_angle := 30.0
 @export var swings_per_second := 1.0
 @export var spins_per_second := 1.0
-@export var swing := 0.0:
-	set(value):
-		if value >= -1 && value <= 1:
-			swing = value
 
 var spin_speed := spins_per_second * 2 * PI
-
+var swing := 0.0:
+	set(value):
+		swing = clamp(value, -1, 1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
