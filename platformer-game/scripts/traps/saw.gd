@@ -1,9 +1,10 @@
 extends Node3D
 
 @export var rotations_per_second := 0.5
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var visuals: Node3D = $Visuals
+
+var rotation_speed := rotations_per_second * 2 * PI # radians per second
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	animation_player.speed_scale = rotations_per_second
+func _physics_process(delta: float) -> void:
+	visuals.rotate_z(rotation_speed * delta)
