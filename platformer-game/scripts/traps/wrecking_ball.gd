@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var wrecking_ball: Node3D = $Ball
-@onready var spike_ball: MeshInstance3D = $Ball/Visuals/Icosphere
+@onready var visuals: Node3D = $Ball/Visuals
 
 @export var max_angle := 30.0
 @export var swings_per_second := 1.0
@@ -27,4 +27,4 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# infinitely spin the spike ball
-	spike_ball.rotate_y(spin_speed * delta)
+	visuals.rotate_y(spin_speed * delta)

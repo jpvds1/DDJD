@@ -66,4 +66,3 @@ shape = SubResource("SphereShape3D_4l0fd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.465402, 0)
 
 [editable path="Ball/Killzone"]
-[editable path="Ball/Visuals"]
