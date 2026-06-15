@@ -21,8 +21,8 @@ emission_energy_multiplier = 1.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_ndtll"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_rti8c"]
-radius = 1.1265963
+[sub_resource type="SphereShape3D" id="SphereShape3D_4l0fd"]
+radius = 1.05
 
 [sub_resource type="Animation" id="Animation_1j3pr"]
 length = 0.001
@@ -94,9 +94,9 @@ mesh = SubResource("SphereMesh_ndtll")
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("3_rti8c")]
 
-[node name="Ball" type="CollisionShape3D" parent="Killzone" unique_id=601852592]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.519, 0)
-shape = SubResource("SphereShape3D_rti8c")
+[node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.487799, 0)
+shape = SubResource("SphereShape3D_4l0fd")
 
 [node name="Visuals" parent="." unique_id=157412353 instance=ExtResource("3_t610y")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -8.465402, 0)
@@ -105,4 +105,5 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -
 libraries/ = SubResource("AnimationLibrary_077tb")
 autoplay = &"Swing"
 
+[editable path="Killzone"]
 [editable path="Visuals"]
