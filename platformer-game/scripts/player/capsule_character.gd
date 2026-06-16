@@ -31,6 +31,13 @@ const WALL_RUN_VISUAL_TILT_DEGREES := 18.0
 const WALL_RUN_VISUAL_TILT_LERP := 12.0
 
 # ---------------------------------------------------------
+# Slide contants
+# ---------------------------------------------------------
+
+const SLIDE_VISUAL_TILT_DEGREES := -15.0
+const SLIDE_VISUAL_TILT_LERP := 10.0
+
+# ---------------------------------------------------------
 # Camera constants
 # ---------------------------------------------------------
 
@@ -87,6 +94,11 @@ var paused_dash_time_left := 0.0
 var paused_dash_cooldown_time_left := 0.0
 var dash_timer_was_running := false
 var dash_cooldown_was_running := false
+
+# Slide
+var is_sliding = false
+var slide_timer = 0.0
+var slide_direction = Vector3.ZERO
 
 # ---------------------------------------------------------
 # Signals
@@ -321,6 +333,13 @@ func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 	if is_dashing:
 		velocity.x = dash_direction.x * stats.dash_speed.get_val()
 		velocity.z = dash_direction.z * stats.dash_speed.get_val()
+		return
+		
+	if on_floor and Input.is_action_just_pressed("Slide") and get_horizontal_speed() > 0.1:
+		start_slide()
+		
+	if is_sliding:
+		handle_slide(delta)
 		return
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
@@ -592,6 +611,47 @@ func _on_dash_timer_timeout() -> void:
 func _on_dash_cooldown_timer_timeout() -> void:
 	can_dash = true
 	dash_ready.emit()
+	
+# ---------------------------------------------------------
+# Slide
+# ---------------------------------------------------------
+
+func start_slide() -> void:
+	is_sliding = true
+	slide_timer = stats.slide_duration.get_val()
+	
+	slide_direction = Vector3(velocity.x, 0, velocity.z).normalized()
+	
+	if slide_direction == Vector3.ZERO:
+		slide_direction = -transform.basis.z
+		
+	velocity.x = slide_direction.x * stats.slide_speed_boost.get_val()
+	velocity.z = slide_direction.z * stats.slide_speed_boost.get_val()
+	
+	var tween = create_tween()
+	tween.tween_property(visuals, "scale", Vector3(1.0, 0.5, 1.0), 0.2)
+	
+func stop_slide() -> void:
+	is_sliding = false
+	var tween = create_tween()
+	tween.tween_property(visuals, "scale", Vector3(1.0, 1.0, 1.0), 0.2)
+	visuals.rotation.z = 0.0
+	
+func handle_slide(delta: float) -> void:
+	slide_timer -= delta
+	
+	if Input.is_action_just_pressed("jump"):
+		stop_slide()
+		return
+		
+	var current_horizontal := Vector3(velocity.x, 0, velocity.z)
+	current_horizontal = current_horizontal.move_toward(Vector3.ZERO, stats.slide_decel.get_val() * delta)
+	
+	velocity.x = current_horizontal.x
+	velocity.z = current_horizontal.z
+	
+	if slide_timer <= 0 or get_horizontal_speed() < stats.walk_speed.get_val():
+		stop_slide()
 
 # ---------------------------------------------------------
 # Animation / Visual
@@ -611,11 +671,13 @@ func update_visual_tilt(delta: float) -> void:
 	var target_roll := 0.0
 	if is_wall_running:
 		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * -float(current_wall_side)
+	elif is_sliding:
+		target_roll = deg_to_rad(SLIDE_VISUAL_TILT_DEGREES)
 
 	visuals.rotation.z = lerp_angle(
 		visuals.rotation.z,
 		target_roll,
-		min(1.0, WALL_RUN_VISUAL_TILT_LERP * delta)
+		min(1.0, (WALL_RUN_VISUAL_TILT_LERP if is_wall_running else SLIDE_VISUAL_TILT_LERP) * delta)
 	)
 
 # ---------------------------------------------------------

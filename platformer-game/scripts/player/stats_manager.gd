@@ -43,12 +43,20 @@ var wall_jump_up_velocity         := PlayerStat.new(7.0)
 var wall_jump_away_speed          := PlayerStat.new(7.5)
 
 # ---------------------------------------------------------
+# Slide constants
+# ---------------------------------------------------------
+
+var slide_speed_boost := PlayerStat.new(14.0)
+var slide_decel       := PlayerStat.new(24.0)
+var slide_duration    := PlayerStat.new(1.5)
+
+# ---------------------------------------------------------
 # Methods
 # ---------------------------------------------------------
 
 func _ready() -> void:
 	GlobalInventory.equipment_changed.connect(recalculate_bonuses)
-	recalculate_bonuses()	
+	recalculate_bonuses()
 	
 func recalculate_bonuses():
 	_reset_all_bonuses()
