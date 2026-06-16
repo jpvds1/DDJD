@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cvyoquhdfcq30" path="res://scripts/traps/wrecking_ball.gd" id="1_58tvi"]
 [ext_resource type="Script" uid="uid://bthf3m0ev315d" path="res://scripts/systems/cloud_behavior.gd" id="2_cktgr"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="3_rti8c"]
-[ext_resource type="PackedScene" uid="uid://ckgxrus5di7i0" path="res://assets/models/wrecking_ball.glb" id="3_t610y"]
+[ext_resource type="PackedScene" uid="uid://ckgxrus5di7i0" path="res://assets/models/traps/wrecking_ball.glb" id="3_t610y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bahl2"]
 albedo_color = Color(0.49019608, 0.9764706, 1, 0.39215687)
