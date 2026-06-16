@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://nk6mrgg4s2yu"]
+
+[ext_resource type="Texture2D" uid="uid://dn3uetv2w573f" path="res://icon.svg" id="1_ky4y0"]
+[ext_resource type="Script" uid="uid://vtgmobmh3xlj" path="res://scripts/ui/customization_menu.gd" id="1_xq2xj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v3bk2"]
+texture = ExtResource("1_ky4y0")
+
+[node name="CustomizationMenu" type="Control" unique_id=1728132252]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xq2xj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1739717047]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -503.5
+offset_top = -202.0
+offset_right = 503.5
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1386134258]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ActiveHeadGear" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1161964658]
+custom_minimum_size = Vector2(124, 124)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_v3bk2")
+text = "Active
+Head
+Gear"
+
+[node name="ActiveChestGear" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1201819169]
+custom_minimum_size = Vector2(124, 124)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_v3bk2")
+text = "Active
+Chest
+Gear"
+
+[node name="ActiveBootsGear" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=117100278]
+custom_minimum_size = Vector2(124, 124)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_v3bk2")
+text = "Active
+Boots
+Gear"
+
+[node name="VSeparator3" type="VSeparator" parent="HBoxContainer" unique_id=479420360]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer" unique_id=677011666]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer" unique_id=1452702780]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="CharacterPlaceholder" type="ColorRect" parent="HBoxContainer" unique_id=1293196574]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=758279473]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="StatsVBox" type="VBoxContainer" parent="HBoxContainer" unique_id=708597039]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/StatsVBox" unique_id=1470840931]
+layout_mode = 2
+text = "Stat Modifiers"
+
+[node name="BackButton" type="Button" parent="." unique_id=1074297074]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 31.0
+offset_right = 150.0
+offset_bottom = 62.0
+text = "Back"
+
+[node name="StarsLabel" type="Label" parent="." unique_id=1384729103]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 33.0
+offset_right = 375.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 18
+text = "⭐  0 Stars"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/ActiveHeadGear" to="." method="_on_active_head_gear_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

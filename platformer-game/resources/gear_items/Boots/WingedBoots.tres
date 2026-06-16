@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GearItem" format=3 uid="uid://bnby6w3xfvjg3"]
+
+[ext_resource type="Script" uid="uid://1mwlo1yrpnfc" path="res://scripts/player/gear_item.gd" id="1_2ymrx"]
+
+[resource]
+script = ExtResource("1_2ymrx")
+item_name = "Winged Boots"
+slot = 2
+unlock_type = 2
+star_cost = 1
+jump_velocity_bonus = 2.0
+extra_jumps = 1
+metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

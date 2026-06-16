@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GearItem" format=3 uid="uid://c116i5viel6tp"]
+
+[ext_resource type="Script" uid="uid://1mwlo1yrpnfc" path="res://scripts/player/gear_item.gd" id="1_530fq"]
+
+[resource]
+script = ExtResource("1_530fq")
+item_name = "Lightning Boots"
+slot = 2
+unlock_type = 3
+achievement_id = "no_deaths"
+dash_cooldown_reduction = 0.5
+extra_dashes = 1
+metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

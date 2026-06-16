@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GearItem" format=3 uid="uid://cpons1y8r8dx7"]
+
+[ext_resource type="Script" uid="uid://1mwlo1yrpnfc" path="res://scripts/player/gear_item.gd" id="1_jjddy"]
+
+[resource]
+script = ExtResource("1_jjddy")
+item_name = "Demonic Horns"
+unlock_type = 3
+achievement_id = "air_time_5s"
+jump_velocity_bonus = -2.0
+extra_jumps = -1
+dash_cooldown_reduction = 0.5
+metadata/_custom_type_script = "uid://1mwlo1yrpnfc"
