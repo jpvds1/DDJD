@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://csmhmasgmdwc0"
-path="res://.godot/imported/perssonagem A - MINECRAFT DEATH.blend-bb26097e2283201aa6394d277e0c54ee.scn"
+uid="uid://connmqeuijshh"
+path="res://.godot/imported/grupoA_assets.blend-5ae1c3feaed722c3b81b5acf99444594.scn"
 
 [deps]
 
-source_file="res://assets/models/player/NEW. animaЗoes (ANGEL)/perssonagem A - MINECRAFT DEATH.blend"
-dest_files=["res://.godot/imported/perssonagem A - MINECRAFT DEATH.blend-bb26097e2283201aa6394d277e0c54ee.scn"]
+source_file="res://assets/models/traps/grupoA_assets.blend"
+dest_files=["res://.godot/imported/grupoA_assets.blend-5ae1c3feaed722c3b81b5acf99444594.scn"]
 
 [params]
 
