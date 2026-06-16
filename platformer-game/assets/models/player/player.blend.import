@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dugu0qxwqob2c"
-path="res://.godot/imported/Personagem A (ANGEL).blend-cae9fec0fc8c7bfa6592ddf137a2ae9a.scn"
+path="res://.godot/imported/player.blend-8720981620c7b20f1e8f22ddd02ffd0b.scn"
 
 [deps]
 
-source_file="res://assets/models/player/Personagem A (ANGEL).blend"
-dest_files=["res://.godot/imported/Personagem A (ANGEL).blend-cae9fec0fc8c7bfa6592ddf137a2ae9a.scn"]
+source_file="res://assets/models/player/player.blend"
+dest_files=["res://.godot/imported/player.blend-8720981620c7b20f1e8f22ddd02ffd0b.scn"]
 
 [params]
 
