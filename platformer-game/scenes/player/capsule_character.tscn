@@ -9,6 +9,35 @@
 [ext_resource type="AnimationLibrary" uid="uid://bv5rxn1v0rm0u" path="res://assets/models/player/player_jump.glb" id="5_j3xf5"]
 [ext_resource type="AnimationLibrary" uid="uid://d0pl7dnrguu8o" path="res://assets/models/player/player_walk.glb" id="6_j3xf5"]
 
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_y10x5"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d66dr"]
+animation = &"player_idle/idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhmas"]
+animation = &"player_jump/jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1rnx0"]
+animation = &"player_sprint/sprint"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1bcb6"]
+animation = &"player_walk/walk"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_c45w8"]
+graph_offset = Vector2(102.26117, 13.093536)
+nodes/output/position = Vector2(900, 220)
+nodes/Sprint/node = SubResource("AnimationNodeAnimation_1rnx0")
+nodes/Sprint/position = Vector2(380, 400)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_d66dr")
+nodes/Idle/position = Vector2(340, 60)
+nodes/Walk/node = SubResource("AnimationNodeAnimation_1bcb6")
+nodes/Walk/position = Vector2(340, 240)
+nodes/Jump/node = SubResource("AnimationNodeAnimation_jhmas")
+nodes/Jump/position = Vector2(780, 20)
+nodes/Blend3/node = SubResource("AnimationNodeBlend3_y10x5")
+nodes/Blend3/position = Vector2(640, 140)
+node_connections = [&"output", 0, &"Blend3", &"Blend3", 0, &"Idle", &"Blend3", 1, &"Walk", &"Blend3", 2, &"Sprint"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_x7pql"]
 size = Vector3(0.81030273, 1.636039, 0.2841797)
 
@@ -88,35 +117,32 @@ script = ExtResource("1_5ji0x")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Visuals/Armature" parent_id_path=PackedInt32Array(1845075672, 1978781392) index="0" unique_id=208187525]
-bones/0/position = Vector3(-4.8823657, -6.7241945, -101.54385)
-bones/0/rotation = Quaternion(-0.8014178, -0.12561786, 0.26126096, 0.52315634)
-bones/1/rotation = Quaternion(0.1284272, -0.015258958, -0.06522431, 0.9894541)
-bones/2/rotation = Quaternion(0.2550193, -0.0011482865, -0.057375994, 0.9652315)
-bones/3/rotation = Quaternion(0.25501916, -0.0011482388, -0.057375986, 0.96523154)
-bones/4/rotation = Quaternion(0.011041882, 0.041813824, -0.060800895, 0.9972126)
-bones/5/rotation = Quaternion(0.024093008, 0.06612317, 0.02181793, 0.99728197)
-bones/7/position = Vector3(5.1110997, 10.362195, 0.088100664)
-bones/7/rotation = Quaternion(0.56279206, 0.38857195, -0.5903621, 0.42866024)
-bones/8/position = Vector3(-3.948929e-06, 12.347602, -1.1398419e-05)
-bones/8/rotation = Quaternion(-0.21670917, -0.21965134, -0.03884038, 0.9504114)
-bones/9/rotation = Quaternion(0.057014823, -0.06495908, 0.16755423, 0.9820668)
-bones/11/position = Vector3(-5.111104, 10.362401, -0.092897944)
-bones/11/rotation = Quaternion(0.47764167, -0.4331863, 0.6584142, 0.38819954)
-bones/12/rotation = Quaternion(-0.15714525, 0.23731442, 0.0680268, 0.95622164)
-bones/13/rotation = Quaternion(0.025965486, 0.014895557, -0.24886985, 0.9680743)
-bones/14/position = Vector3(1.1026859e-06, 20.167398, -4.558824e-06)
-bones/15/rotation = Quaternion(0.14395623, 0.5504247, 0.8157434, -0.104268655)
-bones/16/position = Vector3(3.9169618e-06, 31.613005, 6.142561e-07)
-bones/16/rotation = Quaternion(-0.89216626, 0.016699662, -0.045795698, 0.44906944)
-bones/17/rotation = Quaternion(0.44336766, -0.031869587, -0.08964666, 0.89127594)
-bones/18/rotation = Quaternion(0.3961574, -0.015502524, 0.007841987, 0.9180183)
-bones/20/rotation = Quaternion(-0.15787868, 0.51784456, 0.8190879, 0.18975344)
-bones/21/rotation = Quaternion(-0.88261837, -0.05672232, 0.14547038, 0.44340262)
-bones/22/rotation = Quaternion(0.1508285, 0.058808472, 0.14060715, 0.9767405)
-bones/23/rotation = Quaternion(0.36584994, 0.016108587, -0.006423761, 0.93051225)
+bones/0/position = Vector3(0.28413665, 1.043211, -72.668686)
+bones/0/rotation = Quaternion(-0.7164022, -0.0065697683, -0.005012034, 0.69763863)
+bones/1/rotation = Quaternion(0.008044599, -0.0010735022, -0.0009858861, 0.9999666)
+bones/2/rotation = Quaternion(0.008879403, -0.021636622, 0.0010653721, 0.999726)
+bones/3/rotation = Quaternion(0.008826754, -0.021608707, 0.0014434119, 0.9997266)
+bones/4/rotation = Quaternion(-0.023688922, 0.0073856916, -0.01263438, 0.9996123)
+bones/5/rotation = Quaternion(0.048196916, -0.014846555, 0.03154651, 0.99822915)
+bones/7/rotation = Quaternion(0.545025, 0.4271425, -0.6112303, 0.38326815)
+bones/8/position = Vector3(5.8269643e-07, 12.347598, 5.5259097e-06)
+bones/8/rotation = Quaternion(0.42102507, 0.18949248, 0.14562418, 0.8749995)
+bones/9/rotation = Quaternion(-0.01782802, -7.3618256e-05, 0.2522427, 0.9674998)
+bones/11/rotation = Quaternion(0.5736821, -0.42480552, 0.55391544, 0.42849362)
+bones/12/rotation = Quaternion(0.45227867, -0.13534349, -0.1614457, 0.866638)
+bones/13/rotation = Quaternion(0.009912263, -1.482689e-05, -0.23405032, 0.97217405)
+bones/14/position = Vector3(-8.046627e-07, 20.167395, -2.1746382e-06)
+bones/15/rotation = Quaternion(0.039682675, 0.059003234, 0.9971156, -0.02654263)
+bones/16/rotation = Quaternion(-0.2092277, -0.07758976, -0.0007306187, 0.9747836)
+bones/17/rotation = Quaternion(0.5032476, -0.008436597, 0.00093430886, 0.8641006)
+bones/18/rotation = Quaternion(0.38848367, -0.01593852, 0.006762011, 0.921293)
+bones/20/rotation = Quaternion(-0.12320265, 0.060724493, 0.9888228, 0.057991818)
+bones/21/rotation = Quaternion(-0.17207843, 0.0320105, 0.009213135, 0.98451996)
+bones/22/rotation = Quaternion(0.45495754, 0.031836696, 0.019202895, 0.8897367)
+bones/23/rotation = Quaternion(0.38876563, 0.015793823, -0.006665527, 0.92117727)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Visuals/Armature/Skeleton3D" index="6" unique_id=1249076375]
-transform = Transform3D(0.94926137, -0.3076223, -0.06535505, 0.29664993, 0.80687547, 0.5108336, -0.104410455, -0.50430226, 0.8571918, -16.134304, 6.1472554, -141.00633)
+transform = Transform3D(0.9939466, -0.03087637, -0.10543724, 0.10737405, 0.06979523, 0.99176586, -0.023263112, -0.9970834, 0.07268801, 1.1771309, 1.0310693, -122.52934)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 
@@ -128,6 +154,11 @@ libraries/player_idle = ExtResource("3_vaf6x")
 libraries/player_jump = ExtResource("5_j3xf5")
 libraries/player_sprint = ExtResource("5_grw1r")
 libraries/player_walk = ExtResource("6_j3xf5")
+
+[node name="AnimationTree" type="AnimationTree" parent="Visuals" unique_id=851465398]
+tree_root = SubResource("AnimationNodeBlendTree_c45w8")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Blend3/blend_amount = 0.6699999999999999
 
 [node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8235597, -0.045057356)
