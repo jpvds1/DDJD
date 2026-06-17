@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://d1f7pvx3ch1vr"]
+
+[ext_resource type="PackedScene" uid="uid://tmd6dm36o8ws" path="res://assets/models/pillar.glb" id="1_2ggsd"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2ggsd"]
+height = 2.6679993
+radius = 0.27
+
+[node name="Pillar" type="StaticBody3D" unique_id=1269951151]
+
+[node name="Hitbox" type="CollisionShape3D" parent="." unique_id=386954380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3334705, 0)
+shape = SubResource("CylinderShape3D_2ggsd")
+
+[node name="Visuals" parent="." unique_id=1350592732 instance=ExtResource("1_2ggsd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3424729, 0)

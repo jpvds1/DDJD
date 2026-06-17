@@ -5,37 +5,43 @@
 [ext_resource type="PackedScene" uid="uid://c4236wdn1or0f" path="res://assets/models/laser.glb" id="2_3352m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6nnwf"]
-size = Vector3(1.0082397, 1.0353699, 2.3062744)
+size = Vector3(0.29663086, 0.2607422, 0.5045161)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_3352m"]
-height = 7.5478516
-radius = 0.10107422
+[sub_resource type="BoxShape3D" id="BoxShape3D_3352m"]
+size = Vector3(0.6795044, 0.67871094, 0.8892822)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pp67n"]
+size = Vector3(1.0332031, 1.0114746, 1.005249)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6nnwf"]
+height = 8.269623
+radius = 0.04
 
 [sub_resource type="Animation" id="Animation_pp67n"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
+tracks/0/path = NodePath("Visuals/Cylinder_007:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0001),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, false]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/Cylinder_007:visible")
+tracks/1/path = NodePath("Killzone/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_ma8ym"]
@@ -43,26 +49,26 @@ resource_name = "off"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
+tracks/0/path = NodePath("Visuals/Cylinder_007:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/Cylinder_007:visible")
+tracks/1/path = NodePath("Killzone/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_k85rx"]
@@ -70,26 +76,26 @@ resource_name = "on"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/Killzone/CollisionShape3D:disabled")
+tracks/0/path = NodePath("Visuals/Cylinder_007:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/Cylinder_007:visible")
+tracks/1/path = NodePath("Killzone/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_haumu"]
@@ -99,24 +105,40 @@ _data = {
 &"on": SubResource("Animation_k85rx")
 }
 
-[node name="Laser" type="StaticBody3D" unique_id=429633351]
+[node name="Laser" type="Node3D" unique_id=1185962610]
 script = ExtResource("1_0vpv2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1029651562]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.111968994, 0.51420593, 1.1697388)
+[node name="Visuals" parent="." unique_id=1691916436 instance=ExtResource("2_3352m")]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0.517, 0.52170277)
+
+[node name="Cylinder_007" parent="Visuals" index="1" unique_id=1834520319]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 1.8237262, -1.1920929e-07)
+
+[node name="Hitbox" type="StaticBody3D" parent="." unique_id=1001684145]
+
+[node name="Front" type="CollisionShape3D" parent="Hitbox" unique_id=1934059776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0028452277, 0.5221791, 2.0873094)
 shape = SubResource("BoxShape3D_6nnwf")
 
-[node name="Visuals" parent="." unique_id=1691916436 instance=ExtResource("2_3352m")]
-transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 13.982, 0.5174228, 0)
+[node name="Middle" type="CollisionShape3D" parent="Hitbox" unique_id=482774447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0046691895, 0.51878816, 1.4197444)
+shape = SubResource("BoxShape3D_3352m")
 
-[node name="Hitbox" type="Node3D" parent="." unique_id=1352457121]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.1200343, 0, 0, 0)
+[node name="Back" type="CollisionShape3D" parent="Hitbox" unique_id=229848088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5206173, 0.5231425)
+shape = SubResource("BoxShape3D_pp67n")
 
-[node name="Killzone" parent="Hitbox" unique_id=767733067 instance=ExtResource("2_6nnwf")]
+[node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("2_6nnwf")]
 
+<<<<<<< HEAD
 [node name="CollisionShape3D" parent="Hitbox/Killzone" index="0" unique_id=1440156319]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.1211476, 0.49116403, 5.6833744)
 shape = SubResource("CylinderShape3D_3352m")
+=======
+[node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.49999988, 6.4301815)
+shape = SubResource("CylinderShape3D_6nnwf")
+>>>>>>> main
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1215364353]
 libraries/ = SubResource("AnimationLibrary_haumu")
@@ -129,4 +151,4 @@ autostart = true
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 
 [editable path="Visuals"]
-[editable path="Hitbox/Killzone"]
+[editable path="Killzone"]
