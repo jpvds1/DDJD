@@ -278,6 +278,9 @@ func _handle_local_ghost_save(data: Array[Dictionary]) -> void:
 			ghost_file.close()
 			
 func _check_and_spawn_ghost() -> void:
+	if not SettingsManager.ghost_replay:
+		return
+		
 	var ghost_path = "user://ghost_" + level_name + ".dat"
 	
 	if not FileAccess.file_exists(ghost_path):
