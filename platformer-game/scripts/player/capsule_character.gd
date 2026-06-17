@@ -5,7 +5,6 @@ extends CharacterBody3D
 # ---------------------------------------------------------
 
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
-@onready var character_animation_player: AnimationPlayer = $Visuals/AnimationPlayer
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
 @onready var ray_cast_left: RayCast3D = $Raycasts/RayCast3DLeft
@@ -336,7 +335,7 @@ func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 		accel = stats.ground_sprint_accel.get_val()
 		update_animation_state("sprint")
 	else:
-		update_animation_state("idle" if is_idle else "walk")
+		update_animation_state("walk")
 
 	if not on_floor:
 		accel *= stats.air_accel_mult.get_val()
@@ -597,13 +596,9 @@ func _on_dash_cooldown_timer_timeout() -> void:
 # Animation / Visual
 # ---------------------------------------------------------
 
-func play_animation(animation_player: AnimationPlayer, animation_name: String) -> void:
+func update_animation_state(animation_name: String) -> void:
 	if animation_player.current_animation != animation_name and animation_player.has_animation(animation_name):
 		animation_player.play(animation_name)
-
-func update_animation_state(animation_name: String) -> void:
-	play_animation(animation_player, animation_name)
-	play_animation(character_animation_player, "player_%s/%s" % [animation_name, animation_name])
 
 func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
 	print("Animation changed from: " + old_name + " to " + new_name)
