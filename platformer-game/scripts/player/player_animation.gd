@@ -11,9 +11,10 @@ extends Node3D
 # Variables
 # ---------------------------------------------------------
 
-@export var blend_strength: int = 1
-var player: CharacterBody3D
+@export var blend_strength := 15.0
 
+var player: CharacterBody3D
+var fall_blend := 0.0
 
 # ---------------------------------------------------------
 # Methods
@@ -30,12 +31,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var max_sprint_speed: float = stats.sprint_speed.get_val()
 	var local_velocity := player.global_transform.basis.inverse() * player.velocity
+	var lerp_weight := blend_strength * delta
 	
-	# compute the blend values
-	var jump_blend := float(player.velocity.y > 0)
-	var movement_blend := Vector2(
-		local_velocity.x,
-		-local_velocity.z
-	) / max_sprint_speed
+	# compute the fall blending value
+	fall_blend = clamp(-player.velocity.y, 0.0, 1.0)
 	
-	update_blend_values(movement_blend, jump_blend)
+	# compute the movement blending value
+	var movement_blend := Vector2(local_velocity.x, -local_velocity.z) / max_sprint_speed
+	
+	# update the blending values
+	animation_tree.set("parameters/Fall/blend_amount", fall_blend)
+	animation_tree.set("parameters/Movement/blend_position", movement_blend)
