@@ -327,7 +327,8 @@ func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	var is_sprinting := Input.is_action_pressed("sprint")
+	var has_speed := !velocity.is_zero_approx()
+	var is_sprinting := Input.is_action_pressed("sprint") and has_speed # OBG DADDEL
 	var target_speed = stats.walk_speed.get_val()
 	var accel = stats.ground_accel.get_val()
 
@@ -336,7 +337,7 @@ func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 		accel = stats.ground_sprint_accel.get_val()
 		update_animation_state("sprint")
 	else:
-		update_animation_state("walk")
+		update_animation_state("walk" if has_speed else "idle")
 
 	if not on_floor:
 		accel *= stats.air_accel_mult.get_val()
