@@ -132,10 +132,17 @@ func _on_checkpoint_reached() -> void:
 func _on_player_unalived() -> void:
 	_show_message("You died")
 	
-func _on_run_completed(final_time: String) -> void:
+func _on_run_completed(final_value: String) -> void:
 	level_complete_overlay.visible = true
 	message_label.visible = false
-	time_label.text = "Time: " + final_time
+	var level_complete_title = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/TitleLabel
+	
+	if level and level.has_method("is_endless"):
+		level_complete_title.text = "Game Over"
+		time_label.text = "Distance: " + final_value
+	else:
+		level_complete_title.text = "Level Complete"
+		time_label.text = "Time: " + final_value
 	
 func _on_pause_toggled(paused: bool) -> void:	
 	ui_paused = paused

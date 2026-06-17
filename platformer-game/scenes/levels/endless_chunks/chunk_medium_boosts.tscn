@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://q2xwrh8lem5t"]
+
+[ext_resource type="PackedScene" uid="uid://u381latllpcp" path="res://scenes/building_materials/boost_ring.tscn" id="1_lqjwd"]
+[ext_resource type="PackedScene" uid="uid://0s3hfsi71hqi" path="res://scenes/levels/endless_chunks/chuck_empty.tscn" id="2_1eodu"]
+
+[node name="ChunkEasyFlat" type="Node3D" unique_id=1751542582]
+
+[node name="ExitMarker" type="Marker3D" parent="." unique_id=1561299875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024184227, 0, -53.055813)
+
+[node name="Area3D" parent="." unique_id=1577880636 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48367962, 0.1842804, 14.602421, -15.170358)
+
+[node name="Area3D3" parent="." unique_id=2053758340 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48367962, 0.1842804, 15.336324, -16.49071)
+
+[node name="Area3D4" parent="." unique_id=1423558495 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48367962, 0.1842804, 16.233528, -18.104856)
+
+[node name="Area3D8" parent="." unique_id=339786601 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6233202, 0.7819667, 0, -0.7819667, 0.6233202, 0.1842804, 3.632084, 20.12344)
+
+[node name="Area3D9" parent="." unique_id=1091477253 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6233202, 0.7819667, 0, -0.7819667, 0.6233202, 0.1842804, 4.5765805, 18.944513)
+
+[node name="Area3D10" parent="." unique_id=1228821289 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6233202, 0.7819667, 0, -0.7819667, 0.6233202, 0.1842804, 5.731241, 17.503262)
+
+[node name="Area3D14" parent="." unique_id=671352194 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6561117, 0.75466377, 0, -0.75466377, 0.6561117, 0.1842804, 5.6255746, 11.867412)
+
+[node name="Area3D15" parent="." unique_id=212188812 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6561117, 0.75466377, 0, -0.75466377, 0.6561117, 0.1842804, 6.619505, 10.729853)
+
+[node name="Area3D16" parent="." unique_id=1796637877 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6561117, 0.75466377, 0, -0.75466377, 0.6561117, 0.1842804, 7.8345985, 9.33917)
+
+[node name="Area3D11" parent="." unique_id=40808971 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6656343, 0.7462781, 0, -0.7462781, 0.6656343, 0.1842804, 7.456859, 1.944572)
+
+[node name="Area3D12" parent="." unique_id=1007488586 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6656343, 0.7462781, 0, -0.7462781, 0.6656343, 0.1842804, 8.465144, 0.81971574)
+
+[node name="Area3D13" parent="." unique_id=428771959 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.6656343, 0.7462781, 0, -0.7462781, 0.6656343, 0.1842804, 9.697784, -0.5554375)
+
+[node name="Area3D20" parent="." unique_id=491484031 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.9944762, 0.10496235, 0, -0.10496235, 0.9944762, 0.1842804, 3.9959908, -4.116659)
+
+[node name="Area3D21" parent="." unique_id=290088977 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.9944762, 0.10496235, 0, -0.10496235, 0.9944762, 0.1842804, 5.498642, -4.271518)
+
+[node name="Area3D22" parent="." unique_id=114441022 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.9944762, 0.10496235, 0, -0.10496235, 0.9944762, 0.1842804, 7.335652, -4.4608374)
+
+[node name="Area3D17" parent="." unique_id=2071617319 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.59639305, 0.80269253, 0, -0.80269253, 0.59639305, 0.1842804, 11.778848, -5.912843)
+
+[node name="Area3D18" parent="." unique_id=554430498 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.59639305, 0.80269253, 0, -0.80269253, 0.59639305, 0.1842804, 12.682745, -7.123177)
+
+[node name="Area3D19" parent="." unique_id=491702059 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.59639305, 0.80269253, 0, -0.80269253, 0.59639305, 0.1842804, 13.787772, -8.602827)
+
+[node name="ChunkBaseLine" parent="." unique_id=96765003 instance=ExtResource("2_1eodu")]

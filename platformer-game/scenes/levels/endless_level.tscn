@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://mwwb0aj4i5vj" path="res://scripts/systems/endless_manager.gd" id="2_j3yte"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="2_lpstx"]
 [ext_resource type="PackedScene" uid="uid://btbhrmi5ukx3u" path="res://scenes/levels/endless_chunks/chunk_easy_lasers.tscn" id="3_ivn8y"]
+[ext_resource type="PackedScene" uid="uid://cm27843lerr7r" path="res://scenes/levels/endless_chunks/chunk_easy_lava.tscn" id="4_ivn8y"]
+[ext_resource type="PackedScene" uid="uid://q2xwrh8lem5t" path="res://scenes/levels/endless_chunks/chunk_medium_boosts.tscn" id="5_ragok"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lpstx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -22,7 +24,7 @@ tonemap_mode = 2
 script = ExtResource("2_j3yte")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
-chunk_scenes = Array[PackedScene]([ExtResource("2_i3nmm"), ExtResource("3_ivn8y")])
+chunk_scenes = Array[PackedScene]([ExtResource("2_i3nmm"), ExtResource("3_ivn8y"), ExtResource("4_ivn8y"), ExtResource("5_ragok")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=174638576]
 environment = SubResource("Environment_grt42")

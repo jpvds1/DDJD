@@ -27,7 +27,7 @@ material = SubResource("StandardMaterial3D_excbq")
 script = ExtResource("1_s5q3i")
 
 [node name="Collision_lava" type="CollisionShape3D" parent="Lava_liq/Area_lava" unique_id=108685088]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0021362305, 0.0053198338, 0.0022125244)
+transform = Transform3D(0.9844852, 0, 0, 0, 0.85878885, 0, 0, 0, 0.9844852, -0.0021362305, 0.0053198338, 0.0022125244)
 shape = SubResource("BoxShape3D_iav0o")
 
 [node name="Lava_pool" type="CSGCombiner3D" parent="." unique_id=682273399]

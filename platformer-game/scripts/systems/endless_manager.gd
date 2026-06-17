@@ -21,6 +21,7 @@ signal checkpoint_reached()
 # ---------------------------------------------------------        
 const MAX_LIVES := 3
 const CHUNK_DESPAWN_DISTANCE := 50.0
+const FALL_LIMIT_Y := -20.0
 
 # ---------------------------------------------------------
 # State Variables
@@ -51,6 +52,8 @@ func _ready() -> void:
 		push_error("EndlessManager: Player node not found.")
 		return
 		
+	player.unalive_requested.connect(trigger_damage)
+		
 	if chunk_scenes.is_empty():
 		push_error("EndlessManager: No chunks assigned in the chunk_scenes array!")
 		return
@@ -68,6 +71,7 @@ func _physics_process(_delta: float) -> void:
 		
 	_track_distance()
 	_check_chunk_recycling()
+	_check_player_fall()
 
 # ---------------------------------------------------------
 # Phase 3 Core Algorithmic Functions (Z- Adaptations)
@@ -110,7 +114,10 @@ func _check_chunk_recycling() -> void:
 
 # ---------------------------------------------------------
 # Player Hazard & Event Triggers
-# ---------------------------------------------------------        
+# ---------------------------------------------------------
+func _check_player_fall() -> void:
+	if player.global_position.y < FALL_LIMIT_Y:
+		trigger_damage()
 
 func trigger_damage() -> void:
 	if game_over_triggered:
