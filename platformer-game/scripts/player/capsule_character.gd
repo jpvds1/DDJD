@@ -147,8 +147,7 @@ func _physics_process(delta: float) -> void:
 		
 	if boost_locked:
 		boost_lock_timer -= delta
-		if boost_lock_timer <= 0.0:
-			boost_locked = false
+		boost_locked = boost_lock_timer <= 0.0
 			
 		# Skip all input handling below
 		update_air_state(is_on_floor(), delta)
