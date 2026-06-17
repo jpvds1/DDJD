@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://upp7tuc3lu0f"]
 
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_tv7cl"]
-[ext_resource type="Resource" uid="uid://bgdpbcpwvqrsi" path="res://resources/gear_items/Head/HeliHat.tres" id="2_r88tb"]
+[ext_resource type="Resource" uid="uid://8s2segdxhc7l" path="res://resources/gear_items/Chest/LightChest.tres" id="2_r88tb"]
 [ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="3_1yj8c"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="4_ndlae"]
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="5_v8d84"]
@@ -119,6 +119,9 @@ script = ExtResource("1_tv7cl")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
 gear_unlock_on_complete = ExtResource("2_r88tb")
+time_3_stars = 50.0
+time_2_stars = 65.0
+time_1_star = 80.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
 environment = SubResource("Environment_jdsy5")
