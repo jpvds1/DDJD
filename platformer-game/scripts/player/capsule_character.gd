@@ -88,6 +88,10 @@ var paused_dash_cooldown_time_left := 0.0
 var dash_timer_was_running := false
 var dash_cooldown_was_running := false
 
+# Ghost Replay State
+var ghost_data: Array[Dictionary] = []
+var is_recording := false
+
 # ---------------------------------------------------------
 # Signals
 # ---------------------------------------------------------
@@ -153,6 +157,9 @@ func _physics_process(delta: float) -> void:
 		update_air_state(is_on_floor(), delta)
 		move_and_slide()
 		update_camera_zoom(delta)
+		
+		if is_recording:
+			_record_snapshot()
 		return
 
 	var on_floor := is_on_floor()
@@ -179,6 +186,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	update_visual_tilt(delta)
 	update_camera_zoom(delta)
+
+	if is_recording:
+		_record_snapshot()
 
 # ---------------------------------------------------------
 # Camera update
@@ -719,3 +729,23 @@ func resume_timers() -> void:
 func emit_initial_ui_state() -> void:
 	extra_jumps_changed.emit(extra_jumps_left, stats.max_extra_jumps.get_int())
 	dash_ready.emit()
+
+# ---------------------------------------------------------
+# Ghost Replay Execution
+# ---------------------------------------------------------
+
+func start_recording() -> void:
+	ghost_data.clear()
+	is_recording = true
+
+func stop_recording() -> Array[Dictionary]:
+	is_recording = false
+	return ghost_data
+
+func _record_snapshot() -> void:
+	var snapshot = {
+		"p": global_position,
+		"r": global_rotation.y,
+		"a": String(animation_player.current_animation) if animation_player else ""
+	}
+	ghost_data.append(snapshot)

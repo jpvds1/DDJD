@@ -1,7 +1,7 @@
 extends Control
 
 @onready var back_button: Button = %BackButton
-
+@onready var ghost_replay_checkbox: CheckBox = %GhostReplayCheckbox
 @onready var sign_out_button: Button = %SignOut
 @onready var reset_defaults_button: Button = %ResetDefaultsButton
 
@@ -28,13 +28,16 @@ var _rebinding_action: String = ""
 var _action_buttons: Dictionary = {}
 
 func _ready() -> void:
+	ghost_replay_checkbox.button_pressed = SettingsManager.get_ghost_replay()
 	back_button.pressed.connect(_on_back_button_pressed)
+	ghost_replay_checkbox.toggled.connect(_on_ghost_replay_checkbox_toggled)
 	sign_out_button.pressed.connect(_on_sign_out_pressed)
 	reset_defaults_button.pressed.connect(_on_reset_defaults_pressed)
 	
-	tab_container.set_tab_title(0, "Audio")
-	tab_container.set_tab_title(1, "Controls")
-	tab_container.set_tab_title(2, "Display")
+	tab_container.set_tab_title(0, "General")
+	tab_container.set_tab_title(1, "Audio")
+	tab_container.set_tab_title(2, "Controls")
+	tab_container.set_tab_title(3, "Display")
 	
 	_build_audio_tab()
 	_build_controls_tab()
@@ -42,6 +45,28 @@ func _ready() -> void:
 	
 	rebind_popup.hide()
 	
+	if !Supabase.is_logged_in():
+		sign_out_button.text = "Back to Login"
+	
+# ============================================================
+# General Tab
+# ============================================================
+
+func _on_ghost_replay_checkbox_toggled(value: bool) -> void:
+	SettingsManager.set_ghost_replay(value)
+
+func _on_reset_defaults_pressed() -> void:
+	SettingsManager.reset_to_defaults()
+	_build_audio_tab()
+	_refresh_controls_tab()
+	_refresh_display_tab()
+ 
+ 
+func _on_sign_out_pressed() -> void:
+	if Supabase.is_logged_in():
+		await Supabase.sign_out()
+	
+	Global.game_controller.change_GUI_scene("res://scenes/ui/landing_screen.tscn")
 
 # ============================================================
 # AUDIO TAB
@@ -273,16 +298,3 @@ func _refresh_display_tab() -> void:
  
 func _on_back_button_pressed() -> void:
 	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
-
-func _on_reset_defaults_pressed() -> void:
-	SettingsManager.reset_to_defaults()
-	_build_audio_tab()
-	_refresh_controls_tab()
-	_refresh_display_tab()
- 
- 
-func _on_sign_out_pressed() -> void:
-	if Supabase.is_logged_in():
-		await Supabase.sign_out()
-	
-	Global.game_controller.change_GUI_scene("res://scenes/ui/landing_screen.tscn")
