@@ -28,11 +28,14 @@ func _ready() -> void:
 	player = get_parent() as CharacterBody3D
 
 func _physics_process(delta: float) -> void:
-	var is_jumping = player.velocity.y > 0
 	var max_sprint_speed: float = stats.sprint_speed.get_val()
+	var local_velocity := player.global_transform.basis.inverse() * player.velocity
+	
+	# compute the blend values
+	var jump_blend := float(player.velocity.y > 0)
 	var movement_blend := Vector2(
-		player.velocity.x,
-		player.velocity.z
+		local_velocity.x,
+		-local_velocity.z
 	) / max_sprint_speed
 	
-	update_blend_values(movement_blend, int(is_jumping))	
+	update_blend_values(movement_blend, jump_blend)
