@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://gcth5usc3upp"]
+
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_ksju7"]
+[ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_sk5k4"]
+[ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="3_nsrm0"]
+[ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="4_x42e6"]
+[ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="5_6761a"]
+[ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="5_sk5k4"]
+[ext_resource type="PackedScene" path="res://scenes/building_materials/saw.tscn" id="7_oc4kc"]
+[ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="8_s8va5"]
+[ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_dga24"]
+[ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="10_qxy0u"]
+[ext_resource type="PackedScene" uid="uid://bvxe8ela3dk1g" path="res://scenes/building_materials/torch.tscn" id="11_torch1"]
+[ext_resource type="PackedScene" path="res://scenes/building_materials/wrecking_ball.tscn" id="12_wreck1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h2s0c"]
+sky_material = SubResource("ProceduralSkyMaterial_64t6i")
+
+[sub_resource type="Environment" id="Environment_jdsy5"]
+background_mode = 2
+sky = SubResource("Sky_h2s0c")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_level2_killzone"]
+size = Vector3(220, 1, 220)
+
+[node name="Speedrun Level" type="Node3D" unique_id=184920241]
+script = ExtResource("1_sk5k4")
+player_path = NodePath("CharacterBody3D")
+ui_path = NodePath("CanvasLayer")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
+environment = SubResource("Environment_jdsy5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401671525]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_ksju7")]
+transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 0.508, 0.41215372)
+
+[node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("3_nsrm0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1847544, 0)
+
+[node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 0)
+shape = SubResource("BoxShape3D_level2_killzone")
+
+[node name="Checkpoints" type="Node3D" parent="." unique_id=746168418]
+
+[node name="StartCheckpoint" parent="Checkpoints" unique_id=1109484725 instance=ExtResource("4_x42e6")]
+
+[node name="LateCheckpoint" parent="Checkpoints" unique_id=1109484727 instance=ExtResource("4_x42e6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.432438, 3, 0)
+
+[node name="CanvasLayer" parent="." unique_id=9067626 instance=ExtResource("5_6761a")]
+player_path = NodePath("../CharacterBody3D")
+level_path = NodePath("..")
+
+[node name="Course" type="Node3D" parent="." unique_id=191002113]
+
+[node name="Killzone" parent="Course" unique_id=545161178 instance=ExtResource("3_nsrm0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -37.132317, -10.922566, 25.248714)
+
+[node name="Torch_01" parent="Course" unique_id=210010002 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.2)
+
+[node name="Torch_02" parent="Course" unique_id=210010005 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.929304, 8.5, -7)
+
+[node name="Torch_03" parent="Course" unique_id=210010010 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5.5, -1)
+
+[node name="RunnableWall_01" parent="Course" unique_id=210010012 instance=ExtResource("10_qxy0u")]
+transform = Transform3D(0.9063, 0, 0.4226, 0, 1, 0, -0.4226, 0, 0.9063, 16, 4, 0)
+size = Vector3(1, 3.5, 8)
+
+[node name="Torch_04" parent="Course" unique_id=210010017 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 2.2121072, 6)
+
+[node name="RunnableWall_02" parent="Course" unique_id=210010019 instance=ExtResource("10_qxy0u")]
+transform = Transform3D(0.5242757, 0, -0.85152274, 0, 1, 0, 0.85152274, 0, 0.5242757, 24.231976, 5.2, 8.189923)
+size = Vector3(1, 3, 7)
+
+[node name="Wreckingball_Final" parent="Course" unique_id=210010025 instance=ExtResource("12_wreck1")]
+transform = Transform3D(0.99901545, 0.043995723, 0.005689742, -0.043996435, 0.99903166, 0, -0.0056842333, -0.00025032842, 0.9999838, 49.0809, 16.057327, 0)
+
+[node name="FakeEndPlatform" parent="Course" unique_id=210010026 instance=ExtResource("5_sk5k4")]
+transform = Transform3D(14.770636, 0.12548566, -1.0875297, -2.3146951, 0.9502, -2.4367828, 1.2126491, 0.28526023, 8.595312, 48, 3.5, 0)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="RealEndPlatform" parent="Course" unique_id=750001020 instance=ExtResource("5_sk5k4")]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 9, 156.01146, 3.8, 0)
+
+[node name="Wreckingball_Final2" parent="Course" unique_id=749760885 instance=ExtResource("12_wreck1")]
+transform = Transform3D(-0.0037069004, -0.0048673665, -0.9999813, 0.06360096, 0.9979624, -0.005093278, 0.99796855, -0.063618645, -0.0033897848, 53.071133, 15.858788, 0.012164116)
+
+[node name="FakeEndPlatform2" parent="Course" unique_id=537576493 instance=ExtResource("5_sk5k4")]
+transform = Transform3D(13.228279, -0.00065078447, -4.243172, 4.5919795, 0.7613035, 5.144193, 5.3783216, -0.64839536, 6.044235, 89.008095, 3.5, 8.634001)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="SawGroup" parent="Course" unique_id=1308033700 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(0.8911651, -0.20806584, -0.40315464, 0.40161863, 0.77512634, 0.4877314, 0.21101548, -0.5965636, 0.7743285, 85.7757, 1.3420224, 3.995945)
+
+[node name="RunnableWall" parent="Course" unique_id=1172031790 instance=ExtResource("10_qxy0u")]
+transform = Transform3D(1, 0, 0, 0, -0.33980513, 0.9404959, 0, -0.9404959, -0.33980513, 69.296425, 1.3581266, -10.579951)
+size = Vector3(18.988281, 1, 14.052795)
+
+[node name="SawGroup2" parent="Course" unique_id=1134494628 instance=ExtResource("7_oc4kc")]
+transform = Transform3D(0.8911651, -0.20806584, -0.40315464, 0.40161863, 0.77512634, 0.4877314, 0.21101548, -0.5965636, 0.7743285, 83.7757, 3.3420224, 6.995945)
+
+[node name="FakeEndPlatform3" parent="Course" unique_id=822843497 instance=ExtResource("5_sk5k4")]
+transform = Transform3D(13.228281, -0.0006507459, -4.243173, 0.50495005, 0.9975337, 0.55431914, 7.053911, -0.07018721, 7.9175916, 111.68131, 3.5, -8.485464)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="FakeEndPlatform4" parent="Course" unique_id=183245121 instance=ExtResource("5_sk5k4")]
+transform = Transform3D(13.389076, -0.44963565, -0.29637685, 0.515967, 0.14075163, -8.905029, 6.7428885, 0.88205284, 1.2699177, 113.99396, 3.5, -13.033358)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="SpikeTrap_06" parent="Course" unique_id=1853223367 instance=ExtResource("8_s8va5")]
+transform = Transform3D(0.89156055, 0, -0.4529015, 0, 1, 0, 0.4529015, 0, 0.89156055, 111.83289, 3.3, -9.299373)
+
+[node name="RunnableWall2" parent="Course" unique_id=1528468616 instance=ExtResource("10_qxy0u")]
+transform = Transform3D(-0.99835485, 0.053925633, 0.019483557, 0, -0.3398051, 0.94049585, 0.05733744, 0.9389486, 0.33924606, 140.93803, 1.3581266, 7.346261)
+size = Vector3(18.988281, 1, 14.052795)
+
+[node name="Torch_05" parent="Course" unique_id=1581324564 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.272354, 5.5359464, 6)
+
+[node name="Torch_06" parent="Course" unique_id=1360463065 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.76582, 7.1276345, -14.32148)
+
+[node name="Torch_07" parent="Course" unique_id=750654412 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.89743, 11.836554, 6)
+
+[node name="Torch_08" parent="Course" unique_id=564826335 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127.60058, 6.8800015, -9.55088)
+
+[node name="Torch_09" parent="Course" unique_id=732993209 instance=ExtResource("11_torch1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.88593, 9.384018, -15.265739)
+
+[node name="FakeEndPlatform5" parent="Course" unique_id=419540722 instance=ExtResource("5_sk5k4")]
+transform = Transform3D(-14.978298, -0.036111623, -0.3586619, 0.51596695, 0.14075163, -8.90503, 0.6200943, -0.9893863, -1.2537509, 139.07217, 2.1974907, 9.587358)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="Laser" parent="Course" unique_id=78082071 instance=ExtResource("9_dga24")]
+transform = Transform3D(-0.9998305, 0, 0.018412177, 0, 1, 0, -0.018412177, 0, -0.9998305, 133.84418, -0.4619484, 10.086262)
+
+[node name="Laser2" parent="Course" unique_id=473658623 instance=ExtResource("9_dga24")]
+transform = Transform3D(-0.9998305, 0, 0.018412177, 0, 1, 0, -0.018412177, 0, -0.9998305, 144.68404, 4.3077993, 10.796179)
+
+[node name="Laser3" parent="Course" unique_id=1015596349 instance=ExtResource("9_dga24")]
+transform = Transform3D(-0.9998305, 0, 0.018412177, 0, 1, 0, -0.018412177, 0, -0.9998305, 140.19626, 2.0775251, 10.072029)
+
+[node name="RunnableWall_03" parent="Course" unique_id=1853882435 instance=ExtResource("10_qxy0u")]
+transform = Transform3D(-0.007900865, -0.06981329, 0.9974993, -0.99978465, 0.018099733, -0.0066522597, -0.01759005, -0.99739593, -0.06994129, -1.3168601, 0.11453966, 0.061930925)
+size = Vector3(1, 5.9520264, 9.038086)
+
+[node name="Wreckingball_Final2" parent="." unique_id=7200639 instance=ExtResource("12_wreck1")]
+transform = Transform3D(-0.0037069004, -0.0048673665, -0.9999813, 0.06360096, 0.9979624, -0.005093278, 0.99796855, -0.063618645, -0.0033897848, 44.379272, 15.858788, 0.012164116)
+
+[editable path="Killzone"]
