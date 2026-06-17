@@ -3,13 +3,13 @@
 importer="animation_library"
 importer_version=1
 type="AnimationLibrary"
-uid="uid://bj3kulxepjt6m"
-path="res://.godot/imported/player_run.glb-2517951696671652b41dafcf5138bab3.res"
+uid="uid://bmdjngcwo33tw"
+path="res://.godot/imported/player_sprint.glb-eda44dd975917e6fa7a9904299fcbf30.res"
 
 [deps]
 
-source_file="res://assets/models/player/player_run.glb"
-dest_files=["res://.godot/imported/player_run.glb-2517951696671652b41dafcf5138bab3.res"]
+source_file="res://assets/models/player/player_sprint.glb"
+dest_files=["res://.godot/imported/player_sprint.glb-eda44dd975917e6fa7a9904299fcbf30.res"]
 
 [params]
 
