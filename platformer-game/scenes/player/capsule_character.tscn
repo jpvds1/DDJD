@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://vbnm1bywq1xw" path="res://scripts/player/stats_manager.gd" id="2_hsymh"]
 [ext_resource type="PackedScene" uid="uid://cu7ms8tx84a0l" path="res://assets/models/player/player.glb" id="2_x7pql"]
 [ext_resource type="AnimationLibrary" uid="uid://cpw380mthj1kh" path="res://assets/models/player/player_idle.glb" id="3_vaf6x"]
+[ext_resource type="AnimationLibrary" uid="uid://bj3kulxepjt6m" path="res://assets/models/player/player_run.glb" id="4_tui4h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x7pql"]
 size = Vector3(0.81030273, 1.636039, 0.2841797)
@@ -85,6 +86,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals" unique_id=1020297586]
 libraries/player_idle = ExtResource("3_vaf6x")
+libraries/player_run = ExtResource("4_tui4h")
 
 [node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8235597, -0.045057356)
