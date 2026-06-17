@@ -8,6 +8,7 @@ item_name = "Lightning Boots"
 slot = 2
 unlock_type = 3
 achievement_id = "no_deaths"
+unlock_description = "Complete a level without any deaths"
 dash_cooldown_reduction = 0.5
 extra_dashes = 1
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"
