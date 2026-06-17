@@ -609,7 +609,7 @@ func update_visual_tilt(delta: float) -> void:
 
 	var target_roll := 0.0
 	if is_wall_running:
-		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * -float(current_wall_side)
+		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * float(current_wall_side)
 
 	visuals.rotation.z = lerp_angle(
 		visuals.rotation.z,
