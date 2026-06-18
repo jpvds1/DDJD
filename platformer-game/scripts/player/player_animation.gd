@@ -34,8 +34,12 @@ func _physics_process(delta: float) -> void:
 	var lerp_weight := blend_strength * delta
 	
 	# compute the fall blending value
-	fall_blend = clamp(-player.velocity.y, 0.0, 1.0)
-	
+	fall_blend = lerp(
+		fall_blend,
+		float(player.is_on_floor()),
+		lerp_weight
+	)
+
 	# compute the movement blending value
 	var movement_blend := Vector2(local_velocity.x, -local_velocity.z) / max_sprint_speed
 	
