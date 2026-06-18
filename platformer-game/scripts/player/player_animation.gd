@@ -11,32 +11,34 @@ extends Node3D
 # Variables
 # ---------------------------------------------------------
 
-@export var blend_strength := 15.0
+var _player: CharacterBody3D
+var _fall_blend := 0.0
 
-var player: CharacterBody3D
-var fall_blend := 0.0
+@export var blend_strength := 15.0
 
 # ---------------------------------------------------------
 # Methods
 # ---------------------------------------------------------
 
-func update_blend_values(movement: Vector2, jump: float) -> void:
-	animation_tree.set("parameters/Movement/blend_position", blend_strength * movement)
-	animation_tree.set("parameters/Jump/blend_amount", blend_strength * jump)
+func _on_player_jumped() -> void:
+	_fall_blend = 0.4
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = get_parent() as CharacterBody3D
+	_player = get_parent() as CharacterBody3D
+	
+	# connect to the jump event
+	_player.jumped.connect(_on_player_jumped)
 
 func _physics_process(delta: float) -> void:
 	var max_sprint_speed: float = stats.sprint_speed.get_val()
-	var local_velocity := player.global_transform.basis.inverse() * player.velocity
+	var local_velocity := _player.global_transform.basis.inverse() * _player.velocity
 	var lerp_weight := blend_strength * delta
 	
 	# compute the fall blending value
-	fall_blend = lerp(
-		fall_blend,
-		float(player.is_on_floor() or player.is_on_wall()),
+	_fall_blend = lerp(
+		_fall_blend,
+		float(_player.is_on_floor() or _player.is_on_wall()),
 		lerp_weight
 	)
 
@@ -44,5 +46,5 @@ func _physics_process(delta: float) -> void:
 	var movement_blend := Vector2(local_velocity.x, -local_velocity.z) / max_sprint_speed
 	
 	# update the blending values
-	animation_tree.set("parameters/Fall/blend_amount", fall_blend)
+	animation_tree.set("parameters/Fall/blend_amount", _fall_blend)
 	animation_tree.set("parameters/Movement/blend_position", movement_blend)
