@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d1f7pvx3ch1vr"]
 
-[ext_resource type="PackedScene" uid="uid://tmd6dm36o8ws" path="res://assets/models/pillar.glb" id="1_2ggsd"]
+[ext_resource type="PackedScene" uid="uid://tmd6dm36o8ws" path="res://assets/models/traps/pillar.glb" id="1_2ggsd"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2ggsd"]
 height = 2.6679993

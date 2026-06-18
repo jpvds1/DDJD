@@ -100,6 +100,10 @@ var is_sliding = false
 var slide_timer = 0.0
 var slide_direction = Vector3.ZERO
 
+# Ghost Replay State
+var ghost_data: Array[Dictionary] = []
+var is_recording := false
+
 # ---------------------------------------------------------
 # Signals
 # ---------------------------------------------------------
@@ -158,13 +162,15 @@ func _physics_process(delta: float) -> void:
 		
 	if boost_locked:
 		boost_lock_timer -= delta
-		if boost_lock_timer <= 0.0:
-			boost_locked = false
+		boost_locked = boost_lock_timer <= 0.0
 			
 		# Skip all input handling below
 		update_air_state(is_on_floor(), delta)
 		move_and_slide()
 		update_camera_zoom(delta)
+		
+		if is_recording:
+			_record_snapshot()
 		return
 
 	var on_floor := is_on_floor()
@@ -191,6 +197,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	update_visual_tilt(delta)
 	update_camera_zoom(delta)
+
+	if is_recording:
+		_record_snapshot()
 
 # ---------------------------------------------------------
 # Camera update
@@ -345,16 +354,17 @@ func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	var is_sprinting := Input.is_action_pressed("sprint")
+	var is_idle := velocity.is_zero_approx()
+	var is_sprinting := Input.is_action_pressed("sprint") and !is_idle # OBG DADDEL
 	var target_speed = stats.walk_speed.get_val()
 	var accel = stats.ground_accel.get_val()
 
 	if is_sprinting:
 		target_speed = stats.sprint_speed.get_val()
 		accel = stats.ground_sprint_accel.get_val()
-		update_animation_state("sprinting")
+		update_animation_state("sprint")
 	else:
-		update_animation_state("walking")
+		update_animation_state("walk")
 
 	if not on_floor:
 		accel *= stats.air_accel_mult.get_val()
@@ -574,16 +584,13 @@ func handle_dash_input() -> void:
 func start_dash() -> void:
 	is_dashing = true
 	can_dash = false
-
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
-	dash_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	dash_direction = (transform.basis * Vector3.FORWARD).normalized()
 
 	dash_timer.start()
 	dash_cooldown_timer.start()
 
 	dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
-
-	update_animation_state("dashing")
+	update_animation_state("dash")
 
 func cancel_dash_for_wall_run() -> void:
 	if not is_dashing:
@@ -667,10 +674,10 @@ func _on_animation_player_animation_changed(old_name: StringName, new_name: Stri
 func update_visual_tilt(delta: float) -> void:
 	if visuals == null:
 		return
-		
+
 	var target_roll := 0.0
 	if is_wall_running:
-		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * -float(current_wall_side)
+		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * float(current_wall_side)
 	elif is_sliding:
 		target_roll = deg_to_rad(SLIDE_VISUAL_TILT_DEGREES)
 
@@ -781,3 +788,23 @@ func resume_timers() -> void:
 func emit_initial_ui_state() -> void:
 	extra_jumps_changed.emit(extra_jumps_left, stats.max_extra_jumps.get_int())
 	dash_ready.emit()
+
+# ---------------------------------------------------------
+# Ghost Replay Execution
+# ---------------------------------------------------------
+
+func start_recording() -> void:
+	ghost_data.clear()
+	is_recording = true
+
+func stop_recording() -> Array[Dictionary]:
+	is_recording = false
+	return ghost_data
+
+func _record_snapshot() -> void:
+	var snapshot = {
+		"p": global_position,
+		"r": global_rotation.y,
+		"a": String(animation_player.current_animation) if animation_player else ""
+	}
+	ghost_data.append(snapshot)

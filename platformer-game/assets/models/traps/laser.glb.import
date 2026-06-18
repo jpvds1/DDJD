@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://tmd6dm36o8ws"
-path="res://.godot/imported/pillar.glb-8fe894eddbe22220964a70cbd50ae07b.scn"
+uid="uid://c4236wdn1or0f"
+path="res://.godot/imported/laser.glb-9ae58fd8ccaccc2ba92b83b7ed265a07.scn"
 
 [deps]
 
-source_file="res://assets/models/pillar.glb"
-dest_files=["res://.godot/imported/pillar.glb-8fe894eddbe22220964a70cbd50ae07b.scn"]
+source_file="res://assets/models/traps/laser.glb"
+dest_files=["res://.godot/imported/laser.glb-9ae58fd8ccaccc2ba92b83b7ed265a07.scn"]
 
 [params]
 
