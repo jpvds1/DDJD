@@ -150,8 +150,7 @@ func _physics_process(delta: float) -> void:
 		
 	if boost_locked:
 		boost_lock_timer -= delta
-		if boost_lock_timer <= 0.0:
-			boost_locked = false
+		boost_locked = boost_lock_timer <= 0.0
 			
 		# Skip all input handling below
 		update_air_state(is_on_floor(), delta)
@@ -336,16 +335,17 @@ func handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	var is_sprinting := Input.is_action_pressed("sprint")
+	var is_idle := velocity.is_zero_approx()
+	var is_sprinting := Input.is_action_pressed("sprint") and !is_idle # OBG DADDEL
 	var target_speed = stats.walk_speed.get_val()
 	var accel = stats.ground_accel.get_val()
 
 	if is_sprinting:
 		target_speed = stats.sprint_speed.get_val()
 		accel = stats.ground_sprint_accel.get_val()
-		update_animation_state("sprinting")
+		update_animation_state("sprint")
 	else:
-		update_animation_state("walking")
+		update_animation_state("walk")
 
 	if not on_floor:
 		accel *= stats.air_accel_mult.get_val()
@@ -565,16 +565,13 @@ func handle_dash_input() -> void:
 func start_dash() -> void:
 	is_dashing = true
 	can_dash = false
-
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
-	dash_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	dash_direction = (transform.basis * Vector3.FORWARD).normalized()
 
 	dash_timer.start()
 	dash_cooldown_timer.start()
 
 	dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
-
-	update_animation_state("dashing")
+	update_animation_state("dash")
 
 func cancel_dash_for_wall_run() -> void:
 	if not is_dashing:
@@ -617,10 +614,10 @@ func _on_animation_player_animation_changed(old_name: StringName, new_name: Stri
 func update_visual_tilt(delta: float) -> void:
 	if visuals == null:
 		return
-		
+
 	var target_roll := 0.0
 	if is_wall_running:
-		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * -float(current_wall_side)
+		target_roll = deg_to_rad(WALL_RUN_VISUAL_TILT_DEGREES) * float(current_wall_side)
 
 	visuals.rotation.z = lerp_angle(
 		visuals.rotation.z,
