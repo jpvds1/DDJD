@@ -94,8 +94,6 @@ var dash_cooldown_was_running := false
 # Signals
 # ---------------------------------------------------------
 
-signal jumped()
-
 signal extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int)
 signal dash_cooldown_started(duration: float)
 signal dash_ready()
@@ -262,9 +260,6 @@ func update_jump_buffer(delta: float) -> void:
 func handle_jump_request(on_floor: bool) -> void:
 	if jump_buffer_timer <= 0.0:
 		return
-
-	# Notify the listeners that the player has jumped
-	jumped.emit()
 
 	if is_wall_running:
 		do_wall_jump()

@@ -20,15 +20,16 @@ var _fall_blend := 0.0
 # Methods
 # ---------------------------------------------------------
 
-func _on_player_jumped() -> void:
-	_fall_blend = 0.8
+func _on_extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int) -> void:
+	if current_extra_jumps < max_extra_jumps:
+		_fall_blend = 0.8
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_player = get_parent() as CharacterBody3D
 	
 	# connect to the jump event
-	_player.jumped.connect(_on_player_jumped)
+	_player.extra_jumps_changed.connect(_on_extra_jumps_changed)
 
 func _physics_process(delta: float) -> void:
 	var max_sprint_speed: float = stats.sprint_speed.get_val()
