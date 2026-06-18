@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_a0j0y")
 item_name = "Helicopter Hat"
+unlock_description = "Complete Level 1"
 speed_bonus = -2.0
 acceleration_bonus = -2.0
 jump_velocity_bonus = 2.0

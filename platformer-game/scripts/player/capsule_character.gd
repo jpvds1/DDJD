@@ -42,8 +42,6 @@ const CAMERA_DISTANCE_MAX := 6.0   # Third person
 const CAMERA_SCROLL_STEP  := 0.5   # Distance per scroll
 const CAMERA_ZOOM_LERP    := 12.0  # Zoom smoothness
 
-const MOUSE_SENSITIVITY = 0.003
-
 # Wall-run camera lock
 const WALL_RUN_CAMERA_DISTANCE   := 2.75
 const WALL_RUN_CAMERA_PITCH      := -4.0
@@ -90,6 +88,10 @@ var paused_dash_cooldown_time_left := 0.0
 var dash_timer_was_running := false
 var dash_cooldown_was_running := false
 
+# Ghost Replay State
+var ghost_data: Array[Dictionary] = []
+var is_recording := false
+
 # ---------------------------------------------------------
 # Signals
 # ---------------------------------------------------------
@@ -121,9 +123,11 @@ func _unhandled_input(event):
 		return
 
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+		var sens := SettingsManager.mouse_sensitivity
+		var y_dir := -1.0 if SettingsManager.invert_mouse_y else 1.0
+		rotate_y(-event.relative.x * 0.003 * sens)
 		camera_pivot.rotation_degrees.x = clamp(
-			camera_pivot.rotation_degrees.x - event.relative.y * rad_to_deg(MOUSE_SENSITIVITY),
+			camera_pivot.rotation_degrees.x - event.relative.y * rad_to_deg(0.003) * y_dir,
 			CAMERA_PITCH_MIN,
 			CAMERA_PITCH_MAX
 		)
@@ -152,6 +156,9 @@ func _physics_process(delta: float) -> void:
 		update_air_state(is_on_floor(), delta)
 		move_and_slide()
 		update_camera_zoom(delta)
+		
+		if is_recording:
+			_record_snapshot()
 		return
 
 	var on_floor := is_on_floor()
@@ -178,6 +185,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	update_visual_tilt(delta)
 	update_camera_zoom(delta)
+
+	if is_recording:
+		_record_snapshot()
 
 # ---------------------------------------------------------
 # Camera update
@@ -716,3 +726,23 @@ func resume_timers() -> void:
 func emit_initial_ui_state() -> void:
 	extra_jumps_changed.emit(extra_jumps_left, stats.max_extra_jumps.get_int())
 	dash_ready.emit()
+
+# ---------------------------------------------------------
+# Ghost Replay Execution
+# ---------------------------------------------------------
+
+func start_recording() -> void:
+	ghost_data.clear()
+	is_recording = true
+
+func stop_recording() -> Array[Dictionary]:
+	is_recording = false
+	return ghost_data
+
+func _record_snapshot() -> void:
+	var snapshot = {
+		"p": global_position,
+		"r": global_rotation.y,
+		"a": String(animation_player.current_animation) if animation_player else ""
+	}
+	ghost_data.append(snapshot)
