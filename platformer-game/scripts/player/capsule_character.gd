@@ -560,9 +560,7 @@ func handle_dash_input() -> void:
 func start_dash() -> void:
 	is_dashing = true
 	can_dash = false
-
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forwards", "move_backwards")
-	dash_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	dash_direction = (transform.basis * Vector3.FORWARD).normalized()
 
 	dash_timer.start()
 	dash_cooldown_timer.start()

@@ -14,7 +14,7 @@ extends Node3D
 var _player: CharacterBody3D
 var _fall_blend := 0.0
 
-@export var blend_strength := 15.0
+@export var blend_strength := 20.0
 
 # ---------------------------------------------------------
 # Methods
