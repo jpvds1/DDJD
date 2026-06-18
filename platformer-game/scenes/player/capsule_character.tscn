@@ -82,7 +82,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("../CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -97,7 +97,7 @@ resource_name = "dash"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("../CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -112,7 +112,7 @@ resource_name = "sprint"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("../CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -128,7 +128,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("../CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -205,9 +205,9 @@ parameters/Fall/blend_amount = 0.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8235597, -0.045057356)
 shape = SubResource("BoxShape3D_x7pql")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=447801321]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=447801321]
 
-[node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=563554905]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=563554905]
 transform = Transform3D(0.999996, 0.0027466873, -0.0006751035, -0.0026392727, 0.9919694, 0.1264509, 0.0010170016, -0.12644859, 0.99197257, 0, 2.206, 2.235)
 fov = 80.0
 
