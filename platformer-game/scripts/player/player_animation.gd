@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	# compute the fall blending value
 	fall_blend = lerp(
 		fall_blend,
-		float(player.is_on_floor()),
+		float(player.is_on_floor() or player.is_on_wall()),
 		lerp_weight
 	)
 
