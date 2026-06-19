@@ -17,6 +17,15 @@ transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48
 [node name="Area3D4" parent="." unique_id=1423558495 instance=ExtResource("1_lqjwd")]
 transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48367962, 0.1842804, 16.233528, -18.104856)
 
+[node name="Area3D2" parent="." unique_id=58554600 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48367962, 0.1842804, 19.139679, -24.661598)
+
+[node name="Area3D5" parent="." unique_id=852731236 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48367962, 0.1842804, 19.87358, -25.98195)
+
+[node name="Area3D6" parent="." unique_id=79744812 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.48367962, 0.87524503, 0, -0.87524503, 0.48367962, 0.1842804, 20.770786, -27.596098)
+
 [node name="Area3D8" parent="." unique_id=339786601 instance=ExtResource("1_lqjwd")]
 transform = Transform3D(1, 0, 0, 0, 0.6233202, 0.7819667, 0, -0.7819667, 0.6233202, 0.1842804, 3.632084, 20.12344)
 
@@ -25,6 +34,15 @@ transform = Transform3D(1, 0, 0, 0, 0.6233202, 0.7819667, 0, -0.7819667, 0.62332
 
 [node name="Area3D10" parent="." unique_id=1228821289 instance=ExtResource("1_lqjwd")]
 transform = Transform3D(1, 0, 0, 0, 0.6233202, 0.7819667, 0, -0.7819667, 0.6233202, 0.1842804, 5.731241, 17.503262)
+
+[node name="Area3D23" parent="." unique_id=410177983 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.32901505, 0.9443246, 0, -0.9443246, 0.32901505, 0.1842804, 4.1089897, 31.54256)
+
+[node name="Area3D24" parent="." unique_id=1529501921 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.32901505, 0.9443246, 0, -0.9443246, 0.32901505, 0.1842804, 4.609511, 30.117281)
+
+[node name="Area3D25" parent="." unique_id=1376726508 instance=ExtResource("1_lqjwd")]
+transform = Transform3D(1, 0, 0, 0, 0.32901505, 0.9443246, 0, -0.9443246, 0.32901505, 0.1842804, 5.221406, 28.374859)
 
 [node name="Area3D14" parent="." unique_id=671352194 instance=ExtResource("1_lqjwd")]
 transform = Transform3D(1, 0, 0, 0, 0.6561117, 0.75466377, 0, -0.75466377, 0.6561117, 0.1842804, 5.6255746, 11.867412)
