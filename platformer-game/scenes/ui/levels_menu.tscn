@@ -1,10 +1,27 @@
 [gd_scene format=3 uid="uid://b3y48lsib427f"]
 
 [ext_resource type="Script" uid="uid://duk7j0qp1d348" path="res://scripts/ui/levels_menu.gd" id="1_7v8dc"]
-[ext_resource type="Texture2D" uid="uid://dn3uetv2w573f" path="res://icon.svg" id="2_518wr"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gds35"]
-texture = ExtResource("2_518wr")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_n"]
+bg_color = Color(0.12, 0.14, 0.20, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_h"]
+bg_color = Color(0.20, 0.24, 0.36, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_p"]
+bg_color = Color(0.06, 0.07, 0.12, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="LevelsMenu" type="Control" unique_id=617620803]
 layout_mode = 3
@@ -14,6 +31,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7v8dc")
+
+[node name="BackButton" type="Button" parent="." unique_id=299000001]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 130.0
+offset_bottom = 54.0
+text = "< Back"
 
 [node name="Label" type="Label" parent="." unique_id=437114940]
 layout_mode = 1
@@ -56,24 +81,33 @@ custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " TUTORIAL"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_btn_p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_p")
+text = "TUTORIAL"
 
 [node name="Level2" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=10945857]
 custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " LEVEL 1"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_btn_p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_p")
+text = "LEVEL 1"
 
 [node name="Level3" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=633079436]
 custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " LEVEL 2"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_btn_p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_p")
+text = "LEVEL 2"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1278061234]
 layout_mode = 2
@@ -84,25 +118,35 @@ custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_btn_p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_p")
+text = "COMING SOON"
 
 [node name="Level5" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1834901298]
 custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_btn_p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_p")
+text = "COMING SOON"
 
 [node name="Level6" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1085943676]
 custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_btn_p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_p")
+text = "COMING SOON"
 
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Level1" to="." method="_on_level_1_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Level2" to="." method="_on_level_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Level3" to="." method="_on_level_3_pressed"]

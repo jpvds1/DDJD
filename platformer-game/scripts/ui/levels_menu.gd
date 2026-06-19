@@ -1,8 +1,13 @@
 extends Control
 
 
-func _ready() -> void:
-	pass # Replace with function body.
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.physical_keycode == KEY_ESCAPE and event.pressed:
+		_on_back_button_pressed()
+
+
+func _on_back_button_pressed() -> void:
+	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
 
 
 func _on_level_1_pressed() -> void:

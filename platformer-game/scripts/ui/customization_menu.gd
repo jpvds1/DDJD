@@ -70,6 +70,11 @@ func _ready() -> void:
 	_update_stars_label(GlobalInventory.total_stars)
 	_on_slot_button_pressed(GearItem.Slot.HEAD)
 
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.physical_keycode == KEY_ESCAPE and event.pressed:
+		_on_back_button_pressed()
+
 # ---------------------------------------------------------
 # Slot selection
 # ---------------------------------------------------------
