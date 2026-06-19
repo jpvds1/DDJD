@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_rnyxf"]
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_u4f7j"]
+[ext_resource type="Resource" uid="uid://1bbquwkas68e" path="res://resources/gear_items/Boots/SwiftBoots.tres" id="2_g7bfq"]
 [ext_resource type="PackedScene" uid="uid://cxwqa33o1b6ge" path="res://scenes/building_materials/tutorial_trigger.tscn" id="2_ub0e1"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="3_1r3rq"]
 [ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="5_1wklo"]
@@ -26,6 +27,7 @@ glow_enabled = true
 script = ExtResource("1_u4f7j")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
+gear_unlock_on_complete = ExtResource("2_g7bfq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
 environment = SubResource("Environment_jdsy5")

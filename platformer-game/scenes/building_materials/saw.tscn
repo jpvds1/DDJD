@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2k07ulq6kde4"]
 
-[ext_resource type="PackedScene" uid="uid://djr7woslt62or" path="res://assets/models/saw.glb" id="1_686i4"]
+[ext_resource type="PackedScene" uid="uid://djr7woslt62or" path="res://assets/models/traps/saw.glb" id="1_686i4"]
 [ext_resource type="Script" uid="uid://c71m3jnh7cv25" path="res://scripts/traps/saw.gd" id="1_w8c5v"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="2_w8c5v"]
 

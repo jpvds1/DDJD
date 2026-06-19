@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ckgxrus5di7i0"
-path="res://.godot/imported/wrecking_ball.glb-ad9b583ada39ae723df64a33269bf64f.scn"
+uid="uid://djr7woslt62or"
+path="res://.godot/imported/saw.glb-6f408ceac159f436312de3d44752bb9f.scn"
 
 [deps]
 
-source_file="res://assets/models/wrecking_ball.glb"
-dest_files=["res://.godot/imported/wrecking_ball.glb-ad9b583ada39ae723df64a33269bf64f.scn"]
+source_file="res://assets/models/traps/saw.glb"
+dest_files=["res://.godot/imported/saw.glb-6f408ceac159f436312de3d44752bb9f.scn"]
 
 [params]
 

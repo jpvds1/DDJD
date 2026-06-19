@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c4236wdn1or0f"
-path="res://.godot/imported/laser.glb-16bb664f98de9065e0005b40aa31973e.scn"
+uid="uid://yixnuy1qohl7"
+path="res://.godot/imported/wings.glb-15f6a7f2c3c41f33172c5a7c56c87bb2.scn"
 
 [deps]
 
-source_file="res://assets/models/laser.glb"
-dest_files=["res://.godot/imported/laser.glb-16bb664f98de9065e0005b40aa31973e.scn"]
+source_file="res://assets/models/cosmetics/wings.glb"
+dest_files=["res://.godot/imported/wings.glb-15f6a7f2c3c41f33172c5a7c56c87bb2.scn"]
 
 [params]
 

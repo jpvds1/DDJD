@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drkw0cs14yia6" path="res://scripts/systems/laser.gd" id="1_0vpv2"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="2_6nnwf"]
-[ext_resource type="PackedScene" uid="uid://c4236wdn1or0f" path="res://assets/models/laser.glb" id="2_3352m"]
+[ext_resource type="PackedScene" uid="uid://c4236wdn1or0f" path="res://assets/models/traps/laser.glb" id="2_3352m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6nnwf"]
 size = Vector3(0.29663086, 0.2607422, 0.5045161)

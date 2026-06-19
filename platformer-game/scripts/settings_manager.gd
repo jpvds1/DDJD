@@ -26,6 +26,8 @@ const FPS_CAPS := [0, 30, 60, 90, 120, 144, 240]
 enum AAMode { OFF, FXAA, MSAA_2X, MSAA_4X, MSAA_8X }
 
 # ---- Defaults ----
+var ghost_replay = true
+
 var audio_volumes := {}
 var audio_muted := {}
 
@@ -56,6 +58,17 @@ func apply_all() -> void:
 	apply_key_bindings()
 	settings_applied.emit()
 	
+# ===============================================================
+# General
+# ===============================================================
+
+func set_ghost_replay(value: bool) -> void:
+	ghost_replay = value
+	save_settings()
+	
+func get_ghost_replay() -> bool:
+	return ghost_replay
+
 # ===============================================================
 # Audio
 # ===============================================================
