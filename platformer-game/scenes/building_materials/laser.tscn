@@ -111,7 +111,7 @@ script = ExtResource("1_0vpv2")
 [node name="Visuals" parent="." unique_id=1691916436 instance=ExtResource("2_3352m")]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0.517, 0.52170277)
 
-[node name="Cylinder_007" parent="Visuals" index="1" unique_id=1834520319]
+[node name="Cylinder_007" parent="Visuals" index="1" unique_id=467476750]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 1.8237262, -1.1920929e-07)
 
 [node name="Hitbox" type="StaticBody3D" parent="." unique_id=1001684145]
@@ -138,11 +138,16 @@ shape = SubResource("CylinderShape3D_6nnwf")
 libraries/ = SubResource("AnimationLibrary_haumu")
 autoplay = &"on"
 
-[node name="Timer" type="Timer" parent="." unique_id=1876216844]
-wait_time = 2.5
-autostart = true
+[node name="Timers" type="Node3D" parent="." unique_id=1723892356]
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="LaserTimer" type="Timer" parent="Timers" unique_id=1876216844]
+one_shot = true
+
+[node name="IdleTimer" type="Timer" parent="Timers" unique_id=973312316]
+one_shot = true
+
+[connection signal="timeout" from="Timers/LaserTimer" to="." method="_on_laser_timer_timeout"]
+[connection signal="timeout" from="Timers/IdleTimer" to="." method="_on_idle_timer_timeout"]
 
 [editable path="Visuals"]
 [editable path="Killzone"]

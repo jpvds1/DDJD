@@ -107,6 +107,7 @@ transform = Transform3D(1, 0, 0, 0, 0.7342868, -0.6788392, 0, 0.6788392, 0.73428
 
 [node name="Laser" parent="." unique_id=429633351 instance=ExtResource("10_excbq")]
 transform = Transform3D(-0.029195257, 0, 0.9995737, 0, 1, 0, -0.9995737, 0, -0.029195257, -3.5298958, 2.5495214, 7.2293344)
+idle_duration = 1.0
 
 [node name="WreckingBall" parent="." unique_id=1409807783 instance=ExtResource("11_iav0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6808548, 12.435937, 11.650975)
