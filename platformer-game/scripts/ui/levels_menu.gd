@@ -33,7 +33,11 @@ func _on_level_3_pressed() -> void:
 
 
 func _on_level_4_pressed() -> void:
-	pass # Replace with function body.
+	get_viewport().gui_release_focus()
+	
+	var path = "res://scenes/levels/level_3.tscn"
+	Global.game_controller.change_3D_scene.call_deferred(path)
+
 
 
 func _on_level_5_pressed() -> void:
