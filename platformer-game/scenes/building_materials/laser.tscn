@@ -141,9 +141,11 @@ autoplay = &"on"
 [node name="Timers" type="Node3D" parent="." unique_id=1723892356]
 
 [node name="LaserTimer" type="Timer" parent="Timers" unique_id=1876216844]
+wait_time = 2.5
 one_shot = true
 
 [node name="IdleTimer" type="Timer" parent="Timers" unique_id=973312316]
+wait_time = 2.5
 one_shot = true
 
 [connection signal="timeout" from="Timers/LaserTimer" to="." method="_on_laser_timer_timeout"]

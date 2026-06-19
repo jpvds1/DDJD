@@ -5,24 +5,36 @@ extends Node3D
 @onready var laser_timer: Timer = $Timers/LaserTimer
 @onready var idle_timer: Timer = $Timers/IdleTimer
 
+## Whether the laser is operational.
+@export var active := true:
+	set(value):
+		active = value
+		if is_node_ready():
+			_update_laser()
 ## The duration in seconds of the laser shooting animation.
 @export var laser_duration := 2.5 # seconds
 ## The amount of time in seconds the laser remains idle after shooting.
 @export var idle_duration := 2.5 # seconds
-## Whether the laser is shooting or not.
-@export var active := true
+
+
+func _update_laser() -> void:
+	# reset the timers
+	laser_timer.stop()
+	idle_timer.stop()
+	
+	if active:
+		# fire the laser
+		_on_idle_timer_timeout()
+	else:
+		animation_player.play("off")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if laser_duration == 0:
-		return
-		
 	laser_timer.wait_time = laser_duration
 	idle_timer.wait_time = idle_duration
 	
-	var timer := laser_timer if active else idle_timer
-	timer.start()
+	_update_laser()
 
 
 func _on_laser_timer_timeout() -> void:
