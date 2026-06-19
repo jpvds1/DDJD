@@ -59,6 +59,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_slot_n")
 theme_override_styles/hover = SubResource("StyleBoxFlat_slot_h")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_slot_p")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_p")
+clip_text = true
+text_overrun_behavior = 3
 text = "Active
 Head
 Gear"
@@ -72,6 +74,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_slot_n")
 theme_override_styles/hover = SubResource("StyleBoxFlat_slot_h")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_slot_p")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_p")
+clip_text = true
+text_overrun_behavior = 3
 text = "Active
 Chest
 Gear"
@@ -85,6 +89,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_slot_n")
 theme_override_styles/hover = SubResource("StyleBoxFlat_slot_h")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_slot_p")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_slot_p")
+clip_text = true
+text_overrun_behavior = 3
 text = "Active
 Boots
 Gear"
@@ -110,6 +116,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="StatsVBox" type="VBoxContainer" parent="HBoxContainer" unique_id=708597039]
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/StatsVBox" unique_id=1470840931]

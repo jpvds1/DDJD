@@ -131,6 +131,8 @@ func _refresh_grid() -> void:
 func _add_equip_button(item: GearItem, is_equipped: bool) -> void:
 	var btn := Button.new()
 	btn.text = item.item_name
+	btn.clip_text = true
+	btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	btn.modulate = COLOR_EQUIPPED if is_equipped else COLOR_SELECTED
 	btn.pressed.connect(_on_gear_item_pressed.bind(item))
 	grid_container.add_child(btn)
@@ -141,6 +143,8 @@ func _add_locked_entry(item: GearItem) -> void:
 			var btn := Button.new()
 			var can_buy := GlobalInventory.can_purchase(item)
 			btn.text = "%s\n⭐ %d stars" % [item.item_name, item.star_cost]
+			btn.clip_text = true
+			btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 			btn.modulate = COLOR_BUYABLE if can_buy else COLOR_LOCKED
 			btn.disabled = not can_buy
 			btn.pressed.connect(_on_purchase_pressed.bind(item))
@@ -150,6 +154,8 @@ func _add_locked_entry(item: GearItem) -> void:
 			var container := VBoxContainer.new()
 			var name_lbl := Label.new()
 			name_lbl.text =  "🔒 " + item.item_name
+			name_lbl.clip_text = true
+			name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 			name_lbl.modulate = COLOR_LOCKED
 			container.add_child(name_lbl)
 			
@@ -163,6 +169,7 @@ func _add_locked_entry(item: GearItem) -> void:
 						
 			var desc_lbl := Label.new()
 			desc_lbl.text = desc
+			desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			desc_lbl.modulate = COLOR_LOCKED
 			desc_lbl.add_theme_font_size_override("font_size", 10)
 			container.add_child(desc_lbl)
@@ -217,6 +224,8 @@ func _refresh_stats_panel() -> void:
 			
 		var lbl := Label.new()
 		lbl.text = display_text
+		lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		
 		var is_beneficial := (bonus * good_sign) > 0.0
 		lbl.modulate = COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG
