@@ -18,6 +18,14 @@ extends CanvasLayer
 @onready var message_label: Label = $HUD/MessageTop/MessageCenter/MessageLabel
 @onready var timer_label: Label = $HUD/TimerMargin/TimerLabel
 
+# Star display
+@onready var star_3_icon: Label = $StarPanel/Star3Row/Star3Icon
+@onready var star_3_time_label: Label = $StarPanel/Star3Row/Star3TimeLabel
+@onready var star_2_icon: Label = $StarPanel/Star2Row/Star2Icon
+@onready var star_2_time_label: Label = $StarPanel/Star2Row/Star2TimeLabel
+@onready var star_1_icon: Label = $StarPanel/Star1Row/Star1Icon
+@onready var star_1_time_label: Label = $StarPanel/Star1Row/Star1TimeLabel
+
 # Level finish
 @onready var level_complete_overlay: Control = $LevelCompleteOverlay
 @onready var time_label: Label = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/TimeLabel
@@ -41,6 +49,16 @@ var dash_cooldown_active := false
 var dash_cooldown_duration := 0.0
 var dash_cooldown_time_left := 0.0
 var ui_paused := false
+
+# ---------------------------------------------------------
+# Star display state
+# ---------------------------------------------------------
+
+var _star_thresholds: Array = [0.0, 0.0, 0.0]
+var _star_icon_nodes: Array = []
+
+const _COLOR_STAR_LIT := Color(1.0, 0.85, 0.2, 1.0)
+const _COLOR_STAR_DIM := Color(0.35, 0.35, 0.35, 1.0)
 
 # ---------------------------------------------------------
 # Setup
@@ -85,6 +103,8 @@ func _ready() -> void:
 	level_complete_overlay.visible = false
 	pause_overlay.visible = false
 	
+	_setup_star_display()
+	
 	player.emit_initial_ui_state()
 	
 func _process(delta: float) -> void:
@@ -101,6 +121,9 @@ func _process(delta: float) -> void:
 			dash_cooldown_active = false
 			_set_dash_fill_ratio(1.0)
 	
+	if level != null and level.timer_running:
+		_update_star_icons(level.run_time)
+		
 # ---------------------------------------------------------
 # Handle signals
 # ---------------------------------------------------------	
@@ -129,7 +152,8 @@ func _on_checkpoint_reached() -> void:
 func _on_player_unalived() -> void:
 	_show_message("You died")
 	
-func _on_run_completed(final_time: String) -> void:
+func _on_run_completed(final_time: String, _stars: int) -> void:
+	_update_star_icons(level.run_time)
 	level_complete_overlay.visible = true
 	message_label.visible = false
 	time_label.text = "Time: " + final_time
@@ -167,7 +191,45 @@ func _on_pause_restart_button_pressed() -> void:
 
 func _on_pause_back_button_pressed() -> void:
 	level.return_to_menu()
+
+# ---------------------------------------------------------
+# Star display
+# ---------------------------------------------------------
+
+func _setup_star_display() -> void:
+	_star_thresholds[0] = level.time_3_stars
+	_star_thresholds[1] = level.time_2_stars
+	_star_thresholds[2] = level.time_1_star
+	_star_icon_nodes = [star_3_icon, star_2_icon, star_1_icon]
 	
+	var time_labels: Array = [star_3_time_label, star_2_time_label, star_1_time_label]
+	for i in range(3):
+		var t: float = _star_thresholds[i]
+		time_labels[i].text = ("< " + _format_time(t)) if t > 0.0 else "—"
+	
+	_update_star_icons(0.0)
+
+func _update_star_icons(current_time: float) -> void:
+	for i in range(3):
+		var threshold: float = _star_thresholds[i]
+		var icon: Label = _star_icon_nodes[i]
+		if threshold <= 0.0:
+			icon.text = "☆"
+			icon.add_theme_color_override("font_color", _COLOR_STAR_DIM)
+		elif current_time <= threshold:
+			icon.text = "★"
+			icon.add_theme_color_override("font_color", _COLOR_STAR_LIT)
+		else:
+			icon.text = "☆"
+			icon.add_theme_color_override("font_color", _COLOR_STAR_DIM)
+
+func _format_time(seconds: float) -> String:
+	var total_ms := int(round(seconds * 1000.0))
+	var minutes := total_ms / 60000
+	var secs := (total_ms % 60000) / 1000
+	var ms := total_ms % 1000
+	return "%02d:%02d.%03d" % [minutes, secs, ms]
+		
 # ---------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------

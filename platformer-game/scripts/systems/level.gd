@@ -155,7 +155,7 @@ func _on_player_finish_requested() -> void:
 	GlobalInventory.award_stars(level_id, stars)
 	AchievementManager.check_level_completion_achievements(extra_jumps_used, died_this_run)
 	
-	run_completed.emit(final_time)
+	run_completed.emit(final_time, stars)
 	
 	_handle_local_ghost_save(ghost_run_data)
 	

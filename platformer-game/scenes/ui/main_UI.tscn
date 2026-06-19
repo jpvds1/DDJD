@@ -133,6 +133,62 @@ text = "Restart Level"
 layout_mode = 2
 text = "Back to Menu"
 
+[node name="StarPanel" type="VBoxContainer" parent="." unique_id=100000001]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -39.0
+offset_right = 190.0
+offset_bottom = 39.0
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Star3Row" type="HBoxContainer" parent="StarPanel" unique_id=100000002]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Star3Icon" type="Label" parent="StarPanel/Star3Row" unique_id=100000003]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "★"
+
+[node name="Star3TimeLabel" type="Label" parent="StarPanel/Star3Row" unique_id=100000004]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0:00.000"
+
+[node name="Star2Row" type="HBoxContainer" parent="StarPanel" unique_id=100000005]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Star2Icon" type="Label" parent="StarPanel/Star2Row" unique_id=100000006]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "★"
+
+[node name="Star2TimeLabel" type="Label" parent="StarPanel/Star2Row" unique_id=100000007]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0:00.000"
+
+[node name="Star1Row" type="HBoxContainer" parent="StarPanel" unique_id=100000008]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Star1Icon" type="Label" parent="StarPanel/Star1Row" unique_id=100000009]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "★"
+
+[node name="Star1TimeLabel" type="Label" parent="StarPanel/Star1Row" unique_id=100000010]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0:00.000"
+
 [node name="PauseOverlay" type="Control" parent="." unique_id=1491478266]
 visible = false
 layout_mode = 3
