@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://nk6mrgg4s2yu"]
 
 [ext_resource type="Script" uid="uid://vtgmobmh3xlj" path="res://scripts/ui/customization_menu.gd" id="1_xq2xj"]
+[ext_resource type="PackedScene" path="res://assets/models/player/player.glb" id="2_player"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot_n"]
 bg_color = Color(0.12, 0.14, 0.20, 1)
@@ -107,9 +108,35 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="CharacterPlaceholder" type="ColorRect" parent="HBoxContainer" unique_id=1293196574]
+[node name="CharacterPreview" type="SubViewportContainer" parent="HBoxContainer" unique_id=1293196575]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/CharacterPreview" unique_id=1293196576]
+transparent_bg = true
+handle_input_locally = false
+own_world_3d = true
+size = Vector2i(200, 404)
+
+[node name="Camera3D" type="Camera3D" parent="HBoxContainer/CharacterPreview/SubViewport" unique_id=1293196577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 3.5)
+rotation_degrees = Vector3(-5, 0, 0)
+current = true
+fov = 50
+
+[node name="KeyLight" type="DirectionalLight3D" parent="HBoxContainer/CharacterPreview/SubViewport" unique_id=1293196578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_degrees = Vector3(-40, -30, 0)
+light_energy = 1.2
+
+[node name="FillLight" type="DirectionalLight3D" parent="HBoxContainer/CharacterPreview/SubViewport" unique_id=1293196579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_degrees = Vector3(-20, 150, 0)
+light_energy = 0.4
+light_color = Color(0.65, 0.75, 1.0, 1.0)
+
+[node name="PlayerModel" parent="HBoxContainer/CharacterPreview/SubViewport" instance=ExtResource("2_player") unique_id=1293196580]
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=758279473]
 custom_minimum_size = Vector2(50, 0)
