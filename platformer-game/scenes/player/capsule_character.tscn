@@ -64,15 +64,15 @@ blend_point_8/pos = Vector2(-0.4, 0)
 animation = &"player_fall/fall"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_iwp50"]
-graph_offset = Vector2(-472.36533, 168.76727)
+graph_offset = Vector2(-230.84259, 147.44424)
 nodes/output/position = Vector2(500, 240)
 nodes/Movement/node = SubResource("AnimationNodeBlendSpace2D_h2b2i")
-nodes/Movement/position = Vector2(40, 460)
+nodes/Movement/position = Vector2(20, 240)
 nodes/Fall/node = SubResource("AnimationNodeBlend2_d66dr")
 nodes/Fall/position = Vector2(260, 240)
 "nodes/[A] Fall/node" = SubResource("AnimationNodeAnimation_h2b2i")
-"nodes/[A] Fall/position" = Vector2(40, 240)
-node_connections = [&"output", 0, &"Fall", &"Fall", 0, &"[A] Fall", &"Fall", 1, &"Movement"]
+"nodes/[A] Fall/position" = Vector2(20, 500)
+node_connections = [&"output", 0, &"Fall", &"Fall", 0, &"Movement", &"Fall", 1, &"[A] Fall"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x7pql"]
 size = Vector3(0.81030273, 1.636039, 0.2841797)
@@ -169,7 +169,7 @@ bones/8/rotation = Quaternion(-0.19652383, -0.21395344, -0.054825213, 0.95529914
 bones/9/rotation = Quaternion(0.05696912, -0.08465244, 0.16803999, 0.9804851)
 bones/11/rotation = Quaternion(0.4801607, -0.43108103, 0.6592815, 0.385957)
 bones/12/rotation = Quaternion(-0.15415785, 0.23323189, 0.078037985, 0.9569475)
-bones/13/rotation = Quaternion(0.029332757, 0.030172303, -0.24029127, 0.9697884)
+bones/13/rotation = Quaternion(0.029332764, 0.03017227, -0.24029125, 0.9697884)
 bones/14/position = Vector3(-9.387732e-06, 20.1674, 6.4084306e-06)
 bones/15/rotation = Quaternion(0.1457135, 0.5512298, 0.8148239, -0.104763106)
 bones/16/rotation = Quaternion(-0.88825357, 0.015521828, -0.046805568, 0.4566989)
@@ -198,7 +198,7 @@ libraries/player_walk = ExtResource("6_j3xf5")
 [node name="AnimationTree" type="AnimationTree" parent="Visuals" unique_id=851465398]
 tree_root = SubResource("AnimationNodeBlendTree_iwp50")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Movement/blend_position = Vector2(0.17647064, -0.64928913)
+parameters/Movement/blend_position = Vector2(0, 0)
 parameters/Fall/blend_amount = 0.0
 
 [node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
