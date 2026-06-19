@@ -47,6 +47,9 @@ const COLOR_BONUS_POS  := Color(0.35, 1.0,  0.45, 1.0)
 const COLOR_BONUS_NEG  := Color(1.0,  0.38, 0.38, 1.0)
 const COLOR_NO_BONUS   := Color(0.7,  0.7,  0.7,  1.0)
 
+# Shared size for every gear grid entry (equip/unequip/buy/locked) so they all line up
+const GEAR_ENTRY_SIZE := Vector2(360, 64)
+
 # ---------------------------------------------------------
 # Lifecycle
 # ---------------------------------------------------------
@@ -116,65 +119,59 @@ func _refresh_grid() -> void:
 	
 	if GlobalInventory.equipped_gear[_selected_slot] != null:
 		var unequip_btn := Button.new()
+		unequip_btn.custom_minimum_size = GEAR_ENTRY_SIZE
 		unequip_btn.text = "Unequip"
 		unequip_btn.pressed.connect(_on_unequip_pressed)
 		grid_container.add_child(unequip_btn)
 		
-	var currently_equipped: GearItem = GlobalInventory.equipped_gear[_selected_slot]
-	
 	for item: GearItem in slot_items:
-		if GlobalInventory.is_item_unlocked(item):
-			_add_equip_button(item, item == currently_equipped)
-		else:
-			_add_locked_entry(item)
-			
-func _add_equip_button(item: GearItem, is_equipped: bool) -> void:
+		_add_gear_entry(item)
+
+# Builds one gear entry. Same button, same size, for every state - only the
+# status line, color, and whether it's clickable change.
+func _add_gear_entry(item: GearItem) -> void:
+	var is_unlocked := GlobalInventory.is_item_unlocked(item)
+	var is_equipped = item == GlobalInventory.equipped_gear[_selected_slot]
+	
+	var status_line: String
+	var color: Color
+	var can_interact: bool
+	
+	if is_unlocked:
+		status_line = "Equipped" if is_equipped else "Tap to equip"
+		color = COLOR_EQUIPPED if is_equipped else COLOR_SELECTED
+		can_interact = not is_equipped
+	elif item.unlock_type == GearItem.UnlockType.PURCHASE:
+		var can_buy := GlobalInventory.can_purchase(item)
+		status_line = "★  %d stars" % item.star_cost
+		color = COLOR_BUYABLE if can_buy else COLOR_LOCKED
+		can_interact = can_buy
+	else:
+		var desc := item.unlock_description
+		if desc == "":
+			match item.unlock_type:
+				GearItem.UnlockType.LEVEL_COMPLETION:
+					desc = "Complete a level to unlock"
+				GearItem.UnlockType.ACHIEVEMENT:
+					desc = "Unlock via achievement"
+		status_line = "🔒 " + desc
+		color = COLOR_LOCKED
+		can_interact = false
+		
 	var btn := Button.new()
-	btn.text = item.item_name
+	btn.custom_minimum_size = GEAR_ENTRY_SIZE
 	btn.clip_text = true
 	btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	btn.modulate = COLOR_EQUIPPED if is_equipped else COLOR_SELECTED
-	btn.pressed.connect(_on_gear_item_pressed.bind(item))
-	grid_container.add_child(btn)
+	btn.text = "%s\n%s" % [item.item_name, status_line]
+	btn.modulate = color
+	btn.disabled = not can_interact
 	
-func _add_locked_entry(item: GearItem) -> void:
-	match item.unlock_type:
-		GearItem.UnlockType.PURCHASE:
-			var btn := Button.new()
-			var can_buy := GlobalInventory.can_purchase(item)
-			btn.text = "%s\n⭐ %d stars" % [item.item_name, item.star_cost]
-			btn.clip_text = true
-			btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-			btn.modulate = COLOR_BUYABLE if can_buy else COLOR_LOCKED
-			btn.disabled = not can_buy
-			btn.pressed.connect(_on_purchase_pressed.bind(item))
-			grid_container.add_child(btn)
+	if is_unlocked:
+		btn.pressed.connect(_on_gear_item_pressed.bind(item))
+	elif item.unlock_type == GearItem.UnlockType.PURCHASE:
+		btn.pressed.connect(_on_purchase_pressed.bind(item))
 		
-		_:
-			var container := VBoxContainer.new()
-			var name_lbl := Label.new()
-			name_lbl.text =  "🔒 " + item.item_name
-			name_lbl.clip_text = true
-			name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-			name_lbl.modulate = COLOR_LOCKED
-			container.add_child(name_lbl)
-			
-			var desc := item.unlock_description
-			if desc == "":
-				match item.unlock_type:
-					GearItem.UnlockType.LEVEL_COMPLETION:
-						desc = "Complete a level for the first time"
-					GearItem.UnlockType.ACHIEVEMENT:
-						desc = "Unlock via achievement " + item.achievement_id
-						
-			var desc_lbl := Label.new()
-			desc_lbl.text = desc
-			desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			desc_lbl.modulate = COLOR_LOCKED
-			desc_lbl.add_theme_font_size_override("font_size", 10)
-			container.add_child(desc_lbl)
-			
-			grid_container.add_child(container)
+	grid_container.add_child(btn)
  
 # ---------------------------------------------------------
 # Stats
@@ -244,7 +241,7 @@ func _refresh_stats_panel() -> void:
 		
 func _update_stars_label(new_total: int) -> void:
 	if is_instance_valid(stars_label):
-		stars_label.text = "⭐  %d Stars" % new_total
+		stars_label.text = "★  %d Stars" % new_total
 		
 # ---------------------------------------------------------
 # Callbacks
