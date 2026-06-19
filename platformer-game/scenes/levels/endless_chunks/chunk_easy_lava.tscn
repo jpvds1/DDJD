@@ -8,19 +8,24 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024184227, 0, -64.8244)
 
 [node name="Lava" parent="." unique_id=273928513 instance=ExtResource("2_d1nxx")]
-transform = Transform3D(5.1885686, 0, 0, 0, 5.1885686, 0, 0, 0, 12.941816, -0.12969208, -2.1122818, 0.5157013)
+transform = Transform3D(5.1885686, 0, 0, 0, 5.1885686, 0, 0, 0, 12.941816, -0.12969208, -7.9626484, 0.5157013)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=72903072]
-transform = Transform3D(0.16780931, 0, 0, 0, 0.16780931, 0, 0, 0, 0.16780931, 0.024184227, 4.4575496, -11.945568)
+transform = Transform3D(0.16780931, 0, 0, 0, 0.16780931, 0, 0, 0, 0.16780931, 0.024184227, -1.392817, -11.945568)
 use_collision = true
 size = Vector3(50, 1, 31.34082)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2075518079]
-transform = Transform3D(0.16780931, 0, 0, 0, 0.16780931, 0, 0, 0, 0.16780931, 0.024184227, 4.4575496, 0.014198303)
+transform = Transform3D(0.16780931, 0, 0, 0, 0.16780931, 0, 0, 0, 0.16780931, 0.024184227, -1.392817, 0.014198303)
 use_collision = true
 size = Vector3(50, 1, 31.34082)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=831331745]
-transform = Transform3D(0.16780931, 0, 0, 0, 0.16780931, 0, 0, 0, 0.16780931, 0.024184227, 4.4575496, 12.541981)
+transform = Transform3D(0.16780931, 0, 0, 0, 0.16780931, 0, 0, 0, 0.16780931, 0.024184227, -1.392817, 12.541981)
+use_collision = true
+size = Vector3(50, 1, 31.34082)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=2083431642]
+transform = Transform3D(0.16780931, 0, 0, 0, 0.16780931, 0, 0, 0, 0.16780931, 0.024184227, -0.53079367, -29.329838)
 use_collision = true
 size = Vector3(50, 1, 31.34082)
