@@ -162,7 +162,8 @@ func _add_gear_entry(item: GearItem) -> void:
 	btn.custom_minimum_size = GEAR_ENTRY_SIZE
 	btn.clip_text = true
 	btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	btn.text = "%s\n%s" % [item.item_name, status_line]
+	var name_line := ("%s  [%s]" % [item.item_name, item.set_name]) if item.set_name != "" else item.item_name
+	btn.text = "%s\n%s" % [name_line, status_line]
 	btn.modulate = color
 	btn.disabled = not can_interact
 	
