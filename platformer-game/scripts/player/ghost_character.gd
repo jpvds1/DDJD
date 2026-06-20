@@ -64,6 +64,6 @@ func _physics_process(_delta: float) -> void:
 		animation_tree.set("parameters/Movement/blend_position", snapshot.get("mb", Vector2.ZERO))
 
 	if visuals:
-		visuals.rotation.z = -snapshot.get("vz", 0.0)
+		visuals.rotation.z = snapshot.get("vz", 0.0)
 
 	current_frame += 1
