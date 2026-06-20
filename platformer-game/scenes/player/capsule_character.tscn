@@ -64,7 +64,6 @@ blend_point_8/pos = Vector2(-0.4, 0)
 animation = &"player_fall/fall"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_iwp50"]
-graph_offset = Vector2(-230.84259, 147.44424)
 nodes/output/position = Vector2(500, 240)
 nodes/Movement/node = SubResource("AnimationNodeBlendSpace2D_h2b2i")
 nodes/Movement/position = Vector2(20, 240)
@@ -231,6 +230,8 @@ transform = Transform3D(0.4722469, 1.2974873, -0.5860967, -1.409539, 0.5130302, 
 
 [node name="RayCast3DRight" type="RayCast3D" parent="Raycasts" unique_id=433990665]
 transform = Transform3D(-0.47233433, -1.2977275, -0.58549404, -1.409539, 0.5130302, 1.4367423e-08, 0.20025077, 0.55018437, -1.3810129, 0, 0.6, 0)
+
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=354169916]
 
 [node name="StatsManager" type="Node" parent="." unique_id=746246521]
 unique_name_in_owner = true
