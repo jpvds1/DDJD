@@ -8,6 +8,7 @@ func _on_leaderboard_pressed() -> void:
 	add_child(lb)
 
 func _on_settings_pressed() -> void:
+	Global.settings_return_scene = "res://scenes/ui/main_menu.tscn"
 	Global.game_controller.change_GUI_scene("res://scenes/ui/settings_menu.tscn")
 
 func _on_quit_pressed() -> void:

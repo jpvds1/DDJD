@@ -34,6 +34,7 @@ extends CanvasLayer
 @onready var pause_overlay: Control = $PauseOverlay
 @onready var pause_resume_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseResumeButton
 @onready var pause_restart_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseRestartButton
+@onready var pause_settings_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseSettingsButton
 @onready var pause_back_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseBackButton
 
 # Game over
@@ -105,6 +106,7 @@ func _ready() -> void:
 	# Pause overlay buttons
 	pause_resume_button.pressed.connect(_on_pause_resume_button_pressed)
 	pause_restart_button.pressed.connect(_on_pause_restart_button_pressed)
+	pause_settings_button.pressed.connect(_on_pause_settings_button_pressed)
 	pause_back_button.pressed.connect(_on_pause_back_button_pressed)
 
 	# Game over overlay buttons
@@ -210,6 +212,14 @@ func _on_pause_resume_button_pressed() -> void:
 
 func _on_pause_restart_button_pressed() -> void:
 	level.restart_level()
+
+func _on_pause_settings_button_pressed() -> void:
+	pause_overlay.visible = false
+	var settings = preload("res://scenes/ui/settings_menu.tscn").instantiate()
+	settings.process_mode = Node.PROCESS_MODE_ALWAYS
+	settings.return_to_pause = true
+	settings.tree_exiting.connect(func(): pause_overlay.visible = true)
+	add_child(settings)
 
 func _on_pause_back_button_pressed() -> void:
 	level.return_to_menu()

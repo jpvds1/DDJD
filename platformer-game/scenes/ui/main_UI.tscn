@@ -235,6 +235,10 @@ text = "Resume"
 layout_mode = 2
 text = "Restart"
 
+[node name="PauseSettingsButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=300000001]
+layout_mode = 2
+text = "Settings"
+
 [node name="PauseBackButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=454711152]
 layout_mode = 2
 text = "Back"

@@ -24,6 +24,7 @@ extends Control
 
 @onready var tab_container: TabContainer = %TabContainer
 
+var return_to_pause: bool = false
 var _rebinding_action: String = ""
 var _action_buttons: Dictionary = {}
 
@@ -195,7 +196,7 @@ func _on_rebind_pressed(action_name: String) -> void:
 func _input(event: InputEvent) -> void:
 	if _rebinding_action == "":
 		if event is InputEventKey and event.physical_keycode == KEY_ESCAPE and event.pressed:
-			Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
+			_go_back()
 		return
  
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -296,5 +297,11 @@ func _refresh_display_tab() -> void:
 # OTHER
 # ============================================================
  
+func _go_back() -> void:
+	if return_to_pause:
+		queue_free()
+	else:
+		Global.game_controller.change_GUI_scene(Global.settings_return_scene)
+
 func _on_back_button_pressed() -> void:
-	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
+	_go_back()
