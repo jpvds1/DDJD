@@ -7,6 +7,7 @@ extends Node3D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var stats: Node = %StatsManager
 @onready var jump_audio_player: AudioStreamPlayer = $SFX/Jump
+@onready var dash_audio_player: AudioStreamPlayer = $SFX/Dash
 
 # ---------------------------------------------------------
 # Variables
@@ -24,17 +25,23 @@ var _fall_blend := 0.0
 func _on_jumped(jump_number: int) -> void:
 	_fall_blend = 0.8
 	
-	# play the 
+	# play the jump audio
 	jump_audio_player.pitch_scale = 1.0 + float(jump_number) * 0.1  
 	jump_audio_player.play()
+
+
+func _on_dashed() -> void:
+	# play the dash audio
+	dash_audio_player.play()
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_player = get_parent() as CharacterBody3D
 	
-	# connect to the jump event
+	# connect to the player events
 	_player.jumped.connect(_on_jumped)
+	_player.dashed.connect(_on_dashed)
 
 
 func _physics_process(delta: float) -> void:

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cu7ms8tx84a0l" path="res://assets/models/player/player.glb" id="2_woat5"]
 [ext_resource type="AudioStream" uid="uid://dcarkwm2clq46" path="res://assets/sounds/player/player_jump.wav" id="3_b6vsu"]
 [ext_resource type="PackedScene" uid="uid://yixnuy1qohl7" path="res://assets/models/cosmetics/wings.glb" id="4_m2k08"]
+[ext_resource type="AudioStream" uid="uid://bpxrh00ytinr7" path="res://assets/sounds/player/player_dash.mp3" id="4_sa6kk"]
 [ext_resource type="AnimationLibrary" uid="uid://b7yt2c7m7hxbi" path="res://assets/models/player/player_fall.glb" id="5_4yw4v"]
 [ext_resource type="AnimationLibrary" uid="uid://c7mmexla4wmco" path="res://assets/models/player/player_idle.glb" id="6_73k46"]
 [ext_resource type="AnimationLibrary" uid="uid://bv5rxn1v0rm0u" path="res://assets/models/player/player_jump.glb" id="7_o1fm1"]
@@ -74,33 +75,33 @@ node_connections = [&"output", 0, &"Fall", &"Fall", 0, &"Movement", &"Fall", 1, 
 
 [node name="PlayerVisuals" unique_id=396880001 instance=ExtResource("2_woat5")]
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(2008981396) index="0" unique_id=529875124]
-bones/0/position = Vector3(-1.8743114, 0.93388844, -73.043755)
-bones/0/rotation = Quaternion(-0.708422, 0.0014513109, -0.008009816, 0.7057423)
-bones/1/rotation = Quaternion(-0.0009592696, -0.0024285198, 1.540674e-05, 0.9999966)
-bones/2/rotation = Quaternion(-0.0044013145, -0.018930027, 0.0012496935, 0.99981034)
-bones/3/rotation = Quaternion(-0.0044623124, -0.018875564, 0.0012299265, 0.9998111)
-bones/4/rotation = Quaternion(-0.01642502, 0.01620179, -0.015318378, 0.9996165)
-bones/5/rotation = Quaternion(0.07329742, -0.0030172777, 0.015021095, 0.9971925)
-bones/7/rotation = Quaternion(0.51242995, 0.44741088, -0.63005227, 0.3745308)
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1314466787) index="0" unique_id=1620985112]
+bones/0/position = Vector3(-5.1213193, 0.6243086, -72.85517)
+bones/0/rotation = Quaternion(-0.7146513, 0.00045963394, 0.017901482, 0.6992517)
+bones/1/rotation = Quaternion(0.0032729858, -0.002363068, 0.002242398, 0.99998933)
+bones/2/rotation = Quaternion(0.0012823665, -0.022524267, 0.0065672654, 0.9997239)
+bones/3/rotation = Quaternion(0.0010773495, -0.022446688, 0.0066994578, 0.9997251)
+bones/4/rotation = Quaternion(-0.029928789, 0.019279499, -0.022053555, 0.99912274)
+bones/5/rotation = Quaternion(0.050876684, 0.002072583, 0.017065454, 0.998557)
+bones/7/rotation = Quaternion(0.5141774, 0.46413907, -0.58681434, 0.41933942)
 bones/8/position = Vector3(5.8269643e-07, 12.347598, 5.5259097e-06)
-bones/8/rotation = Quaternion(0.42243755, 0.1784162, 0.077386, 0.8852828)
-bones/9/rotation = Quaternion(-0.019110827, -7.3168674e-05, 0.27039364, 0.9625602)
-bones/11/rotation = Quaternion(0.5347844, -0.45040604, 0.5740387, 0.42616853)
-bones/12/rotation = Quaternion(0.47876054, -0.15086815, -0.107852615, 0.8581347)
-bones/13/rotation = Quaternion(0.009907987, -1.4501627e-05, -0.23394667, 0.972199)
+bones/8/rotation = Quaternion(0.48831904, 0.13540195, 0.08047758, 0.8583323)
+bones/9/rotation = Quaternion(-0.01872861, -7.336129e-05, 0.2649852, 0.96407056)
+bones/11/rotation = Quaternion(0.5190122, -0.46534488, 0.5717002, 0.43271175)
+bones/12/rotation = Quaternion(0.46979466, -0.13992317, -0.16432264, 0.8559863)
+bones/13/rotation = Quaternion(0.009525286, -1.4625259e-05, -0.2249092, 0.97433317)
 bones/14/position = Vector3(-8.046627e-07, 20.167395, -2.1746382e-06)
-bones/15/rotation = Quaternion(0.03720048, 0.053812858, 0.9970678, -0.039702322)
-bones/16/rotation = Quaternion(-0.16195896, -0.07836216, -0.0010873709, 0.9836806)
-bones/17/rotation = Quaternion(0.4727937, -0.005314326, -0.016536523, 0.88100195)
-bones/18/rotation = Quaternion(0.3859142, -0.015950227, 0.0066863033, 0.92237264)
-bones/20/rotation = Quaternion(-0.11105163, 0.06106854, 0.9910951, 0.040848713)
-bones/21/rotation = Quaternion(-0.1513081, 0.04713784, 0.012608665, 0.9872816)
-bones/22/rotation = Quaternion(0.44969693, 0.030931246, -0.0012206323, 0.8926447)
-bones/23/rotation = Quaternion(0.38965616, 0.015789725, -0.0066915387, 0.92080075)
+bones/15/rotation = Quaternion(0.066968136, 0.031427585, 0.99594545, -0.05118944)
+bones/16/rotation = Quaternion(-0.13166241, -0.07088766, -0.0054965955, 0.9887415)
+bones/17/rotation = Quaternion(0.45094457, -0.011328639, -0.03754691, 0.89168996)
+bones/18/rotation = Quaternion(0.39027587, -0.0159303, 0.006814839, 0.92053497)
+bones/20/rotation = Quaternion(-0.09866417, 0.0777174, 0.99151653, 0.03347335)
+bones/21/rotation = Quaternion(-0.20249332, 0.049019817, 0.010520679, 0.97799945)
+bones/22/rotation = Quaternion(0.4807056, 0.01584265, -0.021493113, 0.8764755)
+bones/23/rotation = Quaternion(0.38921717, 0.015791746, -0.0066787177, 0.9209865)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="6" unique_id=2030324437]
-transform = Transform3D(0.9942794, -0.047680385, -0.09557685, 0.096574545, 0.019073814, 0.99514306, -0.04562579, -0.99868065, 0.023569394, -6.22068, -0.3918919, -122.376564)
+transform = Transform3D(0.99593234, -0.049307473, -0.07541626, 0.0769829, 0.03068392, 0.99656004, -0.046823807, -0.99831223, 0.034354858, -6.9888287, -0.40891975, -122.67716)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 
@@ -109,8 +110,12 @@ transform = Transform3D(100, 0, 0, 0, 100, -5.820766e-09, 0, 5.820766e-09, 100, 
 
 [node name="SFX" type="Node3D" parent="." index="1" unique_id=1366908796]
 
-[node name="Jump" type="AudioStreamPlayer" parent="SFX" index="0" unique_id=1937560837]
+[node name="Jump" type="AudioStreamPlayer" parent="SFX" index="0" unique_id=821101626]
 stream = ExtResource("3_b6vsu")
+
+[node name="Dash" type="AudioStreamPlayer" parent="SFX" index="1" unique_id=2111371093]
+stream = ExtResource("4_sa6kk")
+volume_db = -6.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=495280190]
 libraries/player_fall = ExtResource("5_4yw4v")
@@ -124,3 +129,7 @@ tree_root = SubResource("AnimationNodeBlendTree_73k46")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Movement/blend_position = Vector2(0, 0)
 parameters/Fall/blend_amount = 0.0
+
+[node name="AudioListener3D" type="AudioListener3D" parent="." index="4" unique_id=1605179540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+current = true

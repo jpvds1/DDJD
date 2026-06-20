@@ -101,6 +101,8 @@ var is_recording := false
 
 signal jumped(jump_number: int)
 signal extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int)
+
+signal dashed()
 signal dash_count_changed(current: int, max_count: int)
 signal dash_cooldown_started(duration: float)
 signal dash_ready()
@@ -583,6 +585,7 @@ func start_dash() -> void:
 		dash_cooldown_timer.start()
 		dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
 
+	dashed.emit()
 	dash_count_changed.emit(dashes_left, stats.max_dashes.get_int())
 	update_animation_state("dash")
 
