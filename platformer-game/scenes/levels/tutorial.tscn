@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="6_7ac3l"]
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="7_3e81p"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="8_g7bfq"]
+[ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="10_4a02d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -22,6 +23,9 @@ background_mode = 2
 sky = SubResource("Sky_h2s0c")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4a02d"]
+size = Vector3(184.93713, 1, 349.187)
 
 [node name="Tutorial" type="Node3D" unique_id=216242194]
 script = ExtResource("1_u4f7j")
@@ -157,3 +161,12 @@ transform = Transform3D(3.2618902, 0, 0, 0, 1, 0, 0, 0, 2.058169, 0, 0, 0)
 
 [node name="EndPlatform" parent="Platforms" unique_id=537576493 instance=ExtResource("8_g7bfq")]
 transform = Transform3D(17.108301, 0, 0, 0, 1, 0, 0, 0, 4.3662977, -0.4023838, -5.755081, -204.23329)
+
+[node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("10_4a02d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.07656, 0, -14.592426)
+
+[node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.285362, -10.495842, -97.02515)
+shape = SubResource("BoxShape3D_4a02d")
+
+[editable path="Killzone"]

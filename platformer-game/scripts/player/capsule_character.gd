@@ -5,6 +5,7 @@ extends CharacterBody3D
 # ---------------------------------------------------------
 
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
+@onready var animation_tree: AnimationTree = $Visuals/AnimationTree
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
 @onready var ray_cast_left: RayCast3D = $Raycasts/RayCast3DLeft
@@ -56,6 +57,8 @@ const WALL_RUN_CAMERA_MIN_NORMAL_ANGLE := 5.0
 var is_dashing := false
 var can_dash := true
 var dash_direction := Vector3.ZERO
+var dashes_left := 1
+var dash_cooldown_queue: int = 0
 
 var is_wall_running := false
 var wall_run_timer := 0.0
@@ -97,6 +100,7 @@ var is_recording := false
 # ---------------------------------------------------------
 
 signal extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int)
+signal dash_count_changed(current: int, max_count: int)
 signal dash_cooldown_started(duration: float)
 signal dash_ready()
 
@@ -113,6 +117,7 @@ func _ready() -> void:
 	add_to_group("player")
 	camera_distance_target = camera_3d.position.z
 	extra_jumps_left = stats.max_extra_jumps.get_int()
+	dashes_left = stats.max_dashes.get_int()
 
 func _unhandled_input(event):
 	if controls_locked:
@@ -299,7 +304,7 @@ func do_ground_jump() -> void:
 	can_cut_current_jump = true
 
 func do_extra_jump() -> void:
-	velocity.y = stats.extra_jump_velocity.get_val()
+	velocity.y = max(velocity.y, stats.extra_jump_velocity.get_val())
 	can_cut_current_jump = false
 
 func do_wall_jump() -> void:
@@ -564,13 +569,17 @@ func handle_dash_input() -> void:
 
 func start_dash() -> void:
 	is_dashing = true
-	can_dash = false
+	dashes_left -= 1
+	can_dash = dashes_left > 0
 	dash_direction = (transform.basis * Vector3.FORWARD).normalized()
-
 	dash_timer.start()
-	dash_cooldown_timer.start()
 
-	dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
+	dash_cooldown_queue += 1
+	if dash_cooldown_timer.is_stopped():
+		dash_cooldown_timer.start()
+		dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
+
+	dash_count_changed.emit(dashes_left, stats.max_dashes.get_int())
 	update_animation_state("dash")
 
 func cancel_dash_for_wall_run() -> void:
@@ -597,8 +606,16 @@ func _on_dash_timer_timeout() -> void:
 	update_animation_state("RESET")
 
 func _on_dash_cooldown_timer_timeout() -> void:
+	dash_cooldown_queue -= 1
+	dashes_left += 1
 	can_dash = true
-	dash_ready.emit()
+	dash_count_changed.emit(dashes_left, stats.max_dashes.get_int())
+
+	if dash_cooldown_queue > 0:
+		dash_cooldown_timer.start()
+		dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
+	else:
+		dash_ready.emit()
 
 # ---------------------------------------------------------
 # Animation / Visual
@@ -662,6 +679,8 @@ func reset_movement_state() -> void:
 	velocity = Vector3.ZERO
 
 	is_dashing = false
+	dash_cooldown_queue = 0
+	dashes_left = stats.max_dashes.get_int()
 	can_dash = true
 	dash_direction = Vector3.ZERO
 
@@ -680,6 +699,7 @@ func reset_movement_state() -> void:
 		visuals.rotation.z = 0.0
 
 	extra_jumps_changed.emit(extra_jumps_left, stats.max_extra_jumps.get_int())
+	dash_count_changed.emit(dashes_left, stats.max_dashes.get_int())
 	dash_ready.emit()
 
 func respawn_at(pos: Vector3) -> void:
@@ -725,6 +745,7 @@ func resume_timers() -> void:
 
 func emit_initial_ui_state() -> void:
 	extra_jumps_changed.emit(extra_jumps_left, stats.max_extra_jumps.get_int())
+	dash_count_changed.emit(dashes_left, stats.max_dashes.get_int())
 	dash_ready.emit()
 
 # ---------------------------------------------------------
@@ -743,6 +764,9 @@ func _record_snapshot() -> void:
 	var snapshot = {
 		"p": global_position,
 		"r": global_rotation.y,
-		"a": String(animation_player.current_animation) if animation_player else ""
+		"a": String(animation_player.current_animation) if animation_player else "",
+		"fb": animation_tree.get("parameters/Fall/blend_amount"),
+		"mb": animation_tree.get("parameters/Movement/blend_position"),
+		"vz": visuals.rotation.z if visuals else 0.0
 	}
 	ghost_data.append(snapshot)

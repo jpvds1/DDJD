@@ -133,6 +133,62 @@ text = "Restart Level"
 layout_mode = 2
 text = "Back to Menu"
 
+[node name="StarPanel" type="VBoxContainer" parent="." unique_id=100000001]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -39.0
+offset_right = 190.0
+offset_bottom = 39.0
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Star3Row" type="HBoxContainer" parent="StarPanel" unique_id=100000002]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Star3Icon" type="Label" parent="StarPanel/Star3Row" unique_id=100000003]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "★"
+
+[node name="Star3TimeLabel" type="Label" parent="StarPanel/Star3Row" unique_id=100000004]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0:00.000"
+
+[node name="Star2Row" type="HBoxContainer" parent="StarPanel" unique_id=100000005]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Star2Icon" type="Label" parent="StarPanel/Star2Row" unique_id=100000006]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "★"
+
+[node name="Star2TimeLabel" type="Label" parent="StarPanel/Star2Row" unique_id=100000007]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0:00.000"
+
+[node name="Star1Row" type="HBoxContainer" parent="StarPanel" unique_id=100000008]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Star1Icon" type="Label" parent="StarPanel/Star1Row" unique_id=100000009]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "★"
+
+[node name="Star1TimeLabel" type="Label" parent="StarPanel/Star1Row" unique_id=100000010]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0:00.000"
+
 [node name="PauseOverlay" type="Control" parent="." unique_id=1491478266]
 visible = false
 layout_mode = 3
@@ -182,3 +238,49 @@ text = "Restart"
 [node name="PauseBackButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=454711152]
 layout_mode = 2
 text = "Back"
+
+[node name="GameOverOverlay" type="Control" parent="." unique_id=200000001]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="GameOverOverlay" unique_id=200000002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5, 0.5, 0.5, 0.75)
+
+[node name="CenterContainer" type="CenterContainer" parent="GameOverOverlay" unique_id=200000003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOverOverlay/CenterContainer" unique_id=200000004]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/CenterContainer/PanelContainer" unique_id=200000005]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000006]
+layout_mode = 2
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverRestartButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000007]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="GameOverBackButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000008]
+layout_mode = 2
+text = "Back to Menu"

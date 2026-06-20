@@ -4,9 +4,10 @@
 
 [resource]
 script = ExtResource("1_3d4jn")
-item_name = "Light Shirt"
+item_name = "Wind-Weave Vest"
+set_name = "Quickstep"
 slot = 1
 unlock_description = "Complete Level 2"
-speed_bonus = 2.0
-acceleration_bonus = 1.0
+speed_bonus = 0.3
+acceleration_bonus = 0.4
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

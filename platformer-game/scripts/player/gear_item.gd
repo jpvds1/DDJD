@@ -14,6 +14,8 @@ enum UnlockType { FREE, LEVEL_COMPLETION, PURCHASE, ACHIEVEMENT }
 @export var achievement_id: String = ""
 @export var unlock_description: String = ""
 
+@export var set_name: String = ""
+
 @export_group("Modifiers")
 @export var speed_bonus: float = 0.0
 @export var acceleration_bonus: float = 0.0
