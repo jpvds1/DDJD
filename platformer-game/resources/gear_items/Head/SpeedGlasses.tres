@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_q18i4")
-item_name = "Speed Glasses"
+item_name = "Racing Visor"
+set_name = "Quickstep"
 unlock_type = 2
 star_cost = 1
-speed_bonus = 5.0
-acceleration_bonus = 2.0
-extra_jumps = -1
+speed_bonus = 0.4
+acceleration_bonus = 0.5
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

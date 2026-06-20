@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GearSet" format=3]
+
+[ext_resource type="Script" path="res://scripts/player/gear_set.gd" id="1_wings"]
+
+[resource]
+script = ExtResource("1_wings")
+set_name = "Aether"
+set_description = "Feathered Crown + Seraph Mantle + Gale Striders"
+jump_velocity_bonus = 0.5
+extra_jumps = 1

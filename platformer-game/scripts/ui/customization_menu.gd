@@ -234,11 +234,75 @@ func _refresh_stats_panel() -> void:
 		lbl.text = "No active bonuses"
 		lbl.modulate = COLOR_NO_BONUS
 		stats_vbox.add_child(lbl)
-		
+
+	_refresh_set_panel()
+
+func _refresh_set_panel() -> void:
+	var progress := GlobalInventory.get_set_progress()
+	if progress.is_empty():
+		return
+
+	var sep := Label.new()
+	sep.text = "── Sets ──"
+	sep.modulate = COLOR_NO_BONUS
+	stats_vbox.add_child(sep)
+
+	var active_set := GlobalInventory.get_active_set()
+
+	for set_name: String in progress:
+		var count: int = progress[set_name]
+		var is_complete := count == 3
+
+		var gs: GearSet = null
+		for s: GearSet in GlobalInventory.all_sets:
+			if s.set_name == set_name:
+				gs = s
+				break
+
+		var header := Label.new()
+		header.text = "%s  %d / 3" % [set_name, count]
+		header.modulate = COLOR_EQUIPPED if is_complete else COLOR_NO_BONUS
+		stats_vbox.add_child(header)
+
+		if gs == null:
+			continue
+
+		for entry in GEAR_STATS:
+			var field: String = entry["field"]
+			var bonus: float = float(gs.get(field))
+			if bonus == 0.0:
+				continue
+
+			var display_text: String
+			if field == "dash_cooldown_reduction":
+				var sign_str := "-" if bonus > 0.0 else "+"
+				var abs_str := "%.2f" % absf(bonus) if float(int(bonus)) != bonus else "%d" % int(absf(bonus))
+				display_text = "  Dash Cooldown: %s%s%s" % [sign_str, abs_str, entry["suffix"]]
+			else:
+				var value_str: String
+				if float(int(bonus)) == bonus:
+					value_str = "%+d%s" % [int(bonus), entry["suffix"]]
+				else:
+					value_str = "%+.2f%s" % [bonus, entry["suffix"]]
+				display_text = "  %s: %s" % [entry["label"], value_str]
+
+			var lbl := Label.new()
+			lbl.text = display_text
+			lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+			if is_complete:
+				var is_beneficial = (bonus * entry["good_sign"]) > 0.0
+				lbl.modulate = COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG
+			else:
+				lbl.modulate = COLOR_NO_BONUS
+
+			stats_vbox.add_child(lbl)
+
 # ---------------------------------------------------------
 # Stars
 # ---------------------------------------------------------
-		
+
 func _update_stars_label(new_total: int) -> void:
 	if is_instance_valid(stars_label):
 		stars_label.text = "★  %d Stars" % new_total
