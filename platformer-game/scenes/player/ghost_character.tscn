@@ -1,19 +1,14 @@
 [gd_scene format=3 uid="uid://cwftsj07cdfck"]
 
 [ext_resource type="Script" uid="uid://dj0w4q67yxusi" path="res://scripts/player/ghost_character.gd" id="1_kc140"]
-[ext_resource type="PackedScene" uid="uid://cu7ms8tx84a0l" path="res://assets/models/player/player.glb" id="1_larxy"]
-[ext_resource type="AnimationLibrary" uid="uid://c7mmexla4wmco" path="res://assets/models/player/player_idle.glb" id="2_idle"]
-[ext_resource type="AnimationLibrary" uid="uid://bv5rxn1v0rm0u" path="res://assets/models/player/player_jump.glb" id="3_jump"]
-[ext_resource type="AnimationLibrary" uid="uid://b7yt2c7m7hxbi" path="res://assets/models/player/player_fall.glb" id="4_fall"]
-[ext_resource type="AnimationLibrary" uid="uid://dqnpsoo3x665p" path="res://assets/models/player/player_walk.glb" id="5_walk"]
-[ext_resource type="AnimationLibrary" uid="uid://ytik3vfe0jp" path="res://assets/models/player/player_sprint.glb" id="6_sprint"]
+[ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_kc140"]
 
 [sub_resource type="Animation" id="Animation_5ji0x"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -24,11 +19,11 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_hsymh"]
-resource_name = "dashing"
+resource_name = "dash"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -39,11 +34,11 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_x7pql"]
-resource_name = "sprinting"
+resource_name = "sprint"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -54,12 +49,12 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_vaf6x"]
-resource_name = "walking"
+resource_name = "walk"
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Node3D/Camera3D:fov")
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -69,101 +64,28 @@ tracks/0/keys = {
 "values": [80.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vaf6x"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kc140"]
 _data = {
 &"RESET": SubResource("Animation_5ji0x"),
-&"dashing": SubResource("Animation_hsymh"),
-&"sprinting": SubResource("Animation_x7pql"),
-&"walking": SubResource("Animation_vaf6x")
+&"dash": SubResource("Animation_hsymh"),
+&"sprint": SubResource("Animation_x7pql"),
+&"walk": SubResource("Animation_vaf6x")
 }
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ghost"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sprint_fwd"]
-animation = &"player_sprint/forward"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sprint_bwd"]
-animation = &"player_sprint/backwards"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sprint_r"]
-animation = &"player_sprint/right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sprint_l"]
-animation = &"player_sprint/left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_idle"]
-animation = &"player_idle/idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_walk_fwd"]
-animation = &"player_walk/forward"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_walk_bwd"]
-animation = &"player_walk/backwards"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_walk_r"]
-animation = &"player_walk/right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_walk_l"]
-animation = &"player_walk/left"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ghost"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_sprint_fwd")
-blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_sprint_bwd")
-blend_point_1/pos = Vector2(0, -1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_sprint_r")
-blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_sprint_l")
-blend_point_3/pos = Vector2(-1, 0)
-blend_point_4/node = SubResource("AnimationNodeAnimation_idle")
-blend_point_4/pos = Vector2(0, 0)
-blend_point_5/node = SubResource("AnimationNodeAnimation_walk_fwd")
-blend_point_5/pos = Vector2(0, 0.4)
-blend_point_6/node = SubResource("AnimationNodeAnimation_walk_bwd")
-blend_point_6/pos = Vector2(0, -0.4)
-blend_point_7/node = SubResource("AnimationNodeAnimation_walk_r")
-blend_point_7/pos = Vector2(0.4, 0)
-blend_point_8/node = SubResource("AnimationNodeAnimation_walk_l")
-blend_point_8/pos = Vector2(-0.4, 0)
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fall"]
-animation = &"player_fall/fall"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ghost"]
-nodes/output/position = Vector2(500, 240)
-nodes/Movement/node = SubResource("AnimationNodeBlendSpace2D_ghost")
-nodes/Movement/position = Vector2(40, 460)
-nodes/Fall/node = SubResource("AnimationNodeBlend2_ghost")
-nodes/Fall/position = Vector2(260, 240)
-"nodes/[A] Fall/node" = SubResource("AnimationNodeAnimation_fall")
-"nodes/[A] Fall/position" = Vector2(40, 240)
-node_connections = [&"output", 0, &"Fall", &"Fall", 0, &"[A] Fall", &"Fall", 1, &"Movement"]
-
-[node name="GhostCharacter" type="Node3D" unique_id=1915170105]
+[node name="Ghost" type="Node3D" unique_id=1915170105]
 script = ExtResource("1_kc140")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=1311964714]
-
-[node name="Visuals" type="Node3D" parent="Node3D" unique_id=984137525]
-
-[node name="Body" parent="Node3D/Visuals" unique_id=347547523 instance=ExtResource("1_larxy")]
+[node name="Visuals" parent="." unique_id=396880001 instance=ExtResource("2_kc140")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D/Visuals/Body" unique_id=1234567001]
-libraries/player_idle = ExtResource("2_idle")
-libraries/player_jump = ExtResource("3_jump")
-libraries/player_fall = ExtResource("4_fall")
-libraries/player_walk = ExtResource("5_walk")
-libraries/player_sprint = ExtResource("6_sprint")
+[node name="CameraPivot" type="Node3D" parent="." unique_id=609786885]
 
-[node name="AnimationTree" type="AnimationTree" parent="Node3D/Visuals/Body" unique_id=1234567002]
-tree_root = SubResource("AnimationNodeBlendTree_ghost")
-anim_player = NodePath("../AnimationPlayer")
-active = true
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1203388131]
+transform = Transform3D(0.999996, 0.0027466873, -0.0006751035, -0.0026392727, 0.9919694, 0.1264509, 0.0010170016, -0.12644859, 0.99197257, 0, 2.206, 2.235)
+fov = 80.0
 
-[node name="Dash" type="Node3D" parent="Node3D" unique_id=1988469622]
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=1889224654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.008282, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D/Dash" unique_id=1660942842]
-libraries/ = SubResource("AnimationLibrary_vaf6x")
-
-[connection signal="animation_changed" from="Node3D/Dash/AnimationPlayer" to="Node3D" method="_on_animation_player_animation_changed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1810725324]
+libraries/ = SubResource("AnimationLibrary_kc140")

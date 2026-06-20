@@ -4,15 +4,15 @@ extends CharacterBody3D
 # Node references
 # ---------------------------------------------------------
 
-@onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $Visuals/AnimationTree
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
 @onready var ray_cast_left: RayCast3D = $Raycasts/RayCast3DLeft
 @onready var ray_cast_right: RayCast3D = $Raycasts/RayCast3DRight
 @onready var visuals: Node3D = $Visuals
-@onready var camera_pivot: Node3D = $Node3D
-@onready var camera_3d: Camera3D = $Node3D/Camera3D
+@onready var camera_pivot: Node3D = $CameraPivot
+@onready var camera_3d: Camera3D = $CameraPivot/Camera3D
 @onready var stats: Node = $StatsManager
 
 # ---------------------------------------------------------

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dojg8u8tdb0lu"]
 
-[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_rnyxf"]
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/player.tscn" id="1_rnyxf"]
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_u4f7j"]
 [ext_resource type="Resource" uid="uid://1bbquwkas68e" path="res://resources/gear_items/Boots/SwiftBoots.tres" id="2_g7bfq"]
 [ext_resource type="PackedScene" uid="uid://cxwqa33o1b6ge" path="res://scenes/building_materials/tutorial_trigger.tscn" id="2_ub0e1"]
