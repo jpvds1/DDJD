@@ -230,14 +230,46 @@ func apply_key_bindings() -> void:
 			InputMap.action_add_event(action_name, event)
 			
 # ===============================================================
+# Reset sections
+# ===============================================================
+
+func reset_audio_to_defaults() -> void:
+	for bus_name in AUDIO_BUSES:
+		audio_volumes[bus_name] = 1.0
+		audio_muted[bus_name] = false
+	apply_audio()
+	save_settings()
+
+func reset_controls_to_defaults() -> void:
+	mouse_sensitivity = 1.0
+	invert_mouse_y = false
+	for action_name in key_bindings.keys().duplicate():
+		reset_action_to_default(action_name)
+	key_bindings.clear()
+	save_settings()
+
+func reset_display_to_defaults() -> void:
+	fullscreen = false
+	resolution_index = 3
+	vsync = true
+	aa_mode = AAMode.FXAA
+	fps_cap_index = 2
+	pixelization_enabled = false
+	pixelization_scale = 0.5
+	apply_display()
+	save_settings()
+
+# ===============================================================
 # Reset all
 # ===============================================================
 
 func reset_to_defaults() -> void:
+	ghost_replay = true
+
 	for bus_name in AUDIO_BUSES:
 		audio_volumes[bus_name] = 1.0
 		audio_muted[bus_name] = false
-		
+
 	mouse_sensitivity = 1.0
 	invert_mouse_y = false
 	

@@ -113,6 +113,7 @@ signal finish_requested()
 # ---------------------------------------------------------
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
 	camera_distance_target = camera_3d.position.z
@@ -729,10 +730,14 @@ func pause_timers() -> void:
 
 func resume_timers() -> void:
 	if dash_timer_was_running and paused_dash_time_left > 0.0:
+		var wt := dash_timer.wait_time
 		dash_timer.start(paused_dash_time_left)
+		dash_timer.wait_time = wt
 
 	if dash_cooldown_was_running and paused_dash_cooldown_time_left > 0.0:
+		var wt := dash_cooldown_timer.wait_time
 		dash_cooldown_timer.start(paused_dash_cooldown_time_left)
+		dash_cooldown_timer.wait_time = wt
 
 	dash_timer_was_running = false
 	dash_cooldown_was_running = false

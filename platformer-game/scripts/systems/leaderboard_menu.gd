@@ -22,7 +22,11 @@ func _ready() -> void:
 
 	if levels.size() > 0:
 		load_scores(levels[0])
-		
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		queue_free()
+
 func _scan_levels() -> Array:
 	var result = []
 	var dir = DirAccess.open("res://scenes/levels")

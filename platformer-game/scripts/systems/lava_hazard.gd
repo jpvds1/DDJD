@@ -7,6 +7,7 @@ var initial_y_position: float = 0.0
 @onready var visual_block: Node3D = get_parent() as Node3D
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	body_entered.connect(_on_body_entered)
 	if visual_block:
 		initial_y_position = visual_block.position.y
