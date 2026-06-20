@@ -264,10 +264,12 @@ func reset_display_to_defaults() -> void:
 # ===============================================================
 
 func reset_to_defaults() -> void:
+	ghost_replay = true
+
 	for bus_name in AUDIO_BUSES:
 		audio_volumes[bus_name] = 1.0
 		audio_muted[bus_name] = false
-		
+
 	mouse_sensitivity = 1.0
 	invert_mouse_y = false
 	

@@ -8,6 +8,8 @@ extends Control
 @onready var audio_tab: VBoxContainer = %AudioTab
 @onready var audio_rows: VBoxContainer = %AudioRows
 @onready var reset_audio_button: Button = %ResetAudioButton
+@onready var reset_controls_button: Button = %ResetControlsButton
+@onready var reset_display_button: Button = %ResetDisplayButton
 
 @onready var sensitivity_slider: HSlider = %SensitivitySlider
 @onready var sensitivity_value_label: Label = %SensitivityValueLabel
@@ -36,6 +38,14 @@ func _ready() -> void:
 	sign_out_button.pressed.connect(_on_sign_out_pressed)
 	reset_defaults_button.pressed.connect(_on_reset_defaults_pressed)
 	reset_audio_button.pressed.connect(_on_reset_audio_pressed)
+	reset_controls_button.pressed.connect(func():
+		SettingsManager.reset_controls_to_defaults()
+		_refresh_controls_tab()
+	)
+	reset_display_button.pressed.connect(func():
+		SettingsManager.reset_display_to_defaults()
+		_refresh_display_tab()
+	)
 	
 	tab_container.set_tab_title(0, "General")
 	tab_container.set_tab_title(1, "Audio")
@@ -60,6 +70,7 @@ func _on_ghost_replay_checkbox_toggled(value: bool) -> void:
 
 func _on_reset_defaults_pressed() -> void:
 	SettingsManager.reset_to_defaults()
+	ghost_replay_checkbox.button_pressed = SettingsManager.get_ghost_replay()
 	_build_audio_tab()
 	_refresh_controls_tab()
 	_refresh_display_tab()
@@ -89,15 +100,17 @@ func _build_audio_tab():
 		
 		var label := Label.new()
 		label.text = bus_name
-		label.custom_minimum_size.x = 140
+		label.custom_minimum_size.x = 80
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		row.add_child(label)
-		
+
 		var slider := HSlider.new()
 		slider.min_value = 0.0
 		slider.max_value = 1.0
 		slider.step = 0.01
 		slider.value = SettingsManager.audio_volumes.get(bus_name, 1.0)
 		slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		slider.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(slider)
 		
 		var value_label := Label.new()
