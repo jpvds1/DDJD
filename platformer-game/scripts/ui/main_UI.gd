@@ -128,6 +128,7 @@ func _ready() -> void:
 	
 	if level and level.has_method("is_endless"):
 		timer_label.text = "0m"
+		$StarPanel.visible = false
 	else:
 		_setup_star_display()
 	_setup_dash_display(player.stats.max_dashes.get_int())
@@ -147,7 +148,7 @@ func _process(delta: float) -> void:
 		if dash_cooldown_time_left <= 0.0:
 			dash_cooldown_active = false
 	
-	if level != null and level.timer_running:
+	if level != null and not level.has_method("is_endless") and level.timer_running:
 		_update_star_icons(level.run_time)
 		
 # ---------------------------------------------------------
@@ -197,11 +198,12 @@ func _on_run_completed(final_value: String, stars: int = 0) -> void:
 			complete_stars[i].add_theme_color_override("font_color", Palette.ACCENT if lit else Palette.TEXT_DIM)
 	level_complete_overlay.visible = true
 	message_label.visible = false
-	var level_complete_title = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/TitleLabel
+	var level_complete_title = $LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/CompleteTitle")
 	
 	if level and level.has_method("is_endless"):
 		level_complete_title.text = "Game Over"
 		time_label.text = "Distance: " + final_value
+		$LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/StarsRow").visible = false
 	else:
 		level_complete_title.text = "Level Complete"
 		time_label.text = "Time: " + final_value

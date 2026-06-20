@@ -8,6 +8,7 @@ signal player_unalived()
 signal run_completed(final_distance: String)
 signal pause_toggled(paused: bool)
 signal checkpoint_reached()
+signal game_over()
 
 # ---------------------------------------------------------
 # Exports

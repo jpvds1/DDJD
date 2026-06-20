@@ -3,11 +3,13 @@ extends Button
 
 @export var level_id: String = ""
 @export var level_scene: String = ""   # "" => coming soon
+@export var show_stars: bool = true
 
 @onready var stars_label: Label = $StarsLabel
 
 func _ready() -> void:
 	disabled = level_scene == ""
+	stars_label.visible = show_stars
 	pressed.connect(_on_pressed)
 
 func set_stars(stars: int) -> void:
