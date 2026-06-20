@@ -141,11 +141,35 @@ func _respawn_on_current_chunk() -> void:
 	if player.has_method("respawn_at"):
 		player.respawn_at(current_chunk.global_position + Vector3(0, 2.0, 0))
 
+const SAVES_PATH = "user://saves.dat"
+const LEVEL_KEY = "level_6"
+
+func _load_saves() -> Dictionary:
+	if not FileAccess.file_exists(SAVES_PATH):
+		return {}
+	var f = FileAccess.open(SAVES_PATH, FileAccess.READ)
+	if f:
+		var data = f.get_var()
+		f.close()
+		if data is Dictionary:
+			return data
+	return {}
+
 func _trigger_game_over() -> void:
 	game_over_triggered = true
 	if player.has_method("lock_controls"):
 		player.lock_controls()
-		
+
+	var saves = _load_saves()
+	var entry: Dictionary = saves.get(LEVEL_KEY, {})
+	if distance > entry.get("pb_distance", 0):
+		entry["pb_distance"] = distance
+		saves[LEVEL_KEY] = entry
+		var f = FileAccess.open(SAVES_PATH, FileAccess.WRITE)
+		if f:
+			f.store_var(saves)
+			f.close()
+
 	run_completed.emit(str(distance) + "m")
 
 # ---------------------------------------------------------

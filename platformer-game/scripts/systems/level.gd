@@ -261,48 +261,47 @@ func _format_time(seconds: float) -> String:
 # Ghost Storage Management (Offline/Local)
 # ---------------------------------------------------------
 
+const SAVES_PATH = "user://saves.dat"
+
+func _load_saves() -> Dictionary:
+	if not FileAccess.file_exists(SAVES_PATH):
+		return {}
+	var f = FileAccess.open(SAVES_PATH, FileAccess.READ)
+	if f:
+		var data = f.get_var()
+		f.close()
+		if data is Dictionary:
+			return data
+	return {}
+
+func _write_saves(saves: Dictionary) -> void:
+	var f = FileAccess.open(SAVES_PATH, FileAccess.WRITE)
+	if f:
+		f.store_var(saves)
+		f.close()
+
 func _handle_local_ghost_save(data: Array[Dictionary]) -> void:
 	if data.is_empty():
 		return
-		
-	var pb_path = "user://pb_time_" + level_name + ".txt"
-	var current_pb := INF
-	
-	if FileAccess.file_exists(pb_path):
-		var pb_file = FileAccess.open(pb_path, FileAccess.READ)
-		if pb_file:
-			current_pb = pb_file.get_as_text().to_float()
-			pb_file.close()
-			
+
+	var saves = _load_saves()
+	var entry: Dictionary = saves.get(level_name, {})
+	var current_pb: float = entry.get("pb", INF)
+
 	if run_time < current_pb:
-		var pb_file_write = FileAccess.open(pb_path, FileAccess.WRITE)
-		if pb_file_write:
-			pb_file_write.store_string(str(run_time))
-			pb_file_write.close()
-			
-		var ghost_path = "user://ghost_" + level_name + ".dat"
-		var ghost_file = FileAccess.open(ghost_path, FileAccess.WRITE)
-		if ghost_file:
-			ghost_file.store_var(data)
-			ghost_file.close()
-			
+		entry["pb"] = run_time
+		entry["ghost"] = data
+		saves[level_name] = entry
+		_write_saves(saves)
+
 func _check_and_spawn_ghost() -> void:
 	if not SettingsManager.ghost_replay:
 		return
-		
-	var ghost_path = "user://ghost_" + level_name + ".dat"
-	
-	if not FileAccess.file_exists(ghost_path):
-		return
-		
-	var file = FileAccess.open(ghost_path, FileAccess.READ)
-	if file:
-		var loaded_data = file.get_var()
-		file.close()
-		
-		if loaded_data is Array and not loaded_data.is_empty():
-			var ghost_instance = ghost_scene.instantiate()
-			add_child(ghost_instance)
-			
-			if ghost_instance.has_method("start_replay"):
-				ghost_instance.start_replay(loaded_data)
+
+	var entry: Dictionary = _load_saves().get(level_name, {})
+	var loaded_data = entry.get("ghost", [])
+	if loaded_data is Array and not loaded_data.is_empty():
+		var ghost_instance = ghost_scene.instantiate()
+		add_child(ghost_instance)
+		if ghost_instance.has_method("start_replay"):
+			ghost_instance.start_replay(loaded_data)
