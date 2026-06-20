@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://vtgmobmh3xlj" path="res://scripts/ui/customization_menu.gd" id="1_xq2xj"]
 [ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_ky4y0"]
+[ext_resource type="Theme" uid="uid://b8hvnh1uitheme" path="res://scenes/ui/ui_theme.tres" id="3_theme"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot_n"]
 bg_color = Color(0.12, 0.14, 0.2, 1)
@@ -31,6 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_theme")
 script = ExtResource("1_xq2xj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1739717047]

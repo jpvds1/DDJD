@@ -38,14 +38,14 @@ const GEAR_STATS := [
 ]
 
 # Colors
-const COLOR_SELECTED   := Color(1.0, 1.0, 1.0, 1.0)
-const COLOR_UNSELECTED := Color(0.6, 0.6, 0.6, 1.0)
-const COLOR_EQUIPPED   := Color(1.0, 0.85, 0.2, 1.0)
-const COLOR_LOCKED     := Color(0.45, 0.45, 0.45, 1.0)
-const COLOR_BUYABLE    := Color(0.4,  0.85, 1.0,  1.0)
-const COLOR_BONUS_POS  := Color(0.35, 1.0,  0.45, 1.0)
-const COLOR_BONUS_NEG  := Color(1.0,  0.38, 0.38, 1.0)
-const COLOR_NO_BONUS   := Color(0.7,  0.7,  0.7,  1.0)
+const COLOR_SELECTED   := Palette.SELECTED
+const COLOR_UNSELECTED := Palette.UNSELECTED
+const COLOR_EQUIPPED   := Palette.ACCENT
+const COLOR_LOCKED     := Palette.LOCKED
+const COLOR_BUYABLE    := Palette.BUYABLE
+const COLOR_BONUS_POS  := Palette.BONUS_POS
+const COLOR_BONUS_NEG  := Palette.BONUS_NEG
+const COLOR_NO_BONUS   := Palette.BONUS_NONE
 
 # Shared size for every gear grid entry (equip/unequip/buy/locked) so they all line up
 const GEAR_ENTRY_SIZE := Vector2(360, 64)

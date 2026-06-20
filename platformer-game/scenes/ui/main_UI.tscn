@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://dy8jnv2byaaoj"]
+[gd_scene load_steps=3 format=3 uid="uid://dy8jnv2byaaoj"]
 
 [ext_resource type="Script" uid="uid://doyfvcehqqsue" path="res://scripts/ui/main_UI.gd" id="1_gks1h"]
+[ext_resource type="PackedScene" uid="uid://coverlay1heaven" path="res://scenes/ui/overlay.tscn" id="2_overlay"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=9067626]
 script = ExtResource("1_gks1h")
@@ -82,57 +83,6 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "00:00:00"
 
-[node name="LevelCompleteOverlay" type="Control" parent="." unique_id=1331541598]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Dim" type="ColorRect" parent="LevelCompleteOverlay" unique_id=1409947994]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.5, 0.5, 0.5, 0.75)
-
-[node name="CenterContainer" type="CenterContainer" parent="LevelCompleteOverlay" unique_id=366848387]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="LevelCompleteOverlay/CenterContainer" unique_id=2004564240]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelCompleteOverlay/CenterContainer/PanelContainer" unique_id=543101633]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1822071993]
-layout_mode = 2
-text = "Level Complete!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TimeLabel" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=2002693859]
-layout_mode = 2
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FinishRestartButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=417322398]
-layout_mode = 2
-text = "Restart Level"
-
-[node name="FinishBackButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=217657613]
-layout_mode = 2
-text = "Back to Menu"
-
 [node name="StarPanel" type="VBoxContainer" parent="." unique_id=100000001]
 anchors_preset = 4
 anchor_top = 0.5
@@ -189,102 +139,85 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0:00.000"
 
-[node name="PauseOverlay" type="Control" parent="." unique_id=1491478266]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PauseOverlay" parent="." instance=ExtResource("2_overlay")]
 
-[node name="Dim" type="ColorRect" parent="PauseOverlay" unique_id=134398867]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.5019608, 0.5019608, 0.5019608, 0.7490196)
-
-[node name="CenterContainer" type="CenterContainer" parent="PauseOverlay" unique_id=384152974]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="PauseOverlay/CenterContainer" unique_id=776398293]
+[node name="PauseTitle" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseOverlay/CenterContainer/PanelContainer" unique_id=365785053]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=636115480]
-layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "Paused"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="PauseResumeButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=505655627]
+[node name="PauseResumeButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Resume"
 
-[node name="PauseRestartButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=1783583679]
+[node name="PauseRestartButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Restart"
 
-[node name="PauseSettingsButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=300000001]
+[node name="PauseSettingsButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Settings"
 
-[node name="PauseBackButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=454711152]
+[node name="PauseBackButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Back"
 
-[node name="GameOverOverlay" type="Control" parent="." unique_id=200000001]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="GameOverOverlay" parent="." instance=ExtResource("2_overlay")]
 
-[node name="Dim" type="ColorRect" parent="GameOverOverlay" unique_id=200000002]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.5, 0.5, 0.5, 0.75)
-
-[node name="CenterContainer" type="CenterContainer" parent="GameOverOverlay" unique_id=200000003]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="GameOverOverlay/CenterContainer" unique_id=200000004]
+[node name="GameOverTitle" type="Label" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/CenterContainer/PanelContainer" unique_id=200000005]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000006]
-layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "Game Over"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="GameOverRestartButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000007]
+[node name="GameOverRestartButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Restart Level"
 
-[node name="GameOverBackButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000008]
+[node name="GameOverBackButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Back to Menu"
+
+[node name="LevelCompleteOverlay" parent="." instance=ExtResource("2_overlay")]
+
+[node name="CompleteTitle" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Level Complete!"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="StarsRow" type="HBoxContainer" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Star1" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 32
+text = "☆"
+
+[node name="Star2" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 32
+text = "☆"
+
+[node name="Star3" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 32
+text = "☆"
+
+[node name="CompleteRestartButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="CompleteBackButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Back to Menu"

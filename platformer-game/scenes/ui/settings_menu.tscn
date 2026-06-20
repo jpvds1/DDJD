@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b1lqmi6hqsml4"]
 
 [ext_resource type="Script" uid="uid://cr6f7c1hekfii" path="res://scripts/ui/settings_menu.gd" id="1_qwcqe"]
+[ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="2_theme"]
 
 [node name="SettingsMenu" type="Control" unique_id=1226383983]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_theme")
 script = ExtResource("1_qwcqe")
 
 [node name="Background" type="ColorRect" parent="." unique_id=310000001]
@@ -87,6 +89,12 @@ layout_mode = 2
 theme_override_constants/separation = 14
 metadata/_tab_index = 1
 
+[node name="ResetAudioButton" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/AudioTab" unique_id=185221159]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Reset Audio to Defaults"
+
 [node name="Controls" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=74041426]
 visible = false
 layout_mode = 2
@@ -139,6 +147,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
+
+[node name="ResetControlsButton" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=740414261]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Reset Controls to Defaults"
 
 [node name="Display" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=361902457]
 visible = false
@@ -235,6 +249,12 @@ vertical_alignment = 1
 [node name="PixelizationCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer6" unique_id=917485877]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="ResetDisplayButton" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=361902458]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Reset Display to Defaults"
 
 [node name="RebindPopup" type="PanelContainer" parent="." unique_id=832961745]
 unique_name_in_owner = true
