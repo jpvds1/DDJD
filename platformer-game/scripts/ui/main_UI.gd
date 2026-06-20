@@ -36,6 +36,11 @@ extends CanvasLayer
 @onready var pause_restart_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseRestartButton
 @onready var pause_back_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseBackButton
 
+# Game over
+@onready var game_over_overlay: Control = $GameOverOverlay
+@onready var game_over_restart_button: Button = $GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer/GameOverRestartButton
+@onready var game_over_back_button: Button = $GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer/GameOverBackButton
+
 var player: Node = null
 var level: Node = null
 
@@ -89,21 +94,27 @@ func _ready() -> void:
 	level.lives_changed.connect(_on_lives_changed)
 	level.checkpoint_reached.connect(_on_checkpoint_reached)
 	level.player_unalived.connect(_on_player_unalived)
+	level.game_over.connect(_on_game_over)
 	level.run_completed.connect(_on_run_completed)
 	level.pause_toggled.connect(_on_pause_toggled)
-	
+
 	# Finish overlay buttons
 	finish_restart_button.pressed.connect(_on_finish_restart_button_pressed)
 	finish_back_button.pressed.connect(_on_finish_back_button_pressed)
-	
+
 	# Pause overlay buttons
 	pause_resume_button.pressed.connect(_on_pause_resume_button_pressed)
 	pause_restart_button.pressed.connect(_on_pause_restart_button_pressed)
 	pause_back_button.pressed.connect(_on_pause_back_button_pressed)
-	
+
+	# Game over overlay buttons
+	game_over_restart_button.pressed.connect(_on_game_over_restart_pressed)
+	game_over_back_button.pressed.connect(_on_game_over_back_pressed)
+
 	message_label.visible = false
 	level_complete_overlay.visible = false
 	pause_overlay.visible = false
+	game_over_overlay.visible = false
 	
 	_setup_star_display()
 	_setup_dash_display(player.stats.max_dashes.get_int())
@@ -201,6 +212,20 @@ func _on_pause_restart_button_pressed() -> void:
 	level.restart_level()
 
 func _on_pause_back_button_pressed() -> void:
+	level.return_to_menu()
+
+# ---------------------------------------------------------
+# Game over overlay
+# ---------------------------------------------------------
+
+func _on_game_over() -> void:
+	message_label.visible = false
+	game_over_overlay.visible = true
+
+func _on_game_over_restart_pressed() -> void:
+	level.restart_level()
+
+func _on_game_over_back_pressed() -> void:
 	level.return_to_menu()
 
 # ---------------------------------------------------------

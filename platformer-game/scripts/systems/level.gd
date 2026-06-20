@@ -32,6 +32,7 @@ var ui: Node = null
 var run_time := 0.0
 var timer_running := true
 var level_completed := false
+var game_over_triggered := false
 var is_paused := false
 
 var lives := MAX_LIVES
@@ -51,6 +52,7 @@ var died_this_run := false
 signal lives_changed(current_lives: int, max_lives: int)
 signal checkpoint_reached()
 signal player_unalived()
+signal game_over()
 signal run_completed(final_time: String, stars: int)
 signal pause_toggled(paused: bool)
 
@@ -78,6 +80,7 @@ func _ready() -> void:
 	run_time = 0.0
 	timer_running = true
 	level_completed = false
+	game_over_triggered = false
 	is_paused = false
 	extra_jumps_used = false
 	died_this_run = false
@@ -113,15 +116,21 @@ func _process(delta: float) -> void:
 # ---------------------------------------------------------        
 
 func _on_player_unalive_requested() -> void:
-	if level_completed:
+	if level_completed or game_over_triggered:
 		return
-		
+
 	died_this_run = true
-	lives = max(lives -1, 0)
+	lives = max(lives - 1, 0)
 	player_unalived.emit()
 	lives_changed.emit(lives, MAX_LIVES)
-	
-	respawn_player()
+
+	if lives == 0:
+		game_over_triggered = true
+		timer_running = false
+		player.lock_controls()
+		game_over.emit()
+	else:
+		respawn_player()
 	
 func _on_player_checkpoint_requested(pos: Vector3) -> void:
 	if level_completed:
@@ -184,7 +193,7 @@ func _calculate_stars() -> int:
 # ---------------------------------------------------------        
 	
 func _toggle_pause() -> void:
-	if level_completed:
+	if level_completed or game_over_triggered:
 		return
 		
 	_set_paused(not is_paused)

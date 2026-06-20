@@ -5,6 +5,7 @@ extends CharacterBody3D
 # ---------------------------------------------------------
 
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
+@onready var animation_tree: AnimationTree = $Visuals/AnimationTree
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
 @onready var ray_cast_left: RayCast3D = $Raycasts/RayCast3DLeft
@@ -303,7 +304,7 @@ func do_ground_jump() -> void:
 	can_cut_current_jump = true
 
 func do_extra_jump() -> void:
-	velocity.y = stats.extra_jump_velocity.get_val()
+	velocity.y = max(velocity.y, stats.extra_jump_velocity.get_val())
 	can_cut_current_jump = false
 
 func do_wall_jump() -> void:
@@ -763,6 +764,9 @@ func _record_snapshot() -> void:
 	var snapshot = {
 		"p": global_position,
 		"r": global_rotation.y,
-		"a": String(animation_player.current_animation) if animation_player else ""
+		"a": String(animation_player.current_animation) if animation_player else "",
+		"fb": animation_tree.get("parameters/Fall/blend_amount"),
+		"mb": animation_tree.get("parameters/Movement/blend_position"),
+		"vz": visuals.rotation.z if visuals else 0.0
 	}
 	ghost_data.append(snapshot)
