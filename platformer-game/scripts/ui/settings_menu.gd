@@ -6,9 +6,6 @@ extends Control
 @onready var reset_defaults_button: Button = %ResetDefaultsButton
 
 @onready var audio_tab: VBoxContainer = %AudioTab
-@onready var reset_audio_button: Button = %ResetAudioButton
-@onready var reset_controls_button: Button = %ResetControlsButton
-@onready var reset_display_button: Button = %ResetDisplayButton
 
 @onready var sensitivity_slider: HSlider = %SensitivitySlider
 @onready var sensitivity_value_label: Label = %SensitivityValueLabel
@@ -27,7 +24,6 @@ extends Control
 
 @onready var tab_container: TabContainer = %TabContainer
 
-var return_to_pause: bool = false
 var _rebinding_action: String = ""
 var _action_buttons: Dictionary = {}
 
@@ -37,21 +33,7 @@ func _ready() -> void:
 	ghost_replay_checkbox.toggled.connect(_on_ghost_replay_checkbox_toggled)
 	sign_out_button.pressed.connect(_on_sign_out_pressed)
 	reset_defaults_button.pressed.connect(_on_reset_defaults_pressed)
-
-	reset_audio_button.pressed.connect(func():
-		SettingsManager.reset_audio_to_defaults()
-		_build_audio_tab()
-	)
-	reset_controls_button.pressed.connect(func():
-		SettingsManager.reset_controls_to_defaults()
-		_refresh_controls_tab()
-		_build_action_list()
-	)
-	reset_display_button.pressed.connect(func():
-		SettingsManager.reset_display_to_defaults()
-		_refresh_display_tab()
-	)
-
+	
 	tab_container.set_tab_title(0, "General")
 	tab_container.set_tab_title(1, "Audio")
 	tab_container.set_tab_title(2, "Controls")
@@ -91,12 +73,9 @@ func _on_sign_out_pressed() -> void:
 # ============================================================
 
 func _build_audio_tab():
-	# Rebuild the bus rows but keep the in-scene ResetAudioButton.
 	for child in audio_tab.get_children():
-		if child == reset_audio_button:
-			continue
 		child.queue_free()
-
+		
 	for bus_name in SettingsManager.AUDIO_BUSES:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 12)
@@ -133,10 +112,7 @@ func _build_audio_tab():
 		)
 		
 		audio_tab.add_child(row)
-
-	# Keep the reset button pinned below the freshly-built rows.
-	audio_tab.move_child(reset_audio_button, -1)
-
+		
 # ============================================================
 # CONTROLS TAB
 # ============================================================
@@ -298,8 +274,8 @@ func _setup_display_tab() -> void:
 	pixelization_checkbox.toggled.connect(func(pressed: bool):
 		SettingsManager.set_pixelization(pressed)
 	)
-
-
+ 
+ 
 func _refresh_controls_tab() -> void:
 	sensitivity_slider.value = SettingsManager.mouse_sensitivity
 	invert_mouse_checkbox.button_pressed = SettingsManager.invert_mouse_y
@@ -321,8 +297,8 @@ func _refresh_display_tab() -> void:
 # ============================================================
  
 func _go_back() -> void:
-	if return_to_pause:
-		queue_free()
+	if Global.settings_return_scene == "":
+		Global.game_controller.close_gui_scene()
 	else:
 		Global.game_controller.change_GUI_scene(Global.settings_return_scene)
 

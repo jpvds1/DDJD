@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cr6f7c1hekfii" path="res://scripts/ui/settings_menu.gd" id="1_qwcqe"]
 [ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://bskyheaven1bg" path="res://scenes/ui/sky_background.tscn" id="3_sky"]
 
-[node name="SettingsMenu" type="Control" unique_id=1226383983]
+[node name="SettingsMenu" type="Control" unique_id=925479888]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,247 +14,289 @@ grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("1_qwcqe")
 
-[node name="Background" type="ColorRect" parent="." unique_id=310000001]
+[node name="SkyBackground" parent="." unique_id=323969162 instance=ExtResource("3_sky")]
+layout_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1923109555]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.3019608, 0.3019608, 0.3019608, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=293217242]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 32
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1113028551]
+[node name="Card" type="PanelContainer" parent="CenterContainer" unique_id=223415225]
+custom_minimum_size = Vector2(720, 560)
 layout_mode = 2
-theme_override_constants/separation = 20
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=770990333]
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Card" unique_id=955399921]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Card/Margin" unique_id=797289748]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Header" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer" unique_id=736277379]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=569803408]
+[node name="BackButton" type="Button" parent="CenterContainer/Card/Margin/VBoxContainer/Header" unique_id=1427539547]
 unique_name_in_owner = true
 layout_mode = 2
 text = "< Back"
 
-[node name="Settings" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=262991620]
+[node name="Settings" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/Header" unique_id=843282513]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 28
 text = "Settings"
+vertical_alignment = 1
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer" unique_id=1557198187]
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/Card/Margin/VBoxContainer" unique_id=2049840476]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 
-[node name="General" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=1714051600]
-unique_name_in_owner = true
+[node name="General" type="VBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer" unique_id=1247834531]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 metadata/_tab_index = 0
 
-[node name="ResetDefaultsButton" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/General" unique_id=799543258]
-unique_name_in_owner = true
+[node name="AccountLabel" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General" unique_id=1237897501]
 layout_mode = 2
-size_flags_horizontal = 0
-text = "Reset to Defaults"
+theme_override_colors/font_color = Color(0.45, 0.48, 0.56, 1)
+theme_override_font_sizes/font_size = 18
+text = "Account"
 
-[node name="SignOut" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/General" unique_id=1510588974]
+[node name="SignOut" type="Button" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General" unique_id=109028047]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Sign Out"
 
-[node name="GhostReplayCheckbox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/General" unique_id=1010202243]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General" unique_id=624827713]
+layout_mode = 2
+
+[node name="GameplayLabel" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General" unique_id=578498603]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.48, 0.56, 1)
+theme_override_font_sizes/font_size = 18
+text = "Gameplay"
+
+[node name="GhostReplayCheckbox" type="CheckBox" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General" unique_id=1490290411]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Ghost Replay"
 
-[node name="AudioTab" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=1852211590]
+[node name="Spacer" type="Control" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General" unique_id=779945440]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Footer" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General" unique_id=902520686]
+layout_mode = 2
+alignment = 2
+
+[node name="ResetDefaultsButton" type="Button" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/General/Footer" unique_id=1365973308]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset to Defaults"
+
+[node name="AudioTab" type="VBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer" unique_id=274315901]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 metadata/_tab_index = 1
 
-[node name="ResetAudioButton" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/AudioTab" unique_id=185221159]
+[node name="AudioRows" type="VBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/AudioTab" unique_id=1748291034]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="AudioFooter" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/AudioTab" unique_id=3741829204]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 2
+
+[node name="ResetAudioButton" type="Button" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/AudioTab/AudioFooter" unique_id=1503638242]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Reset Audio to Defaults"
 
-[node name="Controls" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=74041426]
+[node name="Controls" type="VBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer" unique_id=350628879]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 metadata/_tab_index = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=571437183]
+[node name="SensitivityRow" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls" unique_id=254103922]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="MouseSensitivity" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Controls/HBoxContainer" unique_id=1904131763]
-custom_minimum_size = Vector2(160, 0)
+[node name="MouseSensitivity" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls/SensitivityRow" unique_id=946869000]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Mouse Sensitivity"
 vertical_alignment = 1
 
-[node name="SensitivitySlider" type="HSlider" parent="MarginContainer/VBoxContainer/TabContainer/Controls/HBoxContainer" unique_id=207441241]
+[node name="SensitivitySlider" type="HSlider" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls/SensitivityRow" unique_id=772308056]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 1
 
-[node name="SensitivityValueLabel" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Controls/HBoxContainer" unique_id=150270990]
+[node name="SensitivityValueLabel" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls/SensitivityRow" unique_id=1820710926]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "1.00x"
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="InvertMouseCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=768818513]
+[node name="InvertMouseCheckBox" type="CheckBox" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls" unique_id=991274998]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Invert Mouse Y"
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=20386148]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls" unique_id=400876276]
 layout_mode = 2
 
-[node name="KeyBindings" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=1885514837]
+[node name="KeyBindings" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls" unique_id=2051772712]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.45, 0.48, 0.56, 1)
+theme_override_font_sizes/font_size = 18
 text = "Key Bindings"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=837788505]
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls" unique_id=257727727]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ActionList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Controls/ScrollContainer" unique_id=594830350]
+[node name="ActionList" type="VBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls/ScrollContainer" unique_id=961969859]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="ResetControlsButton" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/Controls" unique_id=740414261]
+[node name="Footer" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls" unique_id=1529510722]
+layout_mode = 2
+alignment = 2
+
+[node name="ResetControlsButton" type="Button" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Controls/Footer" unique_id=63186133]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
 text = "Reset Controls to Defaults"
 
-[node name="Display" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer" unique_id=361902457]
+[node name="Display" type="VBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer" unique_id=2013082325]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 metadata/_tab_index = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=1464869976]
+[node name="FullscreenRow" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=1888159461]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Fullscreen" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer" unique_id=652371655]
-custom_minimum_size = Vector2(200, 0)
+[node name="Fullscreen" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/FullscreenRow" unique_id=205139359]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Fullscreen"
 vertical_alignment = 1
 
-[node name="FullscreenCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer" unique_id=1693380756]
+[node name="FullscreenCheckBox" type="CheckBox" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/FullscreenRow" unique_id=1339794536]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=283897119]
+[node name="ResolutionRow" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=2103521802]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Resolution" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer2" unique_id=1036933393]
-custom_minimum_size = Vector2(200, 0)
+[node name="Resolution" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/ResolutionRow" unique_id=1114791578]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Resolution"
 vertical_alignment = 1
 
-[node name="ResolutionOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer2" unique_id=801955179]
+[node name="ResolutionOption" type="OptionButton" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/ResolutionRow" unique_id=642263768]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=24862637]
+[node name="VSyncRow" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=1429325322]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="VSync" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer3" unique_id=810712236]
-custom_minimum_size = Vector2(200, 0)
+[node name="VSync" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/VSyncRow" unique_id=1017369584]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "VSync"
 vertical_alignment = 1
 
-[node name="VSyncCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer3" unique_id=2063595035]
+[node name="VSyncCheckBox" type="CheckBox" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/VSyncRow" unique_id=1301319743]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=1406176436]
+[node name="AARow" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=1513699650]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Anti-Aliasing" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer4" unique_id=574644200]
-custom_minimum_size = Vector2(200, 0)
+[node name="Anti-Aliasing" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/AARow" unique_id=1942741543]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Anti-Aliasing"
 vertical_alignment = 1
 
-[node name="AAOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer4" unique_id=648280071]
+[node name="AAOption" type="OptionButton" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/AARow" unique_id=1180700812]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=364984635]
+[node name="FPSRow" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=875332404]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="FrameRateCap" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer5" unique_id=1680164373]
-custom_minimum_size = Vector2(200, 0)
+[node name="FrameRateCap" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/FPSRow" unique_id=1124455160]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Frame Rate Cap"
 vertical_alignment = 1
 
-[node name="FPSCAPOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer5" unique_id=1388201266]
+[node name="FPSCAPOption" type="OptionButton" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/FPSRow" unique_id=895908757]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=1432764614]
+[node name="PixelizationRow" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=431826784]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Pixelization" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer6" unique_id=954142383]
-custom_minimum_size = Vector2(200, 0)
+[node name="Pixelization" type="Label" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/PixelizationRow" unique_id=36769516]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Pixelization"
 vertical_alignment = 1
 
-[node name="PixelizationCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Display/HBoxContainer6" unique_id=917485877]
+[node name="PixelizationCheckBox" type="CheckBox" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/PixelizationRow" unique_id=1792721336]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ResetDisplayButton" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/Display" unique_id=361902458]
+[node name="Spacer" type="Control" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=865059212]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Footer" type="HBoxContainer" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display" unique_id=1149617555]
+layout_mode = 2
+alignment = 2
+
+[node name="ResetDisplayButton" type="Button" parent="CenterContainer/Card/Margin/VBoxContainer/TabContainer/Display/Footer" unique_id=1682052963]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
 text = "Reset Display to Defaults"
 
 [node name="RebindPopup" type="PanelContainer" parent="." unique_id=832961745]
@@ -264,21 +307,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -83.5
-offset_top = -27.5
-offset_right = 83.5
-offset_bottom = 27.5
+offset_left = -110.0
+offset_top = -34.0
+offset_right = 110.0
+offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="RebindPopup" unique_id=1193156257]
+[node name="MarginContainer" type="MarginContainer" parent="RebindPopup" unique_id=2040518590]
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 16
 
-[node name="RebindPopupLabel" type="Label" parent="RebindPopup/MarginContainer" unique_id=1943462279]
+[node name="RebindPopupLabel" type="Label" parent="RebindPopup/MarginContainer" unique_id=426387377]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Press any key..."

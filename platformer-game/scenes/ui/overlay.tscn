@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dglq00pldhg8h"]
 
-[ext_resource type="Theme" uid="uid://b8hvnh1uitheme" path="res://scenes/ui/ui_theme.tres" id="1_theme"]
+[ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="1_theme"]
 
 [node name="Overlay" type="Control"]
 layout_mode = 3

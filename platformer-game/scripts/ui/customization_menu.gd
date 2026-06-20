@@ -4,12 +4,12 @@ extends Control
 # Node references
 # ---------------------------------------------------------
 
-@onready var head_button: Button = $HBoxContainer/VBoxContainer/ActiveHeadGear
-@onready var chest_button: Button = $HBoxContainer/VBoxContainer/ActiveChestGear
-@onready var boots_button: Button = $HBoxContainer/VBoxContainer/ActiveBootsGear
+@onready var head_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveHeadGear
+@onready var chest_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveChestGear
+@onready var boots_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveBootsGear
 
-@onready var grid_container: GridContainer = $HBoxContainer/GridContainer
-@onready var stats_vbox: VBoxContainer = $HBoxContainer/StatsVBox
+@onready var grid_container: GridContainer = $CenterContainer/HBoxContainer/GridPanel/M/GridContainer
+@onready var stats_vbox: VBoxContainer = $CenterContainer/HBoxContainer/StatsPanel/M/StatsVBox
 @onready var back_button: Button = $BackButton
 @onready var stars_label: Label = $StarsLabel
 
@@ -88,14 +88,18 @@ func _on_slot_button_pressed(slot: GearItem.Slot) -> void:
 	_refresh_grid()
 	_refresh_stats_panel()
 
+func _set_button_text_color(btn: Button, color: Color) -> void:
+	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_disabled_color"]:
+		btn.add_theme_color_override(state, color)
+
 func _refresh_slot_buttons() -> void:
 	for slot: GearItem.Slot in _slot_buttons:
 		var btn: Button = _slot_buttons[slot]
 		var item: GearItem = GlobalInventory.equipped_gear[slot]
 		var item_label: String = item.item_name if item != null else "Empty"
-		
+
 		btn.text = "%s\n%s" % [SLOT_LABELS[slot], item_label]
-		btn.modulate = COLOR_SELECTED if slot == _selected_slot else COLOR_UNSELECTED
+		_set_button_text_color(btn, COLOR_SELECTED if slot == _selected_slot else COLOR_UNSELECTED)
 
 # ---------------------------------------------------------
 # Grid
@@ -113,7 +117,7 @@ func _refresh_grid() -> void:
 	if slot_items.is_empty():
 		var placeholder := Label.new()
 		placeholder.text = "No items unlocked for this slot"
-		placeholder.modulate = COLOR_NO_BONUS
+		placeholder.add_theme_color_override("font_color", COLOR_NO_BONUS)
 		grid_container.add_child(placeholder)
 		return
 	
@@ -164,7 +168,7 @@ func _add_gear_entry(item: GearItem) -> void:
 	btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	var name_line := ("%s  [%s]" % [item.item_name, item.set_name]) if item.set_name != "" else item.item_name
 	btn.text = "%s\n%s" % [name_line, status_line]
-	btn.modulate = color
+	_set_button_text_color(btn, color)
 	btn.disabled = not can_interact
 	
 	if is_unlocked:
@@ -226,14 +230,14 @@ func _refresh_stats_panel() -> void:
 		lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		
 		var is_beneficial := (bonus * good_sign) > 0.0
-		lbl.modulate = COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG
-		
+		lbl.add_theme_color_override("font_color", COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG)
+
 		stats_vbox.add_child(lbl)
-		
+
 	if not any_bonus:
 		var lbl := Label.new()
 		lbl.text = "No active bonuses"
-		lbl.modulate = COLOR_NO_BONUS
+		lbl.add_theme_color_override("font_color", COLOR_NO_BONUS)
 		stats_vbox.add_child(lbl)
 
 	_refresh_set_panel()
@@ -245,7 +249,7 @@ func _refresh_set_panel() -> void:
 
 	var sep := Label.new()
 	sep.text = "── Sets ──"
-	sep.modulate = COLOR_NO_BONUS
+	sep.add_theme_color_override("font_color", COLOR_NO_BONUS)
 	stats_vbox.add_child(sep)
 
 	var active_set := GlobalInventory.get_active_set()
@@ -262,7 +266,7 @@ func _refresh_set_panel() -> void:
 
 		var header := Label.new()
 		header.text = "%s  %d / 3" % [set_name, count]
-		header.modulate = COLOR_EQUIPPED if is_complete else COLOR_NO_BONUS
+		header.add_theme_color_override("font_color", COLOR_EQUIPPED if is_complete else COLOR_NO_BONUS)
 		stats_vbox.add_child(header)
 
 		if gs == null:
@@ -294,9 +298,9 @@ func _refresh_set_panel() -> void:
 
 			if is_complete:
 				var is_beneficial = (bonus * entry["good_sign"]) > 0.0
-				lbl.modulate = COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG
+				lbl.add_theme_color_override("font_color", COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG)
 			else:
-				lbl.modulate = COLOR_NO_BONUS
+				lbl.add_theme_color_override("font_color", COLOR_NO_BONUS)
 
 			stats_vbox.add_child(lbl)
 

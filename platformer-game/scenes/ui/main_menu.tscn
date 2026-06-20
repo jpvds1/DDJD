@@ -1,156 +1,101 @@
-[gd_scene format=3 uid="uid://btsarcw3ec1hm"]
+[gd_scene load_steps=5 format=3 uid="uid://btsarcw3ec1hm"]
 
 [ext_resource type="Script" uid="uid://baj50jniqbdfo" path="res://scripts/ui/main_menu.gd" id="1_fe2o3"]
 [ext_resource type="FontFile" uid="uid://blkcblbl8pyc1" path="res://assets/fonts/titles.ttf" id="1_sl1te"]
 [ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_mm_pv"]
+[ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="3_theme"]
+[ext_resource type="PackedScene" uid="uid://bskyheaven1bg" path="res://scenes/ui/sky_background.tscn" id="4_sky"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87aya"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0.32915837, 0.3291584, 0.3291584, 0.6)
-shadow_size = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl1te"]
-bg_color = Color(0.66656864, 0.6665687, 0.66656864, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0.32915837, 0.3291584, 0.3291584, 0.6)
-shadow_size = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fe2o3"]
-bg_color = Color(0.851769, 0.8517689, 0.85176885, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0.32915837, 0.3291584, 0.3291584, 0.6)
-shadow_size = 5
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl1te"]
-
-[node name="MainMenu" type="Control" unique_id=800223803]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_theme")
 script = ExtResource("1_fe2o3")
 
-[node name="Label" type="Label" parent="." unique_id=3748555]
-layout_mode = 0
-offset_left = 382.5
-offset_top = 123.0
-offset_right = 769.5
-offset_bottom = 196.0
+[node name="SkyBackground" parent="." instance=ExtResource("4_sky")]
+layout_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Column" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/Column"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.16, 0.2, 0.36, 1)
 theme_override_fonts/font = ExtResource("1_sl1te")
 theme_override_font_sizes/font_size = 64
 text = "Heaven Run"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1404128567]
-layout_mode = 0
-offset_left = 443.0
-offset_top = 254.0
-offset_right = 709.0
-offset_bottom = 470.0
-size_flags_vertical = 0
-theme_override_constants/separation = 16
-
-[node name="Play" type="Button" parent="VBoxContainer2" unique_id=2006495505]
+[node name="CharacterPreview" type="SubViewportContainer" parent="CenterContainer/Column"]
+custom_minimum_size = Vector2(300, 230)
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_87aya")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sl1te")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
-text = "Play"
-
-[node name="Leaderboard" type="Button" parent="VBoxContainer2" unique_id=2019080867]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_87aya")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sl1te")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
-text = "Leaderboard"
-
-[node name="Settings" type="Button" parent="VBoxContainer2" unique_id=190513303]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_87aya")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sl1te")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
-text = "Settings"
-
-[node name="Quit" type="Button" parent="VBoxContainer2" unique_id=1514428815]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_87aya")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_sl1te")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sl1te")
-text = "Quit"
-
-[node name="CharacterPreview" type="SubViewportContainer" parent="." unique_id=500001001]
-layout_mode = 0
-offset_left = 426.0
-offset_top = 470.0
-offset_right = 726.0
-offset_bottom = 700.0
+size_flags_horizontal = 4
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CharacterPreview" unique_id=500001002]
+[node name="SubViewport" type="SubViewport" parent="CenterContainer/Column/CharacterPreview"]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(300, 230)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="CharacterPreview/SubViewport" unique_id=500001003]
+[node name="Camera3D" type="Camera3D" parent="CenterContainer/Column/CharacterPreview/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 1.5, 1.35)
 current = true
 fov = 40.0
 
-[node name="KeyLight" type="DirectionalLight3D" parent="CharacterPreview/SubViewport" unique_id=500001004]
+[node name="KeyLight" type="DirectionalLight3D" parent="CenterContainer/Column/CharacterPreview/SubViewport"]
 transform = Transform3D(0.8660254, 0.3213938, -0.38302222, 0, 0.76604444, 0.6427876, 0.5, -0.55667037, 0.66341394, 0, 0, 0)
 light_energy = 1.2
 
-[node name="FillLight" type="DirectionalLight3D" parent="CharacterPreview/SubViewport" unique_id=500001005]
+[node name="FillLight" type="DirectionalLight3D" parent="CenterContainer/Column/CharacterPreview/SubViewport"]
 transform = Transform3D(-0.8660254, -0.17101008, 0.46984637, 0, 0.9396926, 0.34202012, -0.50000006, 0.2961981, -0.81379765, 0, 0, 0)
 light_color = Color(0.65, 0.75, 1, 1)
 light_energy = 0.4
 
-[node name="PlayerVisuals" parent="CharacterPreview/SubViewport" unique_id=500001006 instance=ExtResource("2_mm_pv")]
+[node name="PlayerVisuals" parent="CenterContainer/Column/CharacterPreview/SubViewport" instance=ExtResource("2_mm_pv")]
 
-[connection signal="pressed" from="VBoxContainer2/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Leaderboard" to="." method="_on_leaderboard_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Quit" to="." method="_on_quit_pressed"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/Column"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Play" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Play"
+
+[node name="Leaderboard" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Leaderboard"
+
+[node name="Settings" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+
+[node name="Quit" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/Column/VBoxContainer2/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/Column/VBoxContainer2/Leaderboard" to="." method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="CenterContainer/Column/VBoxContainer2/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CenterContainer/Column/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]
