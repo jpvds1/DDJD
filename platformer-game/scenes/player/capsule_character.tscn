@@ -153,6 +153,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 script = ExtResource("3_d66dr")
 
 [node name="Skeleton3D" parent="Visuals/Armature" parent_id_path=PackedInt32Array(1845075672, 1978781392) index="0" unique_id=208187525]
+show_rest_only = true
 bones/0/position = Vector3(-0.8827357, -0.37033558, -63.94718)
 bones/0/rotation = Quaternion(-0.69408584, -0.23952386, 0.265462, 0.6248225)
 bones/1/rotation = Quaternion(0.1285292, -0.013583465, -0.0625879, 0.9896355)
@@ -180,7 +181,7 @@ bones/22/rotation = Quaternion(0.15257095, 0.054763917, 0.1357673, 0.9773895)
 bones/23/rotation = Quaternion(0.36612454, 0.015890218, -0.0060033114, 0.9304108)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Visuals/Armature/Skeleton3D" index="6" unique_id=1249076375]
-transform = Transform3D(0.89577997, -0.41648877, -0.155291, 0.4403725, 0.87903166, 0.18268995, 0.06041745, -0.23203577, 0.9708292, -13.77255, 23.049469, -97.58046)
+transform = Transform3D(1, 0, 0, 0, -5.820766e-11, 1, 0, -1, -5.820766e-11, -0.07690239, -5.629745, -123.53269)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 
@@ -232,6 +233,7 @@ transform = Transform3D(0.4722469, 1.2974873, -0.5860967, -1.409539, 0.5130302, 
 transform = Transform3D(-0.47233433, -1.2977275, -0.58549404, -1.409539, 0.5130302, 1.4367423e-08, 0.20025077, 0.55018437, -1.3810129, 0, 0.6, 0)
 
 [node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=354169916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.008282, 0)
 
 [node name="StatsManager" type="Node" parent="." unique_id=746246521]
 unique_name_in_owner = true
