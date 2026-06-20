@@ -8,7 +8,8 @@ extends Control
 @onready var chest_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveChestGear
 @onready var boots_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveBootsGear
 
-@onready var grid_container: GridContainer = $CenterContainer/HBoxContainer/GridPanel/M/GridContainer
+@onready var grid_container: VBoxContainer = $CenterContainer/HBoxContainer/GridPanel/M/VBoxContainer/GridContainer
+@onready var unequip_button: Button = $CenterContainer/HBoxContainer/GridPanel/M/VBoxContainer/UnequipButton
 @onready var stats_vbox: VBoxContainer = $CenterContainer/HBoxContainer/StatsPanel/M/StatsVBox
 @onready var back_button: Button = $BackButton
 @onready var stars_label: Label = $StarsLabel
@@ -66,6 +67,7 @@ func _ready() -> void:
 	chest_button.pressed.connect(_on_slot_button_pressed.bind(GearItem.Slot.CHEST))
 	boots_button.pressed.connect(_on_slot_button_pressed.bind(GearItem.Slot.BOOTS))
 	
+	unequip_button.pressed.connect(_on_unequip_pressed)
 	GlobalInventory.equipment_changed.connect(_on_inventory_changed)
 	GlobalInventory.unlock_changed.connect(_on_inventory_changed)
 	GlobalInventory.stars_changed.connect(_on_stars_changed)
@@ -118,16 +120,12 @@ func _refresh_grid() -> void:
 		var placeholder := Label.new()
 		placeholder.text = "No items unlocked for this slot"
 		placeholder.add_theme_color_override("font_color", COLOR_NO_BONUS)
+		placeholder.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		grid_container.add_child(placeholder)
 		return
 	
-	if GlobalInventory.equipped_gear[_selected_slot] != null:
-		var unequip_btn := Button.new()
-		unequip_btn.custom_minimum_size = GEAR_ENTRY_SIZE
-		unequip_btn.text = "Unequip"
-		unequip_btn.pressed.connect(_on_unequip_pressed)
-		grid_container.add_child(unequip_btn)
-		
+	unequip_button.disabled = GlobalInventory.equipped_gear[_selected_slot] == null
+
 	for item: GearItem in slot_items:
 		_add_gear_entry(item)
 
@@ -164,6 +162,7 @@ func _add_gear_entry(item: GearItem) -> void:
 		
 	var btn := Button.new()
 	btn.custom_minimum_size = GEAR_ENTRY_SIZE
+	btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	btn.clip_text = true
 	btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	var name_line := ("%s  [%s]" % [item.item_name, item.set_name]) if item.set_name != "" else item.item_name
