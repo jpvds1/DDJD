@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://deteiqhhsr00s"]
 
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_ftfob"]
-[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_o8c3j"]
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/player.tscn" id="1_o8c3j"]
 [ext_resource type="PackedScene" uid="uid://dae7kwcoeau4g" path="res://scenes/building_materials/water.tscn" id="2_0qepi"]
 [ext_resource type="PackedScene" uid="uid://d1f7pvx3ch1vr" path="res://scenes/building_materials/pillar.tscn" id="3_fmg3e"]
 [ext_resource type="PackedScene" uid="uid://u381latllpcp" path="res://scenes/building_materials/boost_ring.tscn" id="4_fkk1g"]
@@ -15,31 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://2k07ulq6kde4" path="res://scenes/building_materials/saw.tscn" id="13_f6egh"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="14_apo5x"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="15_josfm"]
+[ext_resource type="PackedScene" uid="uid://dkul0f830k441" path="res://scenes/levels/base_level.tscn" id="16_josfm"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_h2s0c"]
-sky_material = SubResource("ProceduralSkyMaterial_64t6i")
-
-[sub_resource type="Environment" id="Environment_jdsy5"]
-background_mode = 2
-sky = SubResource("Sky_h2s0c")
-tonemap_mode = 2
-glow_enabled = true
-
-[node name="Empty Level" type="Node3D" unique_id=216242194]
+[node name="Level3" type="Node3D" unique_id=216242194]
 script = ExtResource("1_ftfob")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
-environment = SubResource("Environment_jdsy5")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401671525]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_o8c3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5080202, 0)
@@ -187,9 +168,11 @@ transform = Transform3D(2.5372963, 0, 0, 0, 2.5372963, 0, 0, 0, 2.5372963, -3.57
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.34103, -2.480945, -73.08429)
 
 [node name="WreckingBall" parent="Parkour" unique_id=1409807783 instance=ExtResource("10_n6eey")]
+process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.654423, 8.9218, -68.16797)
 
 [node name="WreckingBall2" parent="Parkour" unique_id=184499819 instance=ExtResource("10_n6eey")]
+process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.672646, 8.512143, -80.43117)
 
 [node name="RunnableWall" parent="Parkour" unique_id=1172031790 instance=ExtResource("11_qi5uv")]
@@ -209,16 +192,24 @@ transform = Transform3D(44.767822, 0, 0, 0, 8.8904085, 0, 0, 0, 1.4071878, -101.
 size = Vector3(0.8520508, 1, 1)
 
 [node name="Laser" parent="Parkour" unique_id=1185962610 instance=ExtResource("12_f6egh")]
+process_mode = 1
 transform = Transform3D(0.962061, 0, 0.2728344, 0, 1, 0, -0.2728344, 0, 0.962061, -60.989834, -2.3841858e-07, -94.28209)
+delay = 0.0
 
 [node name="Laser2" parent="Parkour" unique_id=105050122 instance=ExtResource("12_f6egh")]
+process_mode = 1
 transform = Transform3D(-0.93748254, 0, 0.34803218, 0, 1, 0, -0.34803218, 0, -0.93748254, -52.50565, 0, -84.6452)
+delay = 0.0
 
 [node name="Laser3" parent="Parkour" unique_id=1105017500 instance=ExtResource("12_f6egh")]
+process_mode = 1
 transform = Transform3D(-0.7530354, 0, 0.65798, 0, 1, 0, -0.65798, 0, -0.7530354, -69.5144, -4.7683716e-07, -86.24014)
+delay = 0.0
 
 [node name="Laser4" parent="Parkour" unique_id=196876594 instance=ExtResource("12_f6egh")]
+process_mode = 1
 transform = Transform3D(0.7353642, 0, -0.6776721, 0, 1, 0, 0.6776721, 0, 0.7353642, -75.205795, 0, -94.00109)
+delay = 0.0
 
 [node name="Pillar" parent="Parkour" unique_id=420214577 instance=ExtResource("3_fmg3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.30852, -2.2278028, -90.443016)
@@ -268,5 +259,7 @@ transform = Transform3D(1.7297764, 0, 0.49786833, 0, 1.8, 0, -0.49786833, 0, 1.7
 
 [node name="EndPlatform" parent="Parkour" unique_id=537576493 instance=ExtResource("14_apo5x")]
 transform = Transform3D(3.8431523, 0, 0, 0, 1, 0, 0, 0, 5.3057804, -186.57098, 0, -87.38701)
+
+[node name="BaseLevel" parent="." unique_id=999985273 instance=ExtResource("16_josfm")]
 
 [editable path="Killzone"]
