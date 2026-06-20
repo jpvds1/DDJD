@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy8jnv2byaaoj"]
+[gd_scene format=3 uid="uid://dy8jnv2byaaoj"]
 
 [ext_resource type="Script" uid="uid://doyfvcehqqsue" path="res://scripts/ui/main_UI.gd" id="1_gks1h"]
-[ext_resource type="PackedScene" uid="uid://coverlay1heaven" path="res://scenes/ui/overlay.tscn" id="2_overlay"]
+[ext_resource type="PackedScene" uid="uid://dglq00pldhg8h" path="res://scenes/ui/overlay.tscn" id="2_overlay"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=9067626]
 script = ExtResource("1_gks1h")
@@ -139,7 +139,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0:00.000"
 
-[node name="PauseOverlay" parent="." instance=ExtResource("2_overlay")]
+[node name="PauseOverlay" parent="." unique_id=1731287440 instance=ExtResource("2_overlay")]
 
 [node name="PauseTitle" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
@@ -163,7 +163,7 @@ text = "Settings"
 layout_mode = 2
 text = "Back"
 
-[node name="GameOverOverlay" parent="." instance=ExtResource("2_overlay")]
+[node name="GameOverOverlay" parent="." unique_id=1162297663 instance=ExtResource("2_overlay")]
 
 [node name="GameOverTitle" type="Label" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
@@ -179,7 +179,7 @@ text = "Restart Level"
 layout_mode = 2
 text = "Back to Menu"
 
-[node name="LevelCompleteOverlay" parent="." instance=ExtResource("2_overlay")]
+[node name="LevelCompleteOverlay" parent="." unique_id=912197705 instance=ExtResource("2_overlay")]
 
 [node name="CompleteTitle" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2

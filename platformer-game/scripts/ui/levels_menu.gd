@@ -24,5 +24,31 @@ func _input(event: InputEvent) -> void:
 func _on_loadout_pressed() -> void:
 	Global.game_controller.change_GUI_scene("res://scenes/ui/customization_menu.tscn")
 
+func _on_level_2_pressed() -> void:
+	get_viewport().gui_release_focus()
+	var path = "res://scenes/levels/level_1.tscn"
+	Global.game_controller.change_3D_scene.call_deferred(path)
+
+
+func _on_level_3_pressed() -> void:
+	get_viewport().gui_release_focus()
+	var path = "res://scenes/levels/level_2.tscn"
+	Global.game_controller.change_3D_scene.call_deferred(path)
+
+
+func _on_level_4_pressed() -> void:
+	pass
+
+
+func _on_level_5_pressed() -> void:
+	pass
+
+
+func _on_level_6_pressed() -> void:
+	get_viewport().gui_release_focus()
+	var path = "res://scenes/levels/level_6.tscn"
+	Global.game_controller.change_3D_scene.call_deferred(path)
+
+
 func _on_back_button_pressed() -> void:
 	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")

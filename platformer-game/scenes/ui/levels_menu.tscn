@@ -130,7 +130,9 @@ text = "COMING SOON"
 
 [node name="Level6" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_card")]
 layout_mode = 2
-text = "COMING SOON"
+text = "ENDLESS"
+level_scene = "res://scenes/levels/level_6.tscn"
+show_stars = false
 
 [node name="Loadout" type="Button" parent="." unique_id=388001001]
 layout_mode = 1

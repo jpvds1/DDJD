@@ -126,8 +126,13 @@ func _ready() -> void:
 	pause_overlay.visible = false
 	game_over_overlay.visible = false
 	
-	_setup_star_display()
+	if level and level.has_method("is_endless"):
+		timer_label.text = "0m"
+		$StarPanel.visible = false
+	else:
+		_setup_star_display()
 	_setup_dash_display(player.stats.max_dashes.get_int())
+
 
 	player.emit_initial_ui_state()
 	
@@ -143,7 +148,7 @@ func _process(delta: float) -> void:
 		if dash_cooldown_time_left <= 0.0:
 			dash_cooldown_active = false
 	
-	if level != null and level.timer_running:
+	if level != null and not level.has_method("is_endless") and level.timer_running:
 		_update_star_icons(level.run_time)
 		
 # ---------------------------------------------------------
@@ -184,15 +189,24 @@ func _on_checkpoint_reached() -> void:
 func _on_player_unalived() -> void:
 	_show_message("You died")
 	
-func _on_run_completed(final_time: String, stars: int) -> void:
-	_update_star_icons(level.run_time)
-	for i in range(complete_stars.size()):
-		var lit := i < stars
-		complete_stars[i].text = "★" if lit else "☆"
-		complete_stars[i].add_theme_color_override("font_color", Palette.ACCENT if lit else Palette.TEXT_DIM)
+func _on_run_completed(final_value: String, stars: int = 0) -> void:
+	if not (level and level.has_method("is_endless")):
+		_update_star_icons(level.run_time)
+		for i in range(complete_stars.size()):
+			var lit := i < stars
+			complete_stars[i].text = "★" if lit else "☆"
+			complete_stars[i].add_theme_color_override("font_color", Palette.ACCENT if lit else Palette.TEXT_DIM)
 	level_complete_overlay.visible = true
 	message_label.visible = false
-	time_label.text = "Time: " + final_time
+	var level_complete_title = $LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/CompleteTitle")
+	
+	if level and level.has_method("is_endless"):
+		level_complete_title.text = "Game Over"
+		time_label.text = "Distance: " + final_value
+		$LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/StarsRow").visible = false
+	else:
+		level_complete_title.text = "Level Complete"
+		time_label.text = "Time: " + final_value
 	
 func _on_pause_toggled(paused: bool) -> void:	
 	ui_paused = paused
