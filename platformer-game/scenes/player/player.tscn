@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ch7shhditu1lk"]
 
-[ext_resource type="Script" uid="uid://b5luiqoqvaysk" path="res://scripts/player/capsule_character.gd" id="1_5ji0x"]
-[ext_resource type="Script" uid="uid://vbnm1bywq1xw" path="res://scripts/player/stats_manager.gd" id="2_hsymh"]
-[ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_x7pql"]
-[ext_resource type="Script" uid="uid://bibb1g8hyjvco" path="res://scripts/player/player_animation.gd" id="3_d66dr"]
+[ext_resource type="Script" uid="uid://b5luiqoqvaysk" path="res://scripts/player/player.gd" id="1_lvxji"]
+[ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_p47bc"]
+[ext_resource type="Script" uid="uid://bibb1g8hyjvco" path="res://scripts/player/player_animation.gd" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://vbnm1bywq1xw" path="res://scripts/player/stats_manager.gd" id="4_0owmy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x7pql"]
 size = Vector3(0.81030273, 1.636039, 0.2841797)
@@ -78,11 +78,11 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=1782536310]
-script = ExtResource("1_5ji0x")
+script = ExtResource("1_lvxji")
 
-[node name="Visuals" parent="." unique_id=396880001 instance=ExtResource("2_x7pql")]
+[node name="Visuals" parent="." unique_id=396880001 instance=ExtResource("2_p47bc")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-script = ExtResource("3_d66dr")
+script = ExtResource("3_75vfm")
 
 [node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8235597, -0.006796986)
@@ -95,9 +95,6 @@ transform = Transform3D(0.999996, 0.0027466873, -0.0006751035, -0.0026392727, 0.
 fov = 80.0
 
 [node name="Dash" type="Node3D" parent="." unique_id=1988469622]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Dash" unique_id=1660942842]
-libraries/ = SubResource("AnimationLibrary_vaf6x")
 
 [node name="DashTimer" type="Timer" parent="Dash" unique_id=1859041121]
 wait_time = 0.2
@@ -115,13 +112,17 @@ transform = Transform3D(0.4722469, 1.2974873, -0.5860967, -1.409539, 0.5130302, 
 [node name="RayCast3DRight" type="RayCast3D" parent="Raycasts" unique_id=433990665]
 transform = Transform3D(-0.47233433, -1.2977275, -0.58549404, -1.409539, 0.5130302, 1.4367423e-08, 0.20025077, 0.55018437, -1.3810129, 0, 0.6, 0)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1660942842]
+root_node = NodePath("../Dash")
+libraries/ = SubResource("AnimationLibrary_vaf6x")
+
 [node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=354169916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.008282, 0)
 
 [node name="StatsManager" type="Node" parent="." unique_id=746246521]
 unique_name_in_owner = true
-script = ExtResource("2_hsymh")
+script = ExtResource("4_0owmy")
 
-[connection signal="animation_changed" from="Dash/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Dash/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]

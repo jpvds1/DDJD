@@ -4,7 +4,7 @@ extends CharacterBody3D
 # Node references
 # ---------------------------------------------------------
 
-@onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $Visuals/AnimationTree
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer

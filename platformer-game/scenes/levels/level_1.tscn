@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjnmrbepu0wl3"]
 
-[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_ksju7"]
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/player.tscn" id="1_ksju7"]
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_sk5k4"]
 [ext_resource type="Resource" uid="uid://bgdpbcpwvqrsi" path="res://resources/gear_items/Head/HeliHat.tres" id="2_qxy0u"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="3_nsrm0"]
