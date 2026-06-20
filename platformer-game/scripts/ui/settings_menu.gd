@@ -216,6 +216,7 @@ func _on_rebind_pressed(action_name: String) -> void:
 func _input(event: InputEvent) -> void:
 	if _rebinding_action == "":
 		if event is InputEventKey and event.physical_keycode == KEY_ESCAPE and event.pressed:
+			get_viewport().set_input_as_handled()
 			_go_back()
 		return
  
