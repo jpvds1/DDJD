@@ -746,6 +746,7 @@ func _record_snapshot() -> void:
 		"r": global_rotation.y,
 		"a": String(animation_player.current_animation) if animation_player else "",
 		"fb": animation_tree.get("parameters/Fall/blend_amount"),
-		"mb": animation_tree.get("parameters/Movement/blend_position")
+		"mb": animation_tree.get("parameters/Movement/blend_position"),
+		"vz": visuals.rotation.z if visuals else 0.0
 	}
 	ghost_data.append(snapshot)
