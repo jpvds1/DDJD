@@ -6,8 +6,25 @@ func _ready() -> void:
 	for card in _level_cards():
 		if card.level_id != "":
 			card.set_stars(GlobalInventory.get_stars_for_level(card.level_id))
+	_set_endless_distance()
 	if !Supabase.is_logged_in():
 		loadout.visible = false
+
+func _set_endless_distance() -> void:
+	var f = FileAccess.open("user://saves.dat", FileAccess.READ)
+	if not f:
+		return
+	var saves = f.get_var()
+	f.close()
+	if not saves is Dictionary:
+		return
+	var pb: int = saves.get("level_6", {}).get("pb_distance", 0)
+	if pb <= 0:
+		return
+	for card in _level_cards():
+		if card.level_scene == "res://scenes/levels/level_6.tscn":
+			card.set_distance_text(str(pb) + "m")
+			return
 
 func _level_cards() -> Array[LevelCard]:
 	var cards: Array[LevelCard] = []

@@ -18,6 +18,10 @@ func set_stars(stars: int) -> void:
 		text += "★" if i < stars else "☆"
 	stars_label.text = text
 
+func set_distance_text(text: String) -> void:
+	stars_label.visible = true
+	stars_label.text = text
+
 func _on_pressed() -> void:
 	if level_scene == "":
 		return
