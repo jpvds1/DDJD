@@ -12,8 +12,6 @@ extends CanvasLayer
 @onready var jumps_container: HBoxContainer = $HUD/RootMargin/MainVBox/JumpsContainer
 
 @onready var dash_row: Control = $HUD/RootMargin/MainVBox/DashRow
-@onready var dash_background: ColorRect = $HUD/RootMargin/MainVBox/DashRow/DashBackground
-@onready var dash_fill: ColorRect = $HUD/RootMargin/MainVBox/DashRow/DashFill
 
 @onready var message_label: Label = $HUD/MessageTop/MessageCenter/MessageLabel
 @onready var timer_label: Label = $HUD/TimerMargin/TimerLabel
@@ -50,6 +48,9 @@ var dash_cooldown_duration := 0.0
 var dash_cooldown_time_left := 0.0
 var ui_paused := false
 
+var _dash_icons: Array = []
+var _dashes_available: int = 1
+
 # ---------------------------------------------------------
 # Star display state
 # ---------------------------------------------------------
@@ -80,6 +81,7 @@ func _ready() -> void:
 		
 	# Player-driven UI
 	player.extra_jumps_changed.connect(_on_extra_jumps_changed)
+	player.dash_count_changed.connect(_on_dash_count_changed)
 	player.dash_cooldown_started.connect(_on_dash_cooldown_started)
 	player.dash_ready.connect(_on_dash_ready)
 	
@@ -104,7 +106,8 @@ func _ready() -> void:
 	pause_overlay.visible = false
 	
 	_setup_star_display()
-	
+	_setup_dash_display(player.stats.max_dashes.get_int())
+
 	player.emit_initial_ui_state()
 	
 func _process(delta: float) -> void:
@@ -113,13 +116,11 @@ func _process(delta: float) -> void:
 	
 	if dash_cooldown_active:
 		dash_cooldown_time_left = max(dash_cooldown_time_left - delta, 0.0)
-		
 		var ratio = 1.0 - (dash_cooldown_time_left / dash_cooldown_duration)
-		_set_dash_fill_ratio(ratio)
-		
+		if _dashes_available < _dash_icons.size():
+			_set_icon_fill(_dashes_available, ratio)
 		if dash_cooldown_time_left <= 0.0:
 			dash_cooldown_active = false
-			_set_dash_fill_ratio(1.0)
 	
 	if level != null and level.timer_running:
 		_update_star_icons(level.run_time)
@@ -134,17 +135,27 @@ func _on_lives_changed(current_lives: int, max_lives: int) -> void:
 func _on_extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int) -> void:
 	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps)
 	
+func _on_dash_count_changed(current: int, _max_count: int) -> void:
+	_dashes_available = current
+	for i in range(_dash_icons.size()):
+		if i < current:
+			_set_icon_fill(i, 1.0)
+		elif not (i == current and dash_cooldown_active):
+			_set_icon_fill(i, 0.0)
+
 func _on_dash_cooldown_started(duration: float) -> void:
 	dash_cooldown_duration = duration
 	dash_cooldown_time_left = duration
 	dash_cooldown_active = true
-	_set_dash_fill_ratio(0.0)
-	
+	if _dashes_available < _dash_icons.size():
+		_set_icon_fill(_dashes_available, 0.0)
+
 func _on_dash_ready() -> void:
 	dash_cooldown_active = false
 	dash_cooldown_duration = 0.0
 	dash_cooldown_time_left = 0.0
-	_set_dash_fill_ratio(1.0)
+	for i in range(_dash_icons.size()):
+		_set_icon_fill(i, 1.0)
 	
 func _on_checkpoint_reached() -> void:
 	_show_message("Checkpoint reached")
@@ -268,9 +279,48 @@ func _show_message(text: String, duration: float = 1.6) -> void:
 	if message_label.text == text:
 		message_label.visible = false
 		
-func _set_dash_fill_ratio(ratio: float) -> void:
+func _setup_dash_display(max_d: int) -> void:
+	_dash_icons.clear()
+	for child in dash_row.get_children():
+		child.queue_free()
+
+	var hbox := HBoxContainer.new()
+	hbox.set_anchors_preset(Control.PRESET_FULL_RECT)
+	hbox.add_theme_constant_override("separation", 10)
+	dash_row.add_child(hbox)
+
+	for i in range(max_d):
+		var wrapper := Control.new()
+		wrapper.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		wrapper.size_flags_vertical = Control.SIZE_FILL
+
+		var bg := ColorRect.new()
+		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+		bg.color = Color(0.22, 0.22, 0.22, 1.0)
+		wrapper.add_child(bg)
+
+		var fill := ColorRect.new()
+		fill.anchor_left = 0.0
+		fill.anchor_top = 0.0
+		fill.anchor_right = 1.0
+		fill.anchor_bottom = 1.0
+		fill.offset_left = 0.0
+		fill.offset_top = 0.0
+		fill.offset_right = 0.0
+		fill.offset_bottom = 0.0
+		fill.color = Color(0.65, 0.65, 0.65, 1.0)
+		wrapper.add_child(fill)
+
+		hbox.add_child(wrapper)
+		_dash_icons.append({"fill": fill, "wrapper": wrapper})
+
+func _set_icon_fill(index: int, ratio: float) -> void:
+	if index < 0 or index >= _dash_icons.size():
+		return
 	ratio = clamp(ratio, 0.0, 1.0)
-	dash_fill.size.x = dash_row.size.x * ratio
+	var icon = _dash_icons[index]
+	icon["fill"].anchor_right = ratio
+	icon["fill"].offset_right = 0.0
 	
 # ---------------------------------------------------------
 # UI API
