@@ -19,6 +19,7 @@ const SAVE_PATH := "user://player_progress.json"
 # ---------------------------------------------------------		
 
 var all_gear: Array[GearItem] = []
+var all_sets: Array[GearSet] = []
 var unlocked_items: Array[GearItem] = []
 
 var equipped_gear: Dictionary = {
@@ -38,6 +39,7 @@ var completed_achievements: Array[String] = []
 
 func _ready() -> void:
 	_load_all_gear("res://resources/gear_items/")
+	_load_all_sets("res://resources/gear_sets/")
 	_load_progress()
 	
 	for item in all_gear:
@@ -68,9 +70,39 @@ func _load_all_gear(path: String) -> void:
 	else:
 		print("Error occurer when trying to load gear from path: ", path)
 
+func _load_all_sets(path: String) -> void:
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir() and file_name.ends_with(".tres"):
+				var clean_path = path + file_name.replace(".remap", "")
+				var res = load(clean_path)
+				if res is GearSet:
+					all_sets.append(res)
+			file_name = dir.get_next()
+
+func get_set_progress() -> Dictionary:
+	var progress: Dictionary = {}
+	for slot: GearItem.Slot in equipped_gear:
+		var item: GearItem = equipped_gear[slot]
+		if item != null and item.set_name != "":
+			progress[item.set_name] = progress.get(item.set_name, 0) + 1
+	return progress
+
+func get_active_set() -> GearSet:
+	var progress := get_set_progress()
+	for set_name: String in progress:
+		if progress[set_name] == 3:
+			for gs: GearSet in all_sets:
+				if gs.set_name == set_name:
+					return gs
+	return null
+
 # ---------------------------------------------------------
 # Persistence
-# ---------------------------------------------------------		
+# ---------------------------------------------------------
 
 func _save_progress() -> void:
 	var unlocked_paths: Array = []

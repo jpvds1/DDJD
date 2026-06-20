@@ -1,10 +1,42 @@
-[gd_scene format=3 uid="uid://b3y48lsib427f"]
+[gd_scene load_steps=8 format=3 uid="uid://b3y48lsib427f"]
 
 [ext_resource type="Script" uid="uid://duk7j0qp1d348" path="res://scripts/ui/levels_menu.gd" id="1_7v8dc"]
-[ext_resource type="Texture2D" uid="uid://dn3uetv2w573f" path="res://icon.svg" id="2_518wr"]
+[ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://c0lvlcard1heaven" path="res://scenes/ui/level_card.tscn" id="3_card"]
+[ext_resource type="PackedScene" uid="uid://bskyheaven1bg" path="res://scenes/ui/sky_background.tscn" id="4_sky"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gds35"]
-texture = ExtResource("2_518wr")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldt_n"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.91, 0.59, 0.18, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldt_h"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.98, 0.68, 0.27, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldt_p"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.78, 0.49, 0.13, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="LevelsMenu" type="Control" unique_id=617620803]
 layout_mode = 3
@@ -13,7 +45,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_theme")
 script = ExtResource("1_7v8dc")
+
+[node name="SkyBackground" parent="." instance=ExtResource("4_sky")]
+layout_mode = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=299000001]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 130.0
+offset_bottom = 54.0
+text = "< Back"
 
 [node name="Label" type="Label" parent="." unique_id=437114940]
 layout_mode = 1
@@ -28,6 +72,7 @@ offset_right = 84.5
 offset_bottom = -185.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.16, 0.2, 0.36, 1)
 theme_override_font_sizes/font_size = 30
 text = "World 1"
 horizontal_alignment = 1
@@ -51,61 +96,61 @@ theme_override_constants/separation = 16
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Level1" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1147989828]
-custom_minimum_size = Vector2(124, 124)
+[node name="Level1" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " TUTORIAL"
+text = "TUTORIAL"
+level_id = "tutorial"
+level_scene = "res://scenes/levels/tutorial.tscn"
 
-[node name="Level2" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=10945857]
-custom_minimum_size = Vector2(124, 124)
+[node name="Level2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " LEVEL 1"
+text = "LEVEL 1"
+level_id = "level_1"
+level_scene = "res://scenes/levels/level_1.tscn"
 
-[node name="Level3" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=633079436]
-custom_minimum_size = Vector2(124, 124)
+[node name="Level3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " LEVEL 2"
+text = "LEVEL 2"
+level_id = "level_2"
+level_scene = "res://scenes/levels/level_2.tscn"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1278061234]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Level4" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=634189263]
-custom_minimum_size = Vector2(124, 124)
+[node name="Level4" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+text = "COMING SOON"
 
-[node name="Level5" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1834901298]
-custom_minimum_size = Vector2(124, 124)
+[node name="Level5" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+text = "COMING SOON"
 
-[node name="Level6" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1085943676]
-custom_minimum_size = Vector2(124, 124)
+[node name="Level6" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_gds35")
-text = " "
+text = "COMING SOON"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Level1" to="." method="_on_level_1_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Level2" to="." method="_on_level_2_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Level3" to="." method="_on_level_3_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Level4" to="." method="_on_level_4_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Level5" to="." method="_on_level_5_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Level6" to="." method="_on_level_6_pressed"]
+[node name="Loadout" type="Button" parent="." unique_id=388001001]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 170.0
+offset_right = 100.0
+offset_bottom = 206.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_ldt_n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ldt_h")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ldt_p")
+text = "Loadout"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Loadout" to="." method="_on_loadout_pressed"]

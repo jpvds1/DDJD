@@ -6,6 +6,10 @@ extends Control
 @onready var reset_defaults_button: Button = %ResetDefaultsButton
 
 @onready var audio_tab: VBoxContainer = %AudioTab
+@onready var audio_rows: VBoxContainer = %AudioRows
+@onready var reset_audio_button: Button = %ResetAudioButton
+@onready var reset_controls_button: Button = %ResetControlsButton
+@onready var reset_display_button: Button = %ResetDisplayButton
 
 @onready var sensitivity_slider: HSlider = %SensitivitySlider
 @onready var sensitivity_value_label: Label = %SensitivityValueLabel
@@ -26,6 +30,7 @@ extends Control
 
 var _rebinding_action: String = ""
 var _action_buttons: Dictionary = {}
+var return_to_pause: bool = false
 
 func _ready() -> void:
 	ghost_replay_checkbox.button_pressed = SettingsManager.get_ghost_replay()
@@ -33,6 +38,15 @@ func _ready() -> void:
 	ghost_replay_checkbox.toggled.connect(_on_ghost_replay_checkbox_toggled)
 	sign_out_button.pressed.connect(_on_sign_out_pressed)
 	reset_defaults_button.pressed.connect(_on_reset_defaults_pressed)
+	reset_audio_button.pressed.connect(_on_reset_audio_pressed)
+	reset_controls_button.pressed.connect(func():
+		SettingsManager.reset_controls_to_defaults()
+		_refresh_controls_tab()
+	)
+	reset_display_button.pressed.connect(func():
+		SettingsManager.reset_display_to_defaults()
+		_refresh_display_tab()
+	)
 	
 	tab_container.set_tab_title(0, "General")
 	tab_container.set_tab_title(1, "Audio")
@@ -57,6 +71,7 @@ func _on_ghost_replay_checkbox_toggled(value: bool) -> void:
 
 func _on_reset_defaults_pressed() -> void:
 	SettingsManager.reset_to_defaults()
+	ghost_replay_checkbox.button_pressed = SettingsManager.get_ghost_replay()
 	_build_audio_tab()
 	_refresh_controls_tab()
 	_refresh_display_tab()
@@ -72,25 +87,31 @@ func _on_sign_out_pressed() -> void:
 # AUDIO TAB
 # ============================================================
 
+func _on_reset_audio_pressed() -> void:
+	SettingsManager.reset_audio_to_defaults()
+	_build_audio_tab()
+
 func _build_audio_tab():
-	for child in audio_tab.get_children():
+	for child in audio_rows.get_children():
 		child.queue_free()
-		
+
 	for bus_name in SettingsManager.AUDIO_BUSES:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 12)
 		
 		var label := Label.new()
 		label.text = bus_name
-		label.custom_minimum_size.x = 140
+		label.custom_minimum_size.x = 80
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		row.add_child(label)
-		
+
 		var slider := HSlider.new()
 		slider.min_value = 0.0
 		slider.max_value = 1.0
 		slider.step = 0.01
 		slider.value = SettingsManager.audio_volumes.get(bus_name, 1.0)
 		slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		slider.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(slider)
 		
 		var value_label := Label.new()
@@ -111,7 +132,7 @@ func _build_audio_tab():
 			SettingsManager.set_bus_muted(bus_name, pressed)
 		)
 		
-		audio_tab.add_child(row)
+		audio_rows.add_child(row)
 		
 # ============================================================
 # CONTROLS TAB
@@ -195,7 +216,8 @@ func _on_rebind_pressed(action_name: String) -> void:
 func _input(event: InputEvent) -> void:
 	if _rebinding_action == "":
 		if event is InputEventKey and event.physical_keycode == KEY_ESCAPE and event.pressed:
-			Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
+			get_viewport().set_input_as_handled()
+			_go_back()
 		return
  
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -296,5 +318,14 @@ func _refresh_display_tab() -> void:
 # OTHER
 # ============================================================
  
+func _go_back() -> void:
+	if return_to_pause:
+		queue_free()
+		return
+	if Global.settings_return_scene == "":
+		Global.game_controller.close_gui_scene()
+	else:
+		Global.game_controller.change_GUI_scene(Global.settings_return_scene)
+
 func _on_back_button_pressed() -> void:
-	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
+	_go_back()
