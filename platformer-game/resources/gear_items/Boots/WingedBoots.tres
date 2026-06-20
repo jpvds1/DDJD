@@ -4,11 +4,10 @@
 
 [resource]
 script = ExtResource("1_2ymrx")
-item_name = "Winged Boots"
-set_name = "Wings"
+item_name = "Gale Striders"
+set_name = "Aether"
 slot = 2
 unlock_type = 2
 star_cost = 1
-jump_velocity_bonus = 2.0
-extra_jumps = 1
+jump_velocity_bonus = 0.3
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

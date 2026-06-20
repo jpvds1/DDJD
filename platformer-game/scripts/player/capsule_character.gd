@@ -56,6 +56,7 @@ const WALL_RUN_CAMERA_MIN_NORMAL_ANGLE := 5.0
 var is_dashing := false
 var can_dash := true
 var dash_direction := Vector3.ZERO
+var dashes_left := 1
 
 var is_wall_running := false
 var wall_run_timer := 0.0
@@ -113,6 +114,7 @@ func _ready() -> void:
 	add_to_group("player")
 	camera_distance_target = camera_3d.position.z
 	extra_jumps_left = stats.max_extra_jumps.get_int()
+	dashes_left = stats.max_dashes.get_int()
 
 func _unhandled_input(event):
 	if controls_locked:
@@ -247,6 +249,12 @@ func update_air_state(on_floor: bool, delta: float) -> void:
 		coyote_timer = COYOTE_TIME
 		extra_jumps_left = stats.max_extra_jumps.get_int()
 		can_cut_current_jump = false
+		var was_on_cooldown := not dash_cooldown_timer.is_stopped()
+		dashes_left = stats.max_dashes.get_int()
+		can_dash = true
+		if was_on_cooldown:
+			dash_cooldown_timer.stop()
+			dash_ready.emit()
 	else:
 		coyote_timer = max(coyote_timer - delta, 0.0)
 		velocity += get_gravity() * delta * stats.gravity_modifier.get_val()
@@ -564,13 +572,14 @@ func handle_dash_input() -> void:
 
 func start_dash() -> void:
 	is_dashing = true
-	can_dash = false
+	dashes_left -= 1
+	can_dash = dashes_left > 0
 	dash_direction = (transform.basis * Vector3.FORWARD).normalized()
 
 	dash_timer.start()
-	dash_cooldown_timer.start()
-
-	dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
+	if not can_dash:
+		dash_cooldown_timer.start()
+		dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
 	update_animation_state("dash")
 
 func cancel_dash_for_wall_run() -> void:
@@ -597,6 +606,7 @@ func _on_dash_timer_timeout() -> void:
 	update_animation_state("RESET")
 
 func _on_dash_cooldown_timer_timeout() -> void:
+	dashes_left = stats.max_dashes.get_int()
 	can_dash = true
 	dash_ready.emit()
 
@@ -662,6 +672,7 @@ func reset_movement_state() -> void:
 	velocity = Vector3.ZERO
 
 	is_dashing = false
+	dashes_left = stats.max_dashes.get_int()
 	can_dash = true
 	dash_direction = Vector3.ZERO
 

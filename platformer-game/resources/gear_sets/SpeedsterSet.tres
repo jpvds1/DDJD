@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_speedster")
-set_name = "Speedster"
-set_description = "Speed Glasses + Light Shirt + Swift Boots"
-speed_bonus = 3.0
-acceleration_bonus = 2.0
+set_name = "Quickstep"
+set_description = "Racing Visor + Wind-Weave Vest + Mercury Runners"
+speed_bonus = 1.5
+acceleration_bonus = 1.0

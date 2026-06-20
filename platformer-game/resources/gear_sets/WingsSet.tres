@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_wings")
-set_name = "Wings"
-set_description = "Helicopter Hat + Angel Wings + Winged Boots"
-jump_velocity_bonus = 2.0
+set_name = "Aether"
+set_description = "Feathered Crown + Seraph Mantle + Gale Striders"
+jump_velocity_bonus = 0.5
 extra_jumps = 1

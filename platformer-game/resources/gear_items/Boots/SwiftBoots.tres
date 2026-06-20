@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_w8b3y")
-item_name = "Swift Boots"
-set_name = "Speedster"
+item_name = "Mercury Runners"
+set_name = "Quickstep"
 slot = 2
 unlock_description = "Complete the Tutorial"
-speed_bonus = 5.0
-acceleration_bonus = 2.0
+speed_bonus = 0.4
+acceleration_bonus = 0.5
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

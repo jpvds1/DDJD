@@ -9,6 +9,7 @@ var sprint_speed        := PlayerStat.new(10.5)
 var dash_speed          := PlayerStat.new(50.0)
 var post_dash_speed     := PlayerStat.new(10.0)
 var dash_cooldown       := PlayerStat.new(1.5)
+var max_dashes          := PlayerStat.new(1)
 
 var ground_accel        := PlayerStat.new(24.0)
 var ground_sprint_accel := PlayerStat.new(32.0)
@@ -70,8 +71,7 @@ func recalculate_bonuses():
 		max_extra_jumps.bonus_value      += float(item.extra_jumps)
 		
 		dash_cooldown.bonus_value        -= item.dash_cooldown_reduction
-		
-		# item.extra_dashes: TODO
+		max_dashes.bonus_value           += float(item.extra_dashes)
 
 	var active_set := GlobalInventory.get_active_set()
 	if active_set:
@@ -83,7 +83,7 @@ func recalculate_bonuses():
 		extra_jump_velocity.bonus_value  += active_set.jump_velocity_bonus
 		max_extra_jumps.bonus_value      += float(active_set.extra_jumps)
 		dash_cooldown.bonus_value        -= active_set.dash_cooldown_reduction
-		# active_set.extra_dashes: TODO
+		max_dashes.bonus_value           += float(active_set.extra_dashes)
 
 func _reset_all_bonuses() -> void:
 	walk_speed.bonus_value                    = 0.0
@@ -91,6 +91,7 @@ func _reset_all_bonuses() -> void:
 	dash_speed.bonus_value                    = 0.0
 	post_dash_speed.bonus_value               = 0.0
 	dash_cooldown.bonus_value                 = 0.0
+	max_dashes.bonus_value                    = 0.0
 	ground_accel.bonus_value                  = 0.0
 	ground_sprint_accel.bonus_value           = 0.0
 	ground_decel.bonus_value                  = 0.0

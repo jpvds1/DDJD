@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource("1_vf8i5")
-item_name = "Angel Wings"
-set_name = "Wings"
+item_name = "Seraph Mantle"
+set_name = "Aether"
 slot = 1
 unlock_type = 3
 achievement_id = "no_extra_jumps"
 unlock_description = "Complete a level without using extra jumps"
-jump_velocity_bonus = 1.0
-extra_jumps = 1
+jump_velocity_bonus = 0.3
+speed_bonus = -0.2
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

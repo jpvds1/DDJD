@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_demon")
-set_name = "Demon"
-set_description = "Demonic Horns + Rocketed Chestplate + Lightning Boots"
-dash_cooldown_reduction = 0.3
+set_name = "Inferno"
+set_description = "Infernal Horns + Hellfire Harness + Brimstone Treads"
+dash_cooldown_reduction = 0.2
 extra_dashes = 1
