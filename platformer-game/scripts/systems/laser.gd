@@ -2,6 +2,7 @@
 extends Node3D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 @onready var laser_timer: Timer = $Timers/LaserTimer
 @onready var idle_timer: Timer = $Timers/IdleTimer
 @onready var delay_timer: Timer = $Timers/DelayTimer
@@ -29,6 +30,7 @@ extends Node3D
 func _update_laser() -> void:
 	if active:
 		# fire the laser
+		audio_player.play()
 		_on_idle_timer_timeout()
 	else:
 		animation_player.play("off")
@@ -39,6 +41,9 @@ func _start_laser() -> void:
 	laser_timer.stop()
 	idle_timer.stop()
 	delay_timer.stop()
+	
+	# reset the audio player
+	audio_player.stop()
 	
 	if delay > 0:
 		delay_timer.start(delay)
@@ -57,9 +62,11 @@ func _on_delay_timer_timeout() -> void:
 
 func _on_laser_timer_timeout() -> void:
 	animation_player.play("off")
+	audio_player.stop()
 	idle_timer.start(idle_duration)
 
 
 func _on_idle_timer_timeout() -> void:
 	animation_player.play("on")
+	audio_player.play()
 	laser_timer.start(laser_duration)

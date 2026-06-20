@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://djr7woslt62or" path="res://assets/models/traps/saw.glb" id="1_686i4"]
 [ext_resource type="Script" uid="uid://c71m3jnh7cv25" path="res://scripts/traps/saw.gd" id="1_w8c5v"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="2_w8c5v"]
-[ext_resource type="AudioStream" uid="uid://bhu8ekoydb5ra" path="res://assets/sounds/saw.wav" id="4_fr2ck"]
+[ext_resource type="AudioStream" uid="uid://bhu8ekoydb5ra" path="res://assets/sounds/traps/saw.wav" id="4_fr2ck"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fr2ck"]
 height = 0.107421875
