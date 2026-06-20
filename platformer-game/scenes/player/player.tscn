@@ -92,6 +92,7 @@ shape = SubResource("BoxShape3D_x7pql")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=563554905]
 transform = Transform3D(0.999996, 0.0027466873, -0.0006751035, -0.0026392727, 0.9919694, 0.1264509, 0.0010170016, -0.12644859, 0.99197257, 0, 2.206, 2.235)
+current = true
 fov = 80.0
 
 [node name="Dash" type="Node3D" parent="." unique_id=1988469622]
@@ -118,6 +119,7 @@ libraries/ = SubResource("AnimationLibrary_vaf6x")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=354169916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.008282, 0)
+current = true
 
 [node name="StatsManager" type="Node" parent="." unique_id=746246521]
 unique_name_in_owner = true
