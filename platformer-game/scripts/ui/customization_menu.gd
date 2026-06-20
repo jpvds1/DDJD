@@ -332,4 +332,4 @@ func _on_stars_changed(new_total: int) -> void:
 	_refresh_grid()	
 	
 func _on_back_button_pressed() -> void:
-	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
+	Global.game_controller.change_GUI_scene("res://scenes/ui/levels_menu.tscn")

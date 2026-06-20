@@ -1,5 +1,7 @@
 extends Control
 
+@onready var loadout: Button = $Loadout
+
 const _LEVEL_IDS := {
 	"VBoxContainer/HBoxContainer/Level1": "tutorial",
 	"VBoxContainer/HBoxContainer/Level2": "level_1",
@@ -8,6 +10,8 @@ const _LEVEL_IDS := {
 
 func _ready() -> void:
 	_populate_level_stars()
+	if !Supabase.is_logged_in():
+		loadout.visible = false
 
 func _populate_level_stars() -> void:
 	for node_path in _LEVEL_IDS:
@@ -40,6 +44,9 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.physical_keycode == KEY_ESCAPE and event.pressed:
 		_on_back_button_pressed()
 
+
+func _on_loadout_pressed() -> void:
+	Global.game_controller.change_GUI_scene("res://scenes/ui/customization_menu.tscn")
 
 func _on_back_button_pressed() -> void:
 	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
