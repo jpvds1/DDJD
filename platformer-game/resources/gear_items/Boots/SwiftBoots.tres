@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_w8b3y")
 item_name = "Swift Boots"
+set_name = "Speedster"
 slot = 2
 unlock_description = "Complete the Tutorial"
 speed_bonus = 5.0

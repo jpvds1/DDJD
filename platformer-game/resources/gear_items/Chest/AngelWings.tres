@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_vf8i5")
 item_name = "Angel Wings"
+set_name = "Wings"
 slot = 1
 unlock_type = 3
 achievement_id = "no_extra_jumps"

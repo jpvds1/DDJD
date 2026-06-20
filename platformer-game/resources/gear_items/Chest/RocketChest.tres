@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_4jiwo")
 item_name = "Rocketed Chestplate"
+set_name = "Demon"
 slot = 1
 unlock_type = 2
 star_cost = 1

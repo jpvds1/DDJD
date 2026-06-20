@@ -61,8 +61,8 @@ func recalculate_bonuses():
 		walk_speed.bonus_value         += item.speed_bonus
 		sprint_speed.bonus_value       += item.speed_bonus
 		
-		ground_accel.bonus_value       += item.acceleration_bonus
-		ground_sprint_accel.base_value += item.acceleration_bonus
+		ground_accel.bonus_value        += item.acceleration_bonus
+		ground_sprint_accel.bonus_value += item.acceleration_bonus
 		
 		ground_jump_velocity.bonus_value += item.jump_velocity_bonus
 		extra_jump_velocity.bonus_value  += item.jump_velocity_bonus
@@ -72,6 +72,18 @@ func recalculate_bonuses():
 		dash_cooldown.bonus_value        -= item.dash_cooldown_reduction
 		
 		# item.extra_dashes: TODO
+
+	var active_set := GlobalInventory.get_active_set()
+	if active_set:
+		walk_speed.bonus_value           += active_set.speed_bonus
+		sprint_speed.bonus_value         += active_set.speed_bonus
+		ground_accel.bonus_value         += active_set.acceleration_bonus
+		ground_sprint_accel.bonus_value  += active_set.acceleration_bonus
+		ground_jump_velocity.bonus_value += active_set.jump_velocity_bonus
+		extra_jump_velocity.bonus_value  += active_set.jump_velocity_bonus
+		max_extra_jumps.bonus_value      += float(active_set.extra_jumps)
+		dash_cooldown.bonus_value        -= active_set.dash_cooldown_reduction
+		# active_set.extra_dashes: TODO
 
 func _reset_all_bonuses() -> void:
 	walk_speed.bonus_value                    = 0.0

@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_3d4jn")
 item_name = "Light Shirt"
+set_name = "Speedster"
 slot = 1
 unlock_description = "Complete Level 2"
 speed_bonus = 2.0

@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_q18i4")
 item_name = "Speed Glasses"
+set_name = "Speedster"
 unlock_type = 2
 star_cost = 1
 speed_bonus = 5.0

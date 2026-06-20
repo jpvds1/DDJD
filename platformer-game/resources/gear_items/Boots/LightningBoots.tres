@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_530fq")
 item_name = "Lightning Boots"
+set_name = "Demon"
 slot = 2
 unlock_type = 3
 achievement_id = "no_deaths"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GearSet" format=3]
+
+[ext_resource type="Script" path="res://scripts/player/gear_set.gd" id="1_speedster"]
+
+[resource]
+script = ExtResource("1_speedster")
+set_name = "Speedster"
+set_description = "Speed Glasses + Light Shirt + Swift Boots"
+speed_bonus = 3.0
+acceleration_bonus = 2.0

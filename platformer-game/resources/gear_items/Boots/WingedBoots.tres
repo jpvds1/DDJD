@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_2ymrx")
 item_name = "Winged Boots"
+set_name = "Wings"
 slot = 2
 unlock_type = 2
 star_cost = 1
