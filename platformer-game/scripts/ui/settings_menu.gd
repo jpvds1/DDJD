@@ -30,6 +30,7 @@ extends Control
 
 var _rebinding_action: String = ""
 var _action_buttons: Dictionary = {}
+var return_to_pause: bool = false
 
 func _ready() -> void:
 	ghost_replay_checkbox.button_pressed = SettingsManager.get_ghost_replay()
@@ -317,6 +318,9 @@ func _refresh_display_tab() -> void:
 # ============================================================
  
 func _go_back() -> void:
+	if return_to_pause:
+		queue_free()
+		return
 	if Global.settings_return_scene == "":
 		Global.game_controller.close_gui_scene()
 	else:
