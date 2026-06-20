@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://ch7shhditu1lk"]
+
+[ext_resource type="Script" uid="uid://b5luiqoqvaysk" path="res://scripts/player/player.gd" id="1_lvxji"]
+[ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_p47bc"]
+[ext_resource type="Script" uid="uid://bibb1g8hyjvco" path="res://scripts/player/player_animation.gd" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://vbnm1bywq1xw" path="res://scripts/player/stats_manager.gd" id="4_0owmy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x7pql"]
+size = Vector3(0.81030273, 1.636039, 0.2841797)
+
+[sub_resource type="Animation" id="Animation_5ji0x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [80.0]
+}
+
+[sub_resource type="Animation" id="Animation_hsymh"]
+resource_name = "dash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [120.0]
+}
+
+[sub_resource type="Animation" id="Animation_x7pql"]
+resource_name = "sprint"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+
+[sub_resource type="Animation" id="Animation_vaf6x"]
+resource_name = "walk"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPivot/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [80.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vaf6x"]
+_data = {
+&"RESET": SubResource("Animation_5ji0x"),
+&"dash": SubResource("Animation_hsymh"),
+&"sprint": SubResource("Animation_x7pql"),
+&"walk": SubResource("Animation_vaf6x")
+}
+
+[node name="Player" type="CharacterBody3D" unique_id=1782536310]
+script = ExtResource("1_lvxji")
+
+[node name="Visuals" parent="." unique_id=396880001 instance=ExtResource("2_p47bc")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("3_75vfm")
+
+[node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8235597, -0.006796986)
+shape = SubResource("BoxShape3D_x7pql")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=447801321]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=563554905]
+transform = Transform3D(0.999996, 0.0027466873, -0.0006751035, -0.0026392727, 0.9919694, 0.1264509, 0.0010170016, -0.12644859, 0.99197257, 0, 2.206, 2.235)
+current = true
+fov = 80.0
+
+[node name="Dash" type="Node3D" parent="." unique_id=1988469622]
+
+[node name="DashTimer" type="Timer" parent="Dash" unique_id=1859041121]
+wait_time = 0.2
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="Dash" unique_id=833726965]
+wait_time = 3.0
+one_shot = true
+
+[node name="Raycasts" type="Node3D" parent="." unique_id=1537488305]
+
+[node name="RayCast3DLeft" type="RayCast3D" parent="Raycasts" unique_id=1424214757]
+transform = Transform3D(0.4722469, 1.2974873, -0.5860967, -1.409539, 0.5130302, 0, 0.2004569, 0.5507506, 1.3807573, 0, 0.6, 0)
+
+[node name="RayCast3DRight" type="RayCast3D" parent="Raycasts" unique_id=433990665]
+transform = Transform3D(-0.47233433, -1.2977275, -0.58549404, -1.409539, 0.5130302, 1.4367423e-08, 0.20025077, 0.55018437, -1.3810129, 0, 0.6, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1660942842]
+libraries/ = SubResource("AnimationLibrary_vaf6x")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=354169916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.008282, 0)
+current = true
+
+[node name="StatsManager" type="Node" parent="." unique_id=746246521]
+unique_name_in_owner = true
+script = ExtResource("4_0owmy")
+
+[connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Dash/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]

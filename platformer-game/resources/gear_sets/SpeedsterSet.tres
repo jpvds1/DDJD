@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GearSet" format=3]
+
+[ext_resource type="Script" path="res://scripts/player/gear_set.gd" id="1_speedster"]
+
+[resource]
+script = ExtResource("1_speedster")
+set_name = "Quickstep"
+set_description = "Racing Visor + Wind-Weave Vest + Mercury Runners"
+speed_bonus = 1.5
+acceleration_bonus = 1.0

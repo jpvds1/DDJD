@@ -10,6 +10,7 @@ var _water_material: ShaderMaterial
 var _uv_scroll_offset: float = 0.0
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Store initial height so waves start from the correct position.
 	_initial_y_position = global_position.y
 

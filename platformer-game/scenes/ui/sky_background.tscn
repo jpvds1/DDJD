@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bskyheaven1bg"]
+
+[sub_resource type="Gradient" id="grad_dawn"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(0.749, 0.89, 1, 1, 0.886, 0.929, 0.98, 1, 1, 0.886, 0.753, 1)
+
+[sub_resource type="GradientTexture2D" id="tex_dawn"]
+gradient = SubResource("grad_dawn")
+width = 64
+height = 256
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[node name="SkyBackground" type="TextureRect"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("tex_dawn")
+expand_mode = 1

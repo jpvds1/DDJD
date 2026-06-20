@@ -1,8 +1,8 @@
 extends Control
 
-@onready var google_button: Button = $VBoxContainer2/Google
-@onready var guest_button: Button = $VBoxContainer2/Guest
-@onready var error_label: Label = $VBoxContainer2/Error
+@onready var google_button: Button = $CenterContainer/Column/VBoxContainer2/Google
+@onready var guest_button: Button = $CenterContainer/Column/VBoxContainer2/Guest
+@onready var error_label: Label = $CenterContainer/Column/VBoxContainer2/Error
 @onready var landing_screen: Control = $"."
 
 func _ready() -> void:	

@@ -4,9 +4,10 @@
 
 [resource]
 script = ExtResource("1_4jiwo")
-item_name = "Rocketed Chestplate"
+item_name = "Hellfire Harness"
+set_name = "Inferno"
 slot = 1
 unlock_type = 2
 star_cost = 1
-dash_cooldown_reduction = 0.2
+dash_cooldown_reduction = 0.1
 metadata/_custom_type_script = "uid://1mwlo1yrpnfc"

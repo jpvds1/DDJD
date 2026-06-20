@@ -32,18 +32,19 @@ func _ready() -> void:
 	_player.extra_jumps_changed.connect(_on_extra_jumps_changed)
 
 func _physics_process(delta: float) -> void:
-	var max_sprint_speed: float = stats.sprint_speed.get_val()
-	var local_velocity := _player.global_transform.basis.inverse() * _player.velocity
 	var lerp_weight := blend_strength * delta
 	
 	# compute the fall blending value
+	var is_airborne := not is_zero_approx(_player.velocity.y)
 	_fall_blend = lerp(
 		_fall_blend,
-		float(_player.is_on_floor() or _player.is_on_wall()),
+		float(is_airborne),
 		lerp_weight
 	)
 
 	# compute the movement blending value
+	var max_sprint_speed: float = stats.sprint_speed.get_val()
+	var local_velocity := _player.global_transform.basis.inverse() * _player.velocity
 	var movement_blend := Vector2(local_velocity.x, -local_velocity.z) / max_sprint_speed
 	
 	# update the blending values

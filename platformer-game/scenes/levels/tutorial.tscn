@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dojg8u8tdb0lu"]
 
-[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_rnyxf"]
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/player.tscn" id="1_rnyxf"]
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_u4f7j"]
 [ext_resource type="Resource" uid="uid://1bbquwkas68e" path="res://resources/gear_items/Boots/SwiftBoots.tres" id="2_g7bfq"]
 [ext_resource type="PackedScene" uid="uid://cxwqa33o1b6ge" path="res://scenes/building_materials/tutorial_trigger.tscn" id="2_ub0e1"]
@@ -9,32 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="6_7ac3l"]
 [ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="7_3e81p"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="8_g7bfq"]
+[ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="10_4a02d"]
+[ext_resource type="PackedScene" uid="uid://dkul0f830k441" path="res://scenes/levels/base_level.tscn" id="base_1"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_h2s0c"]
-sky_material = SubResource("ProceduralSkyMaterial_64t6i")
-
-[sub_resource type="Environment" id="Environment_jdsy5"]
-background_mode = 2
-sky = SubResource("Sky_h2s0c")
-tonemap_mode = 2
-glow_enabled = true
+[sub_resource type="BoxShape3D" id="BoxShape3D_4a02d"]
+size = Vector3(184.93713, 1, 349.187)
 
 [node name="Tutorial" type="Node3D" unique_id=216242194]
 script = ExtResource("1_u4f7j")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
 gear_unlock_on_complete = ExtResource("2_g7bfq")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
-environment = SubResource("Environment_jdsy5")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401671525]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_rnyxf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5080202, 0)
@@ -157,3 +142,14 @@ transform = Transform3D(3.2618902, 0, 0, 0, 1, 0, 0, 0, 2.058169, 0, 0, 0)
 
 [node name="EndPlatform" parent="Platforms" unique_id=537576493 instance=ExtResource("8_g7bfq")]
 transform = Transform3D(17.108301, 0, 0, 0, 1, 0, 0, 0, 4.3662977, -0.4023838, -5.755081, -204.23329)
+
+[node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("10_4a02d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.07656, 0, -14.592426)
+
+[node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.285362, -10.495842, -97.02515)
+shape = SubResource("BoxShape3D_4a02d")
+
+[node name="BaseLevel" parent="." unique_id=999985273 instance=ExtResource("base_1")]
+
+[editable path="Killzone"]

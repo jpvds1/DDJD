@@ -1,111 +1,172 @@
 [gd_scene format=3 uid="uid://nk6mrgg4s2yu"]
 
-[ext_resource type="Texture2D" uid="uid://dn3uetv2w573f" path="res://icon.svg" id="1_ky4y0"]
 [ext_resource type="Script" uid="uid://vtgmobmh3xlj" path="res://scripts/ui/customization_menu.gd" id="1_xq2xj"]
+[ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_ky4y0"]
+[ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="3_theme"]
+[ext_resource type="PackedScene" uid="uid://bskyheaven1bg" path="res://scenes/ui/sky_background.tscn" id="4_sky"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v3bk2"]
-texture = ExtResource("1_ky4y0")
-
-[node name="CustomizationMenu" type="Control" unique_id=1728132252]
+[node name="CustomizationMenu" type="Control" unique_id=1011824840]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_theme")
 script = ExtResource("1_xq2xj")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1739717047]
+[node name="SkyBackground" parent="." unique_id=2006688247 instance=ExtResource("4_sky")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -503.5
-offset_top = -202.0
-offset_right = 503.5
-offset_bottom = 202.0
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1951504046]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1386134258]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=1350270257]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="SlotPanel" type="PanelContainer" parent="CenterContainer/HBoxContainer" unique_id=4382436]
+layout_mode = 2
+
+[node name="M" type="MarginContainer" parent="CenterContainer/HBoxContainer/SlotPanel" unique_id=179646457]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/SlotPanel/M" unique_id=1567629790]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="ActiveHeadGear" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1161964658]
+[node name="ActiveHeadGear" type="Button" parent="CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer" unique_id=1748437069]
 custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_v3bk2")
 text = "Active
 Head
 Gear"
+text_overrun_behavior = 3
+clip_text = true
 
-[node name="ActiveChestGear" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1201819169]
+[node name="ActiveChestGear" type="Button" parent="CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer" unique_id=652570339]
 custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_v3bk2")
 text = "Active
 Chest
 Gear"
+text_overrun_behavior = 3
+clip_text = true
 
-[node name="ActiveBootsGear" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=117100278]
+[node name="ActiveBootsGear" type="Button" parent="CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer" unique_id=2043719800]
 custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_v3bk2")
 text = "Active
 Boots
 Gear"
+text_overrun_behavior = 3
+clip_text = true
 
-[node name="VSeparator3" type="VSeparator" parent="HBoxContainer" unique_id=479420360]
-custom_minimum_size = Vector2(50, 0)
+[node name="GridPanel" type="PanelContainer" parent="CenterContainer/HBoxContainer" unique_id=195277915]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer" unique_id=677011666]
-custom_minimum_size = Vector2(400, 0)
+[node name="M" type="MarginContainer" parent="CenterContainer/HBoxContainer/GridPanel" unique_id=845592630]
 layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="VSeparator2" type="VSeparator" parent="HBoxContainer" unique_id=1452702780]
-custom_minimum_size = Vector2(50, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/GridPanel/M" unique_id=234567891]
 layout_mode = 2
+theme_override_constants/separation = 8
 
-[node name="CharacterPlaceholder" type="ColorRect" parent="HBoxContainer" unique_id=1293196574]
+[node name="GridContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/GridPanel/M/VBoxContainer" unique_id=1362100981]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="UnequipButton" type="Button" parent="CenterContainer/HBoxContainer/GridPanel/M/VBoxContainer" unique_id=234567892]
+custom_minimum_size = Vector2(360, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Unequip"
+disabled = true
+
+[node name="CharacterPreview" type="SubViewportContainer" parent="CenterContainer/HBoxContainer" unique_id=2127988562]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+stretch = true
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=758279473]
-custom_minimum_size = Vector2(50, 0)
+[node name="SubViewport" type="SubViewport" parent="CenterContainer/HBoxContainer/CharacterPreview" unique_id=727080880]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 438)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CenterContainer/HBoxContainer/CharacterPreview/SubViewport" unique_id=2045755316]
+transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 1.2, 3)
+current = true
+fov = 50.0
+
+[node name="KeyLight" type="DirectionalLight3D" parent="CenterContainer/HBoxContainer/CharacterPreview/SubViewport" unique_id=2057539919]
+transform = Transform3D(0.8660254, 0.3213938, -0.38302222, 0, 0.76604444, 0.6427876, 0.5, -0.55667037, 0.66341394, 0, 0, 0)
+light_energy = 1.2
+
+[node name="FillLight" type="DirectionalLight3D" parent="CenterContainer/HBoxContainer/CharacterPreview/SubViewport" unique_id=1153148816]
+transform = Transform3D(-0.8660254, -0.17101008, 0.46984637, 0, 0.9396926, 0.34202012, -0.50000006, 0.2961981, -0.81379765, 0, 0, 0)
+light_color = Color(0.65, 0.75, 1, 1)
+light_energy = 0.4
+
+[node name="PlayerVisuals" parent="CenterContainer/HBoxContainer/CharacterPreview/SubViewport" unique_id=1520140395 instance=ExtResource("2_ky4y0")]
+
+[node name="StatsPanel" type="PanelContainer" parent="CenterContainer/HBoxContainer" unique_id=1226601191]
 layout_mode = 2
 
-[node name="StatsVBox" type="VBoxContainer" parent="HBoxContainer" unique_id=708597039]
+[node name="M" type="MarginContainer" parent="CenterContainer/HBoxContainer/StatsPanel" unique_id=414696769]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="StatsVBox" type="VBoxContainer" parent="CenterContainer/HBoxContainer/StatsPanel/M" unique_id=860744862]
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/StatsVBox" unique_id=1470840931]
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/StatsPanel/M/StatsVBox" unique_id=1056923314]
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "Stat Modifiers"
 
-[node name="BackButton" type="Button" parent="." unique_id=1074297074]
+[node name="BackButton" type="Button" parent="." unique_id=195651691]
 layout_mode = 0
-offset_left = 105.0
-offset_top = 31.0
-offset_right = 150.0
-offset_bottom = 62.0
-text = "Back"
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 130.0
+offset_bottom = 54.0
+text = "< Back"
 
-[node name="StarsLabel" type="Label" parent="." unique_id=1384729103]
+[node name="StarsLabel" type="Label" parent="." unique_id=1784330184]
 layout_mode = 0
-offset_left = 145.0
-offset_top = 33.0
-offset_right = 375.0
-offset_bottom = 61.0
+offset_left = 150.0
+offset_top = 30.0
+offset_right = 380.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.91, 0.59, 0.18, 1)
 theme_override_font_sizes/font_size = 18
-text = "⭐  0 Stars"
+text = "★  0 Stars"
 
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/ActiveHeadGear" to="." method="_on_active_head_gear_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

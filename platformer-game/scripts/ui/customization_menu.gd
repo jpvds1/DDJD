@@ -4,12 +4,13 @@ extends Control
 # Node references
 # ---------------------------------------------------------
 
-@onready var head_button: Button = $HBoxContainer/VBoxContainer/ActiveHeadGear
-@onready var chest_button: Button = $HBoxContainer/VBoxContainer/ActiveChestGear
-@onready var boots_button: Button = $HBoxContainer/VBoxContainer/ActiveBootsGear
+@onready var head_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveHeadGear
+@onready var chest_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveChestGear
+@onready var boots_button: Button = $CenterContainer/HBoxContainer/SlotPanel/M/VBoxContainer/ActiveBootsGear
 
-@onready var grid_container: GridContainer = $HBoxContainer/GridContainer
-@onready var stats_vbox: VBoxContainer = $HBoxContainer/StatsVBox
+@onready var grid_container: VBoxContainer = $CenterContainer/HBoxContainer/GridPanel/M/VBoxContainer/GridContainer
+@onready var unequip_button: Button = $CenterContainer/HBoxContainer/GridPanel/M/VBoxContainer/UnequipButton
+@onready var stats_vbox: VBoxContainer = $CenterContainer/HBoxContainer/StatsPanel/M/StatsVBox
 @onready var back_button: Button = $BackButton
 @onready var stars_label: Label = $StarsLabel
 
@@ -38,14 +39,17 @@ const GEAR_STATS := [
 ]
 
 # Colors
-const COLOR_SELECTED   := Color(1.0, 1.0, 1.0, 1.0)
-const COLOR_UNSELECTED := Color(0.6, 0.6, 0.6, 1.0)
-const COLOR_EQUIPPED   := Color(1.0, 0.85, 0.2, 1.0)
-const COLOR_LOCKED     := Color(0.45, 0.45, 0.45, 1.0)
-const COLOR_BUYABLE    := Color(0.4,  0.85, 1.0,  1.0)
-const COLOR_BONUS_POS  := Color(0.35, 1.0,  0.45, 1.0)
-const COLOR_BONUS_NEG  := Color(1.0,  0.38, 0.38, 1.0)
-const COLOR_NO_BONUS   := Color(0.7,  0.7,  0.7,  1.0)
+const COLOR_SELECTED   := Palette.SELECTED
+const COLOR_UNSELECTED := Palette.UNSELECTED
+const COLOR_EQUIPPED   := Palette.ACCENT
+const COLOR_LOCKED     := Palette.LOCKED
+const COLOR_BUYABLE    := Palette.BUYABLE
+const COLOR_BONUS_POS  := Palette.BONUS_POS
+const COLOR_BONUS_NEG  := Palette.BONUS_NEG
+const COLOR_NO_BONUS   := Palette.BONUS_NONE
+
+# Shared size for every gear grid entry (equip/unequip/buy/locked) so they all line up
+const GEAR_ENTRY_SIZE := Vector2(360, 64)
 
 # ---------------------------------------------------------
 # Lifecycle
@@ -63,12 +67,18 @@ func _ready() -> void:
 	chest_button.pressed.connect(_on_slot_button_pressed.bind(GearItem.Slot.CHEST))
 	boots_button.pressed.connect(_on_slot_button_pressed.bind(GearItem.Slot.BOOTS))
 	
+	unequip_button.pressed.connect(_on_unequip_pressed)
 	GlobalInventory.equipment_changed.connect(_on_inventory_changed)
 	GlobalInventory.unlock_changed.connect(_on_inventory_changed)
 	GlobalInventory.stars_changed.connect(_on_stars_changed)
 	
 	_update_stars_label(GlobalInventory.total_stars)
 	_on_slot_button_pressed(GearItem.Slot.HEAD)
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.physical_keycode == KEY_ESCAPE and event.pressed:
+		_on_back_button_pressed()
 
 # ---------------------------------------------------------
 # Slot selection
@@ -80,14 +90,18 @@ func _on_slot_button_pressed(slot: GearItem.Slot) -> void:
 	_refresh_grid()
 	_refresh_stats_panel()
 
+func _set_button_text_color(btn: Button, color: Color) -> void:
+	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_disabled_color"]:
+		btn.add_theme_color_override(state, color)
+
 func _refresh_slot_buttons() -> void:
 	for slot: GearItem.Slot in _slot_buttons:
 		var btn: Button = _slot_buttons[slot]
 		var item: GearItem = GlobalInventory.equipped_gear[slot]
 		var item_label: String = item.item_name if item != null else "Empty"
-		
+
 		btn.text = "%s\n%s" % [SLOT_LABELS[slot], item_label]
-		btn.modulate = COLOR_SELECTED if slot == _selected_slot else COLOR_UNSELECTED
+		_set_button_text_color(btn, COLOR_SELECTED if slot == _selected_slot else COLOR_UNSELECTED)
 
 # ---------------------------------------------------------
 # Grid
@@ -105,64 +119,63 @@ func _refresh_grid() -> void:
 	if slot_items.is_empty():
 		var placeholder := Label.new()
 		placeholder.text = "No items unlocked for this slot"
-		placeholder.modulate = COLOR_NO_BONUS
+		placeholder.add_theme_color_override("font_color", COLOR_NO_BONUS)
+		placeholder.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		grid_container.add_child(placeholder)
 		return
 	
-	if GlobalInventory.equipped_gear[_selected_slot] != null:
-		var unequip_btn := Button.new()
-		unequip_btn.text = "Unequip"
-		unequip_btn.pressed.connect(_on_unequip_pressed)
-		grid_container.add_child(unequip_btn)
-		
-	var currently_equipped: GearItem = GlobalInventory.equipped_gear[_selected_slot]
-	
+	unequip_button.disabled = GlobalInventory.equipped_gear[_selected_slot] == null
+
 	for item: GearItem in slot_items:
-		if GlobalInventory.is_item_unlocked(item):
-			_add_equip_button(item, item == currently_equipped)
-		else:
-			_add_locked_entry(item)
-			
-func _add_equip_button(item: GearItem, is_equipped: bool) -> void:
-	var btn := Button.new()
-	btn.text = item.item_name
-	btn.modulate = COLOR_EQUIPPED if is_equipped else COLOR_SELECTED
-	btn.pressed.connect(_on_gear_item_pressed.bind(item))
-	grid_container.add_child(btn)
+		_add_gear_entry(item)
+
+# Builds one gear entry. Same button, same size, for every state - only the
+# status line, color, and whether it's clickable change.
+func _add_gear_entry(item: GearItem) -> void:
+	var is_unlocked := GlobalInventory.is_item_unlocked(item)
+	var is_equipped = item == GlobalInventory.equipped_gear[_selected_slot]
 	
-func _add_locked_entry(item: GearItem) -> void:
-	match item.unlock_type:
-		GearItem.UnlockType.PURCHASE:
-			var btn := Button.new()
-			var can_buy := GlobalInventory.can_purchase(item)
-			btn.text = "%s\n⭐ %d stars" % [item.item_name, item.star_cost]
-			btn.modulate = COLOR_BUYABLE if can_buy else COLOR_LOCKED
-			btn.disabled = not can_buy
-			btn.pressed.connect(_on_purchase_pressed.bind(item))
-			grid_container.add_child(btn)
+	var status_line: String
+	var color: Color
+	var can_interact: bool
+	
+	if is_unlocked:
+		status_line = "Equipped" if is_equipped else "Tap to equip"
+		color = COLOR_EQUIPPED if is_equipped else COLOR_SELECTED
+		can_interact = not is_equipped
+	elif item.unlock_type == GearItem.UnlockType.PURCHASE:
+		var can_buy := GlobalInventory.can_purchase(item)
+		status_line = "★  %d stars" % item.star_cost
+		color = COLOR_BUYABLE if can_buy else COLOR_LOCKED
+		can_interact = can_buy
+	else:
+		var desc := item.unlock_description
+		if desc == "":
+			match item.unlock_type:
+				GearItem.UnlockType.LEVEL_COMPLETION:
+					desc = "Complete a level to unlock"
+				GearItem.UnlockType.ACHIEVEMENT:
+					desc = "Unlock via achievement"
+		status_line = "🔒 " + desc
+		color = COLOR_LOCKED
+		can_interact = false
 		
-		_:
-			var container := VBoxContainer.new()
-			var name_lbl := Label.new()
-			name_lbl.text =  "🔒 " + item.item_name
-			name_lbl.modulate = COLOR_LOCKED
-			container.add_child(name_lbl)
-			
-			var desc := item.unlock_description
-			if desc == "":
-				match item.unlock_type:
-					GearItem.UnlockType.LEVEL_COMPLETION:
-						desc = "Complete a level for the first time"
-					GearItem.UnlockType.ACHIEVEMENT:
-						desc = "Unlock via achievement " + item.achievement_id
-						
-			var desc_lbl := Label.new()
-			desc_lbl.text = desc
-			desc_lbl.modulate = COLOR_LOCKED
-			desc_lbl.add_theme_font_size_override("font_size", 10)
-			container.add_child(desc_lbl)
-			
-			grid_container.add_child(container)
+	var btn := Button.new()
+	btn.custom_minimum_size = GEAR_ENTRY_SIZE
+	btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	btn.clip_text = true
+	btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	var name_line := ("%s  [%s]" % [item.item_name, item.set_name]) if item.set_name != "" else item.item_name
+	btn.text = "%s\n%s" % [name_line, status_line]
+	_set_button_text_color(btn, color)
+	btn.disabled = not can_interact
+	
+	if is_unlocked:
+		btn.pressed.connect(_on_gear_item_pressed.bind(item))
+	elif item.unlock_type == GearItem.UnlockType.PURCHASE:
+		btn.pressed.connect(_on_purchase_pressed.bind(item))
+		
+	grid_container.add_child(btn)
  
 # ---------------------------------------------------------
 # Stats
@@ -212,25 +225,91 @@ func _refresh_stats_panel() -> void:
 			
 		var lbl := Label.new()
 		lbl.text = display_text
+		lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		
 		var is_beneficial := (bonus * good_sign) > 0.0
-		lbl.modulate = COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG
-		
+		lbl.add_theme_color_override("font_color", COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG)
+
 		stats_vbox.add_child(lbl)
-		
+
 	if not any_bonus:
 		var lbl := Label.new()
 		lbl.text = "No active bonuses"
-		lbl.modulate = COLOR_NO_BONUS
+		lbl.add_theme_color_override("font_color", COLOR_NO_BONUS)
 		stats_vbox.add_child(lbl)
-		
+
+	_refresh_set_panel()
+
+func _refresh_set_panel() -> void:
+	var progress := GlobalInventory.get_set_progress()
+	if progress.is_empty():
+		return
+
+	var sep := Label.new()
+	sep.text = "── Sets ──"
+	sep.add_theme_color_override("font_color", COLOR_NO_BONUS)
+	stats_vbox.add_child(sep)
+
+	var active_set := GlobalInventory.get_active_set()
+
+	for set_name: String in progress:
+		var count: int = progress[set_name]
+		var is_complete := count == 3
+
+		var gs: GearSet = null
+		for s: GearSet in GlobalInventory.all_sets:
+			if s.set_name == set_name:
+				gs = s
+				break
+
+		var header := Label.new()
+		header.text = "%s  %d / 3" % [set_name, count]
+		header.add_theme_color_override("font_color", COLOR_EQUIPPED if is_complete else COLOR_NO_BONUS)
+		stats_vbox.add_child(header)
+
+		if gs == null:
+			continue
+
+		for entry in GEAR_STATS:
+			var field: String = entry["field"]
+			var bonus: float = float(gs.get(field))
+			if bonus == 0.0:
+				continue
+
+			var display_text: String
+			if field == "dash_cooldown_reduction":
+				var sign_str := "-" if bonus > 0.0 else "+"
+				var abs_str := "%.2f" % absf(bonus) if float(int(bonus)) != bonus else "%d" % int(absf(bonus))
+				display_text = "  Dash Cooldown: %s%s%s" % [sign_str, abs_str, entry["suffix"]]
+			else:
+				var value_str: String
+				if float(int(bonus)) == bonus:
+					value_str = "%+d%s" % [int(bonus), entry["suffix"]]
+				else:
+					value_str = "%+.2f%s" % [bonus, entry["suffix"]]
+				display_text = "  %s: %s" % [entry["label"], value_str]
+
+			var lbl := Label.new()
+			lbl.text = display_text
+			lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+			if is_complete:
+				var is_beneficial = (bonus * entry["good_sign"]) > 0.0
+				lbl.add_theme_color_override("font_color", COLOR_BONUS_POS if is_beneficial else COLOR_BONUS_NEG)
+			else:
+				lbl.add_theme_color_override("font_color", COLOR_NO_BONUS)
+
+			stats_vbox.add_child(lbl)
+
 # ---------------------------------------------------------
 # Stars
 # ---------------------------------------------------------
-		
+
 func _update_stars_label(new_total: int) -> void:
 	if is_instance_valid(stars_label):
-		stars_label.text = "⭐  %d Stars" % new_total
+		stars_label.text = "★  %d Stars" % new_total
 		
 # ---------------------------------------------------------
 # Callbacks
@@ -256,4 +335,4 @@ func _on_stars_changed(new_total: int) -> void:
 	_refresh_grid()	
 	
 func _on_back_button_pressed() -> void:
-	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
+	Global.game_controller.change_GUI_scene("res://scenes/ui/levels_menu.tscn")

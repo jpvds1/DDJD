@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjnmrbepu0wl3"]
 
-[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_ksju7"]
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/player.tscn" id="1_ksju7"]
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_sk5k4"]
 [ext_resource type="Resource" uid="uid://bgdpbcpwvqrsi" path="res://resources/gear_items/Head/HeliHat.tres" id="2_qxy0u"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="3_nsrm0"]
@@ -13,32 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://u381latllpcp" path="res://scenes/building_materials/boost_ring.tscn" id="11_excbq"]
 [ext_resource type="PackedScene" uid="uid://ccudaxsaxpval" path="res://scenes/building_materials/wrecking_ball.tscn" id="11_iav0o"]
 [ext_resource type="PackedScene" uid="uid://d1f7pvx3ch1vr" path="res://scenes/building_materials/pillar.tscn" id="12_iav0o"]
+[ext_resource type="PackedScene" uid="uid://dkul0f830k441" path="res://scenes/levels/base_level.tscn" id="base_1"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_64t6i"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_h2s0c"]
-sky_material = SubResource("ProceduralSkyMaterial_64t6i")
-
-[sub_resource type="Environment" id="Environment_jdsy5"]
-background_mode = 2
-sky = SubResource("Sky_h2s0c")
-tonemap_mode = 2
-glow_enabled = true
-
-[node name="Empty Level" type="Node3D" unique_id=216242194]
+[node name="Empty Level3" type="Node3D" unique_id=216242194]
 script = ExtResource("1_sk5k4")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
 gear_unlock_on_complete = ExtResource("2_qxy0u")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=751782853]
-environment = SubResource("Environment_jdsy5")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1401671525]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_ksju7")]
 transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 0.508, 0)
@@ -106,9 +87,13 @@ transform = Transform3D(1, 0, 0, 0, 0.65489906, -0.7557163, 0, 0.7557163, 0.6548
 transform = Transform3D(1, 0, 0, 0, 0.7342868, -0.6788392, 0, 0.6788392, 0.7342868, 12.068403, 5.408269, 48.08239)
 
 [node name="Laser" parent="." unique_id=429633351 instance=ExtResource("10_excbq")]
+process_mode = 1
 transform = Transform3D(-0.029195257, 0, 0.9995737, 0, 1, 0, -0.9995737, 0, -0.029195257, -3.5298958, 2.5495214, 7.2293344)
+idle_duration = 1.0
+delay = 0.0
 
 [node name="WreckingBall" parent="." unique_id=1409807783 instance=ExtResource("11_iav0o")]
+process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6808548, 12.435937, 11.650975)
 
 [node name="Saw" parent="." unique_id=960494110 instance=ExtResource("11_dnkej")]
@@ -119,5 +104,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2195327, 0.4263574, -2.253
 
 [node name="Pillar" parent="Pillar" unique_id=1275201348 instance=ExtResource("12_iav0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.602846, 0.21241558, 0.055609465)
+
+[node name="BaseLevel" parent="." unique_id=999985273 instance=ExtResource("base_1")]
+transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 0.508, 0)
 
 [editable path="Killzone"]
