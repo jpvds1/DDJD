@@ -113,6 +113,7 @@ signal finish_requested()
 # ---------------------------------------------------------
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
 	camera_distance_target = camera_3d.position.z

@@ -14,6 +14,7 @@ var is_playing := false
 # ---------------------------------------------------------
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	_apply_ghost_material()
 
 

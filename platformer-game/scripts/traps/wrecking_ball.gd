@@ -25,6 +25,7 @@ var _spin_speed: float:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	_elapsed_time = (max_angle - initial_angle) / (2 * max_angle) * swing_duration
 
 
