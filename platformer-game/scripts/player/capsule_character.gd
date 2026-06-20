@@ -5,6 +5,7 @@ extends CharacterBody3D
 # ---------------------------------------------------------
 
 @onready var animation_player: AnimationPlayer = $Dash/AnimationPlayer
+@onready var animation_tree: AnimationTree = $Visuals/AnimationTree
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_cooldown_timer: Timer = $Dash/DashCooldownTimer
 @onready var ray_cast_left: RayCast3D = $Raycasts/RayCast3DLeft
@@ -743,6 +744,8 @@ func _record_snapshot() -> void:
 	var snapshot = {
 		"p": global_position,
 		"r": global_rotation.y,
-		"a": String(animation_player.current_animation) if animation_player else ""
+		"a": String(animation_player.current_animation) if animation_player else "",
+		"fb": animation_tree.get("parameters/Fall/blend_amount"),
+		"mb": animation_tree.get("parameters/Movement/blend_position")
 	}
 	ghost_data.append(snapshot)

@@ -5,6 +5,7 @@ var current_frame := 0
 var is_playing := false
 
 @onready var animation_player: AnimationPlayer = $Node3D/Dash/AnimationPlayer
+@onready var animation_tree: AnimationTree = $Node3D/Visuals/Body/AnimationTree
 
 func start_replay(data: Array) -> void:
 	if data.is_empty():
@@ -31,5 +32,9 @@ func _physics_process(_delta: float) -> void:
 	if anim_name != "" and animation_player:
 		if animation_player.current_animation != anim_name:
 			animation_player.play(anim_name)
-			
+
+	if animation_tree:
+		animation_tree.set("parameters/Fall/blend_amount", snapshot.get("fb", 1.0))
+		animation_tree.set("parameters/Movement/blend_position", snapshot.get("mb", Vector2.ZERO))
+
 	current_frame += 1
