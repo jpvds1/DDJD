@@ -131,7 +131,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("3_1yj8c")]
-transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 0.508, 0)
+transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 2, 0)
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("4_ndlae")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1847544, 0)
@@ -479,7 +479,7 @@ transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, -1.0000001, 0, 1.0000001, -4
 [node name="Hazards" type="Node3D" parent="." unique_id=560882111]
 
 [node name="WreckingBall" parent="Hazards" unique_id=1409807783 instance=ExtResource("11_5niy6")]
-transform = Transform3D(-5.4639237e-08, 0, 1.25, 0, 1.25, 0, -1.25, 0, -5.4639237e-08, 44.74688, 21.169342, 117.982376)
+transform = Transform3D(-5.380914e-08, 9.488003e-09, 1.25, 0.21706022, 1.2310097, 0, -1.2310097, 0.21706022, -5.4639237e-08, 44.74688, 21.169342, 117.982376)
 
 [node name="Area3D" parent="Hazards" unique_id=548747580 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(-6.556708e-08, -1.5, 0, 1.5, -6.556708e-08, 0, 0, 0, 1.5, 76.840355, 9.814825, 114.48525)
@@ -511,12 +511,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.05044, 34.060265, 87.2009
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115.63944, 34.060265, 75.35844)
 
 [node name="WreckingBall2" parent="Hazards" unique_id=768181949 instance=ExtResource("11_5niy6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.13829, 43.80758, 97.57325)
+transform = Transform3D(0.95371693, -0.3007058, 0, 0.3007058, 0.95371693, 0, 0, 0, 1, 109.13829, 43.80758, 97.57325)
 max_angle = 17.5
 initial_angle = 17.5
 
 [node name="WreckingBall3" parent="Hazards" unique_id=1483966909 instance=ExtResource("11_5niy6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.13829, 43.80758, 76.80061)
+transform = Transform3D(0.95371693, 0.3007058, 0, -0.3007058, 0.95371693, 0, 0, 0, 1, 109.13829, 43.80758, 76.80061)
 max_angle = 17.5
 initial_angle = -17.5
 
@@ -531,7 +531,7 @@ libraries/ = SubResource("AnimationLibrary_ndlae")
 autoplay = &"Saw"
 
 [node name="WreckingBall4" parent="Hazards" unique_id=814087870 instance=ExtResource("11_5niy6")]
-transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 203, 36, 26)
+transform = Transform3D(0.8528685, -0.15038373, -0.5, 0.17364818, 0.9848077, 0, 0.49240386, -0.08682409, 0.8660254, 203, 36, 26)
 max_angle = 30.0
 swing_duration = 1.5
 
@@ -647,13 +647,13 @@ initial_angle = 0.0
 swing_duration = 0.8
 
 [node name="WreckingBall2" parent="FinalSection/Hazards" unique_id=347448140 instance=ExtResource("11_5niy6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12957382, 11.421276, -5.626404)
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0.12957382, 11.421276, -5.626404)
 max_angle = 45.0
 initial_angle = 45.0
 swing_duration = 0.8
 
 [node name="WreckingBall3" parent="FinalSection/Hazards" unique_id=2091827287 instance=ExtResource("11_5niy6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12957764, 11.421276, -10.626404)
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 0.12957764, 11.421276, -10.626404)
 max_angle = 45.0
 initial_angle = -45.0
 swing_duration = 0.8
@@ -678,6 +678,9 @@ wait_time = 0.2
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser/Timers" parent_id_path=PackedInt32Array(957101155, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
 
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser/Timers" parent_id_path=PackedInt32Array(957101155, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.6
+
 [node name="Laser2" parent="FinalSection/Hazards/Lasers" unique_id=1982701966 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 1.5, 4.5)
 laser_duration = 0.2
@@ -695,6 +698,9 @@ wait_time = 0.2
 
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser2/Timers" parent_id_path=PackedInt32Array(1982701966, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
+
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser2/Timers" parent_id_path=PackedInt32Array(1982701966, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.6
 
 [node name="Laser3" parent="FinalSection/Hazards/Lasers" unique_id=1420367808 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 2.2, 4.5)
@@ -714,6 +720,9 @@ wait_time = 0.2
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser3/Timers" parent_id_path=PackedInt32Array(1420367808, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
 
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser3/Timers" parent_id_path=PackedInt32Array(1420367808, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.6
+
 [node name="Laser4" parent="FinalSection/Hazards/Lasers" unique_id=357126242 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.057866, 0.8003049, 13.5)
 laser_duration = 0.2
@@ -731,6 +740,9 @@ wait_time = 0.2
 
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser4/Timers" parent_id_path=PackedInt32Array(357126242, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
+
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser4/Timers" parent_id_path=PackedInt32Array(357126242, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.2
 
 [node name="Laser5" parent="FinalSection/Hazards/Lasers" unique_id=1224137823 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 1.5, 13.5)
@@ -750,6 +762,9 @@ wait_time = 0.2
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser5/Timers" parent_id_path=PackedInt32Array(1224137823, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
 
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser5/Timers" parent_id_path=PackedInt32Array(1224137823, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.2
+
 [node name="Laser6" parent="FinalSection/Hazards/Lasers" unique_id=991656057 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 2.2, 13.5)
 laser_duration = 0.2
@@ -767,6 +782,9 @@ wait_time = 0.2
 
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser6/Timers" parent_id_path=PackedInt32Array(991656057, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
+
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser6/Timers" parent_id_path=PackedInt32Array(991656057, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.2
 
 [node name="Laser7" parent="FinalSection/Hazards/Lasers" unique_id=1287503960 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 0.8003049, 9)
@@ -786,6 +804,9 @@ wait_time = 0.2
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser7/Timers" parent_id_path=PackedInt32Array(1287503960, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
 
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser7/Timers" parent_id_path=PackedInt32Array(1287503960, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.4
+
 [node name="Laser8" parent="FinalSection/Hazards/Lasers" unique_id=1570545722 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 1.5, 9)
 laser_duration = 0.2
@@ -804,6 +825,9 @@ wait_time = 0.2
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser8/Timers" parent_id_path=PackedInt32Array(1570545722, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
 
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser8/Timers" parent_id_path=PackedInt32Array(1570545722, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.4
+
 [node name="Laser9" parent="FinalSection/Hazards/Lasers" unique_id=1652138062 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 2.2, 9)
 laser_duration = 0.2
@@ -821,6 +845,9 @@ wait_time = 0.2
 
 [node name="IdleTimer" parent="FinalSection/Hazards/Lasers/Laser9/Timers" parent_id_path=PackedInt32Array(1652138062, 1723892356) index="1" unique_id=973312316]
 wait_time = 1.0
+
+[node name="DelayTimer" parent="FinalSection/Hazards/Lasers/Laser9/Timers" parent_id_path=PackedInt32Array(1652138062, 1723892356) index="2" unique_id=1376762895]
+wait_time = 0.4
 
 [node name="Laser10" parent="FinalSection/Hazards/Lasers" unique_id=1082558890 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 0.8003049, 18)

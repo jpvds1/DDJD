@@ -41,7 +41,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_ksju7")]
-transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 0.508, 0)
+transform = Transform3D(-0.99999917, 0, -0.0012740211, 0, 1, 0, 0.0012740211, 0, -0.99999917, 0, 2, 0)
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("3_nsrm0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1847544, 0)
@@ -111,7 +111,7 @@ idle_duration = 1.0
 delay = 0.0
 
 [node name="WreckingBall" parent="." unique_id=1409807783 instance=ExtResource("11_iav0o")]
-transform = Transform3D(0.98480767, -0.17364816, 0, 0.17364816, 0.98480767, 0, 0, 0, 1, -1.6808548, 12.435937, 11.650975)
+transform = Transform3D(0.9848076, -0.17364816, 0, 0.17364816, 0.9848076, 0, 0, 0, 1, -1.6808548, 12.435937, 11.650975)
 swing_duration = 1.0
 
 [node name="Saw" parent="." unique_id=960494110 instance=ExtResource("11_dnkej")]

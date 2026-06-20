@@ -6,8 +6,11 @@ extends Node3D
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var stats: Node = %StatsManager
+
+# audio players
 @onready var jump_audio_player: AudioStreamPlayer = $SFX/Jump
 @onready var dash_audio_player: AudioStreamPlayer = $SFX/Dash
+@onready var land_audio_player: AudioStreamPlayer = $SFX/Land
 
 # ---------------------------------------------------------
 # Variables
@@ -15,6 +18,7 @@ extends Node3D
 
 var _player: CharacterBody3D
 var _fall_blend := 0.0
+var _was_airborne := false
 
 @export var blend_strength := 20.0
 
@@ -38,6 +42,8 @@ func _on_dashed() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_player = get_parent() as CharacterBody3D
+	_was_airborne = not is_zero_approx(_player.velocity.y)
+	print("is initially airborne: ", _was_airborne)
 	
 	# connect to the player events
 	_player.jumped.connect(_on_jumped)
@@ -47,13 +53,19 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var lerp_weight := blend_strength * delta
 	
-	# compute the fall blending value
+	# compute the fall blending value	
 	var is_airborne := not is_zero_approx(_player.velocity.y)
 	_fall_blend = lerp(
 		_fall_blend,
 		float(is_airborne),
 		lerp_weight
 	)
+	
+	if _was_airborne and not is_airborne:
+		print("audio played!")
+		land_audio_player.play()
+		
+	_was_airborne = is_airborne
 
 	# compute the movement blending value
 	var max_sprint_speed: float = stats.sprint_speed.get_val()
