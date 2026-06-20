@@ -113,7 +113,15 @@ func _build_audio_tab():
 		)
 		
 		audio_tab.add_child(row)
-		
+
+	var reset_btn := Button.new()
+	reset_btn.text = "Reset Audio to Defaults"
+	reset_btn.pressed.connect(func():
+		SettingsManager.reset_audio_to_defaults()
+		_build_audio_tab()
+	)
+	audio_tab.add_child(reset_btn)
+
 # ============================================================
 # CONTROLS TAB
 # ============================================================
@@ -136,6 +144,15 @@ func _build_controls_tab() -> void:
 	)
  
 	_build_action_list()
+
+	var reset_btn := Button.new()
+	reset_btn.text = "Reset Controls to Defaults"
+	reset_btn.pressed.connect(func():
+		SettingsManager.reset_controls_to_defaults()
+		_refresh_controls_tab()
+		_build_action_list()
+	)
+	sensitivity_slider.get_parent().get_parent().add_child(reset_btn)
 
 func _build_action_list() -> void:
 	for child in controls_action_list.get_children():
@@ -275,8 +292,16 @@ func _setup_display_tab() -> void:
 	pixelization_checkbox.toggled.connect(func(pressed: bool):
 		SettingsManager.set_pixelization(pressed)
 	)
- 
- 
+
+	var reset_btn := Button.new()
+	reset_btn.text = "Reset Display to Defaults"
+	reset_btn.pressed.connect(func():
+		SettingsManager.reset_display_to_defaults()
+		_refresh_display_tab()
+	)
+	fullscreen_checkbox.get_parent().get_parent().add_child(reset_btn)
+
+
 func _refresh_controls_tab() -> void:
 	sensitivity_slider.value = SettingsManager.mouse_sensitivity
 	invert_mouse_checkbox.button_pressed = SettingsManager.invert_mouse_y
