@@ -120,7 +120,9 @@ theme_override_constants/separation = 16
 
 [node name="Level4" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_card")]
 layout_mode = 2
-text = "COMING SOON"
+text = "LEVEL 3"
+level_id = "level_3"
+level_scene = "res://scenes/levels/level_3.tscn"
 
 [node name="Level5" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_card")]
 layout_mode = 2
