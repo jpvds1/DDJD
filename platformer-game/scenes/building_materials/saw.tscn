@@ -25,5 +25,6 @@ stream = ExtResource("4_fr2ck")
 max_db = 2.5
 autoplay = true
 max_distance = 30.0
+bus = &"SFX"
 
 [editable path="Killzone"]
