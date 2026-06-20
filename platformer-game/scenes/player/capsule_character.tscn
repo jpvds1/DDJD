@@ -2,77 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b5luiqoqvaysk" path="res://scripts/player/capsule_character.gd" id="1_5ji0x"]
 [ext_resource type="Script" uid="uid://vbnm1bywq1xw" path="res://scripts/player/stats_manager.gd" id="2_hsymh"]
-[ext_resource type="PackedScene" uid="uid://cu7ms8tx84a0l" path="res://assets/models/player/player.glb" id="2_tui4h"]
+[ext_resource type="PackedScene" uid="uid://jguqtkv8drl1" path="res://scenes/player/player_visuals.tscn" id="2_x7pql"]
 [ext_resource type="Script" uid="uid://bibb1g8hyjvco" path="res://scripts/player/player_animation.gd" id="3_d66dr"]
-[ext_resource type="AnimationLibrary" uid="uid://c7mmexla4wmco" path="res://assets/models/player/player_idle.glb" id="3_vaf6x"]
-[ext_resource type="PackedScene" uid="uid://yixnuy1qohl7" path="res://assets/models/cosmetics/wings.glb" id="4_vaf6x"]
-[ext_resource type="AnimationLibrary" uid="uid://bv5rxn1v0rm0u" path="res://assets/models/player/player_jump.glb" id="5_j3xf5"]
-[ext_resource type="AnimationLibrary" uid="uid://b7yt2c7m7hxbi" path="res://assets/models/player/player_fall.glb" id="5_jhmas"]
-[ext_resource type="AnimationLibrary" uid="uid://dqnpsoo3x665p" path="res://assets/models/player/player_walk.glb" id="6_j3xf5"]
-[ext_resource type="AnimationLibrary" uid="uid://ytik3vfe0jp" path="res://assets/models/player/player_sprint.glb" id="7_d66dr"]
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_d66dr"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d66dr"]
-animation = &"player_sprint/forward"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhmas"]
-animation = &"player_sprint/backwards"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1rnx0"]
-animation = &"player_sprint/right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1bcb6"]
-animation = &"player_sprint/left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c45w8"]
-animation = &"player_idle/idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_obk33"]
-animation = &"player_walk/forward"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_icde4"]
-animation = &"player_walk/backwards"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1ltg5"]
-animation = &"player_walk/right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_am3k7"]
-animation = &"player_walk/left"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_h2b2i"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_d66dr")
-blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_jhmas")
-blend_point_1/pos = Vector2(0, -1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_1rnx0")
-blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_1bcb6")
-blend_point_3/pos = Vector2(-1, 0)
-blend_point_4/node = SubResource("AnimationNodeAnimation_c45w8")
-blend_point_4/pos = Vector2(0, 0)
-blend_point_5/node = SubResource("AnimationNodeAnimation_obk33")
-blend_point_5/pos = Vector2(0, 0.4)
-blend_point_6/node = SubResource("AnimationNodeAnimation_icde4")
-blend_point_6/pos = Vector2(0, -0.4)
-blend_point_7/node = SubResource("AnimationNodeAnimation_1ltg5")
-blend_point_7/pos = Vector2(0.4, 0)
-blend_point_8/node = SubResource("AnimationNodeAnimation_am3k7")
-blend_point_8/pos = Vector2(-0.4, 0)
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h2b2i"]
-animation = &"player_fall/fall"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_iwp50"]
-graph_offset = Vector2(-187.56427, 141.86174)
-nodes/output/position = Vector2(500, 240)
-nodes/Movement/node = SubResource("AnimationNodeBlendSpace2D_h2b2i")
-nodes/Movement/position = Vector2(20, 240)
-nodes/Fall/node = SubResource("AnimationNodeBlend2_d66dr")
-nodes/Fall/position = Vector2(260, 240)
-"nodes/[A] Fall/node" = SubResource("AnimationNodeAnimation_h2b2i")
-"nodes/[A] Fall/position" = Vector2(20, 500)
-node_connections = [&"output", 0, &"Fall", &"Fall", 0, &"Movement", &"Fall", 1, &"[A] Fall"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x7pql"]
 size = Vector3(0.81030273, 1.636039, 0.2841797)
@@ -149,56 +80,9 @@ _data = {
 [node name="Player" type="CharacterBody3D" unique_id=1782536310]
 script = ExtResource("1_5ji0x")
 
-[node name="Visuals" parent="." unique_id=1845075672 instance=ExtResource("2_tui4h")]
+[node name="Visuals" parent="." unique_id=396880001 instance=ExtResource("2_x7pql")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("3_d66dr")
-
-[node name="Skeleton3D" parent="Visuals/Armature" parent_id_path=PackedInt32Array(1845075672, 1978781392) index="0" unique_id=208187525]
-bones/0/position = Vector3(0.82606906, 1.4129281, -71.60591)
-bones/0/rotation = Quaternion(-0.72398037, -0.013200024, -0.01066212, 0.689612)
-bones/1/rotation = Quaternion(0.010802727, 0.00091364107, -0.0046597873, 0.9999304)
-bones/2/rotation = Quaternion(0.014299946, -0.018551202, -0.004042228, 0.99971753)
-bones/3/rotation = Quaternion(0.014478229, -0.018546795, -0.0035079564, 0.99971706)
-bones/4/position = Vector3(2.1457672e-06, 13.373303, -1.9721754e-05)
-bones/4/rotation = Quaternion(0.018838082, 0.005679476, -0.0026501953, 0.99980295)
-bones/5/rotation = Quaternion(0.051848087, -0.011844173, 0.03101976, 0.9981029)
-bones/7/rotation = Quaternion(0.5829796, 0.40949488, -0.56702673, 0.41343617)
-bones/8/position = Vector3(5.8269643e-07, 12.347598, 5.5259097e-06)
-bones/8/rotation = Quaternion(0.4522432, 0.16079716, 0.105832286, 0.8708731)
-bones/9/rotation = Quaternion(-0.017129548, -7.372164e-05, 0.24236302, 0.9700344)
-bones/11/rotation = Quaternion(0.6391892, -0.37835535, 0.5204552, 0.4212016)
-bones/12/rotation = Quaternion(0.41567978, -0.13883352, -0.14009833, 0.88786715)
-bones/13/rotation = Quaternion(0.010995894, -1.4501396e-05, -0.2596346, 0.9656444)
-bones/14/position = Vector3(-8.046627e-07, 20.167395, -2.1746382e-06)
-bones/15/rotation = Quaternion(0.031085782, 0.079072125, 0.99583507, -0.033075083)
-bones/16/rotation = Quaternion(-0.29101384, -0.08079844, 0.004739586, 0.95328915)
-bones/17/rotation = Quaternion(0.54877925, -0.013232779, -0.0033713505, 0.8358558)
-bones/18/rotation = Quaternion(0.38748208, -0.015943075, 0.006732485, 0.9217148)
-bones/20/rotation = Quaternion(-0.12777631, 0.079276994, 0.98689663, 0.058510467)
-bones/21/rotation = Quaternion(-0.2493634, 0.029728943, 0.00037021292, 0.9679535)
-bones/22/rotation = Quaternion(0.49608847, 0.029729817, 0.033594374, 0.86711234)
-bones/23/rotation = Quaternion(0.3889543, 0.015792957, -0.006671037, 0.9210976)
-
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Visuals/Armature/Skeleton3D" index="6" unique_id=1249076375]
-transform = Transform3D(0.9953501, -0.012144495, -0.09555526, 0.09624013, 0.16675226, 0.9812909, 0.004016773, -0.9859243, 0.1671457, 3.2303157, 1.5302672, -121.38924)
-bone_name = "mixamorig_Head"
-bone_idx = 5
-
-[node name="wings" parent="Visuals/Armature/Skeleton3D/BoneAttachment3D" unique_id=1597120664 instance=ExtResource("4_vaf6x")]
-transform = Transform3D(100, 0, 0, 0, 100, -5.820766e-09, 0, 5.820766e-09, 100, 0.07690239, 38.89086, -3.3907375)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals" unique_id=1410490377]
-libraries/player_fall = ExtResource("5_jhmas")
-libraries/player_idle = ExtResource("3_vaf6x")
-libraries/player_jump = ExtResource("5_j3xf5")
-libraries/player_sprint = ExtResource("7_d66dr")
-libraries/player_walk = ExtResource("6_j3xf5")
-
-[node name="AnimationTree" type="AnimationTree" parent="Visuals" unique_id=851465398]
-tree_root = SubResource("AnimationNodeBlendTree_iwp50")
-anim_player = NodePath("../AnimationPlayer")
-parameters/Movement/blend_position = Vector2(0, 0)
-parameters/Fall/blend_amount = 0.0
 
 [node name="Hitbox" type="CollisionShape3D" parent="." unique_id=1754709375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8235597, -0.006796986)
@@ -241,5 +125,3 @@ script = ExtResource("2_hsymh")
 [connection signal="animation_changed" from="Dash/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="Dash/DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Dash/DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
-
-[editable path="Visuals"]
