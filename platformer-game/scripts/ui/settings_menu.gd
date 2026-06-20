@@ -6,6 +6,8 @@ extends Control
 @onready var reset_defaults_button: Button = %ResetDefaultsButton
 
 @onready var audio_tab: VBoxContainer = %AudioTab
+@onready var audio_rows: VBoxContainer = %AudioRows
+@onready var reset_audio_button: Button = %ResetAudioButton
 
 @onready var sensitivity_slider: HSlider = %SensitivitySlider
 @onready var sensitivity_value_label: Label = %SensitivityValueLabel
@@ -33,6 +35,7 @@ func _ready() -> void:
 	ghost_replay_checkbox.toggled.connect(_on_ghost_replay_checkbox_toggled)
 	sign_out_button.pressed.connect(_on_sign_out_pressed)
 	reset_defaults_button.pressed.connect(_on_reset_defaults_pressed)
+	reset_audio_button.pressed.connect(_on_reset_audio_pressed)
 	
 	tab_container.set_tab_title(0, "General")
 	tab_container.set_tab_title(1, "Audio")
@@ -72,10 +75,14 @@ func _on_sign_out_pressed() -> void:
 # AUDIO TAB
 # ============================================================
 
+func _on_reset_audio_pressed() -> void:
+	SettingsManager.reset_audio_to_defaults()
+	_build_audio_tab()
+
 func _build_audio_tab():
-	for child in audio_tab.get_children():
+	for child in audio_rows.get_children():
 		child.queue_free()
-		
+
 	for bus_name in SettingsManager.AUDIO_BUSES:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 12)
@@ -111,7 +118,7 @@ func _build_audio_tab():
 			SettingsManager.set_bus_muted(bus_name, pressed)
 		)
 		
-		audio_tab.add_child(row)
+		audio_rows.add_child(row)
 		
 # ============================================================
 # CONTROLS TAB
