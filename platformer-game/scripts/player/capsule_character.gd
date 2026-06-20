@@ -300,7 +300,7 @@ func do_ground_jump() -> void:
 	can_cut_current_jump = true
 
 func do_extra_jump() -> void:
-	velocity.y = stats.extra_jump_velocity.get_val()
+	velocity.y = max(velocity.y, stats.extra_jump_velocity.get_val())
 	can_cut_current_jump = false
 
 func do_wall_jump() -> void:
