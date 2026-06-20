@@ -238,3 +238,49 @@ text = "Restart"
 [node name="PauseBackButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=454711152]
 layout_mode = 2
 text = "Back"
+
+[node name="GameOverOverlay" type="Control" parent="." unique_id=200000001]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="GameOverOverlay" unique_id=200000002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5, 0.5, 0.5, 0.75)
+
+[node name="CenterContainer" type="CenterContainer" parent="GameOverOverlay" unique_id=200000003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOverOverlay/CenterContainer" unique_id=200000004]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/CenterContainer/PanelContainer" unique_id=200000005]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000006]
+layout_mode = 2
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverRestartButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000007]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="GameOverBackButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer" unique_id=200000008]
+layout_mode = 2
+text = "Back to Menu"
