@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://jguqtkv8drl1"]
 
 [ext_resource type="PackedScene" uid="uid://cu7ms8tx84a0l" path="res://assets/models/player/player.glb" id="2_woat5"]
+[ext_resource type="AudioStream" uid="uid://dcarkwm2clq46" path="res://assets/sounds/player/player_jump.wav" id="3_b6vsu"]
 [ext_resource type="PackedScene" uid="uid://yixnuy1qohl7" path="res://assets/models/cosmetics/wings.glb" id="4_m2k08"]
 [ext_resource type="AnimationLibrary" uid="uid://b7yt2c7m7hxbi" path="res://assets/models/player/player_fall.glb" id="5_4yw4v"]
 [ext_resource type="AnimationLibrary" uid="uid://c7mmexla4wmco" path="res://assets/models/player/player_idle.glb" id="6_73k46"]
@@ -99,21 +100,26 @@ bones/22/rotation = Quaternion(0.44969693, 0.030931246, -0.0012206323, 0.8926447
 bones/23/rotation = Quaternion(0.38965616, 0.015789725, -0.0066915387, 0.92080075)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="6" unique_id=2030324437]
-transform = Transform3D(0.9990872, 0.001291214, -0.04269907, 0.042407308, 0.09046455, 0.99499637, 0.0051475046, -0.9958987, 0.09032717, -1.3567488, 0.08362487, -122.90642)
+transform = Transform3D(0.9942794, -0.047680385, -0.09557685, 0.096574545, 0.019073814, 0.99514306, -0.04562579, -0.99868065, 0.023569394, -6.22068, -0.3918919, -122.376564)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 
 [node name="wings" parent="Armature/Skeleton3D/BoneAttachment3D" index="0" unique_id=359228361 instance=ExtResource("4_m2k08")]
 transform = Transform3D(100, 0, 0, 0, 100, -5.820766e-09, 0, 5.820766e-09, 100, 0.07690239, 38.89086, -3.3907375)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=495280190]
+[node name="SFX" type="Node3D" parent="." index="1" unique_id=1366908796]
+
+[node name="Jump" type="AudioStreamPlayer" parent="SFX" index="0" unique_id=1937560837]
+stream = ExtResource("3_b6vsu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=495280190]
 libraries/player_fall = ExtResource("5_4yw4v")
 libraries/player_idle = ExtResource("6_73k46")
 libraries/player_jump = ExtResource("7_o1fm1")
 libraries/player_sprint = ExtResource("8_n6s7f")
 libraries/player_walk = ExtResource("9_yqled")
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1057200468]
+[node name="AnimationTree" type="AnimationTree" parent="." index="3" unique_id=1057200468]
 tree_root = SubResource("AnimationNodeBlendTree_73k46")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Movement/blend_position = Vector2(0, 0)

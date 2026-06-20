@@ -6,6 +6,7 @@ extends Node3D
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var stats: Node = %StatsManager
+@onready var jump_audio_player: AudioStreamPlayer = $SFX/Jump
 
 # ---------------------------------------------------------
 # Variables
@@ -20,16 +21,21 @@ var _fall_blend := 0.0
 # Methods
 # ---------------------------------------------------------
 
-func _on_extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int) -> void:
-	if current_extra_jumps < max_extra_jumps:
-		_fall_blend = 0.8
+func _on_jumped(jump_number: int) -> void:
+	_fall_blend = 0.8
+	
+	# play the 
+	jump_audio_player.pitch_scale = 1.0 + float(jump_number) * 0.1  
+	jump_audio_player.play()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_player = get_parent() as CharacterBody3D
 	
 	# connect to the jump event
-	_player.extra_jumps_changed.connect(_on_extra_jumps_changed)
+	_player.jumped.connect(_on_jumped)
+
 
 func _physics_process(delta: float) -> void:
 	var lerp_weight := blend_strength * delta
