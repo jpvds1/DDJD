@@ -43,7 +43,6 @@ func _on_dashed() -> void:
 func _ready() -> void:
 	_player = get_parent() as CharacterBody3D
 	_was_airborne = not is_zero_approx(_player.velocity.y)
-	print("is initially airborne: ", _was_airborne)
 	
 	# connect to the player events
 	_player.jumped.connect(_on_jumped)
@@ -62,7 +61,6 @@ func _physics_process(delta: float) -> void:
 	)
 	
 	if _was_airborne and not is_airborne:
-		print("audio played!")
 		land_audio_player.play()
 		
 	_was_airborne = is_airborne

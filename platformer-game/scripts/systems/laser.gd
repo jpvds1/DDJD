@@ -12,7 +12,7 @@ extends Node3D
 	set(value):
 		active = value
 		if is_node_ready():
-			_start_laser()
+			_setup_laser()
 ## The duration in seconds of the laser shooting animation.
 @export var laser_duration := 2.5: # seconds
 	set(value):
@@ -27,16 +27,28 @@ extends Node3D
 		delay = max(0, value)
 
 
+func _fire_laser() -> void:
+	animation_player.play("on")
+	audio_player.play()
+	laser_timer.start(laser_duration)
+	
+
+func _stop_laser(restart: bool) -> void:
+	animation_player.play("off")
+	audio_player.stop()
+	
+	if restart:
+		idle_timer.start(idle_duration)
+
+
 func _update_laser() -> void:
 	if active:
-		# fire the laser
-		audio_player.play()
-		_on_idle_timer_timeout()
+		_fire_laser()
 	else:
-		animation_player.play("off")
+		_stop_laser(false)
 
 
-func _start_laser() -> void:
+func _setup_laser() -> void:
 	# reset the timers
 	laser_timer.stop()
 	idle_timer.stop()
@@ -53,7 +65,7 @@ func _start_laser() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_start_laser()
+	_setup_laser()
 
 
 func _on_delay_timer_timeout() -> void:
@@ -61,12 +73,8 @@ func _on_delay_timer_timeout() -> void:
 
 
 func _on_laser_timer_timeout() -> void:
-	animation_player.play("off")
-	audio_player.stop()
-	idle_timer.start(idle_duration)
+	_stop_laser(true)
 
 
 func _on_idle_timer_timeout() -> void:
-	animation_player.play("on")
-	audio_player.play()
-	laser_timer.start(laser_duration)
+	_fire_laser()

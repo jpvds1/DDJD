@@ -71,7 +71,8 @@ func _ready() -> void:
 		return
 		
 	level_name = scene_file_path.get_file().get_basename()
-		
+	
+	player.get_node("Visuals/AudioListener3D").current = true
 	player.unalive_requested.connect(_on_player_unalive_requested)
 	player.checkpoint_requested.connect(_on_player_checkpoint_requested)
 	player.finish_requested.connect(_on_player_finish_requested)

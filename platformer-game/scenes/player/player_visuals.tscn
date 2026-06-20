@@ -77,32 +77,32 @@ node_connections = [&"output", 0, &"Fall", &"Fall", 0, &"Movement", &"Fall", 1, 
 [node name="PlayerVisuals" unique_id=396880001 instance=ExtResource("2_woat5")]
 
 [node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1314466787) index="0" unique_id=1620985112]
-bones/0/position = Vector3(0.47906864, 1.4076643, -71.52936)
-bones/0/rotation = Quaternion(-0.7255867, -0.013199744, -0.010400535, 0.6879255)
-bones/1/rotation = Quaternion(0.010768542, 0.0008285853, -0.0044000493, 0.99993205)
-bones/2/rotation = Quaternion(0.013846567, -0.018077677, -0.0033177568, 0.9997353)
-bones/3/rotation = Quaternion(0.01398509, -0.018067235, -0.0028325606, 0.999735)
-bones/4/rotation = Quaternion(0.021267546, 0.005955174, -0.003601397, 0.9997496)
-bones/5/rotation = Quaternion(0.053158786, -0.01212438, 0.030446181, 0.9980482)
-bones/7/rotation = Quaternion(0.5856171, 0.4069528, -0.56691414, 0.4123717)
+bones/0/position = Vector3(-4.1440105, 0.5951376, -72.805176)
+bones/0/rotation = Quaternion(-0.70760494, 0.011050467, -0.005553133, 0.7065001)
+bones/1/rotation = Quaternion(0.0009825547, -0.0031501167, 0.0012025422, 0.9999939)
+bones/2/rotation = Quaternion(-0.0008558348, -0.022323838, 0.0047705187, 0.9997391)
+bones/3/rotation = Quaternion(-0.00100523, -0.022285277, 0.0047978247, 0.9997397)
+bones/4/rotation = Quaternion(-0.014473522, 0.017523104, -0.025511194, 0.9994162)
+bones/5/rotation = Quaternion(0.06944228, -0.01119895, 0.015252538, 0.9974065)
+bones/7/rotation = Quaternion(0.52608496, 0.42896533, -0.64243114, 0.35567638)
 bones/8/position = Vector3(5.8269643e-07, 12.347598, 5.5259097e-06)
-bones/8/rotation = Quaternion(0.45284122, 0.16243328, 0.10161834, 0.8707606)
-bones/9/rotation = Quaternion(-0.017035771, -7.3835734e-05, 0.24103615, 0.97036666)
-bones/11/rotation = Quaternion(0.63885385, -0.37861335, 0.5205425, 0.42137057)
-bones/12/rotation = Quaternion(0.41736636, -0.14460139, -0.13387555, 0.88711506)
-bones/13/rotation = Quaternion(0.010949473, -1.4531199e-05, -0.2585394, 0.96593875)
+bones/8/rotation = Quaternion(0.4011386, 0.19729702, 0.10929632, 0.8878153)
+bones/9/rotation = Quaternion(-0.018963099, -7.32455e-05, 0.26830235, 0.9631482)
+bones/11/rotation = Quaternion(0.5483702, -0.4425903, 0.56472343, 0.4295248)
+bones/12/rotation = Quaternion(0.4653004, -0.15239884, -0.14504698, 0.85978574)
+bones/13/rotation = Quaternion(0.009988542, -1.4667405e-05, -0.23584718, 0.97173893)
 bones/14/position = Vector3(-8.046627e-07, 20.167395, -2.1746382e-06)
-bones/15/rotation = Quaternion(0.030263722, 0.07858485, 0.99580336, -0.035837565)
-bones/16/rotation = Quaternion(-0.29529342, -0.08098433, 0.006229096, 0.95194775)
-bones/17/rotation = Quaternion(0.55021954, -0.01392698, -0.007777352, 0.83486766)
-bones/18/rotation = Quaternion(0.3873262, -0.015943782, 0.006727892, 0.9217804)
-bones/20/rotation = Quaternion(-0.12623529, 0.07977082, 0.98714316, 0.05700689)
-bones/21/rotation = Quaternion(-0.25734615, 0.02843285, 0.002268429, 0.96589833)
-bones/22/rotation = Quaternion(0.50143707, 0.030545777, 0.02950316, 0.8641513)
-bones/23/rotation = Quaternion(0.38898367, 0.015792822, -0.006671895, 0.92108524)
+bones/15/rotation = Quaternion(0.050809644, 0.059852354, 0.9956226, -0.0507127)
+bones/16/rotation = Quaternion(-0.16083306, -0.077669285, 0.0015790584, 0.9839196)
+bones/17/rotation = Quaternion(0.46380192, 0.006078783, -0.040679075, 0.8849837)
+bones/18/rotation = Quaternion(0.38638273, -0.015948119, 0.006700144, 0.9221764)
+bones/20/rotation = Quaternion(-0.1058071, 0.08226119, 0.9904643, 0.031911634)
+bones/21/rotation = Quaternion(-0.19481947, 0.05159836, 0.01134353, 0.9794153)
+bones/22/rotation = Quaternion(0.4754552, 0.030525018, -0.017861197, 0.8790288)
+bones/23/rotation = Quaternion(0.38959026, 0.01579003, -0.0066896137, 0.92082864)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="6" unique_id=2030324437]
-transform = Transform3D(0.99548924, -0.012986423, -0.0939811, 0.09482577, 0.1678147, 0.9812473, 0.0030285292, -0.98573303, 0.16828924, 2.7856803, 1.2682506, -121.317215)
+transform = Transform3D(0.9980892, -0.013952816, -0.060192995, 0.061345834, 0.10730375, 0.9923319, -0.0073868916, -0.99412847, 0.10795459, -4.820725, 0.38997757, -122.67243)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 
@@ -137,4 +137,3 @@ parameters/Fall/blend_amount = 0.0
 
 [node name="AudioListener3D" type="AudioListener3D" parent="." index="4" unique_id=1605179540]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-current = true
