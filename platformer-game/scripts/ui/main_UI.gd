@@ -317,7 +317,7 @@ func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: in
 	for i in range(total_count):
 		var is_active := i < active_count
 		var tr := TextureRect.new()
-		tr.custom_minimum_size = Vector2(64, 64)
+		tr.custom_minimum_size = Vector2(128, 128)
 		tr.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		tr.texture = active_tex if is_active else inactive_tex
 		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -351,29 +351,19 @@ func _setup_dash_display(max_d: int) -> void:
 
 	for i in range(max_d):
 		var wrapper := Control.new()
-		wrapper.custom_minimum_size = Vector2(64, 64)
+		wrapper.custom_minimum_size = Vector2(128, 128)
 
-		var bg := TextureRect.new()
-		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-		bg.texture = _DASH_TEX
-		bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		bg.modulate = Color(0.35, 0.35, 0.35, 1)
-		wrapper.add_child(bg)
-
-		# clip grows left-to-right to reveal the bright icon on top of the dim bg
 		var clip := Control.new()
 		clip.clip_children = Control.CLIP_CHILDREN_ONLY
 		clip.anchor_left = 0.0; clip.anchor_top = 0.0
 		clip.anchor_right = 0.0; clip.anchor_bottom = 1.0
-		clip.offset_right = 64.0
+		clip.offset_right = 128.0
 		wrapper.add_child(clip)
 
 		var fg := TextureRect.new()
-		# fixed 64×64 regardless of clip width so the texture isn't squeezed
 		fg.anchor_left = 0.0; fg.anchor_top = 0.0
 		fg.anchor_right = 0.0; fg.anchor_bottom = 0.0
-		fg.offset_right = 64.0; fg.offset_bottom = 64.0
+		fg.offset_right = 128.0; fg.offset_bottom = 128.0
 		fg.texture = _DASH_TEX
 		fg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		fg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -385,7 +375,7 @@ func _setup_dash_display(max_d: int) -> void:
 func _set_icon_fill(index: int, ratio: float) -> void:
 	if index < 0 or index >= _dash_icons.size():
 		return
-	_dash_icons[index].offset_right = clamp(ratio, 0.0, 1.0) * 64.0
+	_dash_icons[index].offset_right = clamp(ratio, 0.0, 1.0) * 128.0
 	
 # ---------------------------------------------------------
 # UI API
