@@ -353,11 +353,19 @@ func _setup_dash_display(max_d: int) -> void:
 		var wrapper := Control.new()
 		wrapper.custom_minimum_size = Vector2(128, 128)
 
-		var clip := Control.new()
+		var bg := TextureRect.new()
+		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+		bg.texture = _DASH_TEX
+		bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		bg.modulate = Color(1, 1, 1, 0.25)
+		wrapper.add_child(bg)
+
+		var clip := ColorRect.new()
 		clip.clip_children = Control.CLIP_CHILDREN_ONLY
 		clip.anchor_left = 0.0; clip.anchor_top = 0.0
 		clip.anchor_right = 0.0; clip.anchor_bottom = 1.0
-		clip.offset_right = 128.0
+		clip.offset_right = 0.0
 		wrapper.add_child(clip)
 
 		var fg := TextureRect.new()
@@ -375,7 +383,8 @@ func _setup_dash_display(max_d: int) -> void:
 func _set_icon_fill(index: int, ratio: float) -> void:
 	if index < 0 or index >= _dash_icons.size():
 		return
-	_dash_icons[index].offset_right = clamp(ratio, 0.0, 1.0) * 128.0
+	_dash_icons[index].anchor_right = lerp(0.3, 0.655, clamp(ratio, 0.0, 1.0))
+	_dash_icons[index].offset_right = 0.0
 	
 # ---------------------------------------------------------
 # UI API
