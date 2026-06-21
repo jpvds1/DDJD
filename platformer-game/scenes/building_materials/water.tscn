@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://dae7kwcoeau4g"]
 
 [ext_resource type="Script" uid="uid://dprqqkdppo6hi" path="res://scripts/environment/water.gd" id="1_gkt4p"]
+[ext_resource type="Shader" uid="uid://b458iosfq7vv3" path="res://shaders/water.gdshader" id="2_water"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_excbq"]
-transparency = 1
-albedo_color = Color(0, 0.75, 1, 0.45490196)
-metallic = 0.2
-roughness = 0.1
-emission_enabled = true
-emission = Color(1, 0.8, 0, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_water"]
+render_priority = 0
+shader = ExtResource("2_water")
+shader_parameter/wave_speed = 1.2
+shader_parameter/wave_scale = 3.0
+shader_parameter/shallow_color = Color(0.1, 0.6, 1, 0.55)
+shader_parameter/deep_color = Color(0, 0.25, 0.7, 0.85)
+shader_parameter/foam_threshold = 0.7
+shader_parameter/foam_color = Color(1, 1, 1, 0.9)
 
 [node name="Water" type="Node3D" unique_id=535295560]
 
@@ -26,7 +29,7 @@ size = Vector3(3.6, 1.2, 3.6)
 [node name="Water_D" type="CSGBox3D" parent="Pool" unique_id=437881038]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
 size = Vector3(3.5, 0.8, 3.5)
-material = SubResource("StandardMaterial3D_excbq")
+material = SubResource("ShaderMaterial_water")
 script = ExtResource("1_gkt4p")
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=74212890]
