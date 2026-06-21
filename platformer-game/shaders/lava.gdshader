@@ -3,11 +3,11 @@ render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_sc
 
 uniform float flow_speed : hint_range(0.05, 2.0) = 0.3;
 uniform float flow_scale : hint_range(0.5, 8.0) = 2.5;
-uniform vec4 hot_color : source_color = vec4(1.0, 0.95, 0.2, 1.0);
-uniform vec4 mid_color : source_color = vec4(1.0, 0.35, 0.0, 1.0);
-uniform vec4 cool_color : source_color = vec4(0.18, 0.02, 0.0, 1.0);
+uniform vec4 hot_color : source_color = vec4(1.0, 0.98, 0.5, 1.0);
+uniform vec4 mid_color : source_color = vec4(1.0, 0.18, 0.0, 1.0);
+uniform vec4 cool_color : source_color = vec4(0.35, 0.0, 0.0, 1.0);
 uniform float crust_threshold : hint_range(0.0, 1.0) = 0.55;
-uniform float emission_strength : hint_range(0.0, 8.0) = 3.5;
+uniform float emission_strength : hint_range(0.0, 12.0) = 6.0;
 float hash(vec2 p) {
 	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
 }
@@ -57,8 +57,8 @@ void fragment() {
 	float heat = 1.0 - smoothstep(0.0, crust_threshold, n);
 	ALBEDO = col.rgb;
 	ALPHA = 1.0;
-	EMISSION = hot_color.rgb * heat * emission_strength;
-	ROUGHNESS = mix(0.9, 0.3, heat);
+	EMISSION = mix(mid_color.rgb * 0.4, hot_color.rgb, heat) * emission_strength * heat;
+	ROUGHNESS = mix(0.95, 0.2, heat);
 
 	float eps = 0.025;
 	float dnx = fbm(uv + vec2(eps, 0.0) + dir1) - n1;
