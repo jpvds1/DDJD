@@ -7,6 +7,7 @@ extends Node
 signal equipment_changed()
 signal unlock_changed()
 signal stars_changed(new_total: int)
+signal achievement_unlocked(achievement_id: String)
 
 # ---------------------------------------------------------
 # Constants
@@ -229,8 +230,9 @@ func is_level_completed(level_id: String) -> bool:
 func complete_achievement(achievement_id: String) -> void:
 	if achievement_id in completed_achievements:
 		return
-		
+
 	completed_achievements.append(achievement_id)
+	achievement_unlocked.emit(achievement_id)
 	
 	var unlocked_something := false
 	for item: GearItem in all_gear:

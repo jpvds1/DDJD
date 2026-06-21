@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://doyfvcehqqsue" path="res://scripts/ui/main_UI.gd" id="1_gks1h"]
 [ext_resource type="PackedScene" uid="uid://dglq00pldhg8h" path="res://scenes/ui/overlay.tscn" id="2_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/ui/achievement_toast.tscn" id="3_toast"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=9067626]
 script = ExtResource("1_gks1h")
@@ -142,6 +143,8 @@ text = "★"
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0:00.000"
+
+[node name="AchievementToast" parent="." instance=ExtResource("3_toast")]
 
 [node name="PauseOverlay" parent="." unique_id=1731287440 instance=ExtResource("2_overlay")]
 
