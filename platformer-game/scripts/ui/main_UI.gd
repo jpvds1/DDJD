@@ -131,6 +131,10 @@ func _ready() -> void:
 	level_complete_overlay.visible = false
 	pause_overlay.visible = false
 	game_over_overlay.visible = false
+
+	lives_container.add_theme_constant_override("separation", -60)
+	jumps_container.add_theme_constant_override("separation", -60)
+	$HUD/RootMargin/MainVBox.add_theme_constant_override("separation", -60)
 	
 	if level and level.has_method("is_endless"):
 		timer_label.text = "0m"
@@ -346,7 +350,7 @@ func _setup_dash_display(max_d: int) -> void:
 
 	var hbox := HBoxContainer.new()
 	hbox.set_anchors_preset(Control.PRESET_FULL_RECT)
-	hbox.add_theme_constant_override("separation", 10)
+	hbox.add_theme_constant_override("separation", -60)
 	dash_row.add_child(hbox)
 
 	for i in range(max_d):
