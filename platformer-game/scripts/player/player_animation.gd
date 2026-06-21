@@ -4,6 +4,9 @@ extends Node3D
 # Node references
 # ---------------------------------------------------------
 
+const SILENCE := -80.0
+const MOVEMENT_AUDIO_VOLUME := -10.0 
+
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var stats: Node = %StatsManager
 
@@ -76,4 +79,4 @@ func _physics_process(delta: float) -> void:
 	animation_tree.set("parameters/Movement/blend_position", movement_blend)
 	
 	# silence the movement sound if needed
-	movement_audio_player.volume_db = -80.0 * float(is_airborne)
+	movement_audio_player.volume_db = SILENCE if is_airborne else MOVEMENT_AUDIO_VOLUME 

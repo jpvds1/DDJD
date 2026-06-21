@@ -1,8 +1,9 @@
 extends Area3D
 
+@onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 @export var boost_speed: float = 20
-@export var bidirectional = false
+@export var bidirectional: bool = false
 @export var control_lock_diration: float = 0.4
 
 
@@ -19,3 +20,4 @@ func _on_body_entered(body: Node3D) -> void:
 
 	# boost the player in the direction orthogonal to the ring
 	body.apply_boost(launch_dir * boost_speed, control_lock_diration)
+	audio_player.play()
