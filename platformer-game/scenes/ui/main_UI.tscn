@@ -144,8 +144,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0:00.000"
 
-[node name="AchievementToast" parent="." instance=ExtResource("3_toast")]
-
 [node name="PauseOverlay" parent="." unique_id=1731287440 instance=ExtResource("2_overlay")]
 
 [node name="PauseTitle" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
@@ -228,3 +226,5 @@ text = "Restart Level"
 [node name="CompleteBackButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Back to Menu"
+
+[node name="AchievementToast" parent="." instance=ExtResource("3_toast")]
