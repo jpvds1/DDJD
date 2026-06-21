@@ -30,7 +30,7 @@ theme_override_constants/margin_bottom = 20
 [node name="MainVBox" type="VBoxContainer" parent="HUD/RootMargin" unique_id=222113591]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 4
 
 [node name="LivesContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=760054353]
 layout_mode = 2
