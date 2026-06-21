@@ -36,21 +36,24 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="JumpsContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=1496545924]
+[node name="AbilityVBox" type="VBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=1496545923]
+layout_mode = 2
+
+[node name="JumpsContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox/AbilityVBox" unique_id=1496545924]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="DashRow" type="Control" parent="HUD/RootMargin/MainVBox" unique_id=1522602988]
+[node name="DashRow" type="Control" parent="HUD/RootMargin/MainVBox/AbilityVBox" unique_id=1522602988]
 custom_minimum_size = Vector2(240, 64)
 layout_mode = 2
 
-[node name="DashBackground" type="ColorRect" parent="HUD/RootMargin/MainVBox/DashRow" unique_id=2104685644]
+[node name="DashBackground" type="ColorRect" parent="HUD/RootMargin/MainVBox/AbilityVBox/DashRow" unique_id=2104685644]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 24.0
 color = Color(0.22, 0.22, 0.22, 1)
 
-[node name="DashFill" type="ColorRect" parent="HUD/RootMargin/MainVBox/DashRow" unique_id=219684222]
+[node name="DashFill" type="ColorRect" parent="HUD/RootMargin/MainVBox/AbilityVBox/DashRow" unique_id=219684222]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 24.0

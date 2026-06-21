@@ -14,9 +14,9 @@ const _DASH_TEX := preload("res://assets/icons/Artboard 1DASH.png")
 
 # HUD
 @onready var lives_container: HBoxContainer = $HUD/RootMargin/MainVBox/LivesContainer
-@onready var jumps_container: HBoxContainer = $HUD/RootMargin/MainVBox/JumpsContainer
+@onready var jumps_container: HBoxContainer = $HUD/RootMargin/MainVBox/AbilityVBox/JumpsContainer
 
-@onready var dash_row: Control = $HUD/RootMargin/MainVBox/DashRow
+@onready var dash_row: Control = $HUD/RootMargin/MainVBox/AbilityVBox/DashRow
 
 @onready var message_label: Label = $HUD/MessageTop/MessageCenter/MessageLabel
 @onready var timer_label: Label = $HUD/TimerMargin/TimerLabel
@@ -135,6 +135,7 @@ func _ready() -> void:
 	lives_container.add_theme_constant_override("separation", -60)
 	jumps_container.add_theme_constant_override("separation", -60)
 	$HUD/RootMargin/MainVBox.add_theme_constant_override("separation", -80)
+	$HUD/RootMargin/MainVBox/AbilityVBox.add_theme_constant_override("separation", -95)
 	$HUD/RootMargin.add_theme_constant_override("margin_left", -35)
 	
 	if level and level.has_method("is_endless"):
