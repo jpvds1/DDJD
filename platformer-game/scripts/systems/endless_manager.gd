@@ -170,6 +170,8 @@ func _trigger_game_over() -> void:
 			f.store_var(saves)
 			f.close()
 
+	if distance >= 500:
+		GlobalInventory.complete_achievement("endless_500m")
 	run_completed.emit(str(distance) + "m")
 
 # ---------------------------------------------------------
