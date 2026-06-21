@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var area: Area3D = $Area3D
 @onready var respawn_point: Marker3D = $Marker3D
-@onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
 var _activated := false
 
