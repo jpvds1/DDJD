@@ -15,6 +15,7 @@ const MOVEMENT_AUDIO_VOLUME := -10.0
 @onready var jump_audio_player: AudioStreamPlayer = $SFX/Jump
 @onready var dash_audio_player: AudioStreamPlayer = $SFX/Dash
 @onready var land_audio_player: AudioStreamPlayer = $SFX/Land
+@onready var death_audio_player: AudioStreamPlayer = $SFX/Death
 
 # ---------------------------------------------------------
 # Variables
@@ -41,6 +42,11 @@ func _on_jumped(jump_number: int) -> void:
 func _on_dashed() -> void:
 	# play the dash audio
 	dash_audio_player.play()
+	
+
+func _on_death() -> void:
+	# play the death audio
+	death_audio_player.play()
 
 
 # Called when the node enters the scene tree for the first time.
@@ -51,6 +57,7 @@ func _ready() -> void:
 	# connect to the player events
 	_player.jumped.connect(_on_jumped)
 	_player.dashed.connect(_on_dashed)
+	_player.unalive_requested.connect(_on_death)
 
 
 func _physics_process(delta: float) -> void:
