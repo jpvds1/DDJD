@@ -8,12 +8,14 @@ var is_playing := false
 @onready var animation_tree: AnimationTree = $Visuals/AnimationTree
 @onready var visuals: Node3D = $Visuals
 @onready var camera_3d: Camera3D = $CameraPivot/Camera3D
+@onready var movement_audio_player: AudioStreamPlayer = $Visuals/SFX/Move
 
 # ---------------------------------------------------------
 # Methods
 # ---------------------------------------------------------
 
 func _ready() -> void:
+	movement_audio_player.volume_db = -80.0 # silence the ghost
 	_apply_ghost_material()
 
 

@@ -29,11 +29,7 @@ var _was_airborne := false
 
 func _on_jumped(jump_number: int) -> void:
 	_fall_blend = 0.8
-	
-	# stop the movement audio player
-	if movement_audio_player.playing:
-		movement_audio_player.stop()
-	
+
 	# play the jump audio
 	jump_audio_player.pitch_scale = 1.0 + float(jump_number) * 0.1 
 	jump_audio_player.play()
@@ -78,3 +74,6 @@ func _physics_process(delta: float) -> void:
 	# update the blending values
 	animation_tree.set("parameters/Fall/blend_amount", _fall_blend)
 	animation_tree.set("parameters/Movement/blend_position", movement_blend)
+	
+	# silence the movement sound if needed
+	movement_audio_player.volume_db = -80.0 * float(is_airborne)

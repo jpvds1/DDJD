@@ -1870,19 +1870,21 @@ transform = Transform3D(100, 0, 0, 0, 100, -5.820766e-09, 0, 5.820766e-09, 100, 
 
 [node name="Move" type="AudioStreamPlayer" parent="SFX" index="0" unique_id=501858469]
 stream = SubResource("AudioStreamRandomizer_vv34e")
-autoplay = true
 bus = &"SFX"
 
 [node name="Jump" type="AudioStreamPlayer" parent="SFX" index="1" unique_id=821101626]
 stream = ExtResource("3_b6vsu")
+bus = &"SFX"
 
 [node name="Dash" type="AudioStreamPlayer" parent="SFX" index="2" unique_id=2111371093]
 stream = ExtResource("4_sa6kk")
 volume_db = -6.0
+bus = &"SFX"
 
 [node name="Land" type="AudioStreamPlayer" parent="SFX" index="3" unique_id=1945396855]
 stream = ExtResource("5_8kadd")
 volume_db = -8.0
+bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=495280190]
 libraries/player_fall = ExtResource("5_4yw4v")
