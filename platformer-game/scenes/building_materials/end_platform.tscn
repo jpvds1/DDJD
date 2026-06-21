@@ -20,5 +20,6 @@ use_collision = true
 stream = ExtResource("2_bxl3f")
 volume_db = -8.0
 pitch_scale = 1.5
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

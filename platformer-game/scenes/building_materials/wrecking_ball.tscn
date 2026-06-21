@@ -60,7 +60,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.07999998, -0.1199998
 mesh = SubResource("SphereMesh_ndtll")
 
 [node name="Ball" type="Node3D" parent="." unique_id=1186199172]
-transform = Transform3D(0.99736756, -0.07251114, 0, 0.07251114, 0.99736756, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.94034487, 0.3402226, 0, -0.3402226, 0.94034487, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Killzone" parent="Ball" unique_id=767733067 instance=ExtResource("3_rti8c")]
 
@@ -69,9 +69,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.487799, 0)
 shape = SubResource("SphereShape3D_4l0fd")
 
 [node name="Visuals" parent="Ball" unique_id=157412353 instance=ExtResource("3_t610y")]
-transform = Transform3D(-0.9817235, 0, -0.171062, 0, 1, 0, 0.171062, 0, -0.9817235, 0, -8.465402, 0)
+transform = Transform3D(-0.91444284, 0, 0.3960112, 0, 1, 0, -0.3960112, 0, -0.91444284, 0, -8.465402, 0)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1900752351]
 stream = ExtResource("5_077tb")
+bus = &"SFX"
 
 [editable path="Ball/Killzone"]

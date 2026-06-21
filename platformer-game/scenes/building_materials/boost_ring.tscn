@@ -21,6 +21,7 @@ mesh = SubResource("TorusMesh_m46iv")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=428409053]
 stream = ExtResource("2_21xkm")
-volume_db = -12.0
+volume_db = -8.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
