@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://bgcnbok4d001r"]
 
 [ext_resource type="Script" uid="uid://blxiab4jm2hws" path="res://scripts/systems/lava_hazard.gd" id="1_s5q3i"]
+[ext_resource type="Shader" path="res://shaders/lava.gdshader" id="2_lava"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_excbq"]
-transparency = 1
-albedo_color = Color(1, 0.27058825, 0, 1)
-metallic = 0.2
-roughness = 0.2
-emission_enabled = true
-emission = Color(1, 0.8, 0, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lava"]
+shader = ExtResource("2_lava")
+shader_parameter/flow_speed = 0.3
+shader_parameter/flow_scale = 2.5
+shader_parameter/hot_color = Color(1.0, 0.98, 0.5, 1.0)
+shader_parameter/mid_color = Color(1.0, 0.18, 0.0, 1.0)
+shader_parameter/cool_color = Color(0.35, 0.0, 0.0, 1.0)
+shader_parameter/crust_threshold = 0.55
+shader_parameter/emission_strength = 6.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iav0o"]
 size = Vector3(3.526001, 0.78930664, 3.526764)
@@ -21,7 +24,7 @@ albedo_color = Color(0.69803923, 1, 1, 1)
 [node name="Lava_liq" type="CSGBox3D" parent="." unique_id=1679590027]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 size = Vector3(3.55, 0.8, 3.55)
-material = SubResource("StandardMaterial3D_excbq")
+material = SubResource("ShaderMaterial_lava")
 
 [node name="Area_lava" type="Area3D" parent="Lava_liq" unique_id=269468259]
 script = ExtResource("1_s5q3i")
