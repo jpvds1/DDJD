@@ -25,13 +25,15 @@ var _spin_speed: float:
 @export var initial_angle := 0.0:
 	set(value):
 		initial_angle = clamp(value, -max_angle, max_angle)
+		if is_node_ready():
+			_start_swinging()
 ## The duration in seconds of the swinging motion. A swing is considered going from the maximum angle to the minimum angle.
 @export var swing_duration := 1.0
 
 
 func _start_swinging() -> void:
 	audio_stream_player.stop()
-	_elapsed_time = (max_angle - rotation_degrees.z) / (2 * max_angle) * swing_duration
+	_elapsed_time = (max_angle - initial_angle) / (2 * max_angle) * swing_duration
 
 	# configure the audio player
 	if active and not Engine.is_editor_hint():
@@ -42,8 +44,6 @@ func _start_swinging() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_PAUSABLE
-	rotation_degrees.z = initial_angle
 	_start_swinging()
 
 
