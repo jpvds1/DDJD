@@ -1,24 +1,13 @@
-[gd_scene format=3 uid="uid://cwsfiuxxe3kt7"]
+[gd_scene format=3 uid="uid://bor3e0iair7ne"]
 
-[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/capsule_character.tscn" id="1_17s8f"]
+[ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/player.tscn" id="1_17s8f"]
 [ext_resource type="PackedScene" uid="uid://c21hw38p3fopj" path="res://scenes/levels/endless_chunks/chunk_easy_flat.tscn" id="2_i3nmm"]
 [ext_resource type="Script" uid="uid://mwwb0aj4i5vj" path="res://scripts/systems/endless_manager.gd" id="2_j3yte"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="2_lpstx"]
 [ext_resource type="PackedScene" uid="uid://btbhrmi5ukx3u" path="res://scenes/levels/endless_chunks/chunk_easy_lasers.tscn" id="3_ivn8y"]
 [ext_resource type="PackedScene" uid="uid://cm27843lerr7r" path="res://scenes/levels/endless_chunks/chunk_easy_lava.tscn" id="4_ivn8y"]
 [ext_resource type="PackedScene" uid="uid://q2xwrh8lem5t" path="res://scenes/levels/endless_chunks/chunk_medium_boosts.tscn" id="5_ragok"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lpstx"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_j3yte"]
-sky_material = SubResource("ProceduralSkyMaterial_lpstx")
-
-[sub_resource type="Environment" id="Environment_grt42"]
-background_mode = 2
-sky = SubResource("Sky_j3yte")
-tonemap_mode = 2
+[ext_resource type="PackedScene" uid="uid://dkul0f830k441" path="res://scenes/levels/base_level.tscn" id="6_b6i88"]
 
 [node name="EndlessLevel" type="Node3D" unique_id=1808576052]
 script = ExtResource("2_j3yte")
@@ -26,12 +15,7 @@ player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
 chunk_scenes = Array[PackedScene]([ExtResource("2_i3nmm"), ExtResource("3_ivn8y"), ExtResource("4_ivn8y"), ExtResource("5_ragok")])
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=174638576]
-environment = SubResource("Environment_grt42")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1597753483]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 7.0468373, 0)
-shadow_enabled = true
+[node name="BaseLevel" parent="." unique_id=999985273 instance=ExtResource("6_b6i88")]
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_17s8f")]
 

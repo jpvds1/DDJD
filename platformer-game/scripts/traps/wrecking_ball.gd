@@ -1,8 +1,10 @@
 @tool
 extends Node3D
 
+
 @onready var wrecking_ball: Node3D = $Ball
 @onready var visuals: Node3D = $Ball/Visuals
+@onready var audio_stream_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 var _elapsed_time := 0.0 # seconds
 var _spin_speed: float:
@@ -10,7 +12,11 @@ var _spin_speed: float:
 		return 0.7 * (TAU / swing_duration) # radians per second
 
 ## Whether the wrecking is swinging.
-@export var active := true
+@export var active := true:
+	set(value):
+		active = value
+		if is_node_ready():
+			_start_swinging()
 ## The amplitude in degrees of the swinging motion.
 @export_range(0, 90, 0.1) var max_angle := 30.0:
 	set(value):
@@ -19,14 +25,26 @@ var _spin_speed: float:
 @export var initial_angle := 0.0:
 	set(value):
 		initial_angle = clamp(value, -max_angle, max_angle)
+		if is_node_ready():
+			_start_swinging()
 ## The duration in seconds of the swinging motion. A swing is considered going from the maximum angle to the minimum angle.
 @export var swing_duration := 1.0
 
 
+func _start_swinging() -> void:
+	audio_stream_player.stop()
+	_elapsed_time = (max_angle - initial_angle) / (2 * max_angle) * swing_duration
+
+	# configure the audio player
+	if active and not Engine.is_editor_hint():
+		var audio_duration := audio_stream_player.stream.get_length()
+		audio_stream_player.pitch_scale = audio_duration / swing_duration
+		audio_stream_player.play(_elapsed_time * audio_duration)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_PAUSABLE
-	_elapsed_time = (max_angle - initial_angle) / (2 * max_angle) * swing_duration
+	_start_swinging()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bhr3nup1cprgt"]
 
 [ext_resource type="Script" uid="uid://c2mgtmeu4p1bw" path="res://scripts/systems/end_area.gd" id="1_p107w"]
+[ext_resource type="AudioStream" uid="uid://deompta68exsq" path="res://assets/sounds/systems/end_platform.mp3" id="2_bxl3f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bxl3f"]
 size = Vector3(1, 5, 1)
@@ -14,3 +15,10 @@ shape = SubResource("BoxShape3D_bxl3f")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1766318527]
 use_collision = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=85475778]
+stream = ExtResource("2_bxl3f")
+volume_db = -8.0
+pitch_scale = 1.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

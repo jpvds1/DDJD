@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://6sseieh1wxj"]
 
 [ext_resource type="Script" uid="uid://hw4irjj74dfq" path="res://scripts/systems/checkpoint_platform.gd" id="1_h78pt"]
+[ext_resource type="AudioStream" uid="uid://bf30o0mb3i1pq" path="res://assets/sounds/systems/checkpoint.mp3" id="2_qryq4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h78pt"]
 albedo_color = Color(0, 1, 0, 1)
@@ -24,3 +25,8 @@ shape = SubResource("BoxShape3D_1dxj0")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=1645794421]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=579623193]
+stream = ExtResource("2_qryq4")
+volume_db = -8.0
+pitch_scale = 2.0

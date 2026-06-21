@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://drkw0cs14yia6" path="res://scripts/systems/laser.gd" id="1_0vpv2"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="2_6nnwf"]
 [ext_resource type="PackedScene" uid="uid://c4236wdn1or0f" path="res://assets/models/traps/laser.glb" id="2_3352m"]
+[ext_resource type="AudioStream" uid="uid://bnfwtuqnd4of7" path="res://assets/sounds/traps/laser.wav" id="4_3352m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6nnwf"]
 size = Vector3(0.29663086, 0.2607422, 0.5045161)
@@ -107,7 +108,6 @@ _data = {
 
 [node name="Laser" type="Node3D" unique_id=1185962610]
 script = ExtResource("1_0vpv2")
-delay = null
 
 [node name="Visuals" parent="." unique_id=1691916436 instance=ExtResource("2_3352m")]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0.517, 0.52170277)
@@ -137,10 +137,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0
 shape = SubResource("CylinderShape3D_6nnwf")
 disabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1215364353]
-libraries/ = SubResource("AnimationLibrary_haumu")
-autoplay = &"on"
-
 [node name="Timers" type="Node3D" parent="." unique_id=1723892356]
 
 [node name="LaserTimer" type="Timer" parent="Timers" unique_id=1876216844]
@@ -154,6 +150,17 @@ one_shot = true
 [node name="DelayTimer" type="Timer" parent="Timers" unique_id=1376762895]
 wait_time = 0.5
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1215364353]
+libraries/ = SubResource("AnimationLibrary_haumu")
+autoplay = &"on"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=556931523]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.385903)
+stream = ExtResource("4_3352m")
+volume_db = -20.0
+unit_size = 20.0
+bus = &"SFX"
 
 [connection signal="timeout" from="Timers/LaserTimer" to="." method="_on_laser_timer_timeout"]
 [connection signal="timeout" from="Timers/IdleTimer" to="." method="_on_idle_timer_timeout"]

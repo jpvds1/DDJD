@@ -99,7 +99,10 @@ var is_recording := false
 # Signals
 # ---------------------------------------------------------
 
+signal jumped(jump_number: int)
 signal extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int)
+
+signal dashed()
 signal dash_count_changed(current: int, max_count: int)
 signal dash_cooldown_started(duration: float)
 signal dash_ready()
@@ -157,7 +160,7 @@ func _physics_process(delta: float) -> void:
 	if boost_locked:
 		boost_lock_timer -= delta
 		boost_locked = boost_lock_timer <= 0.0
-			
+
 		# Skip all input handling below
 		update_air_state(is_on_floor(), delta)
 		move_and_slide()
@@ -280,6 +283,7 @@ func handle_jump_request(on_floor: bool) -> void:
 	if is_wall_running:
 		do_wall_jump()
 		jump_buffer_timer = 0.0
+		jumped.emit(0)
 		return
 
 	# Ground jump when on the ground or on coyote time
@@ -288,10 +292,12 @@ func handle_jump_request(on_floor: bool) -> void:
 		do_ground_jump()
 		coyote_timer = 0.0
 		jump_buffer_timer = 0.0
+		jumped.emit(0)
 	elif extra_jumps_left > 0:
 		do_extra_jump()
 		extra_jumps_left -= 1
 		jump_buffer_timer = 0.0
+		jumped.emit(stats.max_extra_jumps.get_int() - extra_jumps_left)
 		extra_jumps_changed.emit(extra_jumps_left, stats.max_extra_jumps.get_int())
 
 func handle_jump_cut() -> void:
@@ -580,6 +586,7 @@ func start_dash() -> void:
 		dash_cooldown_timer.start()
 		dash_cooldown_started.emit(dash_cooldown_timer.wait_time)
 
+	dashed.emit()
 	dash_count_changed.emit(dashes_left, stats.max_dashes.get_int())
 	update_animation_state("dash")
 
