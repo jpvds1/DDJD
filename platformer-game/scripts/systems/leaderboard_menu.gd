@@ -34,7 +34,7 @@ func _scan_levels() -> Array:
 		dir.list_dir_begin()
 		var file = dir.get_next()
 		while file != "":
-			if file.ends_with(".tscn") and not file.begins_with("empty"):
+			if file.ends_with(".tscn") and not file.begins_with("empty") and not file.begins_with("base"):
 				result.append(file.replace(".tscn", ""))
 			file = dir.get_next()
 		dir.list_dir_end()
