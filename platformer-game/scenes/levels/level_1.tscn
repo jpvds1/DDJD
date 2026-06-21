@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="4_x42e6"]
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="5_6761a"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="5_sk5k4"]
+[ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="9_wtwp4"]
 [ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="10_excbq"]
 [ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="10_qxy0u"]
 [ext_resource type="PackedScene" uid="uid://2k07ulq6kde4" path="res://scenes/building_materials/saw.tscn" id="11_dnkej"]
@@ -52,7 +53,7 @@ use_collision = true
 [node name="CSGBox3D" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=378336243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.446045)
 use_collision = true
-size = Vector3(50, 1, 17.89209)
+size = Vector3(5.5390625, 1, 17.89209)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=918577644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.838047, 2.0639703, 7.1621585)
@@ -70,9 +71,9 @@ use_collision = true
 size = Vector3(5, 1, 5)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=745890215]
-transform = Transform3D(0.82463, 0, 0.56567246, 0, 1, 0, -0.56567246, 0, 0.82463, 11.432309, 4.924409, 27.543024)
+transform = Transform3D(0.79392457, 0, 0.54460937, 0, 0.96276456, 0, -0.54460937, 0, 0.79392457, 11.4573765, 5.009431, 28.739473)
 use_collision = true
-size = Vector3(5, 1, 5)
+size = Vector3(5.0429688, 1.170044, 4.7005615)
 
 [node name="Walls" type="Node3D" parent="Platforms" unique_id=1359148772]
 
@@ -99,10 +100,13 @@ swing_duration = 1.0
 [node name="Saw" parent="." unique_id=960494110 instance=ExtResource("11_dnkej")]
 transform = Transform3D(-1.7488501, 0, -0.9703213, 0, 2, 0, 0.9703213, 0, -1.7488501, 6.5180163, 3.9616628, 21.94822)
 
+[node name="Pillar2" parent="." unique_id=1275201348 instance=ExtResource("12_iav0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3833134, 0.63877296, -2.1981702)
+
 [node name="Pillar" parent="." unique_id=1269951151 instance=ExtResource("12_iav0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2195327, 0.4263574, -2.2537796)
 
-[node name="Pillar" parent="Pillar" unique_id=1275201348 instance=ExtResource("12_iav0o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.602846, 0.21241558, 0.055609465)
+[node name="SpikeTrap" parent="." unique_id=1482683019 instance=ExtResource("9_wtwp4")]
+transform = Transform3D(1.9945748, 0, 1.2739506, 0, 1.9021752, 0, -1.3657138, 0, 1.8605582, 11.464926, 5.599999, 28.737982)
 
 [editable path="Killzone"]
