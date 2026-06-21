@@ -15,6 +15,7 @@ extends CanvasLayer
 
 @onready var message_label: Label = $HUD/MessageTop/MessageCenter/MessageLabel
 @onready var timer_label: Label = $HUD/TimerMargin/TimerLabel
+@onready var record_label: Label = $HUD/TimerMargin/RecordLabel
 
 # Star display
 @onready var star_3_icon: Label = $StarPanel/Star3Row/Star3Icon
@@ -389,3 +390,7 @@ func _set_icon_fill(index: int, ratio: float) -> void:
 	
 func set_timer_text(text: String) -> void:
 	timer_label.text = text
+
+func set_record_text(text: String) -> void:
+	record_label.text = text
+	record_label.visible = true

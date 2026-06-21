@@ -32,6 +32,7 @@ var ui: CanvasLayer = null
 
 var lives := MAX_LIVES
 var distance := 0
+var pb_distance := 0
 var is_paused := false
 var game_over_triggered := false
 
@@ -60,7 +61,10 @@ func _ready() -> void:
 		return
 		
 	start_track_axis_z = player.global_position.z # Track Z axis
-	
+	pb_distance = _load_saves().get(LEVEL_KEY, {}).get("pb_distance", 0)
+	if pb_distance > 0 and ui and ui.has_method("set_record_text"):
+		ui.set_record_text(str(pb_distance) + "m to record")
+
 	for i in range(max_visible_chunks):
 		_spawn_random_chunk()
 		
@@ -95,11 +99,16 @@ func _spawn_random_chunk() -> void:
 
 func _track_distance() -> void:
 	var current_distance = int(abs(player.global_position.z - start_track_axis_z))
-	
+
 	if current_distance > distance:
 		distance = current_distance
 		if ui and ui.has_method("set_timer_text"):
 			ui.set_timer_text(str(distance) + "m")
+		if pb_distance > 0 and ui and ui.has_method("set_record_text"):
+			if distance >= pb_distance:
+				ui.set_record_text("NEW RECORD!")
+			else:
+				ui.set_record_text(str(pb_distance - distance) + "m to record")
 
 func _check_chunk_recycling() -> void:
 	if active_chunks.size() < 2:
@@ -141,11 +150,37 @@ func _respawn_on_current_chunk() -> void:
 	if player.has_method("respawn_at"):
 		player.respawn_at(current_chunk.global_position + Vector3(0, 2.0, 0))
 
+const SAVES_PATH = "user://saves.dat"
+const LEVEL_KEY = "level_6"
+
+func _load_saves() -> Dictionary:
+	if not FileAccess.file_exists(SAVES_PATH):
+		return {}
+	var f = FileAccess.open(SAVES_PATH, FileAccess.READ)
+	if f:
+		var data = f.get_var()
+		f.close()
+		if data is Dictionary:
+			return data
+	return {}
+
 func _trigger_game_over() -> void:
 	game_over_triggered = true
 	if player.has_method("lock_controls"):
 		player.lock_controls()
-		
+
+	var saves = _load_saves()
+	var entry: Dictionary = saves.get(LEVEL_KEY, {})
+	if distance > entry.get("pb_distance", 0):
+		entry["pb_distance"] = distance
+		saves[LEVEL_KEY] = entry
+		var f = FileAccess.open(SAVES_PATH, FileAccess.WRITE)
+		if f:
+			f.store_var(saves)
+			f.close()
+
+	if distance >= 500:
+		GlobalInventory.complete_achievement("endless_500m")
 	run_completed.emit(str(distance) + "m")
 
 # ---------------------------------------------------------
