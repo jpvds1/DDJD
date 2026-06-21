@@ -5,6 +5,7 @@ const REST_URL = BASE_URL + "/rest/v1"
 const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlYm5zYmt6ZGh5Z215ZG1zd2dyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMDE5MzQsImV4cCI6MjA5Mjc3NzkzNH0.l41xYd60oPRE2e8IjMVWxZ9uj7IXzc14wYyYKTJ5w6k"
 
 var access_token := ""
+var refresh_token := ""
 var current_user = null
 
 signal auth_changed(user)
@@ -12,20 +13,57 @@ signal auth_changed(user)
 func _ready():
 	var saved = _load_session()
 	if saved:
-		access_token = saved.access_token
-		current_user = saved.user
+		access_token = saved.get("access_token", "")
+		refresh_token = saved.get("refresh_token", "")
+		current_user = saved.get("user", null)
 		auth_changed.emit(current_user)
 
 func is_logged_in() -> bool:
 	return access_token != ""
 
 # ---------------------------------------------------------
-# Auth
+# Auth & Token Refresh
 # ---------------------------------------------------------
+
+func ensure_valid_token() -> bool:
+	if refresh_token == "":
+		return is_logged_in()
+
+	print("Attempting to refresh expired token...")
+	var http = HTTPRequest.new()
+	add_child(http)
+
+	var url = BASE_URL + "/auth/v1/token?grant_type=refresh_token"
+	var headers = [
+		"apikey: " + ANON_KEY,
+		"Content-Type: application/json"
+	]
+	var body = JSON.stringify({ "refresh_token": refresh_token })
+
+	http.request(url, headers, HTTPClient.METHOD_POST, body)
+	var result = await http.request_completed
+	http.queue_free()
+
+	var response_code = result[1]
+	var response_body = result[3].get_string_from_utf8()
+	var json = JSON.parse_string(response_body)
+
+	if response_code == 200 and json is Dictionary:
+		access_token = json.get("access_token", "")
+		refresh_token = json.get("refresh_token", "")
+		current_user = json.get("user", current_user)
+		_save_session({"access_token": access_token, "refresh_token": refresh_token, "user": current_user})
+		print("Token refreshed successfully!")
+		return true
+	else:
+		print("Failed to refresh token. User must log in again: ", response_body)
+		sign_out()
+		return false
 
 func sign_out() -> void:
 	await _post(BASE_URL + "/auth/v1/logout", {}, true)
 	access_token = ""
+	refresh_token = ""
 	current_user = null
 	_clear_session()
 	auth_changed.emit(null)
@@ -48,17 +86,18 @@ func sign_in_with_google() -> void:
 
 	OS.shell_open(BASE_URL + "/auth/v1/authorize?provider=google&redirect_to=http://localhost:9876")
 
-	var token = await _wait_for_oauth_callback()
+	var tokens = await _wait_for_oauth_callback()
 
-	if token != "":
-		access_token = token
+	if tokens.get("access_token", "") != "":
+		access_token = tokens.get("access_token")
+		refresh_token = tokens.get("refresh_token", "")
 		await _fetch_user()
-		_save_session({"access_token": token, "user": current_user})
+		_save_session({"access_token": access_token, "refresh_token": refresh_token, "user": current_user})
 		print("Google login OK: ", current_user.get("email", ""))
 	else:
-		print("Google login failed — empty token")
+		print("Google login failed - empty token")
 
-func _wait_for_oauth_callback() -> String:
+func _wait_for_oauth_callback() -> Dictionary:
 	var html_page = """HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n
 <!DOCTYPE html><html><head>
 <script>
@@ -81,7 +120,7 @@ window.onload = function() {
 
 	var timeout := 60.0
 	var elapsed := 0.0
-	var token := ""
+	var result_tokens := {"access_token": "", "refresh_token": ""}
 
 	while elapsed < timeout:
 		await get_tree().process_frame
@@ -100,7 +139,8 @@ window.onload = function() {
 				break
 
 		if "/token?" in request:
-			token = _extract_token(request)
+			result_tokens["access_token"] = _extract_param(request, "access_token")
+			result_tokens["refresh_token"] = _extract_param(request, "refresh_token")
 			conn.put_data((
 				"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n" +
 				"<html><body><h2>Done! You can close this tab.</h2></body></html>"
@@ -115,11 +155,11 @@ window.onload = function() {
 		_oauth_server.stop()
 		_oauth_server = null
 
-	return token
+	return result_tokens
 
-func _extract_token(request: String) -> String:
+func _extract_param(request: String, param_name: String) -> String:
 	var regex = RegEx.new()
-	regex.compile("access_token=([^&\\s]+)")
+	regex.compile(param_name + "=([^&\\s]+)")
 	var result = regex.search(request)
 	if result:
 		return result.get_string(1)
@@ -151,7 +191,6 @@ func submit_score(level_id: String, time_ms: int) -> Dictionary:
 		print("Not a new best (", time_ms, "ms vs ", best, "ms)")
 		return { "skipped": true }
 
-	# Apaga o score anterior antes de inserir o novo
 	await _delete_score(user_id, level_id)
 
 	print("Submitting new best: ", username, " | ", level_id, " | ", time_ms, "ms")
@@ -161,6 +200,17 @@ func submit_score(level_id: String, time_ms: int) -> Dictionary:
 		"level_id": level_id,
 		"time_ms": time_ms
 	}, true)
+
+	if result is Dictionary and result.get("code") == "PGRST303":
+		var renewed = await ensure_valid_token()
+		if renewed:
+			print("Re-submitting score after token renewal...")
+			result = await _post(REST_URL + "/leaderboard", {
+				"user_id": user_id,
+				"username": username,
+				"level_id": level_id,
+				"time_ms": time_ms
+			}, true)
 
 	print("Submit result: ", result)
 	return result
@@ -210,7 +260,7 @@ func get_my_score(level_id: String) -> Dictionary:
 	return {}
 
 # ---------------------------------------------------------
-# HTTP helpers
+# HTTP Helpers
 # ---------------------------------------------------------
 
 func _post(full_url: String, body: Dictionary, auth: bool) -> Dictionary:
@@ -245,19 +295,28 @@ func _http_get(full_url: String) -> Variant:
 	http.queue_free()
 
 	var response_body = result[3].get_string_from_utf8()
-	return JSON.parse_string(response_body) if response_body else []
+	
+	var parsed = JSON.parse_string(response_body)
+	if parsed is Dictionary and parsed.get("code") == "PGRST303":
+		var renewed = await ensure_valid_token()
+		if renewed:
+			return await _http_get(full_url)
+
+	return parsed if response_body else []
 
 # ---------------------------------------------------------
-# Session
+# Session Management
 # ---------------------------------------------------------
 
 func _save_session(data: Dictionary) -> void:
 	access_token = data.get("access_token", "")
+	refresh_token = data.get("refresh_token", "")
 	current_user = data.get("user", null)
 
 	var file = FileAccess.open("user://session.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({
 		"access_token": access_token,
+		"refresh_token": refresh_token,
 		"user": current_user
 	}))
 	file.close()
