@@ -3,15 +3,20 @@ extends CanvasLayer
 @export var player_path: NodePath
 @export var level_path: NodePath
 
+const _LIFE_TEX := preload("res://assets/icons/Artboard 1LIFE.png")
+const _LOSE_LIFE_TEX := preload("res://assets/icons/Artboard 1LOSE LIFE.png")
+const _JUMP_TEX := preload("res://assets/icons/Artboard 1JUMP.png")
+const _DASH_TEX := preload("res://assets/icons/Artboard 1DASH.png")
+
 # ---------------------------------------------------------
 # UI components
 # ---------------------------------------------------------
 
 # HUD
 @onready var lives_container: HBoxContainer = $HUD/RootMargin/MainVBox/LivesContainer
-@onready var jumps_container: HBoxContainer = $HUD/RootMargin/MainVBox/JumpsContainer
+@onready var jumps_container: HBoxContainer = $HUD/RootMargin/MainVBox/AbilityVBox/JumpsContainer
 
-@onready var dash_row: Control = $HUD/RootMargin/MainVBox/DashRow
+@onready var dash_row: Control = $HUD/RootMargin/MainVBox/AbilityVBox/DashRow
 
 @onready var message_label: Label = $HUD/MessageTop/MessageCenter/MessageLabel
 @onready var timer_label: Label = $HUD/TimerMargin/TimerLabel
@@ -126,6 +131,12 @@ func _ready() -> void:
 	level_complete_overlay.visible = false
 	pause_overlay.visible = false
 	game_over_overlay.visible = false
+
+	lives_container.add_theme_constant_override("separation", -60)
+	jumps_container.add_theme_constant_override("separation", -60)
+	$HUD/RootMargin/MainVBox.add_theme_constant_override("separation", -80)
+	$HUD/RootMargin/MainVBox/AbilityVBox.add_theme_constant_override("separation", -95)
+	$HUD/RootMargin.add_theme_constant_override("margin_left", -35)
 	
 	if level and level.has_method("is_endless"):
 		timer_label.text = "0m"
@@ -157,10 +168,10 @@ func _process(delta: float) -> void:
 # ---------------------------------------------------------	
 
 func _on_lives_changed(current_lives: int, max_lives: int) -> void:
-	_rebuild_boxes(lives_container, current_lives, max_lives)
-	
+	_rebuild_boxes(lives_container, current_lives, max_lives, _LIFE_TEX, _LOSE_LIFE_TEX, 156)
+
 func _on_extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int) -> void:
-	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps)
+	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps, _JUMP_TEX, _JUMP_TEX, 128)
 	
 func _on_dash_count_changed(current: int, _max_count: int) -> void:
 	_dashes_available = current
@@ -307,26 +318,19 @@ func _format_time(seconds: float) -> String:
 # Helpers
 # ---------------------------------------------------------
 	
-func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: int) -> void:
+func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: int, active_tex: Texture2D, inactive_tex: Texture2D, scaling: int) -> void:
 	_clear_container(container)
-	
 	for i in range(total_count):
 		var is_active := i < active_count
-		container.add_child(_make_box(is_active))
-		
-func _make_box(is_active: bool) -> ColorRect:
-	var box := ColorRect.new()
-	box.custom_minimum_size = Vector2(24, 24)
-	
-	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.size_flags_vertical = Control.SIZE_FILL
-	
-	if is_active:
-		box.color = Palette.TEXT_ACTIVE
-	else:
-		box.color = Palette.BOX_EMPTY
-		
-	return box
+		var tr := TextureRect.new()
+		tr.custom_minimum_size = Vector2(128, 128)
+		tr.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		tr.texture = active_tex if is_active else inactive_tex
+		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		if not is_active and inactive_tex == active_tex:
+			tr.modulate = Color(0.35, 0.35, 0.35, 1)
+		container.add_child(tr)
 	
 func _clear_container(container: HBoxContainer) -> void:
 	for child in container.get_children():
@@ -348,46 +352,50 @@ func _setup_dash_display(max_d: int) -> void:
 
 	var hbox := HBoxContainer.new()
 	hbox.set_anchors_preset(Control.PRESET_FULL_RECT)
-	hbox.add_theme_constant_override("separation", 10)
+	hbox.add_theme_constant_override("separation", -60)
 	dash_row.add_child(hbox)
 
 	for i in range(max_d):
 		var wrapper := Control.new()
-		wrapper.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		wrapper.size_flags_vertical = Control.SIZE_FILL
+		wrapper.custom_minimum_size = Vector2(128, 128)
 
-		var bg := ColorRect.new()
+		var bg := TextureRect.new()
 		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-		bg.color = Palette.BOX_EMPTY
+		bg.texture = _DASH_TEX
+		bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		bg.modulate = Color(1, 1, 1, 0.25)
 		wrapper.add_child(bg)
 
-		var fill := ColorRect.new()
-		fill.anchor_left = 0.0
-		fill.anchor_top = 0.0
-		fill.anchor_right = 1.0
-		fill.anchor_bottom = 1.0
-		fill.offset_left = 0.0
-		fill.offset_top = 0.0
-		fill.offset_right = 0.0
-		fill.offset_bottom = 0.0
-		fill.color = Palette.TEXT_ACTIVE
-		wrapper.add_child(fill)
+		var clip := ColorRect.new()
+		clip.clip_children = Control.CLIP_CHILDREN_ONLY
+		clip.anchor_left = 0.0; clip.anchor_top = 0.0
+		clip.anchor_right = 0.0; clip.anchor_bottom = 1.0
+		clip.offset_right = 0.0
+		wrapper.add_child(clip)
+
+		var fg := TextureRect.new()
+		fg.anchor_left = 0.0; fg.anchor_top = 0.0
+		fg.anchor_right = 0.0; fg.anchor_bottom = 0.0
+		fg.offset_right = 128.0; fg.offset_bottom = 128.0
+		fg.texture = _DASH_TEX
+		fg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		fg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		clip.add_child(fg)
 
 		hbox.add_child(wrapper)
-		_dash_icons.append({"fill": fill, "wrapper": wrapper})
+		_dash_icons.append(clip)
 
 func _set_icon_fill(index: int, ratio: float) -> void:
 	if index < 0 or index >= _dash_icons.size():
 		return
-	ratio = clamp(ratio, 0.0, 1.0)
-	var icon = _dash_icons[index]
-	icon["fill"].anchor_right = ratio
-	icon["fill"].offset_right = 0.0
+	_dash_icons[index].anchor_right = lerp(0.3, 0.655, clamp(ratio, 0.0, 1.0))
+	_dash_icons[index].offset_right = 0.0
 	
 # ---------------------------------------------------------
 # UI API
 # ---------------------------------------------------------
-	
+
 func set_timer_text(text: String) -> void:
 	timer_label.text = text
 

@@ -17,12 +17,15 @@ const AIR_TIME_THRESHOLD := 5.0
 
 var player: CharacterBody3D = null
 var current_air_time := 0.0
+var level_done := false
 
 # ---------------------------------------------------------
 # Per-frame Traicking
 # ---------------------------------------------------------
 
 func _physics_process(delta: float) -> void:
+	if level_done:
+		return
 	if not is_instance_valid(player):
 		var candidate = get_tree().get_first_node_in_group("player")
 		if candidate is CharacterBody3D:
@@ -42,6 +45,8 @@ func _physics_process(delta: float) -> void:
 # ---------------------------------------------------------
 
 func check_level_completion_achievements(extra_jumps_used: bool, died_this_run: bool) -> void:
+	level_done = true
+	current_air_time = 0.0
 	if not extra_jumps_used:
 		GlobalInventory.complete_achievement(NO_EXTRA_JUMPS_ID)
 	if not died_this_run:

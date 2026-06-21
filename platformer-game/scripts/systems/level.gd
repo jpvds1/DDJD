@@ -62,10 +62,11 @@ signal pause_toggled(paused: bool)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
+	AchievementManager.level_done = false
+
 	player = get_node_or_null(player_path)
 	ui = get_node_or_null(ui_path)
-	
+
 	if player == null or ui == null:
 		push_error("Level: Player or UI not found.")
 		return

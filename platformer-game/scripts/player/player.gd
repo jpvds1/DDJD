@@ -43,6 +43,8 @@ const CAMERA_DISTANCE_MAX := 6.0   # Third person
 const CAMERA_SCROLL_STEP  := 0.5   # Distance per scroll
 const CAMERA_ZOOM_LERP    := 12.0  # Zoom smoothness
 
+const DASH_CAMERA_PULLBACK := 1.2
+
 # Wall-run camera lock
 const WALL_RUN_CAMERA_DISTANCE   := 2.75
 const WALL_RUN_CAMERA_PITCH      := -4.0
@@ -581,6 +583,9 @@ func start_dash() -> void:
 	dash_direction = (transform.basis * Vector3.FORWARD).normalized()
 	dash_timer.start()
 
+	if camera_distance_target > 0.0:
+		camera_3d.position.z += DASH_CAMERA_PULLBACK
+
 	dash_cooldown_queue += 1
 	if dash_cooldown_timer.is_stopped():
 		dash_cooldown_timer.start()
@@ -631,7 +636,8 @@ func _on_dash_cooldown_timer_timeout() -> void:
 
 func update_animation_state(animation_name: String) -> void:
 	if animation_player.current_animation != animation_name and animation_player.has_animation(animation_name):
-		animation_player.play(animation_name)
+		var blend := 0.2 if animation_name == "dash" else 0.3
+		animation_player.play(animation_name, blend)
 
 func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
 	print("Animation changed from: " + old_name + " to " + new_name)
