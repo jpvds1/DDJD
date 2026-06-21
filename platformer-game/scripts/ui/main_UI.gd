@@ -3,6 +3,11 @@ extends CanvasLayer
 @export var player_path: NodePath
 @export var level_path: NodePath
 
+const _LIFE_TEX := preload("res://assets/icons/Artboard 1LIFE.png")
+const _LOSE_LIFE_TEX := preload("res://assets/icons/Artboard 1LOSE LIFE.png")
+const _JUMP_TEX := preload("res://assets/icons/Artboard 1JUMP.png")
+const _DASH_TEX := preload("res://assets/icons/Artboard 1DASH.png")
+
 # ---------------------------------------------------------
 # UI components
 # ---------------------------------------------------------
@@ -157,10 +162,10 @@ func _process(delta: float) -> void:
 # ---------------------------------------------------------	
 
 func _on_lives_changed(current_lives: int, max_lives: int) -> void:
-	_rebuild_boxes(lives_container, current_lives, max_lives)
-	
+	_rebuild_boxes(lives_container, current_lives, max_lives, _LIFE_TEX, _LOSE_LIFE_TEX)
+
 func _on_extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int) -> void:
-	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps)
+	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps, _JUMP_TEX, _JUMP_TEX)
 	
 func _on_dash_count_changed(current: int, _max_count: int) -> void:
 	_dashes_available = current
@@ -307,26 +312,18 @@ func _format_time(seconds: float) -> String:
 # Helpers
 # ---------------------------------------------------------
 	
-func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: int) -> void:
+func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: int, active_tex: Texture2D, inactive_tex: Texture2D) -> void:
 	_clear_container(container)
-	
 	for i in range(total_count):
 		var is_active := i < active_count
-		container.add_child(_make_box(is_active))
-		
-func _make_box(is_active: bool) -> ColorRect:
-	var box := ColorRect.new()
-	box.custom_minimum_size = Vector2(24, 24)
-	
-	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.size_flags_vertical = Control.SIZE_FILL
-	
-	if is_active:
-		box.color = Palette.TEXT_ACTIVE
-	else:
-		box.color = Palette.BOX_EMPTY
-		
-	return box
+		var tr := TextureRect.new()
+		tr.custom_minimum_size = Vector2(64, 64)
+		tr.texture = active_tex if is_active else inactive_tex
+		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		if not is_active and inactive_tex == active_tex:
+			tr.modulate = Color(0.35, 0.35, 0.35, 1)
+		container.add_child(tr)
 	
 func _clear_container(container: HBoxContainer) -> void:
 	for child in container.get_children():
@@ -352,37 +349,23 @@ func _setup_dash_display(max_d: int) -> void:
 	dash_row.add_child(hbox)
 
 	for i in range(max_d):
-		var wrapper := Control.new()
-		wrapper.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		wrapper.size_flags_vertical = Control.SIZE_FILL
-
-		var bg := ColorRect.new()
-		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-		bg.color = Palette.BOX_EMPTY
-		wrapper.add_child(bg)
-
-		var fill := ColorRect.new()
-		fill.anchor_left = 0.0
-		fill.anchor_top = 0.0
-		fill.anchor_right = 1.0
-		fill.anchor_bottom = 1.0
-		fill.offset_left = 0.0
-		fill.offset_top = 0.0
-		fill.offset_right = 0.0
-		fill.offset_bottom = 0.0
-		fill.color = Palette.TEXT_ACTIVE
-		wrapper.add_child(fill)
-
-		hbox.add_child(wrapper)
-		_dash_icons.append({"fill": fill, "wrapper": wrapper})
+		var bar := TextureProgressBar.new()
+		bar.custom_minimum_size = Vector2(64, 64)
+		bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		bar.texture_under = _DASH_TEX
+		bar.texture_progress = _DASH_TEX
+		bar.tint_under = Color(0.35, 0.35, 0.35, 1)
+		bar.fill_mode = TextureProgressBar.FILL_LEFT_TO_RIGHT
+		bar.min_value = 0.0
+		bar.max_value = 100.0
+		bar.value = 100.0
+		hbox.add_child(bar)
+		_dash_icons.append(bar)
 
 func _set_icon_fill(index: int, ratio: float) -> void:
 	if index < 0 or index >= _dash_icons.size():
 		return
-	ratio = clamp(ratio, 0.0, 1.0)
-	var icon = _dash_icons[index]
-	icon["fill"].anchor_right = ratio
-	icon["fill"].offset_right = 0.0
+	_dash_icons[index].value = clamp(ratio, 0.0, 1.0) * 100.0
 	
 # ---------------------------------------------------------
 # UI API
