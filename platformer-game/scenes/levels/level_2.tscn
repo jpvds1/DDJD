@@ -375,7 +375,7 @@ use_collision = true
 size = Vector3(5, 1, 5)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Platforms/CSGCombiner3D" unique_id=92070895]
-transform = Transform3D(1.6600441, 0, -1.1154612, 0, 1, 0, 1.1154612, 0, 1.6600441, 125.17176, 24.07726, 17.91125)
+transform = Transform3D(1.6600441, 0, -1.1154612, 0, 1, 0, 1.1154612, 0, 1.6600441, 122.89008, 23.898426, 17.773705)
 use_collision = true
 size = Vector3(5, 1, 5)
 
@@ -506,13 +506,13 @@ autoplay = &"Saw"
 [node name="SpikeTrap4" parent="Hazards" unique_id=1377504537 instance=ExtResource("11_tv7cl")]
 transform = Transform3D(5.710713, 0, 1.0063922e-07, -8.5096254e-08, -9.2224774e-08, 5.3170652, 1.7019251e-07, -2.063033, -2.1392746e-07, 230.71312, 27.585173, 36.13151)
 
-[node name="SpikeTrap5" parent="Hazards" unique_id=792821224 instance=ExtResource("11_tv7cl")]
-transform = Transform3D(3.080656, 0, -2.3427281, 0, 1, 0, 2.0701149, 0, 3.4863474, 125.082596, 24.59111, 17.926977)
-
 [node name="WreckingBall4" parent="Hazards" unique_id=814087870 instance=ExtResource("11_5niy6")]
 transform = Transform3D(0.85286844, -0.15038371, -0.5, 0.17364816, 0.98480767, 0, 0.49240384, -0.08682408, 0.8660254, 203, 36, 26)
 max_angle = 30.0
 swing_duration = 1.5
+
+[node name="SpikeTrap5" parent="Hazards" unique_id=604659596 instance=ExtResource("11_tv7cl")]
+transform = Transform3D(4.1500616, 0, -2.7887254, 0, 1, 0, 2.7887254, 0, 4.1500616, 122.867294, 24.59166, 17.739199)
 
 [node name="RunnableWalls" type="Node3D" parent="." unique_id=300218296]
 
