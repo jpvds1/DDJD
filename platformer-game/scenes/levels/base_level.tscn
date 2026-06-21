@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkul0f830k441"]
 
-[ext_resource type="Texture2D" uid="uid://brkr30nuvtdcq" path="res://assets/background/skybox_texture.hdr" id="1_md458"]
+[ext_resource type="Texture2D" uid="uid://b3srmbbhx7d01" path="res://assets/background/skybox_texture.hdr" id="1_md458"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g70hs"]
 panorama = ExtResource("1_md458")
@@ -13,6 +13,8 @@ background_mode = 2
 background_energy_multiplier = 1.2
 sky = SubResource("Sky_wwrw0")
 ambient_light_energy = 1.25
+adjustment_enabled = true
+adjustment_saturation = 0.7
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_uk53i"]
 
@@ -24,4 +26,5 @@ camera_attributes = SubResource("CameraAttributesPractical_uk53i")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=494551789]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.5
 shadow_enabled = true
