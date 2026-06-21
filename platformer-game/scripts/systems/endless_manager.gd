@@ -32,6 +32,7 @@ var ui: CanvasLayer = null
 
 var lives := MAX_LIVES
 var distance := 0
+var pb_distance := 0
 var is_paused := false
 var game_over_triggered := false
 
@@ -60,7 +61,10 @@ func _ready() -> void:
 		return
 		
 	start_track_axis_z = player.global_position.z # Track Z axis
-	
+	pb_distance = _load_saves().get(LEVEL_KEY, {}).get("pb_distance", 0)
+	if pb_distance > 0 and ui and ui.has_method("set_record_text"):
+		ui.set_record_text(str(pb_distance) + "m to record")
+
 	for i in range(max_visible_chunks):
 		_spawn_random_chunk()
 		
@@ -95,11 +99,16 @@ func _spawn_random_chunk() -> void:
 
 func _track_distance() -> void:
 	var current_distance = int(abs(player.global_position.z - start_track_axis_z))
-	
+
 	if current_distance > distance:
 		distance = current_distance
 		if ui and ui.has_method("set_timer_text"):
 			ui.set_timer_text(str(distance) + "m")
+		if pb_distance > 0 and ui and ui.has_method("set_record_text"):
+			if distance >= pb_distance:
+				ui.set_record_text("NEW RECORD!")
+			else:
+				ui.set_record_text(str(pb_distance - distance) + "m to record")
 
 func _check_chunk_recycling() -> void:
 	if active_chunks.size() < 2:
