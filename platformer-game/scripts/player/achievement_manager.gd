@@ -7,6 +7,7 @@ extends Node
 const AIR_TIME_ID := "air_time_5s"
 const NO_EXTRA_JUMPS_ID := "no_extra_jumps"
 const NO_DEATHS_ID := "no_deaths"
+const ENDLESS_500M_ID := "endless_500m"
 
 const AIR_TIME_THRESHOLD := 5.0
 

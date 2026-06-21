@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://btbhrmi5ukx3u"]
+
+[ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="1_3rcnm"]
+
+[node name="ChunkEasyFlat" type="Node3D" unique_id=1751542582]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=366155220]
+transform = Transform3D(0.014760378, 0, 0.35073072, 0, 1, 0, -0.9902124, 0, 0.0052280882, -1.1640385, 0, -4.1635695)
+use_collision = true
+size = Vector3(50, 1, 17.152588)
+
+[node name="Laser" parent="." unique_id=429633351 instance=ExtResource("1_3rcnm")]
+transform = Transform3D(0.014904618, 0, 0.9998889, 0, 1, 0, -0.9998889, 0, 0.014904618, -9.238643, 0.6822696, 18.82788)
+
+[node name="Laser5" parent="." unique_id=33574530 instance=ExtResource("1_3rcnm")]
+transform = Transform3D(0.014904618, 0, 0.9998889, 0, 1, 0, -0.9998889, 0, 0.014904618, -8.606329, 0.6822696, -23.591465)
+
+[node name="Laser3" parent="." unique_id=265782551 instance=ExtResource("1_3rcnm")]
+transform = Transform3D(0.014904618, 0, 0.9998889, 0, 1, 0, -0.9998889, 0, 0.014904618, -8.971532, 0.6822696, 0.90848494)
+
+[node name="Laser2" parent="." unique_id=584486364 instance=ExtResource("1_3rcnm")]
+transform = Transform3D(-0.022652466, 0, -0.99974346, 0, 1, 0, 0.99974346, 0, -0.022652466, 5.732933, 0.6822696, 11.047403)
+
+[node name="Laser4" parent="." unique_id=1451275845 instance=ExtResource("1_3rcnm")]
+transform = Transform3D(-0.022652466, 0, -0.99974346, 0, 1, 0, 0.99974346, 0, -0.022652466, 6.0760937, 0.6822696, -11.973789)
+
+[node name="ExitMarker" type="Marker3D" parent="." unique_id=1690020158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08395004, 0, -64.02722)

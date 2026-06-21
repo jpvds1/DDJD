@@ -65,6 +65,7 @@ func _setup_laser() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	_setup_laser()
 
 

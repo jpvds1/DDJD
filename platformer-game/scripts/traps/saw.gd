@@ -6,5 +6,8 @@ extends Node3D
 var rotation_speed := rotations_per_second * 2 * PI # radians per second
 
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
 func _physics_process(delta: float) -> void:
 	visuals.rotate_z(rotation_speed * delta)

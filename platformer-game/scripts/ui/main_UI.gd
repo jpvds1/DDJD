@@ -15,6 +15,7 @@ extends CanvasLayer
 
 @onready var message_label: Label = $HUD/MessageTop/MessageCenter/MessageLabel
 @onready var timer_label: Label = $HUD/TimerMargin/TimerLabel
+@onready var record_label: Label = $HUD/TimerMargin/RecordLabel
 
 # Star display
 @onready var star_3_icon: Label = $StarPanel/Star3Row/Star3Icon
@@ -24,22 +25,31 @@ extends CanvasLayer
 @onready var star_1_icon: Label = $StarPanel/Star1Row/Star1Icon
 @onready var star_1_time_label: Label = $StarPanel/Star1Row/Star1TimeLabel
 
+# Overlay panels share overlay.tscn
+const _OVERLAY_VBOX := "CenterContainer/PanelContainer/MarginContainer/VBox"
+
 # Level finish
 @onready var level_complete_overlay: Control = $LevelCompleteOverlay
-@onready var time_label: Label = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/TimeLabel
-@onready var finish_restart_button: Button = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/FinishRestartButton
-@onready var finish_back_button: Button = $LevelCompleteOverlay/CenterContainer/PanelContainer/VBoxContainer/FinishBackButton
+@onready var time_label: Label = $LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/TimeLabel")
+@onready var complete_stars: Array = [
+	$LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/StarsRow/Star1"),
+	$LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/StarsRow/Star2"),
+	$LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/StarsRow/Star3"),
+]
+@onready var finish_restart_button: Button = $LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/CompleteRestartButton")
+@onready var finish_back_button: Button = $LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/CompleteBackButton")
 
 # Pause menu
 @onready var pause_overlay: Control = $PauseOverlay
-@onready var pause_resume_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseResumeButton
-@onready var pause_restart_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseRestartButton
-@onready var pause_back_button: Button = $PauseOverlay/CenterContainer/PanelContainer/VBoxContainer/PauseBackButton
+@onready var pause_resume_button: Button = $PauseOverlay.get_node(_OVERLAY_VBOX + "/PauseResumeButton")
+@onready var pause_restart_button: Button = $PauseOverlay.get_node(_OVERLAY_VBOX + "/PauseRestartButton")
+@onready var pause_settings_button: Button = $PauseOverlay.get_node(_OVERLAY_VBOX + "/PauseSettingsButton")
+@onready var pause_back_button: Button = $PauseOverlay.get_node(_OVERLAY_VBOX + "/PauseBackButton")
 
 # Game over
 @onready var game_over_overlay: Control = $GameOverOverlay
-@onready var game_over_restart_button: Button = $GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer/GameOverRestartButton
-@onready var game_over_back_button: Button = $GameOverOverlay/CenterContainer/PanelContainer/VBoxContainer/GameOverBackButton
+@onready var game_over_restart_button: Button = $GameOverOverlay.get_node(_OVERLAY_VBOX + "/GameOverRestartButton")
+@onready var game_over_back_button: Button = $GameOverOverlay.get_node(_OVERLAY_VBOX + "/GameOverBackButton")
 
 var player: Node = null
 var level: Node = null
@@ -63,8 +73,8 @@ var _dashes_available: int = 1
 var _star_thresholds: Array = [0.0, 0.0, 0.0]
 var _star_icon_nodes: Array = []
 
-const _COLOR_STAR_LIT := Color(1.0, 0.85, 0.2, 1.0)
-const _COLOR_STAR_DIM := Color(0.35, 0.35, 0.35, 1.0)
+const _COLOR_STAR_LIT := Palette.ACCENT
+const _COLOR_STAR_DIM := Palette.TEXT_DIM
 
 # ---------------------------------------------------------
 # Setup
@@ -105,6 +115,7 @@ func _ready() -> void:
 	# Pause overlay buttons
 	pause_resume_button.pressed.connect(_on_pause_resume_button_pressed)
 	pause_restart_button.pressed.connect(_on_pause_restart_button_pressed)
+	pause_settings_button.pressed.connect(_on_pause_settings_button_pressed)
 	pause_back_button.pressed.connect(_on_pause_back_button_pressed)
 
 	# Game over overlay buttons
@@ -116,8 +127,13 @@ func _ready() -> void:
 	pause_overlay.visible = false
 	game_over_overlay.visible = false
 	
-	_setup_star_display()
+	if level and level.has_method("is_endless"):
+		timer_label.text = "0m"
+		$StarPanel.visible = false
+	else:
+		_setup_star_display()
 	_setup_dash_display(player.stats.max_dashes.get_int())
+
 
 	player.emit_initial_ui_state()
 	
@@ -133,7 +149,7 @@ func _process(delta: float) -> void:
 		if dash_cooldown_time_left <= 0.0:
 			dash_cooldown_active = false
 	
-	if level != null and level.timer_running:
+	if level != null and not level.has_method("is_endless") and level.timer_running:
 		_update_star_icons(level.run_time)
 		
 # ---------------------------------------------------------
@@ -174,11 +190,24 @@ func _on_checkpoint_reached() -> void:
 func _on_player_unalived() -> void:
 	_show_message("You died")
 	
-func _on_run_completed(final_time: String, _stars: int) -> void:
-	_update_star_icons(level.run_time)
+func _on_run_completed(final_value: String, stars: int = 0) -> void:
+	if not (level and level.has_method("is_endless")):
+		_update_star_icons(level.run_time)
+		for i in range(complete_stars.size()):
+			var lit := i < stars
+			complete_stars[i].text = "★" if lit else "☆"
+			complete_stars[i].add_theme_color_override("font_color", Palette.ACCENT if lit else Palette.TEXT_DIM)
 	level_complete_overlay.visible = true
 	message_label.visible = false
-	time_label.text = "Time: " + final_time
+	var level_complete_title = $LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/CompleteTitle")
+	
+	if level and level.has_method("is_endless"):
+		level_complete_title.text = "Game Over"
+		time_label.text = "Distance: " + final_value
+		$LevelCompleteOverlay.get_node(_OVERLAY_VBOX + "/StarsRow").visible = false
+	else:
+		level_complete_title.text = "Level Complete"
+		time_label.text = "Time: " + final_value
 	
 func _on_pause_toggled(paused: bool) -> void:	
 	ui_paused = paused
@@ -210,6 +239,14 @@ func _on_pause_resume_button_pressed() -> void:
 
 func _on_pause_restart_button_pressed() -> void:
 	level.restart_level()
+
+func _on_pause_settings_button_pressed() -> void:
+	pause_overlay.visible = false
+	var settings = preload("res://scenes/ui/settings_menu.tscn").instantiate()
+	settings.process_mode = Node.PROCESS_MODE_ALWAYS
+	settings.return_to_pause = true
+	settings.tree_exiting.connect(func(): pause_overlay.visible = true)
+	add_child(settings)
 
 func _on_pause_back_button_pressed() -> void:
 	level.return_to_menu()
@@ -285,9 +322,9 @@ func _make_box(is_active: bool) -> ColorRect:
 	box.size_flags_vertical = Control.SIZE_FILL
 	
 	if is_active:
-		box.color = Color(0.65, 0.65, 0.65, 1.0)
+		box.color = Palette.TEXT_ACTIVE
 	else:
-		box.color = Color(0.22, 0.22, 0.22, 1.0)
+		box.color = Palette.BOX_EMPTY
 		
 	return box
 	
@@ -321,7 +358,7 @@ func _setup_dash_display(max_d: int) -> void:
 
 		var bg := ColorRect.new()
 		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-		bg.color = Color(0.22, 0.22, 0.22, 1.0)
+		bg.color = Palette.BOX_EMPTY
 		wrapper.add_child(bg)
 
 		var fill := ColorRect.new()
@@ -333,7 +370,7 @@ func _setup_dash_display(max_d: int) -> void:
 		fill.offset_top = 0.0
 		fill.offset_right = 0.0
 		fill.offset_bottom = 0.0
-		fill.color = Color(0.65, 0.65, 0.65, 1.0)
+		fill.color = Palette.TEXT_ACTIVE
 		wrapper.add_child(fill)
 
 		hbox.add_child(wrapper)
@@ -353,3 +390,7 @@ func _set_icon_fill(index: int, ratio: float) -> void:
 	
 func set_timer_text(text: String) -> void:
 	timer_label.text = text
+
+func set_record_text(text: String) -> void:
+	record_label.text = text
+	record_label.visible = true

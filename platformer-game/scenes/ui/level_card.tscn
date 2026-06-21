@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b66h2ijr3v8jl"]
+
+[ext_resource type="Script" path="res://scripts/ui/level_card.gd" id="1_card"]
+[ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="2_theme"]
+
+[node name="LevelCard" type="Button"]
+custom_minimum_size = Vector2(175, 124)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("2_theme")
+text = "LEVEL"
+script = ExtResource("1_card")
+
+[node name="StarsLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.91, 0.59, 0.18, 1)
+theme_override_font_sizes/font_size = 20
+text = "☆☆☆"
+horizontal_alignment = 1

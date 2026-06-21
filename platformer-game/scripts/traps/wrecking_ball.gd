@@ -42,6 +42,7 @@ func _start_swinging() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	rotation_degrees.z = initial_angle
 	_start_swinging()
 

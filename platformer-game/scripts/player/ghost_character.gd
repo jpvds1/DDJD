@@ -16,6 +16,7 @@ var is_playing := false
 
 func _ready() -> void:
 	movement_audio_player.volume_db = -80.0 # silence the ghost
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	_apply_ghost_material()
 
 
