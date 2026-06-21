@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://deteiqhhsr00s"]
+[gd_scene format=3 uid="uid://cjotb0wj5f3nt"]
 
 [ext_resource type="Script" uid="uid://cflc7oyeciht7" path="res://scripts/systems/level.gd" id="1_ftfob"]
 [ext_resource type="PackedScene" uid="uid://ch7shhditu1lk" path="res://scenes/player/player.tscn" id="1_o8c3j"]
@@ -21,6 +21,11 @@
 script = ExtResource("1_ftfob")
 player_path = NodePath("CharacterBody3D")
 ui_path = NodePath("CanvasLayer")
+time_3_stars = 20.0
+time_2_stars = 30.0
+time_1_star = 40.0
+
+[node name="BaseLevel" parent="." unique_id=999985273 instance=ExtResource("16_josfm")]
 
 [node name="CharacterBody3D" parent="." unique_id=1782536310 instance=ExtResource("1_o8c3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5080202, 0)
@@ -194,22 +199,18 @@ size = Vector3(0.8520508, 1, 1)
 [node name="Laser" parent="Parkour" unique_id=1185962610 instance=ExtResource("12_f6egh")]
 process_mode = 1
 transform = Transform3D(0.962061, 0, 0.2728344, 0, 1, 0, -0.2728344, 0, 0.962061, -60.989834, -2.3841858e-07, -94.28209)
-delay = 0.0
 
 [node name="Laser2" parent="Parkour" unique_id=105050122 instance=ExtResource("12_f6egh")]
 process_mode = 1
 transform = Transform3D(-0.93748254, 0, 0.34803218, 0, 1, 0, -0.34803218, 0, -0.93748254, -52.50565, 0, -84.6452)
-delay = 0.0
 
 [node name="Laser3" parent="Parkour" unique_id=1105017500 instance=ExtResource("12_f6egh")]
 process_mode = 1
 transform = Transform3D(-0.7530354, 0, 0.65798, 0, 1, 0, -0.65798, 0, -0.7530354, -69.5144, -4.7683716e-07, -86.24014)
-delay = 0.0
 
 [node name="Laser4" parent="Parkour" unique_id=196876594 instance=ExtResource("12_f6egh")]
 process_mode = 1
 transform = Transform3D(0.7353642, 0, -0.6776721, 0, 1, 0, 0.6776721, 0, 0.7353642, -75.205795, 0, -94.00109)
-delay = 0.0
 
 [node name="Pillar" parent="Parkour" unique_id=420214577 instance=ExtResource("3_fmg3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.30852, -2.2278028, -90.443016)
@@ -259,7 +260,5 @@ transform = Transform3D(1.7297764, 0, 0.49786833, 0, 1.8, 0, -0.49786833, 0, 1.7
 
 [node name="EndPlatform" parent="Parkour" unique_id=537576493 instance=ExtResource("14_apo5x")]
 transform = Transform3D(3.8431523, 0, 0, 0, 1, 0, 0, 0, 5.3057804, -186.57098, 0, -87.38701)
-
-[node name="BaseLevel" parent="." unique_id=999985273 instance=ExtResource("16_josfm")]
 
 [editable path="Killzone"]
