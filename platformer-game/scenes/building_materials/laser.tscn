@@ -112,7 +112,7 @@ script = ExtResource("1_0vpv2")
 [node name="Visuals" parent="." unique_id=1691916436 instance=ExtResource("2_3352m")]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0.517, 0.52170277)
 
-[node name="Cylinder_007" parent="Visuals" index="1" unique_id=467476750]
+[node name="Cylinder_007" parent="Visuals" index="1" unique_id=2142892488]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 1.8237262, -1.1920929e-07)
 visible = false
 

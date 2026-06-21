@@ -2,19 +2,22 @@
 
 [ext_resource type="Script" uid="uid://bhhon1yl4wbed" path="res://scripts/systems/spikes.gd" id="1_7r28n"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="2_yoovt"]
+[ext_resource type="PackedScene" uid="uid://bdm8h2n8fdi0y" path="res://assets/models/traps/spikes.glb" id="3_yoovt"]
+[ext_resource type="AudioStream" uid="uid://brd0b7vf7qxwi" path="res://assets/sounds/traps/spike_trap.mp3" id="4_gwvym"]
 
-[sub_resource type="Animation" id="Animation_gwvym"]
+[sub_resource type="Animation" id="Animation_yoovt"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Spikes:position")
+tracks/0/path = NodePath("Visuals/Cone:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -0.9, 0)]
+"values": [Vector3(0, -0.42, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -24,52 +27,52 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_gwvym"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Cone:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.42, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Killzone/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_ip6ng"]
-resource_name = "hidden"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Spikes:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1, 0), Vector3(0, -0.9, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Killzone/CollisionShape3D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_28sxf"]
 resource_name = "out"
-length = 0.16666667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Spikes:position")
+tracks/0/path = NodePath("Visuals/Cone:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 0.1, 1),
 "update": 0,
-"values": [Vector3(0, -0.9, 0), Vector3(0, 1, 0)]
+"values": [Vector3(0, -0.42, 0), Vector3(0, -0.2, 0), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -78,306 +81,74 @@ tracks/1/path = NodePath("Killzone/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.033333335),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer3D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o3rhm"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ip6ng"]
 _data = {
-&"RESET": SubResource("Animation_gwvym"),
-&"hidden": SubResource("Animation_ip6ng"),
-&"out": SubResource("Animation_28sxf")
+&"RESET": SubResource("Animation_yoovt"),
+&"hide": SubResource("Animation_gwvym"),
+&"out": SubResource("Animation_ip6ng")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5kh0s"]
-size = Vector3(4.3356934, 2.2653809, 4.4091797)
+size = Vector3(1.7685547, 0.7088623, 1.7587891)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8vay1"]
-size = Vector3(5, 3, 5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_swrbb"]
+size = Vector3(2.003662, 0.5794678, 1.9775391)
 
-[node name="SpikeTrap" type="Node3D" unique_id=1853223367]
+[node name="SpikeTrap" type="Node3D" unique_id=1482683019]
 script = ExtResource("1_7r28n")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1815558821]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, 0)
-size = Vector3(5, 0.05, 5)
+[node name="Visuals" parent="." unique_id=769013900 instance=ExtResource("3_yoovt")]
 
-[node name="Spikes" type="CSGCombiner3D" parent="." unique_id=618709660]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
-
-[node name="Spike" type="CSGCombiner3D" parent="Spikes" unique_id=1276575822]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15980995, 0)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike" unique_id=1627233587]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike" unique_id=1968047652]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike22" type="CSGCombiner3D" parent="Spikes" unique_id=533173729]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.28637743, 0)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike22" unique_id=1534019833]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike22" unique_id=1016499095]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike23" type="CSGCombiner3D" parent="Spikes" unique_id=944384829]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.10345185, 0)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike23" unique_id=1052182215]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike23" unique_id=1941406819]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike24" type="CSGCombiner3D" parent="Spikes" unique_id=1643220386]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.363809, 0)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike24" unique_id=195515746]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike24" unique_id=1203444088]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike25" type="CSGCombiner3D" parent="Spikes" unique_id=1869253195]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.3656671, 0)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike25" unique_id=1607648659]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike25" unique_id=387531258]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike2" type="CSGCombiner3D" parent="Spikes" unique_id=650740657]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21958351, 1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike2" unique_id=833663505]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike2" unique_id=762731506]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike18" type="CSGCombiner3D" parent="Spikes" unique_id=2062329083]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.1625042, 1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike18" unique_id=903187702]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike18" unique_id=528257618]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike19" type="CSGCombiner3D" parent="Spikes" unique_id=2107721191]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.16391873, 1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike19" unique_id=248704205]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike19" unique_id=1901068807]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike20" type="CSGCombiner3D" parent="Spikes" unique_id=1987423633]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.30887604, 1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike20" unique_id=170211112]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike20" unique_id=674459574]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike21" type="CSGCombiner3D" parent="Spikes" unique_id=77659798]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.115429044, 1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike21" unique_id=477953337]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike21" unique_id=3703550]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike3" type="CSGCombiner3D" parent="Spikes" unique_id=1336720588]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.17662156, 2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike3" unique_id=495427885]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike3" unique_id=1812072300]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike14" type="CSGCombiner3D" parent="Spikes" unique_id=917667891]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.29075575, 2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike14" unique_id=499315808]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike14" unique_id=608694765]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike15" type="CSGCombiner3D" parent="Spikes" unique_id=1732403017]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.28974032, 2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike15" unique_id=1974243696]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike15" unique_id=391066402]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike16" type="CSGCombiner3D" parent="Spikes" unique_id=1574536271]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.1283133, 2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike16" unique_id=1631121801]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike16" unique_id=181261503]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike17" type="CSGCombiner3D" parent="Spikes" unique_id=2041717018]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.3401506, 2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike17" unique_id=1369262609]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike17" unique_id=993861167]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike4" type="CSGCombiner3D" parent="Spikes" unique_id=1884493195]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11307907, -1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike4" unique_id=1889808710]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike4" unique_id=841355935]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike10" type="CSGCombiner3D" parent="Spikes" unique_id=62070884]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.27845776, -1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike10" unique_id=667354739]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike10" unique_id=1769547440]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike11" type="CSGCombiner3D" parent="Spikes" unique_id=1880308865]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.290545, -1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike11" unique_id=284226196]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike11" unique_id=1771072355]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike12" type="CSGCombiner3D" parent="Spikes" unique_id=1467276744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.16616488, -1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike12" unique_id=529884300]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike12" unique_id=96694064]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike13" type="CSGCombiner3D" parent="Spikes" unique_id=1603353154]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.47050762, -1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike13" unique_id=1815287058]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike13" unique_id=1609846756]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike5" type="CSGCombiner3D" parent="Spikes" unique_id=1004330273]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32567334, -2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike5" unique_id=961551854]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike5" unique_id=897348960]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike6" type="CSGCombiner3D" parent="Spikes" unique_id=977146708]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.18041027, -2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike6" unique_id=1462650922]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike6" unique_id=2096959957]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike7" type="CSGCombiner3D" parent="Spikes" unique_id=710760235]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.13748324, -2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike7" unique_id=245208428]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike7" unique_id=225040919]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike8" type="CSGCombiner3D" parent="Spikes" unique_id=2055965521]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.17522562, -2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike8" unique_id=111044450]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike8" unique_id=2146681897]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
-
-[node name="Spike9" type="CSGCombiner3D" parent="Spikes" unique_id=1563181571]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.35909247, -2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spikes/Spike9" unique_id=1737579386]
-radius = 0.05
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Spikes/Spike9" unique_id=613914829]
-transform = Transform3D(0.40177774, -0.8129748, -0.42148104, 0.5820452, 0.5820452, -0.5678436, 0.7069637, -0.017174121, 0.70704097, 0, 1, 0)
-size = Vector3(0.15, 0.15, 0.15)
+[node name="Cone" parent="Visuals" index="1" unique_id=1493896637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=117813436]
-libraries/ = SubResource("AnimationLibrary_o3rhm")
+libraries/ = SubResource("AnimationLibrary_ip6ng")
 autoplay = &"RESET"
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("2_yoovt")]
 
 [node name="CollisionShape3D" parent="Killzone" index="0" unique_id=1440156319]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9044311, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17731929, 0)
 shape = SubResource("BoxShape3D_5kh0s")
 disabled = true
 
 [node name="Area3D" type="Area3D" parent="." unique_id=6817124]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=781619554]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("BoxShape3D_8vay1")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=56636123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38496736, 0)
+shape = SubResource("BoxShape3D_swrbb")
 
-[node name="RetractTimer" type="Timer" parent="." unique_id=843585029]
-wait_time = 5.0
+[node name="DelayTimer" type="Timer" parent="." unique_id=77944639]
+one_shot = true
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=516782763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.096242785, 0)
+stream = ExtResource("4_gwvym")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="timeout" from="RetractTimer" to="." method="_on_retract_timer_timeout"]
+[connection signal="timeout" from="DelayTimer" to="." method="_on_delay_timer_timeout"]
 
+[editable path="Visuals"]
 [editable path="Killzone"]
