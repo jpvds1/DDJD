@@ -32,10 +32,8 @@ Beware of the environment:
 All levels are completely unlocked from the start. Your goal is not just to finish, but to master the time.
 * **Tutorial:** Direct onboarding testing basic inputs and spatial hazard awareness.
 * **Level 1:** Choice-based paths branching between Precision vs. Flow routes.
-* **Level 2:** The chaotic Gauntlet emphasizing chained wallruns and strict momentum management.
-* **Level 3:** The Speedrunner's Sandbox, packed with hidden shortcuts for advanced players.
-* **Level 4:** "The Ultimate Gauntlet" - A long, brutal endurance test combining split-second routing decisions and every hazard available.
-* **Level 5:** "Absolute Control" - An extreme-difficulty exam testing your absolute mastery over acceleration and mid-air adjustments.
+* **Level 2:** "The Ultimate Gauntlet" - A long, brutal endurance test combining split-second routing decisions and every hazard available.
+* **Level 3:** "Absolute Control" - An extreme-difficulty exam testing your absolute mastery over acceleration and mid-air adjustments.
 * **Endless Mode:** No finish line, just survival. Track your total meters covered and climb the distance leaderboard!
 
 ## 🛠️ Technical Specs
