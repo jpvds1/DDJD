@@ -164,7 +164,7 @@ func _physics_process(delta: float) -> void:
 		boost_locked = boost_lock_timer <= 0.0
 
 		# Skip all input handling below
-		update_air_state(is_on_floor(), delta)
+		update_air_state(is_on_floor(), delta, false) # don't apply gravity
 		move_and_slide()
 		update_camera_zoom(delta)
 		
@@ -251,7 +251,7 @@ func _clamp_wall_run_yaw_to_normal(wall_normal: Vector3) -> void:
 # Gravity / floor state
 # ---------------------------------------------------------
 
-func update_air_state(on_floor: bool, delta: float) -> void:
+func update_air_state(on_floor: bool, delta: float, apply_gravity: bool = true) -> void:
 	var previous_extra_jumps := extra_jumps_left
 
 	if on_floor:
@@ -260,7 +260,8 @@ func update_air_state(on_floor: bool, delta: float) -> void:
 		can_cut_current_jump = false
 	else:
 		coyote_timer = max(coyote_timer - delta, 0.0)
-		velocity += get_gravity() * delta * stats.gravity_modifier.get_val()
+		var gravity: Vector3 = get_gravity() * stats.gravity_modifier.get_val()
+		velocity += gravity * float(apply_gravity) * delta
 
 	if velocity.y <= 0.0:
 		can_cut_current_jump = false
@@ -677,6 +678,7 @@ func apply_boost(boost_velocity: Vector3, lock_duration: float = 0.0) -> void:
 	if is_dashing:
 		is_dashing = false
 		dash_timer.stop()
+	
 	if is_wall_running:
 		stop_wall_run()
 		
