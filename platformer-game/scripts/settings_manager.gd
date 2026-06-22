@@ -121,7 +121,7 @@ func _apply_resolution() -> void:
 	if fullscreen:
 		return
 	var size: Vector2i = RESOLUTIONS[resolution_index]
-	DisplayServer.window_set_size(size)
+	get_window().size = size
 	var screen_size := DisplayServer.screen_get_size()
 	DisplayServer.window_set_position((screen_size - size) / 2)
 
