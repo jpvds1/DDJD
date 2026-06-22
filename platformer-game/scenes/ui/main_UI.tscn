@@ -1,96 +1,95 @@
 [gd_scene format=3 uid="uid://dy8jnv2byaaoj"]
 
 [ext_resource type="Script" uid="uid://doyfvcehqqsue" path="res://scripts/ui/main_UI.gd" id="1_gks1h"]
-[ext_resource type="PackedScene" uid="uid://dglq00pldhg8h" path="res://scenes/ui/overlay.tscn" id="2_overlay"]
+[ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="2_theme"]
 [ext_resource type="PackedScene" path="res://scenes/ui/achievement_toast.tscn" id="3_toast"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=9067626]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1903962472]
 script = ExtResource("1_gks1h")
 
-[node name="HUD" type="Control" parent="." unique_id=1843155387]
+[node name="HUD" type="Control" parent="." unique_id=1397314087]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="RootMargin" type="MarginContainer" parent="HUD" unique_id=1389435374]
+[node name="RootMargin" type="MarginContainer" parent="HUD" unique_id=1557643381]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = 524.0
+offset_top = -84.0
 offset_right = 280.0
-offset_bottom = 608.0
 grow_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="MainVBox" type="VBoxContainer" parent="HUD/RootMargin" unique_id=222113591]
+[node name="MainVBox" type="VBoxContainer" parent="HUD/RootMargin" unique_id=702711498]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="LivesContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=760054353]
+[node name="LivesContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=1492405752]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="AbilityVBox" type="VBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=1496545923]
+[node name="AbilityVBox" type="VBoxContainer" parent="HUD/RootMargin/MainVBox" unique_id=1217158639]
 layout_mode = 2
 
-[node name="JumpsContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox/AbilityVBox" unique_id=1496545924]
+[node name="JumpsContainer" type="HBoxContainer" parent="HUD/RootMargin/MainVBox/AbilityVBox" unique_id=1660890165]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="DashRow" type="Control" parent="HUD/RootMargin/MainVBox/AbilityVBox" unique_id=1522602988]
+[node name="DashRow" type="Control" parent="HUD/RootMargin/MainVBox/AbilityVBox" unique_id=1528676393]
 custom_minimum_size = Vector2(240, 64)
 layout_mode = 2
 
-[node name="DashBackground" type="ColorRect" parent="HUD/RootMargin/MainVBox/AbilityVBox/DashRow" unique_id=2104685644]
+[node name="DashBackground" type="ColorRect" parent="HUD/RootMargin/MainVBox/AbilityVBox/DashRow" unique_id=944611901]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 24.0
 color = Color(0.22, 0.22, 0.22, 1)
 
-[node name="DashFill" type="ColorRect" parent="HUD/RootMargin/MainVBox/AbilityVBox/DashRow" unique_id=219684222]
+[node name="DashFill" type="ColorRect" parent="HUD/RootMargin/MainVBox/AbilityVBox/DashRow" unique_id=1427757716]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 24.0
 color = Color(0.65, 0.65, 0.65, 1)
 
-[node name="MessageTop" type="MarginContainer" parent="HUD" unique_id=1921871870]
+[node name="MessageTop" type="MarginContainer" parent="HUD" unique_id=407974255]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 555.5
-offset_right = 556.5
-offset_bottom = 53.0
 grow_horizontal = 2
 theme_override_constants/margin_top = 30
 
-[node name="MessageCenter" type="CenterContainer" parent="HUD/MessageTop" unique_id=907514883]
+[node name="MessageCenter" type="CenterContainer" parent="HUD/MessageTop" unique_id=971850602]
 layout_mode = 2
 
-[node name="MessageLabel" type="Label" parent="HUD/MessageTop/MessageCenter" unique_id=1279842124]
+[node name="MessageLabel" type="Label" parent="HUD/MessageTop/MessageCenter" unique_id=246122129]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="TimerMargin" type="VBoxContainer" parent="HUD" unique_id=1012958205]
+[node name="TimerMargin" type="VBoxContainer" parent="HUD" unique_id=1538729877]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TimerLabel" type="Label" parent="HUD/TimerMargin" unique_id=416225827]
+[node name="TimerLabel" type="Label" parent="HUD/TimerMargin" unique_id=2121643956]
 layout_mode = 2
 text = "00:00:00"
 
-[node name="RecordLabel" type="Label" parent="HUD/TimerMargin" unique_id=100200001]
-layout_mode = 2
+[node name="RecordLabel" type="Label" parent="HUD/TimerMargin" unique_id=6583432]
 visible = false
+layout_mode = 2
 
-[node name="StarPanel" type="VBoxContainer" parent="." unique_id=100000001]
+[node name="StarPanel" type="VBoxContainer" parent="." unique_id=1233649302]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -101,132 +100,250 @@ offset_bottom = 39.0
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="Star3Row" type="HBoxContainer" parent="StarPanel" unique_id=100000002]
+[node name="Star3Row" type="HBoxContainer" parent="StarPanel" unique_id=905734908]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Star3Icon" type="Label" parent="StarPanel/Star3Row" unique_id=100000003]
+[node name="Star3Icon" type="Label" parent="StarPanel/Star3Row" unique_id=627471620]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
 theme_override_font_sizes/font_size = 16
 text = "★"
 
-[node name="Star3TimeLabel" type="Label" parent="StarPanel/Star3Row" unique_id=100000004]
+[node name="Star3TimeLabel" type="Label" parent="StarPanel/Star3Row" unique_id=1465614600]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0:00.000"
 
-[node name="Star2Row" type="HBoxContainer" parent="StarPanel" unique_id=100000005]
+[node name="Star2Row" type="HBoxContainer" parent="StarPanel" unique_id=1693015636]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Star2Icon" type="Label" parent="StarPanel/Star2Row" unique_id=100000006]
+[node name="Star2Icon" type="Label" parent="StarPanel/Star2Row" unique_id=1443686816]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
 theme_override_font_sizes/font_size = 16
 text = "★"
 
-[node name="Star2TimeLabel" type="Label" parent="StarPanel/Star2Row" unique_id=100000007]
+[node name="Star2TimeLabel" type="Label" parent="StarPanel/Star2Row" unique_id=1491904990]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0:00.000"
 
-[node name="Star1Row" type="HBoxContainer" parent="StarPanel" unique_id=100000008]
+[node name="Star1Row" type="HBoxContainer" parent="StarPanel" unique_id=137700537]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Star1Icon" type="Label" parent="StarPanel/Star1Row" unique_id=100000009]
+[node name="Star1Icon" type="Label" parent="StarPanel/Star1Row" unique_id=1804100053]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
 theme_override_font_sizes/font_size = 16
 text = "★"
 
-[node name="Star1TimeLabel" type="Label" parent="StarPanel/Star1Row" unique_id=100000010]
+[node name="Star1TimeLabel" type="Label" parent="StarPanel/Star1Row" unique_id=1263089433]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0:00.000"
 
-[node name="PauseOverlay" parent="." unique_id=1731287440 instance=ExtResource("2_overlay")]
+[node name="PauseOverlay" type="Control" parent="." unique_id=55453112]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
 
-[node name="PauseTitle" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="Dim" type="ColorRect" parent="PauseOverlay" unique_id=203312697]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseOverlay" unique_id=1994828507]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseOverlay/CenterContainer" unique_id=1327790086]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseOverlay/CenterContainer/PanelContainer" unique_id=942296016]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer" unique_id=1262760841]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PauseTitle" type="Label" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=1254589262]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="PauseResumeButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="PauseResumeButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=1814570784]
 layout_mode = 2
 text = "Resume"
 
-[node name="PauseRestartButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="PauseRestartButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=247627854]
 layout_mode = 2
 text = "Restart"
 
-[node name="PauseSettingsButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="PauseSettingsButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=1610760276]
 layout_mode = 2
 text = "Settings"
 
-[node name="PauseBackButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="PauseBackButton" type="Button" parent="PauseOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=684974059]
 layout_mode = 2
 text = "Back"
 
-[node name="GameOverOverlay" parent="." unique_id=1162297663 instance=ExtResource("2_overlay")]
+[node name="GameOverOverlay" type="Control" parent="." unique_id=1022898572]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
 
-[node name="GameOverTitle" type="Label" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="Dim" type="ColorRect" parent="GameOverOverlay" unique_id=896681663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="GameOverOverlay" unique_id=1312683000]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOverOverlay/CenterContainer" unique_id=794866684]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverOverlay/CenterContainer/PanelContainer" unique_id=445395927]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer" unique_id=873284660]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GameOverTitle" type="Label" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=148334654]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Game Over"
 horizontal_alignment = 1
 
-[node name="GameOverRestartButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="GameOverRestartButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=631673829]
 layout_mode = 2
 text = "Restart Level"
 
-[node name="GameOverBackButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="GameOverBackButton" type="Button" parent="GameOverOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=1189342973]
 layout_mode = 2
 text = "Back to Menu"
 
-[node name="LevelCompleteOverlay" parent="." unique_id=912197705 instance=ExtResource("2_overlay")]
+[node name="LevelCompleteOverlay" type="Control" parent="." unique_id=822648328]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
 
-[node name="CompleteTitle" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="Dim" type="ColorRect" parent="LevelCompleteOverlay" unique_id=1323980306]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelCompleteOverlay" unique_id=987374617]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="LevelCompleteOverlay/CenterContainer" unique_id=688993058]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelCompleteOverlay/CenterContainer/PanelContainer" unique_id=102281542]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer" unique_id=2103955920]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CompleteTitle" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=946484275]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Level Complete!"
 horizontal_alignment = 1
 
-[node name="TimeLabel" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="TimeLabel" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=1786652925]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="StarsRow" type="HBoxContainer" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="StarsRow" type="HBoxContainer" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=1903535993]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Star1" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow"]
+[node name="Star1" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow" unique_id=1202109262]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
 theme_override_font_sizes/font_size = 32
 text = "☆"
 
-[node name="Star2" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow"]
+[node name="Star2" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow" unique_id=1964265551]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
 theme_override_font_sizes/font_size = 32
 text = "☆"
 
-[node name="Star3" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow"]
+[node name="Star3" type="Label" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox/StarsRow" unique_id=562237720]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.35, 0.35, 1)
 theme_override_font_sizes/font_size = 32
 text = "☆"
 
-[node name="CompleteRestartButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="CompleteRestartButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=280691574]
 layout_mode = 2
 text = "Restart Level"
 
-[node name="CompleteBackButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="CompleteBackButton" type="Button" parent="LevelCompleteOverlay/CenterContainer/PanelContainer/MarginContainer/VBox" unique_id=2124574173]
 layout_mode = 2
 text = "Back to Menu"
 
-[node name="AchievementToast" parent="." instance=ExtResource("3_toast")]
+[node name="AchievementToast" parent="." unique_id=478850328 instance=ExtResource("3_toast")]
+anchors_preset = 6

@@ -13,6 +13,7 @@ const EXCLUDED_ACTIONS := []
 
 # ---- Display ----
 const RESOLUTIONS := [
+	Vector2i(1152, 648),
 	Vector2i(1280, 720),
 	Vector2i(1366, 768),
 	Vector2i(1600, 900),
@@ -35,7 +36,7 @@ var mouse_sensitivity := 1.0
 var invert_mouse_y := false
 
 var fullscreen := false
-var resolution_index := 3
+var resolution_index := 0
 var vsync := true
 var aa_mode: int = AAMode.FXAA
 var fps_cap_index := 2
@@ -120,7 +121,7 @@ func _apply_resolution() -> void:
 	if fullscreen:
 		return
 	var size: Vector2i = RESOLUTIONS[resolution_index]
-	DisplayServer.window_set_size(size)
+	get_window().size = size
 	var screen_size := DisplayServer.screen_get_size()
 	DisplayServer.window_set_position((screen_size - size) / 2)
 
