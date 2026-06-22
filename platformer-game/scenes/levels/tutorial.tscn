@@ -7,9 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://dy8jnv2byaaoj" path="res://scenes/ui/main_UI.tscn" id="3_1r3rq"]
 [ext_resource type="PackedScene" uid="uid://cwdtuabcl86cl" path="res://scenes/building_materials/runnable_wall.tscn" id="5_1wklo"]
 [ext_resource type="PackedScene" uid="uid://6sseieh1wxj" path="res://scenes/building_materials/checkpoint_platform.tscn" id="6_7ac3l"]
-[ext_resource type="PackedScene" uid="uid://cyw8iqn0l8uak" path="res://scenes/building_materials/spike_trap.tscn" id="7_3e81p"]
 [ext_resource type="PackedScene" uid="uid://bhr3nup1cprgt" path="res://scenes/building_materials/end_platform.tscn" id="8_g7bfq"]
+[ext_resource type="PackedScene" uid="uid://rtexe01uxxw6" path="res://scenes/building_materials/laser.tscn" id="9_irnc0"]
 [ext_resource type="PackedScene" uid="uid://dcgfprowomfpv" path="res://scenes/building_materials/killzone.tscn" id="10_4a02d"]
+[ext_resource type="PackedScene" uid="uid://ccudaxsaxpval" path="res://scenes/building_materials/wrecking_ball.tscn" id="10_84vya"]
 [ext_resource type="PackedScene" uid="uid://dkul0f830k441" path="res://scenes/levels/base_level.tscn" id="base_1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4a02d"]
@@ -119,14 +120,6 @@ size = Vector3(18, 1, 16)
 [node name="Checkpoint" parent="Platforms/CSGBox3D7" unique_id=1470391825 instance=ExtResource("6_7ac3l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339231, 0)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="Platforms" unique_id=1905493803]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33226204, -4.7136707, -179.4247)
-use_collision = true
-size = Vector3(18, 1, 16)
-
-[node name="SpikeTrap" parent="Platforms/CSGBox3D6" unique_id=1853223367 instance=ExtResource("7_3e81p")]
-transform = Transform3D(3.2618902, 0, 0, 0, 1, 0, 0, 0, 2.058169, 0, 0, 0)
-
 [node name="CSGBox3D9" type="CSGBox3D" parent="Platforms" unique_id=1865080522]
 transform = Transform3D(0.5677831, 0, 0, 0, 0.5677831, 0, 0, 0, 0.34426105, 0.33226204, -4.7136707, -195.4247)
 use_collision = true
@@ -135,13 +128,28 @@ size = Vector3(18, 1, 16)
 [node name="CSGBox3D8" type="CSGBox3D" parent="Platforms" unique_id=74235778]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33226204, -4.7136707, -179.4247)
 use_collision = true
-size = Vector3(18, 1, 16)
-
-[node name="SpikeTrap" parent="Platforms/CSGBox3D8" unique_id=2094665719 instance=ExtResource("7_3e81p")]
-transform = Transform3D(3.2618902, 0, 0, 0, 1, 0, 0, 0, 2.058169, 0, 0, 0)
+size = Vector3(12.933594, 1, 16)
 
 [node name="EndPlatform" parent="Platforms" unique_id=537576493 instance=ExtResource("8_g7bfq")]
 transform = Transform3D(17.108301, 0, 0, 0, 1, 0, 0, 0, 4.3662977, -0.4023838, -5.755081, -204.23329)
+
+[node name="Hazards" type="Node3D" parent="." unique_id=1913912076]
+
+[node name="Laser2" parent="Hazards" unique_id=1185962610 instance=ExtResource("9_irnc0")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.077661, -4.2136707, -183.22289)
+
+[node name="Laser3" parent="Hazards" unique_id=1695527263 instance=ExtResource("9_irnc0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6.6683598, -4.2136707, -183.22289)
+
+[node name="Laser4" parent="Hazards" unique_id=148159270 instance=ExtResource("9_irnc0")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.077661, -3.2106588, -183.22289)
+
+[node name="Laser5" parent="Hazards" unique_id=1720182645 instance=ExtResource("9_irnc0")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6.6683598, -3.2106588, -183.22289)
+
+[node name="WreckingBall" parent="Hazards" unique_id=1409807783 instance=ExtResource("10_84vya")]
+transform = Transform3D(0.9848077, -0.17364818, 0, 0.17364818, 0.9848077, 0, 0, 0, 1, -0.6372838, 5.6335006, -178.3736)
+max_angle = 30.0
 
 [node name="Killzone" parent="." unique_id=767733067 instance=ExtResource("10_4a02d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.07656, 0, -14.592426)

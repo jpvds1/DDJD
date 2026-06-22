@@ -171,7 +171,7 @@ func _on_lives_changed(current_lives: int, max_lives: int) -> void:
 	_rebuild_boxes(lives_container, current_lives, max_lives, _LIFE_TEX, _LOSE_LIFE_TEX, 156)
 
 func _on_extra_jumps_changed(current_extra_jumps: int, max_extra_jumps: int) -> void:
-	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps, _JUMP_TEX, _JUMP_TEX, 128)
+	_rebuild_boxes(jumps_container, current_extra_jumps, max_extra_jumps, _JUMP_TEX, _JUMP_TEX, 128, true)
 	
 func _on_dash_count_changed(current: int, _max_count: int) -> void:
 	_dashes_available = current
@@ -318,7 +318,7 @@ func _format_time(seconds: float) -> String:
 # Helpers
 # ---------------------------------------------------------
 	
-func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: int, active_tex: Texture2D, inactive_tex: Texture2D, scaling: int) -> void:
+func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: int, active_tex: Texture2D, inactive_tex: Texture2D, scaling: int, flip_h: bool = false) -> void:
 	_clear_container(container)
 	for i in range(total_count):
 		var is_active := i < active_count
@@ -328,6 +328,7 @@ func _rebuild_boxes(container: HBoxContainer, active_count: int, total_count: in
 		tr.texture = active_tex if is_active else inactive_tex
 		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tr.flip_h = flip_h
 		if not is_active and inactive_tex == active_tex:
 			tr.modulate = Color(0.35, 0.35, 0.35, 1)
 		container.add_child(tr)
