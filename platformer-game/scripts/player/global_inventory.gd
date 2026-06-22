@@ -60,16 +60,20 @@ func _load_all_gear(path: String) -> void:
 		while file_name != "":
 			if dir.current_is_dir():
 				_load_all_gear(path + file_name + "/")
-			elif file_name.ends_with(".tres"):
-				var clean_path = path + file_name.replace(".remap", "")
-				var item = load(clean_path)
+			else:
+				if file_name.ends_with(".remap"):
+					file_name = file_name.replace(".remap", "")
 				
-				if item is GearItem:
-					all_gear.append(item)
+				if file_name.ends_with(".tres"):
+					var clean_path = path + file_name
+					var item = load(clean_path)
+					
+					if item is GearItem:
+						all_gear.append(item)
 			
 			file_name = dir.get_next()
 	else:
-		print("Error occurer when trying to load gear from path: ", path)
+		print("Error occurred when trying to load gear from path: ", path)
 
 func _load_all_sets(path: String) -> void:
 	var dir = DirAccess.open(path)
@@ -77,11 +81,15 @@ func _load_all_sets(path: String) -> void:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if not dir.current_is_dir() and file_name.ends_with(".tres"):
-				var clean_path = path + file_name.replace(".remap", "")
-				var res = load(clean_path)
-				if res is GearSet:
-					all_sets.append(res)
+			if not dir.current_is_dir():
+				if file_name.ends_with(".remap"):
+					file_name = file_name.replace(".remap", "")
+				
+				if file_name.ends_with(".tres"):
+					var clean_path = path + file_name
+					var res = load(clean_path)
+					if res is GearSet:
+						all_sets.append(res)
 			file_name = dir.get_next()
 
 func get_set_progress() -> Dictionary:

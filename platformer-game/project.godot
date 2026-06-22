@@ -23,6 +23,10 @@ GlobalInventory="*uid://bloeu58e4066e"
 SettingsManager="*uid://ia3y66hdtkrl"
 AchievementManager="*uid://bdr57re7gcqu"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [global_group]
 
 wall_run=""
