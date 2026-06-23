@@ -7,8 +7,8 @@ func _ready() -> void:
 		if card.level_id != "":
 			card.set_stars(GlobalInventory.get_stars_for_level(card.level_id))
 	_set_endless_distance()
-	if !Supabase.is_logged_in():
-		loadout.visible = false
+	#if !Supabase.is_logged_in():
+		#loadout.visible = false
 
 func _set_endless_distance() -> void:
 	var f = FileAccess.open("user://saves.dat", FileAccess.READ)

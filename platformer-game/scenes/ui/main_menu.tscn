@@ -84,6 +84,7 @@ text = "Play"
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Leaderboard"
+visible = false
 
 [node name="Settings" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
 layout_mode = 2

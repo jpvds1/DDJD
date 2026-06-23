@@ -44,8 +44,8 @@ func _ready() -> void:
 	_load_progress()
 	
 	for item in all_gear:
-		if item.unlock_type == GearItem.UnlockType.FREE:
-			_unlock_silent(item)
+		#if item.unlock_type == GearItem.UnlockType.FREE:
+		_unlock_silent(item)
 			
 # ---------------------------------------------------------
 # Gear Discovery
