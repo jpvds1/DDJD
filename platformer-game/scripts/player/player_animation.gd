@@ -52,7 +52,7 @@ func _on_death() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_player = get_parent() as CharacterBody3D
-	_was_airborne = not is_zero_approx(_player.velocity.y)
+	_was_airborne = _player.is_airborne()
 	
 	# connect to the player events
 	_player.jumped.connect(_on_jumped)
@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 	var lerp_weight := blend_strength * delta
 	
 	# compute the fall blending value	
-	var is_airborne := not is_zero_approx(_player.velocity.y)
+	var is_airborne: bool = _player.is_airborne()
 	_fall_blend = lerp(
 		_fall_blend,
 		float(is_airborne),

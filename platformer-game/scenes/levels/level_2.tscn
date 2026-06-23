@@ -197,7 +197,7 @@ transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, -2.22, 0.49, -2.25)
 [node name="Laser" parent="InitialSection/Hazards/Lasers" unique_id=1185962610 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.057866, 0.8003049, 4.5)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser/Visuals" parent_id_path=PackedInt32Array(1185962610, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser/Visuals" parent_id_path=PackedInt32Array(1185962610, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser/Killzone" parent_id_path=PackedInt32Array(1185962610, 767733067) index="0" unique_id=1440156319]
@@ -206,7 +206,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser2" parent="InitialSection/Hazards/Lasers" unique_id=1956837963 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 1.5, 4.5)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser2/Visuals" parent_id_path=PackedInt32Array(1956837963, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser2/Visuals" parent_id_path=PackedInt32Array(1956837963, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser2/Killzone" parent_id_path=PackedInt32Array(1956837963, 767733067) index="0" unique_id=1440156319]
@@ -215,7 +215,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser3" parent="InitialSection/Hazards/Lasers" unique_id=1913057633 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 2.2, 4.5)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser3/Visuals" parent_id_path=PackedInt32Array(1913057633, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser3/Visuals" parent_id_path=PackedInt32Array(1913057633, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser3/Killzone" parent_id_path=PackedInt32Array(1913057633, 767733067) index="0" unique_id=1440156319]
@@ -224,7 +224,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser4" parent="InitialSection/Hazards/Lasers" unique_id=1684835567 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.057866, 0.8003049, 13.5)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser4/Visuals" parent_id_path=PackedInt32Array(1684835567, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser4/Visuals" parent_id_path=PackedInt32Array(1684835567, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser4/Killzone" parent_id_path=PackedInt32Array(1684835567, 767733067) index="0" unique_id=1440156319]
@@ -233,7 +233,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser5" parent="InitialSection/Hazards/Lasers" unique_id=1924766783 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 1.5, 13.5)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser5/Visuals" parent_id_path=PackedInt32Array(1924766783, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser5/Visuals" parent_id_path=PackedInt32Array(1924766783, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser5/Killzone" parent_id_path=PackedInt32Array(1924766783, 767733067) index="0" unique_id=1440156319]
@@ -242,7 +242,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser6" parent="InitialSection/Hazards/Lasers" unique_id=1361885551 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.058, 2.2, 13.5)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser6/Visuals" parent_id_path=PackedInt32Array(1361885551, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser6/Visuals" parent_id_path=PackedInt32Array(1361885551, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser6/Killzone" parent_id_path=PackedInt32Array(1361885551, 767733067) index="0" unique_id=1440156319]
@@ -251,7 +251,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser7" parent="InitialSection/Hazards/Lasers" unique_id=1285567709 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 0.8003049, 9)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser7/Visuals" parent_id_path=PackedInt32Array(1285567709, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser7/Visuals" parent_id_path=PackedInt32Array(1285567709, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser7/Killzone" parent_id_path=PackedInt32Array(1285567709, 767733067) index="0" unique_id=1440156319]
@@ -260,7 +260,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser8" parent="InitialSection/Hazards/Lasers" unique_id=1049473847 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 1.5, 9)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser8/Visuals" parent_id_path=PackedInt32Array(1049473847, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser8/Visuals" parent_id_path=PackedInt32Array(1049473847, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser8/Killzone" parent_id_path=PackedInt32Array(1049473847, 767733067) index="0" unique_id=1440156319]
@@ -269,7 +269,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser9" parent="InitialSection/Hazards/Lasers" unique_id=910402986 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 2.2, 9)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser9/Visuals" parent_id_path=PackedInt32Array(910402986, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser9/Visuals" parent_id_path=PackedInt32Array(910402986, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser9/Killzone" parent_id_path=PackedInt32Array(910402986, 767733067) index="0" unique_id=1440156319]
@@ -278,7 +278,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser10" parent="InitialSection/Hazards/Lasers" unique_id=1544046236 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 0.8003049, 18)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser10/Visuals" parent_id_path=PackedInt32Array(1544046236, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser10/Visuals" parent_id_path=PackedInt32Array(1544046236, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser10/Killzone" parent_id_path=PackedInt32Array(1544046236, 767733067) index="0" unique_id=1440156319]
@@ -287,7 +287,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser11" parent="InitialSection/Hazards/Lasers" unique_id=1588563734 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 1.5, 18)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser11/Visuals" parent_id_path=PackedInt32Array(1588563734, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser11/Visuals" parent_id_path=PackedInt32Array(1588563734, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser11/Killzone" parent_id_path=PackedInt32Array(1588563734, 767733067) index="0" unique_id=1440156319]
@@ -296,7 +296,7 @@ transform = Transform3D(1, 0, 0, 0, -1.3113416e-07, -1, 0, 3, -4.371139e-08, 4.7
 [node name="Laser12" parent="InitialSection/Hazards/Lasers" unique_id=105942887 instance=ExtResource("10_sbygb")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.058, 2.2, 18)
 
-[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser12/Visuals" parent_id_path=PackedInt32Array(105942887, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="InitialSection/Hazards/Lasers/Laser12/Visuals" parent_id_path=PackedInt32Array(105942887, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="InitialSection/Hazards/Lasers/Laser12/Killzone" parent_id_path=PackedInt32Array(105942887, 767733067) index="0" unique_id=1440156319]
@@ -462,15 +462,19 @@ bidirectional = true
 
 [node name="Area3D3" parent="Hazards" unique_id=1491728103 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, 0.75, 0, -0.75, 1.299038, 0, 0, 0, 1.5, 96.56603, 10.148235, 114.48525)
+boost_speed = 12.0
 
 [node name="Area3D4" parent="Hazards" unique_id=580848261 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, 0.75, 0, -0.75, 1.299038, 0, 0, 0, 1.5, 106.28709, 16.057728, 114.48525)
+boost_speed = 12.0
 
 [node name="Area3D5" parent="Hazards" unique_id=1613137281 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, -0.75, 0, 0.75, 1.299038, 0, 0, 0, 1.5, 113.287, 24.058, 114.485)
+boost_speed = 12.0
 
 [node name="Area3D6" parent="Hazards" unique_id=440376437 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, 0.75, 0, -0.75, 1.299038, 0, 0, 0, 1.5, 106.287, 32.058, 114.485)
+boost_speed = 12.0
 
 [node name="SpikeTrap" parent="Hazards" unique_id=1278763220 instance=ExtResource("11_tv7cl")]
 transform = Transform3D(3.9466531, 0, 0, 0, 1, 0, 0, 0, 3, 117.305435, 34.060265, 75.3762)
@@ -645,7 +649,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.6
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser/Visuals" parent_id_path=PackedInt32Array(957101155, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser/Visuals" parent_id_path=PackedInt32Array(957101155, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser/Killzone" parent_id_path=PackedInt32Array(957101155, 767733067) index="0" unique_id=1440156319]
@@ -666,7 +670,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.6
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser2/Visuals" parent_id_path=PackedInt32Array(1982701966, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser2/Visuals" parent_id_path=PackedInt32Array(1982701966, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser2/Killzone" parent_id_path=PackedInt32Array(1982701966, 767733067) index="0" unique_id=1440156319]
@@ -687,7 +691,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.6
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser3/Visuals" parent_id_path=PackedInt32Array(1420367808, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser3/Visuals" parent_id_path=PackedInt32Array(1420367808, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser3/Killzone" parent_id_path=PackedInt32Array(1420367808, 767733067) index="0" unique_id=1440156319]
@@ -708,7 +712,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.2
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser4/Visuals" parent_id_path=PackedInt32Array(357126242, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser4/Visuals" parent_id_path=PackedInt32Array(357126242, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser4/Killzone" parent_id_path=PackedInt32Array(357126242, 767733067) index="0" unique_id=1440156319]
@@ -729,7 +733,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.2
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser5/Visuals" parent_id_path=PackedInt32Array(1224137823, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser5/Visuals" parent_id_path=PackedInt32Array(1224137823, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser5/Killzone" parent_id_path=PackedInt32Array(1224137823, 767733067) index="0" unique_id=1440156319]
@@ -750,7 +754,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.2
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser6/Visuals" parent_id_path=PackedInt32Array(991656057, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser6/Visuals" parent_id_path=PackedInt32Array(991656057, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser6/Killzone" parent_id_path=PackedInt32Array(991656057, 767733067) index="0" unique_id=1440156319]
@@ -771,7 +775,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.4
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser7/Visuals" parent_id_path=PackedInt32Array(1287503960, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser7/Visuals" parent_id_path=PackedInt32Array(1287503960, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser7/Killzone" parent_id_path=PackedInt32Array(1287503960, 767733067) index="0" unique_id=1440156319]
@@ -792,7 +796,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.4
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser8/Visuals" parent_id_path=PackedInt32Array(1570545722, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser8/Visuals" parent_id_path=PackedInt32Array(1570545722, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser8/Killzone" parent_id_path=PackedInt32Array(1570545722, 767733067) index="0" unique_id=1440156319]
@@ -813,7 +817,7 @@ laser_duration = 0.2
 idle_duration = 1.0
 delay = 0.4
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser9/Visuals" parent_id_path=PackedInt32Array(1652138062, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser9/Visuals" parent_id_path=PackedInt32Array(1652138062, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser9/Killzone" parent_id_path=PackedInt32Array(1652138062, 767733067) index="0" unique_id=1440156319]
@@ -833,7 +837,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.0
 laser_duration = 0.2
 idle_duration = 1.0
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser10/Visuals" parent_id_path=PackedInt32Array(1082558890, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser10/Visuals" parent_id_path=PackedInt32Array(1082558890, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser10/Killzone" parent_id_path=PackedInt32Array(1082558890, 767733067) index="0" unique_id=1440156319]
@@ -850,7 +854,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.0
 laser_duration = 0.2
 idle_duration = 1.0
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser11/Visuals" parent_id_path=PackedInt32Array(1079087589, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser11/Visuals" parent_id_path=PackedInt32Array(1079087589, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser11/Killzone" parent_id_path=PackedInt32Array(1079087589, 767733067) index="0" unique_id=1440156319]
@@ -867,7 +871,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15.0
 laser_duration = 0.2
 idle_duration = 1.0
 
-[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser12/Visuals" parent_id_path=PackedInt32Array(214100723, 1691916436) index="1" unique_id=1438448605]
+[node name="Cylinder_007" parent="FinalSection/Hazards/Lasers/Laser12/Visuals" parent_id_path=PackedInt32Array(214100723, 1691916436) index="1" unique_id=401917692]
 transform = Transform3D(1, 0, 0, 0, 3.3, 0, 0, 0, 1, 0, 1.8237262, -1.1920929e-07)
 
 [node name="CollisionShape3D" parent="FinalSection/Hazards/Lasers/Laser12/Killzone" parent_id_path=PackedInt32Array(214100723, 767733067) index="0" unique_id=1440156319]

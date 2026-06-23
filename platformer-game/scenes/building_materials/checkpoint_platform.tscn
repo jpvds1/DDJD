@@ -7,7 +7,7 @@
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1dxj0"]
-size = Vector3(5.2, 2, 5.2)
+size = Vector3(4.9033203, 2, 4.911133)
 
 [node name="Checkpoint" type="Node3D" unique_id=1109484725]
 script = ExtResource("1_h78pt")
@@ -20,7 +20,7 @@ material = SubResource("StandardMaterial3D_h78pt")
 [node name="Area3D" type="Area3D" parent="." unique_id=689319262]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2102500388]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0024719238, 1.4999998, 0.025202274)
 shape = SubResource("BoxShape3D_1dxj0")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=1645794421]
