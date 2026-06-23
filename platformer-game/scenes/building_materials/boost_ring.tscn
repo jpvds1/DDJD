@@ -10,7 +10,7 @@ radius = 0.9770508
 [sub_resource type="TorusMesh" id="TorusMesh_m46iv"]
 inner_radius = 0.855
 
-[node name="Area3D" type="Area3D" unique_id=1577880636]
+[node name="BoostRing" type="Area3D" unique_id=1577880636]
 script = ExtResource("1_xur8m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=358677288]

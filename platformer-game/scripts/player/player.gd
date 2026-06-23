@@ -161,13 +161,13 @@ func _physics_process(delta: float) -> void:
 		
 	if boost_locked:
 		boost_lock_timer -= delta
-		boost_locked = boost_lock_timer <= 0.0
+		boost_locked = boost_lock_timer > 0.0
 
 		# Skip all input handling below
 		update_air_state(is_on_floor(), delta, false) # don't apply gravity
 		move_and_slide()
 		update_camera_zoom(delta)
-		
+
 		if is_recording:
 			_record_snapshot()
 		return
@@ -250,6 +250,9 @@ func _clamp_wall_run_yaw_to_normal(wall_normal: Vector3) -> void:
 # ---------------------------------------------------------
 # Gravity / floor state
 # ---------------------------------------------------------
+
+func is_airborne() -> bool:
+	return not is_zero_approx(velocity.y) and not is_wall_running
 
 func update_air_state(on_floor: bool, delta: float, apply_gravity: bool = true) -> void:
 	var previous_extra_jumps := extra_jumps_left
