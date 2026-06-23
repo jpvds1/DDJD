@@ -462,19 +462,19 @@ bidirectional = true
 
 [node name="Area3D3" parent="Hazards" unique_id=1491728103 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, 0.75, 0, -0.75, 1.299038, 0, 0, 0, 1.5, 96.56603, 10.148235, 114.48525)
-boost_speed = 15.0
+boost_speed = 12.0
 
 [node name="Area3D4" parent="Hazards" unique_id=580848261 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, 0.75, 0, -0.75, 1.299038, 0, 0, 0, 1.5, 106.28709, 16.057728, 114.48525)
-boost_speed = 15.0
+boost_speed = 12.0
 
 [node name="Area3D5" parent="Hazards" unique_id=1613137281 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, -0.75, 0, 0.75, 1.299038, 0, 0, 0, 1.5, 113.287, 24.058, 114.485)
-boost_speed = 15.0
+boost_speed = 12.0
 
 [node name="Area3D6" parent="Hazards" unique_id=440376437 instance=ExtResource("9_lkn2k")]
 transform = Transform3D(1.299038, 0.75, 0, -0.75, 1.299038, 0, 0, 0, 1.5, 106.287, 32.058, 114.485)
-boost_speed = 15.0
+boost_speed = 12.0
 
 [node name="SpikeTrap" parent="Hazards" unique_id=1278763220 instance=ExtResource("11_tv7cl")]
 transform = Transform3D(3.9466531, 0, 0, 0, 1, 0, 0, 0, 3, 117.305435, 34.060265, 75.3762)
