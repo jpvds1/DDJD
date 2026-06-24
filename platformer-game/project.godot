@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="PlatformerGame"
+config/name="HeavenRun"
 run/main_scene="uid://1516e040v7sf"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
