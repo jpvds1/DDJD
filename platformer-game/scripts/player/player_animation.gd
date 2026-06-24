@@ -22,8 +22,11 @@ const MOVEMENT_AUDIO_VOLUME := -10.0
 # ---------------------------------------------------------
 
 var _player: CharacterBody3D
-var _fall_blend := 0.0
 var _was_airborne := false
+
+# blend balues
+var _fall_blend := 0.0
+var _dash_blend := 0.0
 
 @export var blend_strength := 20.0
 
@@ -62,7 +65,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var lerp_weight := blend_strength * delta
-	
+
+	# compute the movement blending value
+	var max_sprint_speed: float = stats.sprint_speed.get_val()
+	var local_velocity := _player.global_transform.basis.inverse() * _player.velocity
+	var movement_blend := Vector2(local_velocity.x, -local_velocity.z) / max_sprint_speed
+
 	# compute the fall blending value	
 	var is_airborne: bool = _player.is_airborne()
 	_fall_blend = lerp(
@@ -70,20 +78,23 @@ func _physics_process(delta: float) -> void:
 		float(is_airborne),
 		lerp_weight
 	)
-	
+
 	if _was_airborne and not is_airborne:
 		land_audio_player.play()
-		
+
 	_was_airborne = is_airborne
 
-	# compute the movement blending value
-	var max_sprint_speed: float = stats.sprint_speed.get_val()
-	var local_velocity := _player.global_transform.basis.inverse() * _player.velocity
-	var movement_blend := Vector2(local_velocity.x, -local_velocity.z) / max_sprint_speed
+	# compute the dash blending value
+	_dash_blend = lerp(
+		_dash_blend,
+		float(_player.is_dashing),
+		lerp_weight
+	)
 	
 	# update the blending values
-	animation_tree.set("parameters/Fall/blend_amount", _fall_blend)
 	animation_tree.set("parameters/Movement/blend_position", movement_blend)
+	animation_tree.set("parameters/Fall/blend_amount", _fall_blend)
+	animation_tree.set("parameters/Dash/blend_amount", _dash_blend)
 	
 	# silence the movement sound if needed
 	movement_audio_player.volume_db = SILENCE if is_airborne else MOVEMENT_AUDIO_VOLUME 
