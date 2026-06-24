@@ -170,7 +170,7 @@ func _on_player_finish_requested() -> void:
 	
 	_handle_local_ghost_save(ghost_run_data)
 	
-	if Supabase.is_logged_in():
+	if not OS.has_feature("web") and Supabase.is_logged_in():
 		await Supabase.submit_score(level_id, int(run_time * 1000))
 
 func _on_extra_jumps_changed(current: int, max_jumps: int) -> void:

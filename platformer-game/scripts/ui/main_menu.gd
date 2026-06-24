@@ -1,5 +1,12 @@
 extends Control
 
+
+@onready var leaderboard_button: Button = $CenterContainer/Column/VBoxContainer2/Leaderboard
+
+
+func _ready() -> void:
+	leaderboard_button.visible = not OS.has_feature("web")
+	
 func _on_play_pressed() -> void:
 	Global.game_controller.change_GUI_scene("res://scenes/ui/levels_menu.tscn")
 

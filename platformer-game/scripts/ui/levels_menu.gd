@@ -1,14 +1,14 @@
 extends Control
 
-@onready var loadout: Button = $Loadout
+@onready var loadout_button: Button = $Loadout
 
 func _ready() -> void:
 	for card in _level_cards():
 		if card.level_id != "":
 			card.set_stars(GlobalInventory.get_stars_for_level(card.level_id))
+	
 	_set_endless_distance()
-	if !Supabase.is_logged_in():
-		loadout.visible = false
+	loadout_button.visible = OS.has_feature("web") or Supabase.is_logged_in()
 
 func _set_endless_distance() -> void:
 	var f = FileAccess.open("user://saves.dat", FileAccess.READ)

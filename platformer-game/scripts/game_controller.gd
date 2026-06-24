@@ -10,8 +10,10 @@ var current_2d_scene
 var current_gui_scene
 
 func _ready() -> void:
+	var initial_scene = "main_menu" if OS.has_feature("web") else "landing_screen"
+	
 	Global.game_controller = self
-	Global.game_controller.change_GUI_scene("res://scenes/ui/landing_screen.tscn")
+	Global.game_controller.change_GUI_scene("res://scenes/ui/" + initial_scene + ".tscn")
 
 func change_GUI_scene(scene_path: String, delete: bool = true, keep_running: bool = false, delete_previous: bool = true) -> void:
 	if current_gui_scene != null:

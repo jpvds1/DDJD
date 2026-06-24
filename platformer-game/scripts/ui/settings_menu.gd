@@ -59,7 +59,7 @@ func _ready() -> void:
 	
 	rebind_popup.hide()
 	
-	if !Supabase.is_logged_in():
+	if not OS.has_feature("web") and !Supabase.is_logged_in():
 		sign_out_button.text = "Back to Login"
 	
 # ============================================================
@@ -78,10 +78,10 @@ func _on_reset_defaults_pressed() -> void:
  
  
 func _on_sign_out_pressed() -> void:
-	if Supabase.is_logged_in():
+	if not OS.has_feature("web") and Supabase.is_logged_in():
 		await Supabase.sign_out()
-	
-	Global.game_controller.change_GUI_scene("res://scenes/ui/landing_screen.tscn")
+
+	Global.game_controller.change_GUI_scene("res://scenes/ui/main_menu.tscn")
 
 # ============================================================
 # AUDIO TAB

@@ -113,6 +113,8 @@ signal unalive_requested()
 signal checkpoint_requested(pos: Vector3)
 signal finish_requested()
 
+var _iframes_remaining := 0.0
+
 # ---------------------------------------------------------
 # Setup
 # ---------------------------------------------------------
@@ -158,7 +160,10 @@ func _unhandled_input(event):
 func _physics_process(delta: float) -> void:
 	if controls_locked:
 		return
-		
+
+	if _iframes_remaining > 0.0:
+		_iframes_remaining -= delta
+
 	if boost_locked:
 		boost_lock_timer -= delta
 		boost_locked = boost_lock_timer > 0.0
@@ -665,6 +670,9 @@ func update_visual_tilt(delta: float) -> void:
 # ---------------------------------------------------------
 
 func request_unalive() -> void:
+	if _iframes_remaining > 0.0:
+		return
+	_iframes_remaining = 0.5
 	unalive_requested.emit()
 
 func request_checkpoint(pos: Vector3) -> void:
