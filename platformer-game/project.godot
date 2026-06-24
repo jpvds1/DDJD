@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="HeavenRun"
+config/name="Heaven Run"
 run/main_scene="uid://1516e040v7sf"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
