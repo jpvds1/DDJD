@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://btsarcw3ec1hm"]
+[gd_scene format=3 uid="uid://btsarcw3ec1hm"]
 
 [ext_resource type="Script" uid="uid://baj50jniqbdfo" path="res://scripts/ui/main_menu.gd" id="1_fe2o3"]
 [ext_resource type="FontFile" uid="uid://blkcblbl8pyc1" path="res://assets/fonts/titles.ttf" id="1_sl1te"]
@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://brxug27771iqe" path="res://scenes/ui/ui_theme.tres" id="3_theme"]
 [ext_resource type="PackedScene" uid="uid://bskyheaven1bg" path="res://scenes/ui/sky_background.tscn" id="4_sky"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=884594851]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,10 +16,10 @@ grow_vertical = 2
 theme = ExtResource("3_theme")
 script = ExtResource("1_fe2o3")
 
-[node name="SkyBackground" parent="." instance=ExtResource("4_sky")]
+[node name="SkyBackground" parent="." unique_id=1375869085 instance=ExtResource("4_sky")]
 layout_mode = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1902586586]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,12 +27,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Column" type="VBoxContainer" parent="CenterContainer"]
+[node name="Column" type="VBoxContainer" parent="CenterContainer" unique_id=1541808284]
 layout_mode = 2
 theme_override_constants/separation = 18
 alignment = 1
 
-[node name="Label" type="Label" parent="CenterContainer/Column"]
+[node name="Label" type="Label" parent="CenterContainer/Column" unique_id=1763491099]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.16, 0.2, 0.36, 1)
 theme_override_fonts/font = ExtResource("1_sl1te")
@@ -41,57 +41,56 @@ text = "Heaven Run"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterPreview" type="SubViewportContainer" parent="CenterContainer/Column"]
+[node name="CharacterPreview" type="SubViewportContainer" parent="CenterContainer/Column" unique_id=955140193]
 custom_minimum_size = Vector2(300, 230)
 layout_mode = 2
 size_flags_horizontal = 4
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CenterContainer/Column/CharacterPreview"]
+[node name="SubViewport" type="SubViewport" parent="CenterContainer/Column/CharacterPreview" unique_id=647371850]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(300, 230)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="CenterContainer/Column/CharacterPreview/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="CenterContainer/Column/CharacterPreview/SubViewport" unique_id=934377165]
 transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 1.5, 1.35)
 current = true
 fov = 40.0
 
-[node name="KeyLight" type="DirectionalLight3D" parent="CenterContainer/Column/CharacterPreview/SubViewport"]
+[node name="KeyLight" type="DirectionalLight3D" parent="CenterContainer/Column/CharacterPreview/SubViewport" unique_id=2138077397]
 transform = Transform3D(0.8660254, 0.3213938, -0.38302222, 0, 0.76604444, 0.6427876, 0.5, -0.55667037, 0.66341394, 0, 0, 0)
 light_energy = 1.2
 
-[node name="FillLight" type="DirectionalLight3D" parent="CenterContainer/Column/CharacterPreview/SubViewport"]
+[node name="FillLight" type="DirectionalLight3D" parent="CenterContainer/Column/CharacterPreview/SubViewport" unique_id=867191095]
 transform = Transform3D(-0.8660254, -0.17101008, 0.46984637, 0, 0.9396926, 0.34202012, -0.50000006, 0.2961981, -0.81379765, 0, 0, 0)
 light_color = Color(0.65, 0.75, 1, 1)
 light_energy = 0.4
 
-[node name="PlayerVisuals" parent="CenterContainer/Column/CharacterPreview/SubViewport" instance=ExtResource("2_mm_pv")]
+[node name="PlayerVisuals" parent="CenterContainer/Column/CharacterPreview/SubViewport" unique_id=1470768315 instance=ExtResource("2_mm_pv")]
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/Column"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/Column" unique_id=702641385]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="Play" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+[node name="Play" type="Button" parent="CenterContainer/Column/VBoxContainer2" unique_id=264853993]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Play"
 
-[node name="Leaderboard" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+[node name="Leaderboard" type="Button" parent="CenterContainer/Column/VBoxContainer2" unique_id=433126289]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Leaderboard"
-visible = false
 
-[node name="Settings" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+[node name="Settings" type="Button" parent="CenterContainer/Column/VBoxContainer2" unique_id=1906263644]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Settings"
 
-[node name="Quit" type="Button" parent="CenterContainer/Column/VBoxContainer2"]
+[node name="Quit" type="Button" parent="CenterContainer/Column/VBoxContainer2" unique_id=735747760]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Quit"
