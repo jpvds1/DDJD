@@ -115,6 +115,7 @@ size = Vector3(1.7685547, 0.7088623, 1.7587891)
 size = Vector3(2.003662, 0.5794678, 1.9775391)
 
 [node name="SpikeTrap" type="Node3D" unique_id=1482683019]
+process_mode = 1
 script = ExtResource("1_7r28n")
 
 [node name="Visuals" parent="." unique_id=769013900 instance=ExtResource("3_yoovt")]
